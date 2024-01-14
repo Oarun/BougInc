@@ -38,4 +38,4 @@
 
 1. [Recipe Book](ProjectIdeas/RecipeProjectIdeas.md)
 2. [Twitch AI Tutorial Finder](ProjectIdeas/TwitchAITutorialFinder.md)
-3. Idea 3
+3. [Steam News](ProjectIdeas/SteamNews.md)
