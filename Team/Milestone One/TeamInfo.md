@@ -8,7 +8,7 @@
 
 ### 📄 Team Documents:
 
-- **Letterhead:** [Download](Letterhead.pdf)
+- **Letterhead:** [Download](BougIncLetterhead.jpg)
 - **Business Card:** [Download](BougIncCard.jpg)
 
 ---
