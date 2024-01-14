@@ -18,6 +18,7 @@
 - **Izabel:** [Résumé](Resume/IzabelResume.pdf)
 - **Evgeny:** [Résumé](Resume/EvgenyResume.pdf)
 - **Austin:** [Résumé](Resume/AustinResume.pdf) also there is the [MD version](Resume/AustinResume.md) of the same file
+- **Lunafreyja:** [Résumé](Resume/LunafreyjaResume.pdf) also there is the [MD version](Resume/LSchafer.md) of the same file
 
 ---
 
