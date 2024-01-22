@@ -1,5 +1,5 @@
 # BougInc
-(![Image of BougInc Logo](Team/MilestoneOne/BougIncLogo.jpg))
+(![Image of BougInc Logo](/Team/Milestone%20One/BougIncLogo.jpg))
 **This is a web application designed to assist individuals with diet restrictions**
 ## Team Members
 * Lunafreyja Schafer
