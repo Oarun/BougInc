@@ -1,10 +1,10 @@
 Project Inception
 =====================================
 ## Vision Statement
-    [Vision Statement](VisionStatement.md)
+This is our [Vision Statement](VisionStatement.md)
 
 ## Summary of Our Approach to Software Development
-    What processes are we following?  How will we run this project? ==> Agile, Scrum, ...  
+What processes are we following?  How will we run this project? ==> Agile, Scrum, ...  
     What are we choosing to do, how will we do it and at what level of detail or extent?
 
 ## Initial Vision Discussion with Stakeholders
@@ -16,10 +16,12 @@ Project Inception
     Who are they? Why are they a stakeholder?
 
 ## Initial Requirements Elaboration and Elicitation
-    [Initial Requirements Elaboration and Elicitation](Initial Requirements Elaboration and Elicitation.md)
+See the
+[Initial Requirements Elaboration and Elicitation](Initial%20Requirements%20Elaboration%20and%20Elicitation.md)
 
 ### Elicitation Questions
-    [Elicitation Questions](Elicitation Questions.md)
+See the
+[Elicitation Questions](Initial%20Requirements%20Elaboration%20and%20Elicitation.md)
 
 ### Elicitation Interviews
     Transcript or summary of what was learned
@@ -28,10 +30,12 @@ Project Inception
     As needed
 
 ## List of Needs and Features
-    [List of features](ListOfFeatures.md)
+Collection of 
+[Needs and Features](ListOfFeatures.md)
 
 ## Initial Modeling
-    [Mind Map](Team/Milestone Two/Mind Map/RecipeApp - Mind Map v2.jpg)
+See the
+[Mind Map](Mind%20Map/RecipeApp%20-%20Mind%20Map%20v2.jpg)
 
 ### Use Case Diagrams
     Diagrams
@@ -42,7 +46,8 @@ Project Inception
     Diagrams, UI wireframes, page flows, ...
 
 ## Identify Non-Functional Requirements
-    See Initial Requirements Elaboration and Elicitation [Initial Requirements Elaboration and Elicitation](Initial Requirements Elaboration and Elicitation.md)
+See the
+[Initial Requirements Elaboration and Elicitation](Initial%20Requirements%20Elaboration%20and%20Elicitation.md)
 
 ## Identify Functional Requirements (In User Story Format)
 
@@ -58,7 +63,7 @@ T: Task
         a. [T]
 
 ## Initial Architecture Envisioning
-    Diagrams and drawings, lists of components
+![Initial Architecture Diagram](BougIncInitialArchEnvisioning.svg)
 
 ## Agile Data Modeling
     Diagrams, SQL modeling (dbdiagram.io), UML diagrams
