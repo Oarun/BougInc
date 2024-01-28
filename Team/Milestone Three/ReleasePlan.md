@@ -13,7 +13,7 @@
     <tbody>
         <tr>
             <td>1</td>
-            <td>Advanced Search</td>
+            <td>Project Setup and Advanced Search</td>
             <td>Creation of the project, basic layout, and advanced search feature</td>
             <td>February 5th</td>
             <td>February 19th</td>
