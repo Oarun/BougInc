@@ -11,6 +11,12 @@ What processes are we following?  How will we run this project? ==> Agile, Scrum
     Summarize what was discussed.  What do they want? Include:
 
 ### Description of Clients/Users
+- **Stakeholders:**</br>
+[Stakeholders](/Team/Milestone%20Three/Stakeholders.md)</br>
+- **Personas:**</br>
+[Persona 1](/Team/Milestone%20Three/Persona_1.md)</br>
+[Persona 2](/Team/Milestone%20Three/Persona_2.md)</br>
+[Persona 3](/Team/Milestone%20Three/Persona_3.md)
 
 ### List of Stakeholders and their Positions (if applicable)
     Who are they? Why are they a stakeholder?
