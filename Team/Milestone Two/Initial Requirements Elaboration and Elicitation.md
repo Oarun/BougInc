@@ -56,6 +56,8 @@
 
 5. **As a user, I want to create a dietary plan based on selected recipes and daily nutrient intake.**
 
+[Other User Stories & Completion Criteria](Team\Milestone%20Two\User%20Stories.md)
+
 ## Acceptance Criteria
 
 1. **User Profile:**
