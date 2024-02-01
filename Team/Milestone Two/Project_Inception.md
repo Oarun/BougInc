@@ -11,6 +11,12 @@ What processes are we following?  How will we run this project? ==> Agile, Scrum
     Summarize what was discussed.  What do they want? Include:
 
 ### Description of Clients/Users
+- **Stakeholders:**</br>
+[Stakeholders](../Milestone%20Three/Materials/Stakeholders.md)</br>
+- **Personas:**</br>
+[Persona 1](../Milestone%20Three/Materials/Persona_1.md)</br>
+[Persona 2](../Milestone%20Three/Materials/Persona_2.md)</br>
+[Persona 3](../Milestone%20Three/Materials/Persona_3.md)
 
 ### List of Stakeholders and their Positions (if applicable)
     Who are they? Why are they a stakeholder?
@@ -38,12 +44,12 @@ See the
 [Mind Map](Mind%20Map/RecipeApp%20-%20Mind%20Map%20v2.jpg)
 
 ### Use Case Diagrams
-    Diagrams
+[Use Case Diagram](../Milestone%20Three/Materials/Use%20Case%20Diagram.png)
 
 ### Sequence Diagrams
 
 ### Other Modeling
-    Diagrams, UI wireframes, page flows, ...
+[GUI Mockup](../Milestone%20Three/Materials/GUI%20Mockup.png)
 
 ## Identify Non-Functional Requirements
 See the
@@ -63,10 +69,11 @@ T: Task
         a. [T]
 
 ## Initial Architecture Envisioning
-![Initial Architecture Diagram](BougIncInitialArchEnvisioning.svg)
+
+[Initial Architecture Diagram](../Milestone%20Three/Materials/BougIncInitialArchEnvisioning.svg)
 
 ## Agile Data Modeling
     Diagrams, SQL modeling (dbdiagram.io), UML diagrams
 
 ## Timeline and Release Plan
-    Schedule: meaningful dates, milestones, sprint cadence, how releases are made (CI/CD, or fixed releases, or ?)
+[Release Plan](../Milestone%20Three/Materials/ReleasePlan.md)
