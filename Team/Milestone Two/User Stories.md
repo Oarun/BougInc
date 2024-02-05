@@ -1,148 +1,226 @@
 ## User Stories
 
-### 1. User Profile Management
+### 1. Initial Application Setup
 
 **User Story:**
-As a user, I want to easily sign up and create a profile, providing information such as name, email, and dietary preferences during registration.
+As a developer, I want to create the project and set up the initial application for the team to use.
 
 **Completion Criteria:**
-- Users should be able to easily sign up using basic information.
-- The registration process includes fields for dietary preferences.
-- The profile management interface should be intuitive and accessible.
+- The project is created with necessary dependencies.
+- Initial application structure is established.
 
 **User Interface Considerations:**
-- Clear and concise forms for registration.
-- Visual indicators for successfully creating a profile.
-- Intuitive controls for updating profile information.
+- Developer-focused setup with clear documentation.
 
-### 2. Recipe Recommendations on Front Page
+### 2. Accessing the Website
+
+**User Story:**
+As a user, I want to access the website through the internet.
+
+**Completion Criteria:**
+- The website is accessible via a standard web browser.
+
+**User Interface Considerations:**
+- A welcoming home page upon accessing the website.
+
+### 3. Navigation Bar
+
+**User Story:**
+As a user, I want to have access to an easy-to-use navigation bar.
+
+**Completion Criteria:**
+- The navigation bar is visible and easily navigable.
+
+**User Interface Considerations:**
+- Clear navigation items for easy access.
+
+### 4. About Page
+
+**User Story:**
+As a user, I want to navigate to an about page to learn more about the platform.
+
+**Completion Criteria:**
+- An About page is accessible via the navigation bar.
+
+**User Interface Considerations:**
+- Informative content about the platform.
+
+### 5. User Registration
+
+**User Story:**
+As a new visitor to the website, I want to easily register for an account, providing my basic information, so that I can personalize my experience and access the site's features.
+
+**Completion Criteria:**
+- User-friendly registration form.
+- Successful registration leads to a personalized profile.
+
+**User Interface Considerations:**
+- Clear and concise registration form.
+
+### 6. User Login
+
+**User Story:**
+As a registered user, I want a straightforward login process, allowing me to access my personalized profile quickly and securely.
+
+**Completion Criteria:**
+- Secure and efficient login process.
+
+**User Interface Considerations:**
+- Intuitive login interface.
+
+### 7. Profile Management
+
+**User Story:**
+As a user, I want the ability to easily update my profile information, including preferences, dietary restrictions, and likes/dislikes, ensuring that my experience on the website remains tailored to my needs.
+
+**Completion Criteria:**
+- Intuitive profile management interface.
+- Clear options for updating information.
+
+**User Interface Considerations:**
+- Visual indicators for successfully updating profile information.
+
+### 8. Password Recovery
+
+**User Story:**
+As a user who forgot their password, I want a straightforward process to recover it by receiving a password reset link via email, ensuring a secure and hassle-free account access recovery.
+
+**Completion Criteria:**
+- Password recovery link sent to the user's email.
+
+**User Interface Considerations:**
+- Clear instructions for password recovery.
+
+### 9. Recipe Recommendations on Front Page
 
 **User Story:**
 As a user, I want the front page to display visually appealing recipe cards with clear indications of why a particular recipe is recommended.
 
 **Completion Criteria:**
-- The front page displays visually appealing recipe cards.
+- Visually appealing recipe cards on the front page.
 - Clear indications of why a recipe is recommended based on dietary preferences.
-- Users have the option to refresh the front page for new recommendations.
 
 **User Interface Considerations:**
-- Visually appealing recipe cards on the front page.
 - Filters or tags indicating why a specific recipe is recommended.
 
-### 3. Advanced Search Functionality
+### 10. Advanced Search Functionality
 
 **User Story:**
 As a user, I want an advanced search feature that allows me to specify detailed constraints like allergies, intolerances, and nutrient parameters.
 
 **Completion Criteria:**
-- The advanced search feature allows users to input various constraints.
-- Search results are accurate and customizable based on specified constraints.
-- Users can save and reuse custom search parameters.
-
-**User Interface Considerations:**
 - Clear and user-friendly interface for specifying advanced search parameters.
 - Visual feedback for successful searches and customizable constraints.
 
-### 4. Recipe Collections
+**User Interface Considerations:**
+- Intuitive input form for specifying constraints.
+
+### 11. Recipe Collections
 
 **User Story:**
-As a user, I want to create multiple collections (e.g., Breakfast, Dinner) to organize and categorize recipes.
+As a logged-in user, I want to be able to create and manage recipe collections so that I can organize my favorite recipes.
 
 **Completion Criteria:**
-- Users can create multiple collections for organizing recipes.
-- Adding a recipe to a collection is straightforward.
-- Users can view, edit, and delete recipes within their collections.
+- Intuitive controls for creating, editing, and managing recipe collections.
 
 **User Interface Considerations:**
-- Intuitive controls for creating, editing, and managing recipe collections.
 - Visual indicators for successfully adding or removing recipes from collections.
 
-### 5. Dietary Plan Creation
+### 12. Dietary Plan Creation
 
 **User Story:**
 As a user, I want an interactive interface to select recipes and generate a dietary plan for a specified duration.
 
 **Completion Criteria:**
-- Users can select recipes and generate a dietary plan for a specified duration.
-- The application calculates daily nutrient intake based on selected recipes.
-- Users can view and follow their dietary plans on a daily basis.
-
-**User Interface Considerations:**
 - Interactive and user-friendly interface for selecting recipes and generating dietary plans.
+
+**User Interface Considerations:**
 - Clear presentation of daily nutrient intake and meal schedule within the plan.
-- Option to customize the plan based on individual preferences and dietary goals.
 
-### 6. Social Media Interaction
-
-**User Story:**
-As a user, I want to like and dislike recipes, influencing future recommendations.
-
-**Completion Criteria:**
-- Users can like or dislike recipes, influencing future recommendations.
-- Notifications are sent for recipe likes, comments, and new followers.
-- Users can follow and unfollow other users.
-
-**User Interface Considerations:**
-- Intuitive icons for liking, disliking, and following.
-- A notification center or alert system for user interactions.
-- User-friendly interface for managing followers and following.
-
-### 7. User-Based Recommendations
+### 13. Grocery Shopping Integration
 
 **User Story:**
-As a user, I want the application to analyze my preferences and provide personalized recommendations based on what users with similar profiles have liked.
+I want to easily create and manage a shopping list from selected recipes, adding ingredients with the option to review and edit the list on a straightforward platform.
 
 **Completion Criteria:**
-- The application analyzes user preferences to provide personalized recommendations.
-- Recommendations include recipes liked by users with similar dietary profiles.
-- Users can explore and try recipes endorsed by others with similar tastes.
+- An easy-to-use interface for adding and managing items in the shopping list.
 
 **User Interface Considerations:**
-- Clear indicators for user-based recommendations.
-- Visual cues connecting similar user profiles and shared preferences.
-- A section dedicated to trending recipes among users with similar profiles.
+- Visual indicators for successfully completing the online grocery shopping process.
 
-### 8. Picture Recognition for Ingredients
+### 14. Cooking Timers and Reminders
 
 **User Story:**
-As a user, I want the ability to take pictures of ingredients and receive recipe suggestions based on image recognition.
+I want a user-friendly system to set, customize, and manage cooking timers for each recipe step, with clear visual and audible notifications for a smooth cooking process.
 
 **Completion Criteria:**
-- Users can use their device's camera to capture images of ingredients.
-- The application utilizes machine learning models to identify ingredients in the captured images.
-- Recipe suggestions are generated based on the recognized ingredients.
+- Streamlined feature to set meal time and preparation reminders.
 
 **User Interface Considerations:**
+- Clear visual and audible notifications.
+
+### 15. Picture Recognition for Ingredients (Future Development)
+
+**User Story:**
+I want the ability to take pictures of ingredients and receive recipe suggestions based on image recognition.
+
+**Completion Criteria:**
 - A visually engaging camera interface for ingredient capture.
-- Feedback on successful ingredient recognition and recipe suggestions.
-- Option to manually input ingredients in case of recognition challenges.
-
-### 9. Meal Sharing Platform
-
-**User Story:**
-As a user, I want to upload pictures of my completed meals to the platform.
-
-**Completion Criteria:**
-- Users can upload pictures of completed meals to the platform.
-- Each recipe includes a gallery of pictures shared by users who followed it.
-- The community can like, comment, and share uploaded meal pictures.
 
 **User Interface Considerations:**
-- An appealing and user-friendly meal sharing interface.
-- A gallery section within each recipe page for shared meal pictures.
+- Feedback on successful ingredient recognition and recipe suggestions.
+
+### 16. Social Media Aspects
+
+**User Story:**
+I want a straightforward system to like and dislike recipes, with interactions displayed on my profile, allowing dynamic preferences in my recipe experience.
+
+**Completion Criteria:**
+- Intuitive icons for liking, disliking, and following.
+
+**User Interface Considerations:**
+- A notification center or alert system for user interactions.
+
+### 17. User-Based Recommendations
+
+**User Story:**
+I want the application to analyze my preferences and provide personalized recommendations based on what users with similar profiles have liked.
+
+**Completion Criteria:**
+- Clear indicators for user-based recommendations.
+
+**User Interface Considerations:**
+- Visual cues connecting similar user profiles and shared preferences.
+
+### 18. Nearby Restaurants Recommendations (Extra)
+
+**User Story:**
+Discover nearby dining options, refine recommendations, and showcase interactions on my profile based on location and dietary preferences.
+
+**Completion Criteria:**
+- User-friendly feature to discover nearby restaurants.
+
+**User Interface Considerations:**
+- Display user interactions with restaurant recommendations on their profile.
+
+### 19. Meal Sharing Platform (Extra)
+
+**User Story:**
+I want to upload pictures of my completed meals to the platform.
+
+**Completion Criteria:**
+- Appealing and user-friendly meal sharing interface.
+
+**User Interface Considerations:**
 - Options for liking, commenting, and sharing uploaded meal pictures.
 
-### 10. Grocery Shopping Integration
+### 20. Online Grocery Shopping Integration (Extra)
 
 **User Story:**
-As a user, I want to easily add ingredients from selected recipes to a shopping list.
+I want a seamless online grocery shopping experience, allowing me to transfer my shopping list to my preferred store and complete the purchase with ease.
 
 **Completion Criteria:**
-- Users can add ingredients from selected recipes to a shopping list.
-- The application integrates with grocery store databases for real-time product availability.
-- Seamless online grocery shopping experience within the app.
+- Integration with grocery store databases for real-time product availability.
 
 **User Interface Considerations:**
-- An easy-to-use interface for adding and managing items in the shopping list.
 - Clear integration with grocery store databases for product details.
-- Visual indicators for successfully completing the online grocery shopping process.
