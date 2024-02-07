@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CulturNary.Web", "CulturNary.Web\CulturNary.Web.csproj", "{F65319FF-B273-4D4C-84C3-01F32FDB5E33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CulturNary.Test", "CulturNary.Test\CulturNary.Test.csproj", "{B8046221-7A13-4307-BC1C-E3CF574399BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F65319FF-B273-4D4C-84C3-01F32FDB5E33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65319FF-B273-4D4C-84C3-01F32FDB5E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65319FF-B273-4D4C-84C3-01F32FDB5E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65319FF-B273-4D4C-84C3-01F32FDB5E33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8046221-7A13-4307-BC1C-E3CF574399BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8046221-7A13-4307-BC1C-E3CF574399BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8046221-7A13-4307-BC1C-E3CF574399BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8046221-7A13-4307-BC1C-E3CF574399BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
