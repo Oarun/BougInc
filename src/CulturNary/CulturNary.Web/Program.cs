@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using CulturNary.Web.Areas.Identity.Data;
 namespace CulturNary.Web;
 
 public class Program
@@ -5,10 +8,15 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        var connectionString = builder.Configuration.GetConnectionString("CulturnaryConnection") ?? throw new InvalidOperationException("Connection string not found.");
+
+        builder.Services.AddDbContext<IdentityDataContext>(options => options.UseSqlServer(connectionString));
+
+        builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityDataContext>();
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
-
+        
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -24,6 +32,7 @@ public class Program
 
         app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllerRoute(
