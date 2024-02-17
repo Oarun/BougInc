@@ -23,9 +23,19 @@ public class HomeController : Controller
         return View();
     }
 
+    [Route("Home/Error/{code?}")]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    public IActionResult Error(int? code)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        var errorViewModel = new ErrorViewModel
+        {
+            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+            StatusCode = code
+        };
+
+        Console.WriteLine($"Error: {code}");
+
+        return View(errorViewModel);
+
     }
 }
