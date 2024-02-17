@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/82f55e65-33b1-4312-9caa-ba6a110d8357/resourceGroups/CulturNary/providers/Microsoft.Web/sites/culturnary",
+    "appService.deploySubpath": "bin\\Release\\net8.0\\publish"
+}
