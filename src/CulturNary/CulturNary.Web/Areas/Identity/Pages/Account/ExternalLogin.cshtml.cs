@@ -150,6 +150,11 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             if (!addLoginResult.Succeeded)
             {
                 _logger.LogError($"Failed to add external login for {email}: {string.Join(", ", addLoginResult.Errors.Select(e => e.Description))}");
+
+                // Check if the error is because a user with the login already exists
+
+                ErrorMessage = "An account with this login already exists. Please log in using your existing account.";
+
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
