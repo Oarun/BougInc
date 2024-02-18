@@ -38,17 +38,6 @@
                     <div>
                         <button id="login-submit" type="submit" class="w-100 btn btn-lg text-white" style="background-color: #407A3B">Log in</button>
                     </div>
-                    <div>
-                        <p>
-                            <!--<a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>-->
-                        </p>
-                        <p>
-                            @* <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a> *@
-                        </p>
-                        <p>
-                            <!--<a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>-->
-                        </p>
-                    </div>
                 </form>
                 <hr>
                 <h3 class="text-center">OR</h3>
@@ -67,30 +56,19 @@
                         }
                     </div>
                 </form>
+                <div class="align-items-center justify-content-center">
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword"  style="color: #407A3B">Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl"  style="color: #407A3B">Register as a new user</a>
+                    </p>
+                    <p>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation"  style="color: #407A3B">Resend email confirmation</a>
+                    </p>
+                </div>
             </section>
         </div>
-        @* <div class="col-md-6 col-md-offset-2">
-            <section>
-                <h3>Use another service to log in.</h3>
-                <hr />
-                @{
-                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                    {
-                        <div>
-                            <p>
-                                There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                                about setting up this ASP.NET application to support logging in via external services</a>.
-                            </p>
-                        </div>
-                    }
-                    else
-                    {
-                    }
-                }
-            </section>
-        </div> *@
-    </div>
-    <div class="col-md-6 col-md-offset-2">
     </div>
 </div>
 
