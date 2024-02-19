@@ -132,7 +132,16 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             // Handle new or existing users without this external login.
             var email = info.Principal.FindFirstValue(ClaimTypes.Email);
             var user = await _userManager.FindByEmailAsync(email);
-            if (user == null)
+            if (user != null)
+            {
+                var logins = await _userManager.GetLoginsAsync(user);
+                if (!logins.Any(l => l.LoginProvider == info.LoginProvider && l.ProviderKey == info.ProviderKey))
+                {
+                    ErrorMessage = "An account with this email already exists. Please log in using your local account.";
+                    return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
+                }
+            }
+            else
             {
                 // Create a new user if it doesn't exist
                 user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = true };
@@ -144,6 +153,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                     return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
                 }
             }
+
 
             // Add the external login to the user
             var addLoginResult = await _userManager.AddLoginAsync(user, info);
