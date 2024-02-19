@@ -5,7 +5,6 @@ html {
 @media (min-width: 768px) {
     html {
         font-size: 16px;
-        margin-bottom: 60px;
     }
 }
 
@@ -19,13 +18,15 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh;
+    padding-top: 40px; 
+    margin-bottom: 60px; 
 }
-
 
 /*      Welcome Page Styling
 -----------------------------------*/
-
 .welcome-section {
     background-image: linear-gradient(to bottom, #353F2D, #353F2D 70%, White 30%, white);
     color: #DCEDCF;
@@ -43,19 +44,22 @@ body {
 }
 
 .btn-outline-custom {
+    display: inline-block;
     color: #353F2D;
     background-color: #DCEDCF;
-    background-image: none;
-    border-radius: 150px;
+    border: 2px solid #353F2D;
     padding: 0.25rem 1rem;
     font-size: 0.9rem;
-    margin-bottom: 20px
+    border-radius: 150px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-    .btn-outline-custom:hover {
+    .btn-outline-custom:hover, .btn-outline-custom:focus {
         color: #DCEDCF;
         background-color: #353F2D;
-        border-color: #DCEDCF;
+        text-decoration: none;
+        border: 2px solid #DCEDCF;
     }
 
 .icon-registration {
@@ -63,6 +67,28 @@ body {
     height: auto;
     margin-left: 0.5rem;
 }
+
+.btn-outline-custom.icon-btn {
+    position: relative;
+    padding-right: 2.5rem;
+}
+
+    .btn-outline-custom.icon-btn::after {
+        content: '';
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        background-image: url('/media/icons8-right-arrow-50-dark.png');
+        background-size: cover;
+        transition: background-image 0.3s;
+    }
+
+    .btn-outline-custom.icon-btn:hover::after, .btn-outline-custom.icon-btn:focus::after {
+        background-image: url('/media/icons8-right-arrow-50-light.png');
+    }
 
 iframe {
     width: 560px;
@@ -110,57 +136,28 @@ iframe {
     }
 }
 
-@media (max-width: 812px) and (orientation: landscape) {
-    .welcome-message {
-        font-size: 5vw; 
-    }
-
-   
-    iframe {
-        width: 80vw; 
-        height: 30vw; 
-    }
-
-    .btn-outline-custom {
-        font-size: 3.5vw;
-        padding: 1.5vw 3vw; 
-    }
-
-    .icon-registration {
-        width: 4vw;
-        height: auto;
-    }
-
-    .welcome-image {
-        width: 35vw; 
-        margin-top: 5vw; 
-    }
-}
-
+/*          Identity Styling
+-----------------------------------*/
 body.identity .manage {
-  color: #407A3B !important;
+    color: #407A3B !important;
+    background-color: #F0F0F0 !important;
 }
 
-body.identity .manage {
-  background-color: #F0F0F0 !important;
-}
+    body.identity .manage button {
+        background-color: #407A3B !important;
+        color: white !important;
+        border: none !important;
+        padding: 10px 20px !important;
+        text-align: center !important;
+        text-decoration: none !important;
+        display: inline-block !important;
+        font-size: 16px !important;
+        margin: 4px 2px !important;
+        cursor: pointer !important;
+        transition-duration: 0.4s !important;
+    }
 
-
-body.identity .manage button {
-  background-color: #407A3B !important;
-  color: white !important;
-  border: none !important;
-  padding: 10px 20px !important;
-  text-align: center !important;
-  text-decoration: none !important;
-  display: inline-block !important;
-  font-size: 16px !important;
-  margin: 4px 2px !important;
-  cursor: pointer !important;
-  transition-duration: 0.4s !important;
-}
-
-body.identity .manage button:hover {
-  background-color: white !important;
-  color: #407A3B !important;
-}
+        body.identity .manage button:hover {
+            background-color: white !important;
+            color: #407A3B !important;
+        }
