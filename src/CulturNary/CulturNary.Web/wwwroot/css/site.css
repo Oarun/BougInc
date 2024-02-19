@@ -138,9 +138,19 @@ iframe {
 
 /*          Identity Styling
 -----------------------------------*/
+.ManageLayout{
+    margin-top: 30px !important;
+    padding: 20px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
 body.identity .manage {
     color: #407A3B !important;
     background-color: #F0F0F0 !important;
+    
 }
 
     body.identity .manage button {
