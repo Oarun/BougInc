@@ -18,11 +18,11 @@ html {
 }
 
 body {
-    display: flex; 
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
-    padding-top: 40px; 
-    margin-bottom: 60px; 
+    padding-top: 40px;
+    margin-bottom: 60px;
 }
 
 /*      Welcome Page Styling
@@ -161,3 +161,24 @@ body.identity .manage {
             background-color: white !important;
             color: #407A3B !important;
         }
+
+/*    Registration From Styling
+-----------------------------------*/
+.registration-section {
+    width: 100%;
+}
+
+.registration-message {
+    background-color: #353F2D;
+    height: 100vh;
+}
+
+.reg-text {
+    color: #DCEDCF;
+    padding-left: 50px;
+    padding-right: 20px;
+    padding-bottom: 120px;
+}
+.reg-form-style{
+    margin: 100px;
+}
