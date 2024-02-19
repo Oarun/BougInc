@@ -4,13 +4,18 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
+@* <h1>@ViewData["Title"]</h1> *@
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 d-flex align-items-center justify-content-center text-white" style="background-color: #353F2D; height: 100vh;">
+        <div class="display-4 text-center" style="color: #DCEDCF;">
+            Register to start building your profile!
+        </div>
+    </div>
+    <div class="col-md-4 d-flex align-items-center justify-content-center" style="height: 100vh;">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
+            @* <h2>Create a new account.</h2>
+            <hr /> *@
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
@@ -27,10 +32,30 @@
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg text-white" style="background-color: #407A3B">Register</button>
         </form>
     </div>
-    <div class="col-md-6 col-md-offset-2">
+<div class="col-md-4 d-flex align-items-center justify-content-center">
+    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+        <div>
+            <h2 class="text-center">OR</h2>
+            <div class="d-flex flex-column align-items-center">
+                @foreach (var provider in Model.ExternalLogins!)
+                {
+                    <div class="card mb-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <button style="background-color: #407A3B;" type="submit" class="btn btn-primary w-100" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+                                <img src="https://developers.google.com/static/identity/images/branding_guideline_sample_lt_rd_sl.svg" style="width: 30px; height: 30px" alt="Google logo" class="google-logo">
+                                Log in with @provider.DisplayName
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </form>
+</div>
+    @* <div class="col-md-6 col-md-offset-2">
         <section>
             <h3>Use another service to register.</h3>
             <hr />
@@ -59,7 +84,7 @@
                 }
             }
         </section>
-    </div>
+    </div> *@
 </div>
 
 @section Scripts {
