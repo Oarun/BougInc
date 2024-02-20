@@ -12,6 +12,10 @@ html {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #407A3B;
 }
 
+.btn-primary {
+    border-color: #407A3B;
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -21,9 +25,25 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding-top: 40px;
     margin-bottom: 60px;
 }
+
+.nav a, .navbar-nav a {
+    color: #DCEDCF;
+    cursor: pointer;
+}
+
+    .nav a:hover, .navbar-nav a:hover {
+        color: #78A158;
+    }
+
+    .nav a:focus, .navbar-nav a:focus {
+        color: #78A158;
+    }
+
+    .nav a:active, .navbar-nav a:active {
+        color: #78A158;
+    }
 
 /*      Welcome Page Styling
 -----------------------------------*/
@@ -138,7 +158,7 @@ iframe {
 
 /*          Identity Styling
 -----------------------------------*/
-.ManageLayout{
+.ManageLayout {
     margin-top: 30px !important;
     padding: 20px;
     background-color: #f9f9f9;
@@ -147,10 +167,10 @@ iframe {
     border: 1px solid #ddd;
     border-radius: 5px;
 }
+
 body.identity .manage {
     color: #407A3B !important;
     background-color: #F0F0F0 !important;
-    
 }
 
     body.identity .manage button {
@@ -172,23 +192,52 @@ body.identity .manage {
             color: #407A3B !important;
         }
 
-/*    Registration From Styling
+/*    Registration & Login From Styling
 -----------------------------------*/
-.registration-section {
-    width: 100%;
-}
-
 .registration-message {
     background-color: #353F2D;
     height: 100vh;
+    color: #DCEDCF;
+    display: flex;
+}
+.login-section {
+    background-color: #353F2D;
+    height: 100vh;
+    color: #DCEDCF;
+    display: flex;
+}
+
+.login-title {
+    color: #DCEDCF;
+    display: flex;
+    justify-content: center;
+}
+
+.login-form, .registration-section {
+    height: 100vh;
+}
+
+.login-extra-text {
+    color: #407A3B
+}
+.login-extra-text:hover, .login-extra-text:focus {
+    color: #78A158;
+    underline: none;
 }
 
 .reg-text {
-    color: #DCEDCF;
-    padding-left: 50px;
-    padding-right: 30px;
-    padding-bottom: 120px;
+    margin: 40px;
 }
-.reg-form-style{
-    margin: 100px;
+
+.login-btn, .register-btn {
+    background-color: #407A3B;
+}
+
+.card {
+    width: 23rem;
+}
+
+.google-logo {
+    width: 30px;
+    height: 30px
 }
