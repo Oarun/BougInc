@@ -297,9 +297,71 @@ body.identity .manage {
     padding: 30px;
     margin-top: 45px;
 }
+
 .spacing {
     margin-top: 40px;
 }
+
 .team-member h1, .team-member h5 {
     font-weight: 100;
+}
+
+/*    About Page Styling
+-----------------------------------*/
+.ManageLayout {
+    margin-top: 3% !important;
+    color: #DCEDCF;
+    height: 100vh;
+    background-color: #353F2D;
+    width: 100%;
+}
+
+.profile-btn {
+    background-color: #407A3B;
+    color: #DCEDCF;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.nav-pills-custom {
+}
+
+    .nav-pills-custom .nav-link {
+        color: #353F2D;
+    }
+
+        .nav-pills-custom .nav-link.active, .nav-pills-custom .show > .nav-link {
+            color: #353F2D;
+            background-color: #407A3B;
+            border-radius: 50px;
+        }
+
+.text-danger-custom {
+    color: #353F2D;
+}
+
+.manage-profile {
+    background-color: #DCEDCF;
+    padding: 10px;
+}
+.account-border {
+    border-right: 2px solid #353F2D;
+}
+
+.panel {
+    background-color: #DCEDCF;
+    border-radius: 25px;
+    padding: 10px;
+    color: #353F2D;
+    margin-left: 10px;
+}
+.row {
+    width: 100%;
 }
