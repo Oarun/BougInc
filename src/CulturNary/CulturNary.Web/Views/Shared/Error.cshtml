@@ -1,0 +1,77 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error:" + Model.StatusCode;
+}
+<br>
+@if (Model.StatusCode == 400)
+{
+    <h1 class="text-center">Error 400: Bad Request</h1>
+    <h2 class="text-center">Your browser sent a request that this server could not understand. Please check your request for errors and try again. If you believe this is an error, please contact support.</h2>
+    <h2 class="text-center"><a asp-controller="Home" asp-action="Index">Return to Homepage</a></h2>
+}
+else if (Model.StatusCode == 401)
+{
+    <h1 class="text-center">Error 401: Unauthorized</h1>
+    <h2 class="text-center">You must be logged in to access this page. Please log in and try again. If you continue to experience issues, contact support for assistance.</h2>
+    <h2 class="text-center"><a asp-area="Identity" asp-page="/Account/Login">Go to Login Page</a></h2>
+}
+else if (Model.StatusCode == 403)
+{
+    <h1 class="text-center">Error 403: Forbidden</h1>
+    <h2 class="text-center">You don't have permission to access this page. If you believe this is a mistake, please check your account permissions or contact support for further assistance.</h2>
+    <h2 class="text-center"><a asp-area="Identity" asp-page="/Account/Login">Go to Login Page</a></h2>
+}
+else if (Model.StatusCode == 404)
+{
+    <h1 class="text-center">Error 404: Page Not Found</h1>
+    <h2 class="text-center">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. Please check the URL for errors, the link navigation, or contact support for assistance.</h2>
+    <h2 class="text-center"><a asp-controller="Home" asp-action="Index">Return to Homepage</a></h2>
+}
+else if (Model.StatusCode == 408)
+{
+    <h1 class="text-center">Error 408: Request Timeout</h1>
+    <h2 class="text-center">Your request timed out waiting for a response. Please check your internet connection and try again. If the problem persists, the server may be busy or temporarily unavailable.</h2>
+    <h2 class="text-center"><a asp-controller="Home" asp-action="Index">Return to Homepage</a></h2>
+}
+else if (Model.StatusCode == 429)
+{
+    <h1 class="text-center">Error 429: Too Many Requests</h1>
+    <h2 class="text-center">You have sent too many requests in a given amount of time. Please wait a while before trying again. If you believe this is an error, please contact support.</h2>
+    <h2 class="text-center"><a asp-controller="Home" asp-action="Index">Return to Homepage</a></h2>
+}
+else if (Model.StatusCode == 500)
+{
+    <h1 class="text-center">Error 500: Internal Server Error</h1>
+    <h2 class="text-center">We encountered an unexpected problem that prevented us from completing your request. We’re working to fix this as quickly as possible. Please try again later, or contact support if the issue persists.</h2>
+    <h2 class="text-center"><a asp-controller="Home" asp-action="Index">Return to Homepage</a></h2>
+}
+else if (Model.StatusCode == 502)
+{
+    <h1 class="text-center">Error 502: Bad Gateway</h1>
+    <h2 class="text-center">The server received an invalid response from the upstream server. We are currently working to resolve this issue. Please refresh the page in a few moments or contact support if the problem continues.</h2>
+    <h2 class="text-center"><a asp-controller="Home" asp-action="Index">Return to Homepage</a></h2>
+}
+else if (Model.StatusCode == 503)
+{
+    <h1 class="text-center">Error 503: Service Unavailable</h1>
+    <h2 class="text-center">Our website is currently under maintenance or experiencing a temporary overload. We are working to restore service as soon as possible. Please check back soon or contact support for more information.</h2>
+    <h2 class="text-center"><a asp-controller="Home" asp-action="Index">Return to Homepage</a></h2>
+}
+else if (Model.StatusCode == 504)
+{
+    <h1 class="text-center">Error 504: Gateway Timeout</h1>
+    <h2 class="text-center">The request could not be completed in a timely manner. This might be due to high traffic or maintenance on our servers. Please try again later, and if the problem persists, contact our support line for assistance.</h2>
+    <h2 class="text-center"><a asp-controller="Home" asp-action="Index">Return to Homepage</a></h2>
+}
+else if (Model.StatusCode == 508)
+{
+    <h1 class="text-center">Error 508: Loop Detected</h1>
+    <h2 class="text-center">The server detected an infinite loop while processing the request. If you're encountering this error, please report it to our support team for further investigation.</h2>
+    <h2 class="text-center"><a asp-controller="Home" asp-action="Index">Return to Homepage</a></h2>
+}
+else
+{
+    <h1 class="text-center">Error: Unknown Error</h1>
+    <h2 class="text-center">An unknown issue has occurred, please try again later or contact support.</h2>
+    <h2 class="text-center"><a asp-controller="Home" asp-action="Index">Return to Homepage</a></h2>
+}
