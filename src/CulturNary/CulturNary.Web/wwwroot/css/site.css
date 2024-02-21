@@ -12,6 +12,10 @@ html {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #407A3B;
 }
 
+.btn-primary {
+    border-color: #407A3B;
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -21,9 +25,25 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding-top: 40px;
     margin-bottom: 60px;
 }
+
+.nav a, .navbar-nav a {
+    color: #DCEDCF;
+    cursor: pointer;
+}
+
+    .nav a:hover, .navbar-nav a:hover {
+        color: #78A158;
+    }
+
+    .nav a:focus, .navbar-nav a:focus {
+        color: #78A158;
+    }
+
+    .nav a:active, .navbar-nav a:active {
+        color: #78A158;
+    }
 
 /*      Welcome Page Styling
 -----------------------------------*/
@@ -138,7 +158,7 @@ iframe {
 
 /*          Identity Styling
 -----------------------------------*/
-.ManageLayout{
+.ManageLayout {
     margin-top: 30px !important;
     padding: 20px;
     background-color: #f9f9f9;
@@ -147,10 +167,10 @@ iframe {
     border: 1px solid #ddd;
     border-radius: 5px;
 }
+
 body.identity .manage {
     color: #407A3B !important;
     background-color: #F0F0F0 !important;
-    
 }
 
     body.identity .manage button {
@@ -172,23 +192,114 @@ body.identity .manage {
             color: #407A3B !important;
         }
 
-/*    Registration From Styling
+/*    Registration & Login From Styling
 -----------------------------------*/
-.registration-section {
-    width: 100%;
-}
-
 .registration-message {
     background-color: #353F2D;
     height: 100vh;
+    color: #DCEDCF;
+    display: flex;
 }
 
-.reg-text {
+.login-section {
+    background-color: #353F2D;
+    height: 100vh;
     color: #DCEDCF;
-    padding-left: 50px;
-    padding-right: 30px;
-    padding-bottom: 120px;
+    display: flex;
 }
-.reg-form-style{
-    margin: 100px;
+
+.login-title {
+    color: #DCEDCF;
+    display: flex;
+    justify-content: center;
+}
+
+.login-form, .registration-section {
+    height: 100vh;
+}
+
+.login-extra-text {
+    color: #407A3B
+}
+
+    .login-extra-text:hover, .login-extra-text:focus {
+        color: #78A158;
+        underline: none;
+    }
+
+.reg-text {
+    margin: 40px;
+}
+
+.login-btn, .register-btn {
+    background-color: #407A3B;
+}
+
+.card {
+    width: 23rem;
+}
+
+.google-logo {
+    width: 30px;
+    height: 30px
+}
+/*    About Page Styling
+-----------------------------------*/
+.about-section {
+    height: 100vh;
+    background-color: #353F2D;
+}
+
+.carousel {
+    height: 100vh;
+}
+
+.about-title {
+    color: #DCEDCF;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.carousel-inner {
+    padding-top: 7%;
+    margin-left: 8%;
+    height: 100vh;
+    width: 100%;
+}
+
+.text-1 {
+    color: #DCEDCF;
+}
+
+.vision-statement {
+    color: #DCEDCF;
+    font-weight: 100;
+    line-height: 1.5;
+}
+
+.background {
+    background: url('/media/BOUG Logo About Background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 65vh;
+}
+
+.team-member {
+    color: azure;
+    line-height: 24px;
+    height: 100%;
+    background-color: rgba(220, 237, 207, 0.4);
+    -moz-box-shadow: inherit;
+    -webkit-box-shadow: inherit;
+    box-shadow: inherit;
+    padding: 30px;
+    margin-top: 45px;
+}
+.spacing {
+    margin-top: 40px;
+}
+.team-member h1, .team-member h5 {
+    font-weight: 100;
 }

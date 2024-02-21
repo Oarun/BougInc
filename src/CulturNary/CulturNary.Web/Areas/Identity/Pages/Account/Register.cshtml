@@ -7,57 +7,52 @@
 <div class="registration-section">
     <div class="row">
         <div class="col-md-4 d-flex align-items-end justify-content-start registration-message">
-            <div class="display-3 text-capitalize reg-text">
+            <div class="display-4 text-capitalize reg-text">
                 REGISTER TO START BUILDING YOUR PROFILE!
             </div>
         </div>
-        <div class="col-md-8 align-items-center text-center justify-content-center mt-5">
-            <div class="reg-img mb-0 mt-5">
-                <img src="~/media/Logo.png" width="300px" />
-            </div>
-            <div class="reg-form-style mt-4 mb-4">
-                <div class="container">
-                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                            <label asp-for="Input.Email">Email</label>
-                            <span asp-validation-for="Input.Email" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                            <label asp-for="Input.Password">Password</label>
-                            <span asp-validation-for="Input.Password" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                            <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                        </div>
-                        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg text-white" style="background-color: #407A3B">Register</button>
-                    </form>
+        <div class="col-md-8 d-flex align-items-center justify-content-center registration-section">
+            <section>
+                <div class="reg-img mb-3">
+                    <img src="~/media/Logo.png" width="370px" />
                 </div>
-            </div>
-            <div class="google-reg-button">
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        <label asp-for="Input.Email">Email</label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <label asp-for="Input.Password">Password</label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg text-white register-btn">Register</button>
+                </form>
+                <hr>
+                <h3 class="text-center">OR</h3>
                 <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                    <div>
-                        <h2 class="text-center mb-3">OR</h2>
-                        <div class="d-flex flex-column align-items-center">
-                            @foreach (var provider in Model.ExternalLogins!)
-                            {
-                                <div class="card mb-3" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <button style="background-color: #407A3B;" type="submit" class="btn btn-primary w-100" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
-                                            <img src="https://developers.google.com/static/identity/images/branding_guideline_sample_lt_rd_sl.svg" style="width: 30px; height: 30px" alt="Google logo" class="google-logo">
-                                            Log in with @provider.DisplayName
-                                        </button>
-                                    </div>
+                    <div class="d-flex flex-column align-items-center">
+                        @foreach (var provider in Model.ExternalLogins!)
+                        {
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <button type="submit" class="w-100 btn text-white register-btn" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+                                        <img src="https://developers.google.com/static/identity/images/branding_guideline_sample_lt_rd_sl.svg" alt="Google logo" class="google-logo">
+                                        Register with @provider.DisplayName
+                                    </button>
                                 </div>
-                            }
-                        </div>
+                            </div>
+                        }
                     </div>
                 </form>
-            </div>
+            </section>
         </div>
     </div>
 </div>
@@ -65,50 +60,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
-
-
-
-@*
-
-<div class="reg-form-style">
-    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-        <div class="form-floating mb-3">
-            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-            <label asp-for="Input.Email">Email</label>
-            <span asp-validation-for="Input.Email" class="text-danger"></span>
-        </div>
-        <div class="form-floating mb-3">
-            <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-            <label asp-for="Input.Password">Password</label>
-            <span asp-validation-for="Input.Password" class="text-danger"></span>
-        </div>
-        <div class="form-floating mb-3">
-            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-            <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-        </div>
-        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg text-white" style="background-color: #407A3B">Register</button>
-    </form>
-</div>
-<div class="google-reg-button">
-    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-        <div>
-            <h2 class="text-center">OR</h2>
-            <div class="d-flex flex-column align-items-center">
-                @foreach (var provider in Model.ExternalLogins!)
-                {
-                    <div class="card mb-3" style="width: 18rem;">
-                        <div class="card-body">
-                            <button style="background-color: #407A3B;" type="submit" class="btn btn-primary w-100" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
-                                <img src="https://developers.google.com/static/identity/images/branding_guideline_sample_lt_rd_sl.svg" style="width: 30px; height: 30px" alt="Google logo" class="google-logo">
-                                Log in with @provider.DisplayName
-                            </button>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-    </form>
-</div> *@
