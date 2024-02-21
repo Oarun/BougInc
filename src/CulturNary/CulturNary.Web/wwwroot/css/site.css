@@ -200,6 +200,7 @@ body.identity .manage {
     color: #DCEDCF;
     display: flex;
 }
+
 .login-section {
     background-color: #353F2D;
     height: 100vh;
@@ -220,10 +221,11 @@ body.identity .manage {
 .login-extra-text {
     color: #407A3B
 }
-.login-extra-text:hover, .login-extra-text:focus {
-    color: #78A158;
-    underline: none;
-}
+
+    .login-extra-text:hover, .login-extra-text:focus {
+        color: #78A158;
+        underline: none;
+    }
 
 .reg-text {
     margin: 40px;
@@ -240,4 +242,64 @@ body.identity .manage {
 .google-logo {
     width: 30px;
     height: 30px
+}
+/*    About Page Styling
+-----------------------------------*/
+.about-section {
+    height: 100vh;
+    background-color: #353F2D;
+}
+
+.carousel {
+    height: 100vh;
+}
+
+.about-title {
+    color: #DCEDCF;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.carousel-inner {
+    padding-top: 7%;
+    margin-left: 8%;
+    height: 100vh;
+    width: 100%;
+}
+
+.text-1 {
+    color: #DCEDCF;
+}
+
+.vision-statement {
+    color: #DCEDCF;
+    font-weight: 100;
+    line-height: 1.5;
+}
+
+.background {
+    background: url('/media/BOUG Logo About Background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 65vh;
+}
+
+.team-member {
+    color: azure;
+    line-height: 24px;
+    height: 100%;
+    background-color: rgba(220, 237, 207, 0.4);
+    -moz-box-shadow: inherit;
+    -webkit-box-shadow: inherit;
+    box-shadow: inherit;
+    padding: 30px;
+    margin-top: 45px;
+}
+.spacing {
+    margin-top: 40px;
+}
+.team-member h1, .team-member h5 {
+    font-weight: 100;
 }
