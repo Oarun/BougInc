@@ -14,9 +14,9 @@
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>
-       @*  <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li> *@
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" asp-area="Identity" asp-page="/Search/SearchEngines"><img src="/media//icons8-search-50.png" width="20" /></a>
+        </li>
     }
     else
     {
@@ -26,9 +26,6 @@
         <li class="nav-item">
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
-        @* <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li> *@
     }
 </ul>
 
