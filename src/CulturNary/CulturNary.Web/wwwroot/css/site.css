@@ -351,6 +351,7 @@ body.identity .manage {
     background-color: #DCEDCF;
     padding: 10px;
 }
+
 .account-border {
     border-right: 2px solid #353F2D;
 }
@@ -362,6 +363,82 @@ body.identity .manage {
     color: #353F2D;
     margin-left: 10px;
 }
+
 .row {
     width: 100%;
 }
+
+
+/*    Search Engine Selection Page Styling
+---------------------------------------------*/
+.search-engine-selection {
+    background-color: #353F2D; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-container {
+    background-color: #505C47;
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    color: #DCEDCF;
+}
+
+.selection-menu {
+    text-align: center;
+}
+
+.nutrition-search-btn, .nutrition-search-btn a {
+    background-color: #DCEDCF;
+    color: #353F2D;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .nutrition-search-btn:hover a {
+        background-color: #353F2D;
+        color: #DCEDCF;
+        text-decoration: none;
+    }
+    .nutrition-search-btn:focus a {
+        background-color: #353F2D;
+        color: #DCEDCF;
+        text-decoration: none;
+    }
+    .nutrition-search-btn:active a {
+        background-color: #353F2D;
+        color: #DCEDCF;
+        text-decoration: none;
+    }
+
+@media (max-width: 768px) {
+    .selection-menu {
+        font-size: 2rem;
+        height: auto;
+        line-height: normal;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .selection-menu {
+        font-size: 1.5rem;
+        max-width: 90%;
+    }
+}
+
