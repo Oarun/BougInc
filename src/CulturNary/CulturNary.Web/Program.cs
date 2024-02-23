@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Authentication.Google;
 using CulturNary.Web.Data;
 using Microsoft.AspNetCore.Diagnostics;
 using CulturNary.Web.Services;
-
+using Microsoft.Extensions.Options;
+using AspNetCore.ReCaptcha;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -25,6 +26,10 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
         googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
         googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
     });
+builder.Services.AddReCaptcha(options => {
+    options.SiteKey = builder.Configuration["Recaptcha:SiteKey"];
+    options.SecretKey = builder.Configuration["Recaptcha:SecretKey"];
+});
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
