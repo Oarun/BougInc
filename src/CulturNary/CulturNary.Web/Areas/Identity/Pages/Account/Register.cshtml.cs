@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using AspNetCore.ReCaptcha;
 
 namespace CulturNary.Web.Areas.Identity.Pages.Account
 {
@@ -29,13 +30,15 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IReCaptchaService _recaptchaservice;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IReCaptchaService reCaptchaService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +46,8 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _recaptchaservice = reCaptchaService;
+            
         }
 
         /// <summary>
@@ -97,6 +102,8 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            [Required]
+            public string RecaptchaResponse { get; set; }
         }
 
 
@@ -112,6 +119,11 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                var recaptchaResponse = await _recaptchaservice.VerifyAsync(Input.RecaptchaResponse);
+                if(!recaptchaResponse){
+                    ModelState.AddModelError(string.Empty, "You failed the CAPTCHA.");
+                    return Page();
+                }
                 var user = CreateUser();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
