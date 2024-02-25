@@ -1,4 +1,6 @@
-@inject SignInManager<IdentityUser> SignInManager
+@using CulturNary.Web.Areas.Identity.Data
+
+@inject SignInManager<SiteUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
