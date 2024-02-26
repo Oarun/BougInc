@@ -6,6 +6,14 @@
 <ul class="nav justify-content-end">
     @if (SignInManager.IsSignedIn(User))
     {
+        var user = await UserManager.GetUserAsync(User);
+        var isAdmin = await UserManager.IsInRoleAsync(user, "Admin");
+        if (isAdmin)
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-page="/Index">Admin</a>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link" aria-current="page" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
         </li>
