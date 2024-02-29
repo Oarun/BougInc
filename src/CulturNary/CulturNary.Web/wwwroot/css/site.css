@@ -16,6 +16,10 @@ html {
     border-color: #407A3B;
 }
 
+.btn-link{
+    background-color:#DCEDCF;
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -306,7 +310,7 @@ body.identity .manage {
     font-weight: 100;
 }
 
-/*    About Page Styling
+/*    Account Management Styling
 -----------------------------------*/
 .ManageLayout {
     margin-top: 3% !important;
@@ -330,15 +334,30 @@ body.identity .manage {
     transition-duration: 0.4s;
 }
 
+.profile-btn-danger{
+    border-color: #3b407a;
+    background-color: #3b407a;
+    color: #DCEDCF;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
 .nav-pills-custom {
 }
 
     .nav-pills-custom .nav-link {
-        color: #353F2D;
+        color: #407A3B;
     }
 
         .nav-pills-custom .nav-link.active, .nav-pills-custom .show > .nav-link {
-            color: #353F2D;
+            color: #DCEDCF;
             background-color: #407A3B;
             border-radius: 50px;
         }
@@ -346,6 +365,18 @@ body.identity .manage {
 .text-danger-custom {
     color: #353F2D;
 }
+
+.alert-warning-custom{
+    background-color: #cfdced;
+}
+
+.profile-link {
+    color: #407A3B;
+}
+    
+        .profile-link:hover, .profile-link:focus {
+            color: #3b407a;
+        }
 
 .manage-profile {
     background-color: #DCEDCF;
