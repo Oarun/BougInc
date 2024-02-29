@@ -11,6 +11,5 @@ namespace CulturNary.Web.Areas.Identity.Data
         [PersonalData]
         public string ProfileImageName { get; set; }
 
-        
     }
 }

@@ -13,12 +13,12 @@ using CulturNary.Web.Areas.Identity.Data;
 
 namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
 {
-    public class IndexModel : PageModel
+    public class PhoneModel : PageModel
     {
         private readonly UserManager<SiteUser> _userManager;
         private readonly SignInManager<SiteUser> _signInManager;
 
-        public IndexModel(
+        public PhoneModel(
             UserManager<SiteUser> userManager,
             SignInManager<SiteUser> signInManager)
         {
