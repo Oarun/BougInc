@@ -1,0 +1,22 @@
+@using Microsoft.AspNetCore.Identity
+@model IList<IdentityUser>
+
+<table class="adminTable">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+                <td>@(string.IsNullOrEmpty(user.PhoneNumber) ? "No phone number provided" : user.PhoneNumber)</td>
+            </tr>
+        }
+    </tbody>
+</table>

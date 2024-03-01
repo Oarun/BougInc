@@ -473,3 +473,24 @@ body.identity .manage {
     }
 }
 
+.adminTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin-top: 60px;
+}
+.adminTable th, .adminTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.adminTable th {
+    background-color: #4F7942; /* dark green */
+    color: white;
+}
+.adminTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.adminTable tr:hover {
+    background-color: #ddd;
+}
