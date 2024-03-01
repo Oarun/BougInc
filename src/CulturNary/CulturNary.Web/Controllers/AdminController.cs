@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 [Authorize(Roles = "Admin")]
 public class AdminController : Controller
 {
-    public IActionResult Users()
+    public IActionResult Admin()
     {
         return View();
     }
