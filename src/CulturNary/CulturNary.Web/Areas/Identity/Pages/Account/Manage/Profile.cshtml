@@ -11,8 +11,28 @@
 <div class="row">
     <div class="col-md-6">
         <h1>Test</h1>
-        <h1>@(string.IsNullOrEmpty(Model.DisplayName) ? "You have not set a display name" : Model.DisplayName)</h1>
-        <h1>@(string.IsNullOrEmpty(Model.Biography) ? "You have not set a biography" : Model.DisplayName)</h1>
+        @if(string.IsNullOrEmpty(Model.DisplayName))
+        {
+            <h1>You have not set a display name.</h1>
+        }
+        else
+        {
+            <h1>@Model.DisplayName</h1>
+        }
+        <form id="edit-displayname" asp-page="EditDisplayName" method="post">
+            <button class="w-100 btn btn-lg profile-btn" type="submit">Edit Name</button>
+        </form>
+        @if(string.IsNullOrEmpty(Model.Biography))
+        {
+            <h1>You have not set a biography.</h1>
+        }
+        else
+        {
+            <h1>@Model.Biography</h1>
+        }
+        <form id="edit-biography" asp-page="EditBiography" method="post">
+            <button class="w-100 btn btn-lg profile-btn" type="submit">Edit Bio</button>
+        </form>
         @if(string.IsNullOrEmpty(Model.ProfilePicture))
         {
             <img src="~/Media/ProfileImages/scrungle.jpg" alt="Profile Image" />
@@ -21,6 +41,9 @@
         {
             <img src="@Model.ProfilePicture" alt="Profile Image" />
         }
+        <form id="edit-profilepic" asp-page="ChangeProfileImage" method="post">
+            <button class="w-100 btn btn-lg profile-btn" type="submit">Change Profile Image</button>
+        </form>
     </div>
 </div>
 

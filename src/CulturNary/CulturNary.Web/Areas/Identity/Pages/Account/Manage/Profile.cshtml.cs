@@ -49,11 +49,10 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var userData = await _userManager.GetUserAsync(User);
-            var DisplayName = userData.DisplayName;
-            var Biography = userData.Biography;
-            var ProfilePicture = userData.ProfileImageName;
+            DisplayName = userData.DisplayName;
+            Biography = userData.Biography;
+            ProfilePicture = userData.ProfileImageName;
             Username = userName;
-            userData = null;
         }
 
         public async Task<IActionResult> OnGetAsync()
