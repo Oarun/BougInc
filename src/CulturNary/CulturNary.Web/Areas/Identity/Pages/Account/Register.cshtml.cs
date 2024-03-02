@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using AspNetCore.ReCaptcha;
 
 namespace CulturNary.Web.Areas.Identity.Pages.Account
 {
@@ -29,13 +30,15 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IReCaptchaService _recaptchaservice;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IReCaptchaService reCaptchaService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +46,8 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _recaptchaservice = reCaptchaService;
+            
         }
 
         /// <summary>
@@ -97,6 +102,10 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            [Required]
+            public string RecaptchaResponse { get; set; }
+            [Display(Name = "Optional Keyword")]
+            public string AdminKeyword {get; set;}
         }
 
 
@@ -105,13 +114,21 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
-
+        public bool AuthorizationKeyword(string keyword){
+            var adminKeyword = Environment.GetEnvironmentVariable("ADMIN_KEYWORD");
+            return keyword == adminKeyword;
+        }
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                var recaptchaResponse = await _recaptchaservice.VerifyAsync(Input.RecaptchaResponse);
+                if(!recaptchaResponse){
+                    ModelState.AddModelError(string.Empty, "You failed the CAPTCHA.");
+                    return Page();
+                }
                 var user = CreateUser();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -121,6 +138,15 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    if(AuthorizationKeyword(Input.AdminKeyword)){
+                        if(!await _userManager.IsInRoleAsync(user, "Admin")){
+                            var roleExist = await _userManager.AddToRoleAsync(user, "Admin");
+                            if(!roleExist.Succeeded){
+                                ModelState.AddModelError(string.Empty, "Error while adding role to user. ");
+                                return Page();
+                            }
+                        }
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

@@ -1,0 +1,43 @@
+@using Microsoft.AspNetCore.Identity
+@model IDictionary<IdentityUser, bool>
+@{
+    var currentUserId = ViewBag.CurrentUserId as string;
+}
+<table class="adminTable">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in Model)
+        {
+            var user = entry.Key;
+            var isAdmin = entry.Value;
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+                <td>@(string.IsNullOrEmpty(user.PhoneNumber) ? "No phone number provided" : user.PhoneNumber)</td>
+                <td>
+                    @if (!isAdmin)
+                    {
+                        <button class="make-admin-button" data-user-id="@user.Id">Make Admin</button> 
+                    }
+                    @if (isAdmin){
+                        @: Already Admin
+                    }
+                    @if (user.Id != currentUserId)
+                    {
+                        <button class="delete-user-button" data-user-id="@user.Id">Remove User</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/js/MakeAdminBtn.js"></script>
+<script src="~/js/DeleteUserBtn.js"></script>

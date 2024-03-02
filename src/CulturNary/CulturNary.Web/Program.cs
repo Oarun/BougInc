@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Authentication.Google;
 using CulturNary.Web.Data;
 using Microsoft.AspNetCore.Diagnostics;
 using CulturNary.Web.Services;
-
+using Microsoft.Extensions.Options;
+using AspNetCore.ReCaptcha;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -25,12 +27,28 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
         googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
         googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
     });
-
+builder.Services.AddReCaptcha(options => {
+    options.SiteKey = builder.Configuration["Recaptcha:SiteKey"];
+    options.SecretKey = builder.Configuration["Recaptcha:SecretKey"];
+});
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAdministratorRole", 
+                        policy => policy.RequireRole("Admin"));
+});
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    if (!roleManager.RoleExistsAsync("Admin").Result)
+    {
+        roleManager.CreateAsync(new IdentityRole("Admin")).Wait();
+    }
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
