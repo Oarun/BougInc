@@ -8,7 +8,11 @@ html {
     }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #407A3B;
 }
 
@@ -16,8 +20,8 @@ html {
     border-color: #407A3B;
 }
 
-.btn-link{
-    background-color:#DCEDCF;
+.btn-link {
+    background-color: #DCEDCF;
 }
 
 html {
@@ -32,22 +36,26 @@ body {
     margin-bottom: 60px;
 }
 
-.nav a, .navbar-nav a {
+.nav a,
+.navbar-nav a {
     color: #DCEDCF;
     cursor: pointer;
 }
 
-    .nav a:hover, .navbar-nav a:hover {
-        color: #78A158;
-    }
+.nav a:hover,
+.navbar-nav a:hover {
+    color: #78A158;
+}
 
-    .nav a:focus, .navbar-nav a:focus {
-        color: #78A158;
-    }
+.nav a:focus,
+.navbar-nav a:focus {
+    color: #78A158;
+}
 
-    .nav a:active, .navbar-nav a:active {
-        color: #78A158;
-    }
+.nav a:active,
+.navbar-nav a:active {
+    color: #78A158;
+}
 
 /*      Welcome Page Styling
 -----------------------------------*/
@@ -79,12 +87,13 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-    .btn-outline-custom:hover, .btn-outline-custom:focus {
-        color: #DCEDCF;
-        background-color: #353F2D;
-        text-decoration: none;
-        border: 2px solid #DCEDCF;
-    }
+.btn-outline-custom:hover,
+.btn-outline-custom:focus {
+    color: #DCEDCF;
+    background-color: #353F2D;
+    text-decoration: none;
+    border: 2px solid #DCEDCF;
+}
 
 .icon-registration {
     width: 20px;
@@ -97,22 +106,23 @@ body {
     padding-right: 2.5rem;
 }
 
-    .btn-outline-custom.icon-btn::after {
-        content: '';
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 20px;
-        height: 20px;
-        background-image: url('/media/icons8-right-arrow-50-dark.png');
-        background-size: cover;
-        transition: background-image 0.3s;
-    }
+.btn-outline-custom.icon-btn::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-image: url('/media/icons8-right-arrow-50-dark.png');
+    background-size: cover;
+    transition: background-image 0.3s;
+}
 
-    .btn-outline-custom.icon-btn:hover::after, .btn-outline-custom.icon-btn:focus::after {
-        background-image: url('/media/icons8-right-arrow-50-light.png');
-    }
+.btn-outline-custom.icon-btn:hover::after,
+.btn-outline-custom.icon-btn:focus::after {
+    background-image: url('/media/icons8-right-arrow-50-light.png');
+}
 
 iframe {
     width: 560px;
@@ -177,24 +187,24 @@ body.identity .manage {
     background-color: #F0F0F0 !important;
 }
 
-    body.identity .manage button {
-        background-color: #407A3B !important;
-        color: white !important;
-        border: none !important;
-        padding: 10px 20px !important;
-        text-align: center !important;
-        text-decoration: none !important;
-        display: inline-block !important;
-        font-size: 16px !important;
-        margin: 4px 2px !important;
-        cursor: pointer !important;
-        transition-duration: 0.4s !important;
-    }
+body.identity .manage button {
+    background-color: #407A3B !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+    margin: 4px 2px !important;
+    cursor: pointer !important;
+    transition-duration: 0.4s !important;
+}
 
-        body.identity .manage button:hover {
-            background-color: white !important;
-            color: #407A3B !important;
-        }
+body.identity .manage button:hover {
+    background-color: white !important;
+    color: #407A3B !important;
+}
 
 /*    Registration & Login From Styling
 -----------------------------------*/
@@ -218,7 +228,8 @@ body.identity .manage {
     justify-content: center;
 }
 
-.login-form, .registration-section {
+.login-form,
+.registration-section {
     height: 100vh;
 }
 
@@ -226,16 +237,18 @@ body.identity .manage {
     color: #407A3B
 }
 
-    .login-extra-text:hover, .login-extra-text:focus {
-        color: #78A158;
-        underline: none;
-    }
+.login-extra-text:hover,
+.login-extra-text:focus {
+    color: #78A158;
+    underline: none;
+}
 
 .reg-text {
     margin: 40px;
 }
 
-.login-btn, .register-btn {
+.login-btn,
+.register-btn {
     background-color: #407A3B;
 }
 
@@ -247,6 +260,7 @@ body.identity .manage {
     width: 30px;
     height: 30px
 }
+
 /*    About Page Styling
 -----------------------------------*/
 .about-section {
@@ -306,7 +320,8 @@ body.identity .manage {
     margin-top: 40px;
 }
 
-.team-member h1, .team-member h5 {
+.team-member h1,
+.team-member h5 {
     font-weight: 100;
 }
 
@@ -334,7 +349,7 @@ body.identity .manage {
     transition-duration: 0.4s;
 }
 
-.profile-btn-danger{
+.profile-btn-danger {
     border-color: #3b407a;
     background-color: #3b407a;
     color: #DCEDCF;
@@ -349,34 +364,35 @@ body.identity .manage {
     transition-duration: 0.4s;
 }
 
-.nav-pills-custom {
+.nav-pills-custom {}
+
+.nav-pills-custom .nav-link {
+    color: #407A3B;
 }
 
-    .nav-pills-custom .nav-link {
-        color: #407A3B;
-    }
-
-        .nav-pills-custom .nav-link.active, .nav-pills-custom .show > .nav-link {
-            color: #DCEDCF;
-            background-color: #407A3B;
-            border-radius: 50px;
-        }
+.nav-pills-custom .nav-link.active,
+.nav-pills-custom .show>.nav-link {
+    color: #DCEDCF;
+    background-color: #407A3B;
+    border-radius: 50px;
+}
 
 .text-danger-custom {
     color: #353F2D;
 }
 
-.alert-warning-custom{
+.alert-warning-custom {
     background-color: #cfdced;
 }
 
 .profile-link {
     color: #407A3B;
 }
-    
-        .profile-link:hover, .profile-link:focus {
-            color: #3b407a;
-        }
+
+.profile-link:hover,
+.profile-link:focus {
+    color: #3b407a;
+}
 
 .manage-profile {
     background-color: #DCEDCF;
@@ -403,9 +419,9 @@ body.identity .manage {
 /*    Search Engine Selection Page Styling
 ---------------------------------------------*/
 .search-engine-selection {
-    background-color: #353F2D; 
+    background-color: #353F2D;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
     height: 100vh;
     padding: 0;
@@ -427,7 +443,8 @@ body.identity .manage {
     text-align: center;
 }
 
-.nutrition-search-btn, .nutrition-search-btn a {
+.nutrition-search-btn,
+.nutrition-search-btn a {
     background-color: #DCEDCF;
     color: #353F2D;
     border: none;
@@ -441,21 +458,23 @@ body.identity .manage {
     text-decoration: none;
 }
 
-    .nutrition-search-btn:hover a {
-        background-color: #353F2D;
-        color: #DCEDCF;
-        text-decoration: none;
-    }
-    .nutrition-search-btn:focus a {
-        background-color: #353F2D;
-        color: #DCEDCF;
-        text-decoration: none;
-    }
-    .nutrition-search-btn:active a {
-        background-color: #353F2D;
-        color: #DCEDCF;
-        text-decoration: none;
-    }
+.nutrition-search-btn:hover a {
+    background-color: #353F2D;
+    color: #DCEDCF;
+    text-decoration: none;
+}
+
+.nutrition-search-btn:focus a {
+    background-color: #353F2D;
+    color: #DCEDCF;
+    text-decoration: none;
+}
+
+.nutrition-search-btn:active a {
+    background-color: #353F2D;
+    color: #DCEDCF;
+    text-decoration: none;
+}
 
 @media (max-width: 768px) {
     .selection-menu {
@@ -473,3 +492,147 @@ body.identity .manage {
     }
 }
 
+/*    Collections Styling
+-----------------------------------*/
+.collections-page{
+    background-color: #505C47;
+    padding-top: 10px;
+    padding-bottom: 0; /* Reduce bottom padding */
+}
+
+.collections-page > div:last-child {
+    margin-bottom: 0;
+}
+
+.btn-collections {
+    background-color: #353F2D;
+    color: #DCEDCF;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-recipes {
+    background-color: #353F2D;
+    color: #DCEDCF;
+    text-decoration: none;
+}
+
+.icon-margin {
+    margin-right: 20px;
+    /* Adjust as needed */
+}
+
+.collection-container {
+    /* Adjust as needed */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    text-align: center;
+}
+
+.container-title{
+    text-align: center !important;
+}
+.card-body .delete-collection:hover {
+    cursor: pointer;
+    /* Change cursor to pointer to indicate interaction */
+}
+
+.collectionDetailsContainer {
+    text-align: center;
+}
+
+.pencil-icon:hover {
+    cursor: pointer;
+    /* Change the cursor to a pointer */
+}
+
+.card-title:hover {
+    cursor: pointer;
+}
+
+.add-recipe-icon {
+    cursor: pointer;
+}
+
+.add-collection-icon {
+    cursor: pointer;
+}
+
+.delete-recipe-icon {
+    cursor: pointer;
+}
+
+.container {
+    padding-top: 10px;
+    padding-bottom: 0 !important; /* Reduce bottom padding */
+}
+
+.row {
+    margin-bottom: 0 !important; /* Reduce bottom margin */
+}
+
+.row:last-child {
+    margin-bottom: 0 !important; /* Remove bottom margin for the last row */
+}
+
+/* Form styling */
+.form-label, .form-check-label {
+    font-weight: bold;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+textarea.form-control {
+    resize: vertical; /* Allow vertical resizing of text area */
+}
+
+.btn-collections,
+.btn-recipes {
+    background-color: #353F2D;
+    color: #DCEDCF;
+    text-decoration: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-collections:hover,
+.btn-recipes:hover {
+    background-color: #353F2D;
+    color: #DCEDCF;
+    text-decoration: none;
+}
+
+/* Form container styling */
+#createCollectionFormContainer,
+#editCollectionFormContainer,
+#addRecipeFormContainer {
+    background-color: #f9f9f9;
+    /* padding: 1rem; */
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+#collectionDetailsContainer {
+    background-color: #f9f9f9;
+    /* padding: 1rem; */
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+#addRecipeFormContainer {
+    border: 2px solid #353F2D; /* Add border with the desired color */
+}
