@@ -19,6 +19,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using AspNetCore.ReCaptcha;
+using CulturNary.Web.Models; 
+using CulturNary.Web.Data;
+
 
 namespace CulturNary.Web.Areas.Identity.Pages.Account
 {
@@ -31,6 +34,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IReCaptchaService _recaptchaservice;
+        private readonly CulturNaryDbContext _culturNaryDbContext;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -38,7 +42,8 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IReCaptchaService reCaptchaService)
+            IReCaptchaService reCaptchaService,
+            CulturNaryDbContext culturNaryDbContext)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -47,7 +52,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _recaptchaservice = reCaptchaService;
-            
+            _culturNaryDbContext = culturNaryDbContext;
         }
 
         /// <summary>
@@ -136,6 +141,17 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
+                    // Create a new Person entity
+                    var person = new Person
+                    {
+                        IdentityId = user.Id,
+                        // Set other properties of the Person entity as needed
+                    };
+                    // Add the Person entity to the CulturNary DbContext and save changes
+                    _culturNaryDbContext.People.Add(person);
+                    await _culturNaryDbContext.SaveChangesAsync();
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
