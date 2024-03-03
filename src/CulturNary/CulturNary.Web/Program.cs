@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Authentication.Google;
 using CulturNary.Web.Data;
 using Microsoft.AspNetCore.Diagnostics;
 using CulturNary.Web.Services;
+using CulturNary.Web.Areas.Identity.Data;
 using Microsoft.Extensions.Options;
 using AspNetCore.ReCaptcha;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.DependencyInjection;
 using CulturNary.DAL.Abstract;
 using CulturNary.DAL.Concrete;
@@ -31,7 +33,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     .UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<SiteUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -48,6 +50,9 @@ builder.Services.AddReCaptcha(options => {
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+builder.Services.Configure<AzureStorageConfig>(builder.Configuration.GetSection("AzureStorageConfig"));
+
+builder.Services.AddScoped<ImageStorageService>();
 
 var app = builder.Build();
 

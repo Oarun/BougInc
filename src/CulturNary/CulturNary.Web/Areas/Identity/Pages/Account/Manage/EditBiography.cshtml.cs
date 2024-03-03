@@ -4,20 +4,22 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CulturNary.Web.Areas.Identity.Data;
+using CulturNary.Web.Data.Migrations;
 
 namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
 {
-    public class SetPasswordModel : PageModel
+    public class BiographyModel : PageModel
     {
         private readonly UserManager<SiteUser> _userManager;
         private readonly SignInManager<SiteUser> _signInManager;
 
-        public SetPasswordModel(
+        public BiographyModel(
             UserManager<SiteUser> userManager,
             SignInManager<SiteUser> signInManager)
         {
@@ -25,12 +27,13 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
+        public string Biography { get; set; }
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        [BindProperty]
-        public InputModel Input { get; set; }
+        public string Username { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -43,26 +46,35 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+        [BindProperty]
+        public InputModel Input { get; set; }
+
+        /// <summary>
+        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+        ///     directly from your code. This API may change or be removed in future releases.
+        /// </summary>
         public class InputModel
         {
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "New password")]
-            public string NewPassword { get; set; }
+            [Display(Name = "Biography")]
+            public string biography { get; set; }
+        }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
+        private async Task LoadAsync(SiteUser user)
+        {
+            var userName = await _userManager.GetUserNameAsync(user);
+            var userData = await _userManager.GetUserAsync(User);
+            Biography = userData.Biography;
+
+            Username = userName;
+
+            Input = new InputModel
+            {
+                biography = Biography
+            };
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -73,42 +85,41 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var hasPassword = await _userManager.HasPasswordAsync(user);
-
-            if (hasPassword)
-            {
-                return RedirectToPage("./ChangePassword");
-            }
-
+            await LoadAsync(user);
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var addPasswordResult = await _userManager.AddPasswordAsync(user, Input.NewPassword);
-            if (!addPasswordResult.Succeeded)
+            if (!ModelState.IsValid)
             {
-                foreach (var error in addPasswordResult.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                await LoadAsync(user);
                 return Page();
             }
 
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your password has been set.";
 
+            var userData = await _userManager.GetUserAsync(User);
+            var biography = userData.Biography;
+
+            if (Input.biography != biography && !string.IsNullOrEmpty(Input.biography))
+            {
+                user.Biography = Input.biography;
+                var updateBiographyResult = await _userManager.UpdateAsync(user);
+                if (!updateBiographyResult.Succeeded)
+                {
+                    StatusMessage = "Unexpected error when trying to edit your biography.";
+                    return RedirectToPage();
+                }
+                StatusMessage = "Your biography has been updated";
+            }
+
+            await _signInManager.RefreshSignInAsync(user);
             return RedirectToPage();
         }
     }

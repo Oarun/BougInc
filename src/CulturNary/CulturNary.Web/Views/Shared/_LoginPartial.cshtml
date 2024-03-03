@@ -1,13 +1,30 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using CulturNary.Web.Areas.Identity.Data
+@inject SignInManager<SiteUser> SignInManager
+@inject UserManager<SiteUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+    var displayName = User.Identity?.Name;
+    var profileImage = user.ProfileImageName;
+    if (user.DisplayName != "")
+    {
+        displayName = user.DisplayName;
+    }
+    if (profileImage == null)
+    {
+        profileImage = "~/Media/ProfileImages/default.png";
+    }
+}
 
 
 <ul class="nav justify-content-end">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link" aria-current="page" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+            <a class="nav-link" aria-current="page" asp-area="Identity" asp-page="/Account/Manage/Profile" title="Manage">Hello @displayName!</a>
+        </li>
+        <li class="nav-item">
+            <img src="@profileImage" alt="Profile Image" class="img-fluid pfp-mini-rounded-circle" />
         </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
