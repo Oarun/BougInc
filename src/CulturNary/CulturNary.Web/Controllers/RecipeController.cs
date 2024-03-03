@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CulturNary.Web.Models;
 using CulturNary.Web.Models.DTO;
-
+using CulturNary.Web.Areas.Identity.Data;
 namespace CulturNary.Web.Controllers
 {
     [Route("api/[controller]")]
