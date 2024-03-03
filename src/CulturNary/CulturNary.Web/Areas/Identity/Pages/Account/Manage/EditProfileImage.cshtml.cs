@@ -11,23 +11,30 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CulturNary.Web.Areas.Identity.Data;
 using CulturNary.Web.Data.Migrations;
+using CulturNary.Web.Services;
 
 namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
 {
-    public class BiographyModel : PageModel
+    public class ProfileImageModel : PageModel
     {
         private readonly UserManager<SiteUser> _userManager;
         private readonly SignInManager<SiteUser> _signInManager;
 
-        public BiographyModel(
+        private readonly ImageStorageService _imageStorageService;
+
+        public ProfileImageModel(
             UserManager<SiteUser> userManager,
-            SignInManager<SiteUser> signInManager)
+            SignInManager<SiteUser> signInManager, ImageStorageService imageStorageService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _imageStorageService = imageStorageService;
         }
 
-        public string Biography { get; set; }
+        [BindProperty]
+        public IFormFile ProfileImage { get; set; }
+
+        public string ProfileImageName { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -59,21 +66,24 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Display(Name = "Biography")]
-            public string biography { get; set; }
+            [Display(Name = "Profile Picture")]
+            public string profileImageName { get; set; }
+
+            public IFormFile profileImage { get; set; }
         }
 
         private async Task LoadAsync(SiteUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var userData = await _userManager.GetUserAsync(User);
-            Biography = userData.Biography;
+            ProfileImageName = userData.ProfileImageName;
 
             Username = userName;
 
             Input = new InputModel
             {
-                biography = Biography
+                profileImageName = ProfileImageName,
+                profileImage = ProfileImage
             };
         }
 
@@ -103,21 +113,26 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-
-            var userData = await _userManager.GetUserAsync(User);
-            var biography = userData.Biography;
-
-            if (Input.biography != biography && !string.IsNullOrEmpty(Input.biography))
+            if(Input.profileImage != null && Input.profileImage.Length > 0 && Input.profileImage != ProfileImage)
             {
-                user.Biography = Input.biography;
-                var updateBiographyResult = await _userManager.UpdateAsync(user);
-                if (!updateBiographyResult.Succeeded)
+
+                var filePath = await _imageStorageService.UploadImageAsync(Input.profileImage);
+                user.ProfileImageName = filePath;
+
+                var updateProfileImageResult = await _userManager.UpdateAsync(user);
+                if (!updateProfileImageResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to edit your biography.";
+                    StatusMessage = "Unexpected error when trying to edit your profile image.";
                     return RedirectToPage();
                 }
-                StatusMessage = "Your biography has been updated";
+                StatusMessage = "Your profile image has been updated";
             }
+            else
+            {
+                StatusMessage = "Unexpected error, image file is empty or corrupted.";
+                return RedirectToPage();
+            }
+
 
             await _signInManager.RefreshSignInAsync(user);
             return RedirectToPage();

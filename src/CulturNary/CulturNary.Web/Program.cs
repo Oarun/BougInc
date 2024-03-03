@@ -8,6 +8,7 @@ using CulturNary.Web.Services;
 using CulturNary.Web.Areas.Identity.Data;
 using Microsoft.Extensions.Options;
 using AspNetCore.ReCaptcha;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,9 @@ builder.Services.AddReCaptcha(options => {
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+builder.Services.Configure<AzureStorageConfig>(builder.Configuration.GetSection("AzureStorageConfig"));
+
+builder.Services.AddScoped<ImageStorageService>();
 
 var app = builder.Build();
 

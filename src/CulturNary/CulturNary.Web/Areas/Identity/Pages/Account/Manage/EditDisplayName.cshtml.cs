@@ -79,7 +79,6 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
-            //StatusMessage = string.Empty; //Clear message
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {

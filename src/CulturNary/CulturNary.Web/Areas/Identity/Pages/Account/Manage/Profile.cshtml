@@ -6,44 +6,50 @@
     Layout = "_Layout.cshtml";
 }
 
-<h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <h1>Test</h1>
-        @if(string.IsNullOrEmpty(Model.DisplayName))
-        {
-            <h1>You have not set a display name.</h1>
-        }
-        else
-        {
-            <h1>@Model.DisplayName</h1>
-        }
-        <form id="edit-displayname" asp-page="EditDisplayName" method="post">
-            <button class="w-100 btn btn-lg profile-btn" type="submit">Edit Name</button>
-        </form>
-        @if(string.IsNullOrEmpty(Model.Biography))
-        {
-            <h1>You have not set a biography.</h1>
-        }
-        else
-        {
-            <h1>@Model.Biography</h1>
-        }
-        <form id="edit-biography" asp-page="EditBiography" method="post">
-            <button class="w-100 btn btn-lg profile-btn" type="submit">Edit Bio</button>
-        </form>
-        @if(string.IsNullOrEmpty(Model.ProfilePicture))
-        {
-            <img src="~/Media/ProfileImages/scrungle.jpg" alt="Profile Image" />
-        }
-        else
-        {
-            <img src="@Model.ProfilePicture" alt="Profile Image" />
-        }
-        <form id="edit-profilepic" asp-page="ChangeProfileImage" method="post">
-            <button class="w-100 btn btn-lg profile-btn" type="submit">Change Profile Image</button>
-        </form>
+<div class="container mt-4">
+    <div class="row align-items-start">
+        <div class="col-md-6 text-center">
+            @if(string.IsNullOrEmpty(Model.DisplayName))
+            {
+                <h2>You have not set a display name.</h2>
+            }
+            else
+            {
+                <h2>@Model.DisplayName</h2>
+            }
+            <div class="profile-bio-box">
+                @if(string.IsNullOrEmpty(Model.Biography))
+                {
+                    <p>You have not set a biography.</p>
+                }
+                else
+                {
+                    <p>@Model.Biography</p>
+                }
+            </div>
+            <form id="edit-displayname" asp-page="EditDisplayName" method="post">
+                <button class="w-30 btn btn-lg profile-btn" type="submit">Edit Display Name</button>
+            </form>
+            <form id="edit-biography" asp-page="EditBiography" method="post">
+                <button class="w-30 btn btn-lg profile-btn" type="submit">Edit Biography</button>
+            </form>
+        </div>
+        <div class="col-md-6 text-center">
+            <br>
+            <br>
+            @if(string.IsNullOrEmpty(Model.ProfilePicture))
+            {
+                <img src="~/Media/ProfileImages/default.png" alt="Profile Image" class="img-fluid pfp-rounded-circle"/>
+            }
+            else
+            {
+                <img src="@Model.ProfilePicture" alt="Profile Image" class="img-fluid pfp-rounded-circle" />
+            }
+            <form id="edit-profilepic" asp-page="EditProfileImage" method="post">
+                <button class="w-20 btn profile-btn" type="submit">Change Profile Image</button>
+            </form>
+        </div>
     </div>
 </div>
 
