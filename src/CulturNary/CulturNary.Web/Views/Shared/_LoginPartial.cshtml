@@ -20,11 +20,9 @@
     }
 }
 
-
 <ul class="nav justify-content-end">
     @if (SignInManager.IsSignedIn(User))
     {
-        var user = await UserManager.GetUserAsync(User);
         var isAdmin = await UserManager.IsInRoleAsync(user, "Admin");
         if (isAdmin)
         {
