@@ -28,6 +28,11 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Collections()
+    {
+        return View();
+    }
+
     [Route("Home/Error/{code?}")]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error(int? code)
