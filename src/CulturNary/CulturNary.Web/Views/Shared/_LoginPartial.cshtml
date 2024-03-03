@@ -5,10 +5,14 @@
 @{
     var user = await UserManager.GetUserAsync(User);
     var displayName = User.Identity?.Name;
-    var profileImage = user.ProfileImageName;
-    if (user.DisplayName != "")
+    string profileImage = null;
+    if (user != null)
     {
-        displayName = user.DisplayName;
+        profileImage = user.ProfileImageName;
+        if (user.DisplayName != "")
+        {
+            displayName = user.DisplayName;
+        }
     }
     if (profileImage == null)
     {
