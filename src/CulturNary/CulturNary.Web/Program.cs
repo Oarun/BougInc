@@ -9,14 +9,28 @@ using CulturNary.Web.Areas.Identity.Data;
 using Microsoft.Extensions.Options;
 using AspNetCore.ReCaptcha;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using Microsoft.Extensions.DependencyInjection;
+using CulturNary.DAL.Abstract;
+using CulturNary.DAL.Concrete;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using CulturNary.Web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+var appConnectionString = builder.Configuration.GetConnectionString("CulturNaryDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CulturNaryDbContextConnection' not found.");
+builder.Services.AddDbContext<CulturNaryDbContext>(options => options
+    .UseLazyLoadingProxies()
+    .UseSqlServer(appConnectionString));
 
+builder.Services.AddScoped<DbContext,CulturNaryDbContext>();
+builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+//add a new repo builder.Services.AddScoped<interface, repo>();
 // Add services to the container.
 //change default connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options
+    .UseLazyLoadingProxies() 
+    .UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<SiteUser>(options => options.SignIn.RequireConfirmedAccount = true)
