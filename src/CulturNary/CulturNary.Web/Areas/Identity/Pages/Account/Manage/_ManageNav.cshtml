@@ -1,9 +1,12 @@
-@inject SignInManager<IdentityUser> SignInManager
+@using CulturNary.Web.Areas.Identity.Data
+
+@inject SignInManager<SiteUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-<ul class="nav nav-pills-custom flex-column">
-    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="phone" asp-page="./Index">Phone</a></li>
+<ul class="nav nav-pills-custom flex-column manage-profile">
+    <li class="nav-item"><a class="nav-link @ManageNavPages.ProfileNavClass(ViewContext)" id="profile" asp-page="./Profile">Profile</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.PhoneNavClass(ViewContext)" id="phone" asp-page="./Phone">Phone</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
     @if (hasExternalLogins)

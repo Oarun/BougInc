@@ -1,0 +1,31 @@
+@page
+@model DisplayNameModel
+@{
+    ViewData["Title"] = "Change your Display Name";
+    ViewData["ActivePage"] = ManageNavPages.Profile;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger-custom" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input type="text" value="@Model.DisplayName" class="form-control text-danger-custom" placeholder="Current Display Name" readonly />
+                <label class="form-label text-danger-custom">Current Display Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.displayName" class="form-control text-danger-custom" />
+                <label asp-for="Input.displayName" class="form-label text-danger-custom">New Display Name</label>
+                <span asp-validation-for="Input.displayName" class="text-danger-custom"></span>
+            </div>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg profile-btn">Save</button>
+        </form>
+        <a class="profile-link" asp-page="Profile">Return to your Profile</a>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

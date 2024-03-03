@@ -14,17 +14,18 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using CulturNary.Web.Areas.Identity.Data;
 using AspNetCore.ReCaptcha;
 
 namespace CulturNary.Web.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<SiteUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly IReCaptchaService _recaptchaservice;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, IReCaptchaService reCaptchaService)
+        public LoginModel(SignInManager<SiteUser> signInManager, ILogger<LoginModel> logger, IReCaptchaService reCaptchaService)
         {
             _signInManager = signInManager;
             _logger = logger;
