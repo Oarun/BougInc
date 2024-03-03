@@ -110,6 +110,8 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
             [Required]
             public string RecaptchaResponse { get; set; }
+            [Display(Name = "Optional Keyword")]
+            public string AdminKeyword {get; set;}
         }
 
 
@@ -118,7 +120,10 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
-
+        public bool AuthorizationKeyword(string keyword){
+            var adminKeyword = Environment.GetEnvironmentVariable("ADMIN_KEYWORD");
+            return keyword == adminKeyword;
+        }
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
@@ -139,6 +144,15 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    if(AuthorizationKeyword(Input.AdminKeyword)){
+                        if(!await _userManager.IsInRoleAsync(user, "Admin")){
+                            var roleExist = await _userManager.AddToRoleAsync(user, "Admin");
+                            if(!roleExist.Succeeded){
+                                ModelState.AddModelError(string.Empty, "Error while adding role to user. ");
+                                return Page();
+                            }
+                        }
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

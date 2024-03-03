@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CulturNary.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using CulturNary.Web.Models.DTO;
-
+using CulturNary.Web.Areas.Identity.Data;
 
 namespace CulturNary.Web.Controllers
 {
@@ -17,9 +17,9 @@ namespace CulturNary.Web.Controllers
     public class PersonController : Controller
     {
         private readonly CulturNaryDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<SiteUser> _userManager;
 
-        public PersonController(CulturNaryDbContext context,  UserManager<IdentityUser> userManager)
+        public PersonController(CulturNaryDbContext context,  UserManager<SiteUser> userManager)
         {
             _context = context;
             _userManager = userManager;

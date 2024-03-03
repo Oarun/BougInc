@@ -33,6 +33,11 @@
                         <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.AdminKeyword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <label asp-for="Input.AdminKeyword">Optional Keyword</label>
+                        <span asp-validation-for="Input.AdminKeyword" class="text-danger"></span>
+                    </div>
                     <input type="hidden" asp-for="Input.RecaptchaResponse" id="recaptchaResponse" />
                     <button id="registerSubmit" type="submit" class="w-100 btn btn-lg text-white register-btn">Register</button>
                 </form>

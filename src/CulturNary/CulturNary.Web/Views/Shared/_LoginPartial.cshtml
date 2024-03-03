@@ -5,10 +5,14 @@
 @{
     var user = await UserManager.GetUserAsync(User);
     var displayName = User.Identity?.Name;
-    var profileImage = user.ProfileImageName;
-    if (user.DisplayName != "")
+    string profileImage = null;
+    if (user != null)
     {
-        displayName = user.DisplayName;
+        profileImage = user.ProfileImageName;
+        if (user.DisplayName != "")
+        {
+            displayName = user.DisplayName;
+        }
     }
     if (profileImage == null)
     {
@@ -16,10 +20,16 @@
     }
 }
 
-
 <ul class="nav justify-content-end">
     @if (SignInManager.IsSignedIn(User))
     {
+        var isAdmin = await UserManager.IsInRoleAsync(user, "Admin");
+        if (isAdmin)
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Users">Manage Users</a>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link" aria-current="page" asp-area="Identity" asp-page="/Account/Manage/Profile" title="Manage">Hello @displayName!</a>
         </li>

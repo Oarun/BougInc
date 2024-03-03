@@ -673,4 +673,60 @@ textarea.form-control {
 
 #addRecipeFormContainer {
     border: 2px solid #353F2D; /* Add border with the desired color */
+}.adminTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin-top: 60px;
+}
+.adminTable th, .adminTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.adminTable th {
+    background-color: #4F7942; /* dark green */
+    color: white;
+}
+.adminTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.adminTable tr:hover {
+    background-color: #ddd;
+}
+.make-admin-button {
+    background-color: #4F7942; /* dark green */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.make-admin-button:hover {
+    background-color: white; 
+    color: #4F7942;
+}
+.delete-user-button {
+    background-color: #4F7942; /* dark green */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.delete-user-button:hover {
+    background-color: white; 
+    color: #4F7942;
 }

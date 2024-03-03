@@ -9,6 +9,7 @@ using CulturNary.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using CulturNary.Web.Models.DTO;
 using System.Runtime.CompilerServices;
+using CulturNary.Web.Areas.Identity.Data;
 
 namespace CulturNary.Web.Controllers
 {
@@ -17,10 +18,10 @@ namespace CulturNary.Web.Controllers
     public class CollectionController : ControllerBase
     {
         private readonly CulturNaryDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<SiteUser> _userManager;
 
 
-        public CollectionController(CulturNaryDbContext context, UserManager<IdentityUser> userManager)
+        public CollectionController(CulturNaryDbContext context, UserManager<SiteUser> userManager)
         {
             _context = context;
             _userManager = userManager;
