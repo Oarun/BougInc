@@ -1,9 +1,9 @@
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    grecaptcha.ready(function() {
-        grecaptcha.execute('6LeE2nwpAAAAAEXBLHPq-3aJX9uYs3cOijVxFWsf', {action: 'submit'}).then(function(token) {
-            document.getElementById('recaptchaResponse').value = token;
-            event.target.submit();
-        });
-    });
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+    var recaptchaResponse = grecaptcha.getResponse();
+    if (recaptchaResponse.length == 0) {
+        e.preventDefault();
+        alert("Please verify the reCAPTCHA");
+    } else {
+        document.getElementById('Input_RecaptchaResponse').value = recaptchaResponse;
+    }
 });

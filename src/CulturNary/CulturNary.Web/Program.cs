@@ -53,6 +53,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("RequireAdministratorRole", 
                         policy => policy.RequireRole("Admin"));
 });
+
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 builder.Services.Configure<AzureStorageConfig>(builder.Configuration.GetSection("AzureStorageConfig"));
