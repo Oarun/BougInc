@@ -9,14 +9,14 @@
     if (user != null)
     {
         profileImage = user.ProfileImageName;
-        if (user.DisplayName != "")
+        if (user.DisplayName != null)
         {
             displayName = user.DisplayName;
         }
     }
-    if (profileImage == null)
+    if (profileImage == null || profileImage == "")
     {
-        profileImage = "~/Media/ProfileImages/default.png";
+        profileImage = "/Media/ProfileImages/default.png";
     }
 }
 
