@@ -136,7 +136,10 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                     return Page();
                 }
                 var user = CreateUser();
-
+                if (user == null)
+                {
+                    _logger.LogInformation("User is null");
+                }
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.EmailConfirmed = true;
@@ -158,14 +161,14 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                     var userId = await _userManager.GetUserIdAsync(user);
 
                     // Create a new Person entity
-                    var person = new Person
-                    {
-                        IdentityId = user.Id,
-                        // Set other properties of the Person entity as needed
-                    };
-                    // Add the Person entity to the CulturNary DbContext and save changes
-                    _culturNaryDbContext.People.Add(person);
-                    await _culturNaryDbContext.SaveChangesAsync();
+                    // var person = new Person
+                    // {
+                    //     IdentityId = user.Id,
+                    //     // Set other properties of the Person entity as needed
+                    // };
+                    // // Add the Person entity to the CulturNary DbContext and save changes
+                    // _culturNaryDbContext.People.Add(person);
+                    // await _culturNaryDbContext.SaveChangesAsync();
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
