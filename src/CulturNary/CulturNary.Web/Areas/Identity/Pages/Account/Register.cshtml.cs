@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using CulturNary.Web.Areas.Identity.Data;
-using RecaptchaNet;
+using AspNetCore.ReCaptcha;
 using CulturNary.Web.Models; 
 using CulturNary.Web.Data;
 
@@ -33,7 +33,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<SiteUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly IRecaptcha _recaptcha;
+        private readonly IReCaptchaService _recaptcha;
         private readonly CulturNaryDbContext _culturNaryDbContext;
 
         public RegisterModel(
@@ -42,7 +42,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             SignInManager<SiteUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IRecaptcha recaptcha,
+            IReCaptchaService recaptcha,
             CulturNaryDbContext culturNaryDbContext)
         {
             _userManager = userManager;
@@ -73,6 +73,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
+        
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -129,8 +130,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var recaptchaResponse = await _recaptcha.VerifyAsync(Input.RecaptchaResponse);
-                if(!recaptchaResponse.Success || recaptchaResponse.Score < 0.5){
+                if(Input.RecaptchaResponse == ""){
                     ModelState.AddModelError(string.Empty, "You failed the CAPTCHA.");
                     return Page();
                 }
