@@ -1,39 +1,14 @@
--- Drop foreign key constraints in PersonFood table if it exists
-IF OBJECT_ID('PersonFood', 'U') IS NOT NULL
-BEGIN
-    ALTER TABLE PersonFood DROP CONSTRAINT IF EXISTS FK_PersonFood_Person;
-    DROP TABLE PersonFood;
-END;
+-- Drop the foreign key constraint in Recipes table
+ALTER TABLE Recipes DROP CONSTRAINT FK_Recipes_Person;
 
--- Drop foreign key constraints in PersonRecipe table if it exists
-IF OBJECT_ID('PersonRecipe', 'U') IS NOT NULL
-BEGIN
-    ALTER TABLE PersonRecipe DROP CONSTRAINT IF EXISTS FK_PersonRecipe_Person;
-    DROP TABLE PersonRecipe;
-END;
+-- Drop the foreign key constraint in Collections table
+ALTER TABLE Collections DROP CONSTRAINT FK_Collections_Person;
 
--- Drop foreign key constraints in RecipeIngredient table if it exists
-IF OBJECT_ID('RecipeIngredient', 'U') IS NOT NULL
-BEGIN
-    ALTER TABLE RecipeIngredient DROP CONSTRAINT IF EXISTS FK_RecipeIngredient_Recipes;
-    ALTER TABLE RecipeIngredient DROP CONSTRAINT IF EXISTS FK_RecipeIngredient_Foods;
-    DROP TABLE RecipeIngredient;
-END;
+-- Drop the Recipes table
+DROP TABLE Recipes;
 
--- Drop the Recipes table if it exists
-IF OBJECT_ID('Recipes', 'U') IS NOT NULL
-BEGIN
-    DROP TABLE Recipes;
-END;
+-- Drop the Collections table
+DROP TABLE Collections;
 
--- Drop the Foods table if it exists
-IF OBJECT_ID('Foods', 'U') IS NOT NULL
-BEGIN
-    DROP TABLE Foods;
-END;
-
--- Drop the Person table if it exists
-IF OBJECT_ID('Person', 'U') IS NOT NULL
-BEGIN
-    DROP TABLE Person;
-END;
+-- Drop the Person table
+DROP TABLE Person;
