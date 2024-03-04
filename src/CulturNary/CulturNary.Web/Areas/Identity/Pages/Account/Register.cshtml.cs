@@ -19,10 +19,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using CulturNary.Web.Areas.Identity.Data;
-using AspNetCore.ReCaptcha;
+using RecaptchaNet;
 using CulturNary.Web.Models; 
 using CulturNary.Web.Data;
-
 
 namespace CulturNary.Web.Areas.Identity.Pages.Account
 {
@@ -34,7 +33,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<SiteUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly IReCaptchaService _recaptchaservice;
+        private readonly IRecaptcha _recaptcha;
         private readonly CulturNaryDbContext _culturNaryDbContext;
 
         public RegisterModel(
@@ -43,7 +42,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             SignInManager<SiteUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IReCaptchaService reCaptchaService,
+            IRecaptcha recaptcha,
             CulturNaryDbContext culturNaryDbContext)
         {
             _userManager = userManager;
@@ -52,7 +51,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _recaptchaservice = reCaptchaService;
+            _recaptcha = recaptcha;
             _culturNaryDbContext = culturNaryDbContext;
         }
 
@@ -130,8 +129,8 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var recaptchaResponse = await _recaptchaservice.VerifyAsync(Input.RecaptchaResponse);
-                if(!recaptchaResponse){
+                var recaptchaResponse = await _recaptcha.VerifyAsync(Input.RecaptchaResponse);
+                if(!recaptchaResponse.Success || recaptchaResponse.Score < 0.5){
                     ModelState.AddModelError(string.Empty, "You failed the CAPTCHA.");
                     return Page();
                 }
