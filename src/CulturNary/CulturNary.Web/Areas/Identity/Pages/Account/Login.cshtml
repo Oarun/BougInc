@@ -33,7 +33,6 @@
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
                         </label>
                     </div>
-                    <input type="hidden" asp-for="Input.RecaptchaResponse" id="recaptchaResponse" />
                     <button id="login-submit" type="submit" class="w-100 btn btn-lg text-white login-btn">Log in</button>
                 </form>
                 <hr>
@@ -71,8 +70,3 @@
     </div>
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="https://www.google.com/recaptcha/api.js?render=6LeE2nwpAAAAAEXBLHPq-3aJX9uYs3cOijVxFWsf" async defer></script>
-    <script src="~/js/recaptcha.js" asp-append-version="true"></script>
-}
