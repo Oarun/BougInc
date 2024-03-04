@@ -136,7 +136,10 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                     return Page();
                 }
                 var user = CreateUser();
-
+                if (user == null)
+                {
+                    _logger.LogInformation("User is null");
+                }
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.EmailConfirmed = true;
