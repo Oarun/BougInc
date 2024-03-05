@@ -1,0 +1,26 @@
+﻿@{
+}
+
+<section class="text-center py-5 row search-engine-section p-3 row">
+    <div class="col-md-4 col-sm-12">
+        <div class="selection-menu search-menu-section">
+            <div class="d-flex justify-content-center align-items-center">
+                <a asp-controller="Home" asp-action="SearchEngines" class="nutrition-search-btn icon-btn">
+                    Recipes
+                </a>
+                <img class="nutrition-btn" src="/media/icons8-healthy-eating-50.png" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <div class="text-center">
+            <h1 class="display-3 text-center">Search...</h1>
+            <label for="ingredients">Enter Food or Recipe:</label>
+            <form id="searchForm">
+                <input class="search-engine w-75" type="text" id="ingredients" name="ingredients" placeholder="Enter a search...">
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+            <div id="searchResults"></div>
+        </div>
+    </div>
+</section>
