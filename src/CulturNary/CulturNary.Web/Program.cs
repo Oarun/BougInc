@@ -21,8 +21,11 @@ builder.Services.AddDbContext<CulturNaryDbContext>(options => options
     .UseLazyLoadingProxies()
     .UseSqlServer(appConnectionString));
 
+
 builder.Services.AddScoped<DbContext,CulturNaryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+builder.Services.AddScoped<IRecipeSearchService, RecipeSearchService>();
+
 //add a new repo builder.Services.AddScoped<interface, repo>();
 // Add services to the container.
 //change default connection

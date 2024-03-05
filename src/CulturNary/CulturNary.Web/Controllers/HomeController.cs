@@ -32,6 +32,15 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult SearchEngines()
+    {
+        return View();
+    }
+
+    public IActionResult RecipeSearchEngine()
+    {
+        return View();
+    }
 
     [Route("Home/Error/{code?}")]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
