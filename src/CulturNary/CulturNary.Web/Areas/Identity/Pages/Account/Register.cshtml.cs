@@ -18,27 +18,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using CulturNary.Web.Areas.Identity.Data;
 using AspNetCore.ReCaptcha;
+using CulturNary.Web.Models; 
+using CulturNary.Web.Data;
 
 namespace CulturNary.Web.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly SignInManager<SiteUser> _signInManager;
+        private readonly UserManager<SiteUser> _userManager;
+        private readonly IUserStore<SiteUser> _userStore;
+        private readonly IUserEmailStore<SiteUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly IReCaptchaService _recaptchaservice;
+        private readonly IReCaptchaService _recaptcha;
+        private readonly CulturNaryDbContext _culturNaryDbContext;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            IUserStore<IdentityUser> userStore,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<SiteUser> userManager,
+            IUserStore<SiteUser> userStore,
+            SignInManager<SiteUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IReCaptchaService reCaptchaService)
+            IReCaptchaService recaptcha,
+            CulturNaryDbContext culturNaryDbContext)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -46,8 +51,8 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _recaptchaservice = reCaptchaService;
-            
+            _recaptcha = recaptcha;
+            _culturNaryDbContext = culturNaryDbContext;
         }
 
         /// <summary>
@@ -68,6 +73,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
+        
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -124,13 +130,15 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var recaptchaResponse = await _recaptchaservice.VerifyAsync(Input.RecaptchaResponse);
-                if(!recaptchaResponse){
+                if(Input.RecaptchaResponse == ""){
                     ModelState.AddModelError(string.Empty, "You failed the CAPTCHA.");
                     return Page();
                 }
                 var user = CreateUser();
-
+                if (user == null)
+                {
+                    _logger.LogInformation("User is null");
+                }
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.EmailConfirmed = true;
@@ -150,6 +158,17 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
+                    // Create a new Person entity
+                    var person = new Person
+                    {
+                        IdentityId = user.Id,
+                        // Set other properties of the Person entity as needed
+                    };
+                    // Add the Person entity to the CulturNary DbContext and save changes
+                    _culturNaryDbContext.People.Add(person);
+                    await _culturNaryDbContext.SaveChangesAsync();
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
@@ -185,27 +204,27 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private SiteUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<SiteUser>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(SiteUser)}'. " +
+                    $"Ensure that '{nameof(SiteUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<IdentityUser> GetEmailStore()
+        private IUserEmailStore<SiteUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<IdentityUser>)_userStore;
+            return (IUserEmailStore<SiteUser>)_userStore;
         }
     }
 }

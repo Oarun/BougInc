@@ -1,3 +1,4 @@
+using CulturNary.Web.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 [Route("Admin")]
 public class AdminController : Controller
 {
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<SiteUser> _userManager; 
 
-    public AdminController(UserManager<IdentityUser> userManager)
+    public AdminController(UserManager<SiteUser> userManager)
     {
         _userManager = userManager;
     }
-    public async Task<bool> IsUserAdmin(IdentityUser user)
+    public async Task<bool> IsUserAdmin(SiteUser user)
     {
         var roles = await _userManager.GetRolesAsync(user);
         return roles.Contains("Admin");
@@ -23,7 +24,7 @@ public class AdminController : Controller
     public async Task<IActionResult> Users()
     {
         var users = await _userManager.Users.AsNoTracking().ToListAsync();
-        var userIsAdmin = new Dictionary<IdentityUser, bool>();
+        var userIsAdmin = new Dictionary<SiteUser, bool>();
         foreach (var user in users)
         {
             userIsAdmin[user] = await IsUserAdmin(user);

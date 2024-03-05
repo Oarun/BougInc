@@ -1,0 +1,98 @@
+@{
+    ViewData["Title"] = "Collections Page";
+}
+
+<div class="collections-page">
+    <div class="container pt-5">
+        <h1 class="container-title">Collections</h1>
+        <div class="row pt-5 text-center">
+            <!-- Column for creating a new CollectionDto (4 columns) -->
+            <div class="col-md-6" id="createCollectionFormContainer">
+                <h2>Create New Collection</h2>
+                <!-- Add your form here to create a new CollectionDto -->
+                <form id="createCollectionForm">
+                    <div class="mb-3">
+                        <label for="collectionName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="collectionName" placeholder="Enter collection name"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="collectionDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="collectionDescription"
+                            placeholder="Enter collection description"></textarea>
+                    </div>
+                    <button type="submit" class="btn-collections">Create Collection</button>
+                </form>
+            </div>
+            <div class="col-md-6" id="editCollectionFormContainer" style="display: none;">
+                <h2>Edit Collection</h2>
+                <!-- Form for editing an existing collection -->
+                <form id="editCollectionForm">
+                    <input type="hidden" id="editCollectionId" name="collectionId">
+                    <div class="mb-3">
+                        <label for="editCollectionName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="editCollectionName"
+                            placeholder="Enter collection name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCollectionDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="editCollectionDescription"
+                            placeholder="Enter collection description"></textarea>
+                    </div>
+                    <button type="submit" class="btn-collections">Save Changes</button>
+                </form>
+            </div>
+            <!-- Section to display collection recipes when clicked -->
+            <div id="collectionDetailsContainer" class="col-md-6 collection-details-container" style="display: none;">
+                <h2 id="collectionTitle"></h2>
+                <i class="fas fa-plus add-recipe-icon"> Add a Recipe</i>
+                <!-- Form for adding a new recipe -->
+                <div class="col-md-8 offset-md-2" id="addRecipeFormContainer" style="display: none;">
+                    <!-- Adjusted column width and added offset for centering -->
+                    <h2>Add New Recipe</h2>
+                    <form id="addRecipeForm">
+                        <input type="hidden" id="collectionId" name="collectionId">
+                        <div class="mb-3">
+                            <label for="recipeName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="recipeName" placeholder="Enter recipe name"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipeDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="recipeDescription"
+                                placeholder="Enter recipe description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="collections" class="form-check-label">Select Collections to add recipe</label>
+                            <div id="collections">
+                                <!-- Render checkboxes dynamically based on available collections -->
+                            </div>
+                        </div>
+                        <!-- Add other fields for recipe -->
+                        <button type="submit" class="btn-recipes">Add Recipe</button>
+                    </form>
+                </div>
+                <p id="collectionDescription"></p>
+                <ul id="collectionRecipes"></ul>
+            </div> <!-- Column for displaying existing collections -->
+            <div class="col-md-6 text-center">
+                <h3>Your Current Collections</h3>
+                <h5>
+                    <i class="fas fa-plus add-collection-icon"> Add a Collection</i>
+                </h5>
+                
+                <!-- Message for no collections (hidden by default) -->
+                <div class="row">
+                    <div class="col">
+                        <div class="text-center mt-3" id="noCollectionsMessage" style="display: none;">
+                            <p>Start by creating your first Collection.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="collectionContainer" class="collection-container">
+                    <!-- Collection cards will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

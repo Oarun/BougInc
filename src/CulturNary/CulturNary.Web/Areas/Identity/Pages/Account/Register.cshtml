@@ -34,11 +34,12 @@
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <input asp-for="Input.AdminKeyword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <input asp-for="Input.AdminKeyword" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
                         <label asp-for="Input.AdminKeyword">Optional Keyword</label>
                         <span asp-validation-for="Input.AdminKeyword" class="text-danger"></span>
                     </div>
-                    <input type="hidden" asp-for="Input.RecaptchaResponse" id="recaptchaResponse" />
+                    <input type="hidden" asp-for="Input.RecaptchaResponse" />
+                    <div class="g-recaptcha" data-sitekey="6LddA4kpAAAAAB6sG3wpaSFTqu6l5Tc88gOtRVj-"></div>
                     <button id="registerSubmit" type="submit" class="w-100 btn btn-lg text-white register-btn">Register</button>
                 </form>
                 <hr>
@@ -65,6 +66,6 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="https://www.google.com/recaptcha/api.js?render=6LeE2nwpAAAAAEXBLHPq-3aJX9uYs3cOijVxFWsf" async defer></script>
-    <script src="~/js/recaptchaForRegistration.js" asp-append-version="true"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="~/js/recaptchaForRegistration.js"></script>
 }

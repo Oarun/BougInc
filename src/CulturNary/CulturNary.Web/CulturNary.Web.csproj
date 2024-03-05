@@ -6,24 +6,27 @@
     <UserSecretsId>aspnet-CulturNary.Web-96eb2941-870d-4997-8d64-87a79f6ae2f8</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1"/>
+    <PackageReference Include="Captcha.NET" Version="1.2.1"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.1"/>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2"/>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1"/>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.1"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
-    <PackageReference Include="SendGrid" Version="9.29.2" />
-    <PackageReference Include="GoogleRecaptchaMvc" Version="1.0.1" />
-    <PackageReference Include="AspNetCore.ReCaptcha" Version="1.8.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.2"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0"/>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1"/>
+    <PackageReference Include="RecaptchaNet" Version="3.1.0"/>
+    <PackageReference Include="SendGrid" Version="9.29.2"/>
+    <PackageReference Include="GoogleRecaptchaMvc" Version="1.0.1"/>
+    <PackageReference Include="AspNetCore.ReCaptcha" Version="1.8.1"/>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
   </ItemGroup>
 </Project>

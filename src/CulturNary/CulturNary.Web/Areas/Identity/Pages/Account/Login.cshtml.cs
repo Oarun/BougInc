@@ -14,21 +14,20 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using AspNetCore.ReCaptcha;
+using CulturNary.Web.Areas.Identity.Data;
+
 
 namespace CulturNary.Web.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<SiteUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-        private readonly IReCaptchaService _recaptchaservice;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, IReCaptchaService reCaptchaService)
+        public LoginModel(SignInManager<SiteUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
-            _recaptchaservice = reCaptchaService;
         }
 
         /// <summary>
@@ -85,8 +84,6 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             /// </summary>
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
-            [Required]
-            public string RecaptchaResponse { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -114,11 +111,6 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var recaptchaResponse = await _recaptchaservice.VerifyAsync(Input.RecaptchaResponse);
-                if(!recaptchaResponse){
-                    ModelState.AddModelError(string.Empty, "You failed the CAPTCHA.");
-                    return Page();
-                }
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
 
