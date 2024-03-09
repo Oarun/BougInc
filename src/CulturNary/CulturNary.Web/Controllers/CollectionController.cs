@@ -46,7 +46,8 @@ namespace CulturNary.Web.Controllers
                                         Id = c.Id,
                                         PersonId = c.PersonId,
                                         Name = c.Name,
-                                        Description = c.Description
+                                        Description = c.Description,
+                                        Tags = c.Tags
                                         // Map additional properties if needed
                                     })
                                     .ToListAsync();
@@ -66,7 +67,8 @@ namespace CulturNary.Web.Controllers
                     Id = c.Id,
                     PersonId = c.PersonId,
                     Name = c.Name,
-                    Description = c.Description
+                    Description = c.Description,
+                    Tags = c.Tags
                     // Map additional properties if needed
                 })
                 .FirstOrDefaultAsync();
@@ -131,7 +133,8 @@ namespace CulturNary.Web.Controllers
             {
                 PersonId = collectionDto.PersonId,
                 Name = collectionDto.Name,
-                Description = collectionDto.Description
+                Description = collectionDto.Description,
+                Tags = collectionDto.Tags
             };
 
             _context.Collections.Add(collection);
@@ -142,7 +145,8 @@ namespace CulturNary.Web.Controllers
             {
                 Id = collection.Id,
                 Name = collection.Name,
-                Description = collection.Description
+                Description = collection.Description,
+                Tags = collection.Tags
             };
 
             return CreatedAtAction("GetCollection", new { id = collection.Id }, createdCollectionDto);
