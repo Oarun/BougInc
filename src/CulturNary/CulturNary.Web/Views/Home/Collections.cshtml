@@ -4,13 +4,14 @@
 
 <div class="collections-page">
     <div class="container pt-5">
-        <h1 class="container-title">Collections</h1>
+        <br>
+        <h1 class="container-title collections-text-light">Collections</h1>
         <div class="row pt-5 text-center">
             <!-- Column for creating a new CollectionDto (4 columns) -->
             <div class="col-md-6" id="createCollectionFormContainer">
                 <h2>Create New Collection</h2>
                 <!-- Add your form here to create a new CollectionDto -->
-                <form id="createCollectionForm">
+                <form class= id="createCollectionForm">
                     <div class="mb-3">
                         <label for="collectionName" class="form-label">Name</label>
                         <input type="text" class="form-control" id="collectionName" placeholder="Enter collection name"
@@ -45,7 +46,7 @@
             <!-- Section to display collection recipes when clicked -->
             <div id="collectionDetailsContainer" class="col-md-6 collection-details-container" style="display: none;">
                 <h2 id="collectionTitle"></h2>
-                <i class="fas fa-plus add-recipe-icon"> Add a Recipe</i>
+                <i class="fas fa-plus add-recipe-icon btn-collections"> Add a Recipe</i>
                 <!-- Form for adding a new recipe -->
                 <div class="col-md-8 offset-md-2" id="addRecipeFormContainer" style="display: none;">
                     <!-- Adjusted column width and added offset for centering -->
@@ -69,17 +70,36 @@
                             </div>
                         </div>
                         <!-- Add other fields for recipe -->
-                        <button type="submit" class="btn-recipes">Add Recipe</button>
+                        <button type="submit" class="btn-recipes">Add Recipe</button>                        
                     </form>
+                    <button id="backButton" class="btn-back">Back</button>
+                </div>
+                <i class="fas fa-plus add-tags-icon btn-collections" id="addTagIcon"> Add Tags</i>
+                <br>
+                <button id="showTags" class="btn-back"> Show Tags</button>
+                <div class="col-md-8 offset-md-2" id="displayTagsContainer" style="display:none">
+                    <!-- Tags will be displayed here -->
+                    <p>test tag show</p>
+                </div>
+                <div class="col-md-8 offset-md-2" id="addTagsFormContainer" style="display:none">
+                    <!-- Form for Adding Tags -->
+                    <div class="mb-3">
+                        <form id="addTagsForm">
+                            <label for="collectionTags" class="form-label">Tags</label>
+                            <textarea class="form-control" id="collectionTags" placeholder="Enter tags separated by commas"></textarea>
+                            <button id="updateTags" class="btn-recipes">Update Tags</button>
+                        </form>
+                    </div>
                 </div>
                 <p id="collectionDescription"></p>
                 <ul id="collectionRecipes"></ul>
             </div> <!-- Column for displaying existing collections -->
             <div class="col-md-6 text-center">
-                <h3>Your Current Collections</h3>
+                <h3 class ="collections-text-light">Your Current Collections</h3>
                 <h5>
-                    <i class="fas fa-plus add-collection-icon"> Add a Collection</i>
+                    <i class="fas fa-plus add-collection-icon btn-collections-light"> Add a Collection</i>
                 </h5>
+                <br>
                 
                 <!-- Message for no collections (hidden by default) -->
                 <div class="row">

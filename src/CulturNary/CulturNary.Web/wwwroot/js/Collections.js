@@ -63,6 +63,26 @@ $(document).ready(function () {
         console.log(currentCollectionId);
     });
 
+    // Event listener for clicking the "Back" button in the add recipe form
+    $('#backButton').on('click', function() {
+        // This line hides the form
+        $('#addRecipeFormContainer').hide();
+    });
+
+    // Event listener for clicking the "Show Tags" button
+    $('#showTags').on('click', function () {
+        $('#addRecipeFormContainer').hide();
+        $('#addTagsFormContainer').hide();
+        $('#displayTagsContainer').show();
+    });
+
+    // Event Listener for clicking the "Add Tags" icon
+    $('#addTagIcon').on('click', function () {
+        $('#addRecipeFormContainer').hide();
+        $('#displayTagsContainer').hide();
+        $('#addTagsFormContainer').show();
+    });
+
     $('#addRecipeForm').on('submit', function (event) {
         event.preventDefault();
         var recipeName = $('#recipeName').val();

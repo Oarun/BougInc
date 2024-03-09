@@ -542,6 +542,14 @@ body.identity .manage button:hover {
     margin-bottom: 0;
 }
 
+.collections-text-light{
+    color: #DCEDCF;
+}
+
+.collections-text-dark{
+    color: #353F2D;
+}
+
 .btn-collections {
     background-color: #353F2D;
     color: #DCEDCF;
@@ -549,10 +557,28 @@ body.identity .manage button:hover {
     text-align: center;
 }
 
+.btn-collections-light {
+    background-color: #DCEDCF;
+    color: #353F2D;
+    text-decoration: none;
+    text-align: center;
+    border: 2px solid #DCEDCF;
+    padding: 0.25rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 150px;
+}
+
 .btn-recipes {
     background-color: #353F2D;
     color: #DCEDCF;
     text-decoration: none;
+}
+
+.btn-back{
+    color: #353F2D;
+    text-decoration:underline;
+    border: none;
+    background-color: #DCEDCF;
 }
 
 .icon-margin {
@@ -573,6 +599,11 @@ body.identity .manage button:hover {
 .card-body .delete-collection:hover {
     cursor: pointer;
     /* Change cursor to pointer to indicate interaction */
+}
+
+.card-body{
+    background-color: #DCEDCF;
+    color: #353F2D;
 }
 
 .collectionDetailsContainer {
@@ -655,7 +686,8 @@ textarea.form-control {
 #createCollectionFormContainer,
 #editCollectionFormContainer,
 #addRecipeFormContainer {
-    background-color: #f9f9f9;
+    background-color: #DCEDCF;
+    color: #353F2D;
     /* padding: 1rem; */
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -663,7 +695,8 @@ textarea.form-control {
 }
 
 #collectionDetailsContainer {
-    background-color: #f9f9f9;
+    background-color: #DCEDCF;
+    color: #353F2D;
     /* padding: 1rem; */
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
