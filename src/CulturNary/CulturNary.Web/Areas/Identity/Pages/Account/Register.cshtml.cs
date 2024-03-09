@@ -159,6 +159,9 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                             }
                         }
                     }
+                    else{
+                        await _userManager.AddToRoleAsync(user, "Signed");
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
