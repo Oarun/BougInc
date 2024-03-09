@@ -34,9 +34,11 @@
                     </ul>
                     <partial name="_LoginPartial" />
                     <ul class="nav justify-content-end">
+                        @if (User.Identity.IsAuthenticated){
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="SearchEngines"><img src="/media/icons8-search-50.png" width="20" /></a>
                         </li>
+                        }
                     </ul>
                 </div>
             </div>
