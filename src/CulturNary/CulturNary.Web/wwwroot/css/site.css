@@ -924,3 +924,11 @@ textarea.form-control {
 #recipeModalLabel {
     color: #353F2D
 }
+#collections ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+#collections li {
+    margin-bottom: 10px;
+}
