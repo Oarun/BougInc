@@ -135,6 +135,36 @@ $(document).ready(function () {
     });
 });
 
+$('#addTagsForm').on('submit', function (event) {
+    event.preventDefault();
+    var collectionTagsNew = $('#collectionTagsEdit').val();
+
+    // Store tags in temporary JSON object
+    var tagsData = {
+        id: currentCollectionId,
+        name: $('#collectionName').val(),
+        description: $('#collectionDescription').val(),
+        tags: collectionTagsNew
+    };
+
+    // Make an AJAX Post request for the current collection
+    $.ajax({
+        url: '/api/Collection/Tags/' + currentCollectionId,
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(tagsData),
+        success: function (data) {
+            // Tags added successfully
+            console.log('Tags added successfully to collection:' + currentCollectionId + ':', data);
+        },
+        error: function (xhr, status, error) {
+            // Error handling code
+            console.error('Error adding tags to collection ' + currentCollectionId + ':', error);
+            // Display an error message to the user or handle the error in any other way
+        }
+    });
+});
+
 function getPerson() {
     $.ajax({
         url: '/api/Person/GetCurrentPerson',
@@ -163,6 +193,7 @@ function getCollection() {
                 var cardBody = $('<div class="card-body text-center"></div>');
                 cardBody.append(`<h5 class="card-title">${collection.name}</h5>`);
                 cardBody.append(`<p class="card-text">${collection.description}</p>`);
+                cardBody.append(`<p class="card-tags" style="display:none">${collection.tags}</p>`);
                 var trashIcon = $(`<i class="fas fa-trash-alt icon-margin delete-collection" data-collection-id="${collection.id}"></i>`);
                 var pencilIcon = $(`<i class="fas fa-pencil-alt pencil-icon" data-collection-id="${collection.id}"></i>`);
                 cardBody.append(trashIcon);
@@ -259,11 +290,31 @@ $('#collectionContainer').on('click', '.collection-card', function () {
     console.log(collectionName)
     console.log('you are here')
     var collectionDescription = $(this).find('.collection-description').text();
+    var collectionTags = $(this).find('.card-tags').text();
+    console.log(collectionTags)
+
+    if(!collectionTags || !collectionTags.trim() || collectionTags == "null"){
+        $('#collectionTagsDisplay').text("No tags found for this collection.");
+    }
+    else{
+        console.log('tags found')
+        $('#collectionsTagsEdit').text(collectionTags);
+        var tags = collectionTags.split(',');
+        var tagList = $('#tagList');
+        tagList.empty();
+        tags.forEach(tag => {
+            tagList.append(`<li>${tag}</li>`);
+        });
+        $('#collectionTagsDisplay').html(tagList);
+    }
+
 
     // Hide the create and edit collection form and recipe form
     $('#createCollectionFormContainer').hide();
     $('#editCollectionFormContainer').hide();
     $('#addRecipeFormContainer').hide();
+    $('#addTagsFormContainer').hide();
+    $('#displayTagsContainer').hide();
     // Populate and show collection details
     $('#collectionTitle').text(collectionName + " Collection");
     $('#collectionDescription').text(collectionDescription);

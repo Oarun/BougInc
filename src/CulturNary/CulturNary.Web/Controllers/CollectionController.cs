@@ -123,6 +123,45 @@ namespace CulturNary.Web.Controllers
             return NoContent();
         }
 
+        // PUT: api/Collection/Tags/5
+        [HttpPut("Tags/{id}")]
+        public async Task<IActionResult> PutCollectionTags(int id, CollectionDto collectionDto)
+        {
+            if (id != collectionDto.Id)
+            {
+                return BadRequest();
+            }
+
+            // Retrieve the collection entity from the database
+            var collection = await _context.Collections.FindAsync(id);
+            if (collection == null)
+            {
+                return NotFound();
+            }
+
+            // Update the properties of the retrieved collection entity
+            collection.Tags = collectionDto.Tags;
+
+            try
+            {
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CollectionExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // POST: api/Collection
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

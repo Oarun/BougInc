@@ -74,19 +74,19 @@
                     </form>
                     <button id="backButton" class="btn-back">Back</button>
                 </div>
-                <i class="fas fa-plus add-tags-icon btn-collections" id="addTagIcon"> Add Tags</i>
+                <i class="fas fa-plus add-tags-icon btn-collections" id="addTagIcon"> Add/Edit Tags</i>
                 <br>
                 <button id="showTags" class="btn-back"> Show Tags</button>
                 <div class="col-md-8 offset-md-2" id="displayTagsContainer" style="display:none">
                     <!-- Tags will be displayed here -->
-                    <p>test tag show</p>
+                    <p id="collectionTagsDisplay"></p>
                 </div>
                 <div class="col-md-8 offset-md-2" id="addTagsFormContainer" style="display:none">
                     <!-- Form for Adding Tags -->
                     <div class="mb-3">
                         <form id="addTagsForm">
-                            <label for="collectionTags" class="form-label">Tags</label>
-                            <textarea class="form-control" id="collectionTags" placeholder="Enter tags separated by commas"></textarea>
+                            <label for="collectionTagsEdit" class="form-label">Tags</label>
+                            <textarea class="form-control" id="collectionTagsEdit" placeholder="Enter tags separated by commas"></textarea>
                             <button id="updateTags" class="btn-recipes">Update Tags</button>
                         </form>
                     </div>
@@ -105,7 +105,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="text-center mt-3" id="noCollectionsMessage" style="display: none;">
-                            <p>Start by creating your first Collection.</p>
+                            <p class ="collections-text-light">Start by creating your first Collection.</p>
                         </div>
                     </div>
                 </div>
