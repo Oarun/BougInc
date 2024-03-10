@@ -631,6 +631,15 @@ body.identity .manage button:hover {
     cursor: pointer;
 }
 
+.tag-item {
+    display: inline-block; /* Keep them in line */
+    margin-right: 10px; /* Space between tags */
+    padding: 5px; /* Padding inside the border */
+    border: 2px solid #353F2D; /* Border color */
+    border-radius: 5px; /* Optional: rounded corners */
+    white-space: nowrap; /* Prevents the text from wrapping */
+}
+
 .container {
     padding-top: 10px;
     padding-bottom: 0 !important; /* Reduce bottom padding */

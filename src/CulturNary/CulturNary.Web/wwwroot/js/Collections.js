@@ -156,6 +156,7 @@ $('#addTagsForm').on('submit', function (event) {
         success: function (data) {
             // Tags added successfully
             console.log('Tags added successfully to collection:' + currentCollectionId + ':', data);
+            getCollection();
         },
         error: function (xhr, status, error) {
             // Error handling code
@@ -291,20 +292,24 @@ $('#collectionContainer').on('click', '.collection-card', function () {
     console.log('you are here')
     var collectionDescription = $(this).find('.collection-description').text();
     var collectionTags = $(this).find('.card-tags').text();
-    console.log(collectionTags)
+    //console.log(collectionTags)
 
-    if(!collectionTags || !collectionTags.trim() || collectionTags == "null"){
+    //Run tag update
+    //updateTags(collectionTags);
+
+    if(collectionTags == null || collectionTags == "" || collectionTags == "null"){
         $('#collectionTagsDisplay').text("No tags found for this collection.");
+        $('#collectionTagsEdit').empty();
     }
     else{
         console.log('tags found')
-        $('#collectionsTagsEdit').text(collectionTags);
+        $('#collectionTagsEdit').text(collectionTags);
         var tags = collectionTags.split(',');
-        var tagList = $('#tagList');
-        tagList.empty();
+        var tagList = "";
         tags.forEach(tag => {
-            tagList.append(`<li>${tag}</li>`);
+            tagList += `<p class="tag-item">${tag}</p>`;
         });
+        console.log(tagList);
         $('#collectionTagsDisplay').html(tagList);
     }
 
