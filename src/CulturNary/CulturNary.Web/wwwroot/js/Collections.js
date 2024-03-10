@@ -171,6 +171,7 @@ $('#addTagsForm').on('submit', function (event) {
             updateTags(collectionTagsNew);
             getCollection();
             $('#addTagsFormContainer').hide();
+            $('#collectionTagsEdit').empty();
             $('#displayTagsContainer').show();
             $('#showTags').hide();
             $('#hideTags').show();
@@ -312,6 +313,7 @@ $('#collectionContainer').on('click', '.collection-card', function () {
     //console.log(collectionTags)
 
     //Run tag update
+    $('#collectionTagsEdit').empty();
     updateTags(collectionTags);
 
     // Hide the create and edit collection form and recipe form
@@ -320,6 +322,8 @@ $('#collectionContainer').on('click', '.collection-card', function () {
     $('#addRecipeFormContainer').hide();
     $('#addTagsFormContainer').hide();
     $('#displayTagsContainer').hide();
+    $('#hideTags').hide();
+    $('#showTags').show();
     // Populate and show collection details
     $('#collectionTitle').text(collectionName + " Collection");
     $('#collectionDescription').text(collectionDescription);
@@ -327,6 +331,19 @@ $('#collectionContainer').on('click', '.collection-card', function () {
 
     // Call function to fetch and display recipes for this collection
     displayRecipes(collectionId);
+});
+
+$('#collectionSearch').on('input', function () {
+    var searchValue = $(this).val().toLowerCase().trim();
+
+    $('.collection-card').each(function () {
+        var tagsText = $(this).find('.card-tags').text().toLowerCase();
+        if (tagsText.includes(searchValue)) {
+            $(this).show(); // Show the collection card if the search term matches the tags
+        } else {
+            $(this).hide(); // Hide the collection card if there's no match
+        }
+    });
 });
 
 function displayRecipes(collectionId) {
@@ -377,6 +394,7 @@ function updateTags(tags){
     }
     else{
         //console.log('tags found')
+        $('#collectionTagsEdit').empty();
         $('#collectionTagsEdit').text(tags);
         var tagsSplit = tags.split(',');
         var tagList = "";
