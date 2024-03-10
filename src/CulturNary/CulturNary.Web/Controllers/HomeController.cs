@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using CulturNary.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CulturNary.Web.Controllers;
 
@@ -28,7 +29,18 @@ public class HomeController : Controller
         return View();
     }
 
+    [Authorize(Roles = "Signed,Admin")]
     public IActionResult Collections()
+    {
+        return View();
+    }
+    [Authorize(Roles = "Signed,Admin")]
+    public IActionResult SearchEngines()
+    {
+        return View();
+    }
+    [Authorize(Roles = "Signed,Admin")]
+    public IActionResult RecipeSearchEngine()
     {
         return View();
     }

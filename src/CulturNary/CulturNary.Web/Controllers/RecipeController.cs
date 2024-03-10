@@ -8,10 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using CulturNary.Web.Models;
 using CulturNary.Web.Models.DTO;
 using CulturNary.Web.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
+
 namespace CulturNary.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Signed,Admin")]
     public class RecipeController : ControllerBase
     {
         private readonly CulturNaryDbContext _context;

@@ -10,11 +10,13 @@ using Microsoft.AspNetCore.Identity;
 using CulturNary.Web.Models.DTO;
 using System.Runtime.CompilerServices;
 using CulturNary.Web.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CulturNary.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Signed,Admin")]
     public class CollectionController : ControllerBase
     {
         private readonly CulturNaryDbContext _context;

@@ -115,10 +115,14 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
         }
 
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
+            if(User.Identity.IsAuthenticated){
+                return RedirectToPage("/Index");
+            }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            return Page();
         }
         public bool AuthorizationKeyword(string keyword){
             var adminKeyword = Environment.GetEnvironmentVariable("ADMIN_KEYWORD");
@@ -146,13 +150,25 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    if(AuthorizationKeyword(Input.AdminKeyword)){
-                        if(!await _userManager.IsInRoleAsync(user, "Admin")){
+                    if (AuthorizationKeyword(Input.AdminKeyword))
+                    {
+                        if (!await _userManager.IsInRoleAsync(user, "Admin"))
+                        {
                             var roleExist = await _userManager.AddToRoleAsync(user, "Admin");
-                            if(!roleExist.Succeeded){
+                            if (!roleExist.Succeeded)
+                            {
                                 ModelState.AddModelError(string.Empty, "Error while adding role to user. ");
                                 return Page();
                             }
+                        }
+                    }
+                    else
+                    {
+                        var roleExist = await _userManager.AddToRoleAsync(user, "Signed");
+                        if (!roleExist.Succeeded)
+                        {
+                            ModelState.AddModelError(string.Empty, "Error while adding role to user. ");
+                            return Page();
                         }
                     }
                     _logger.LogInformation("User created a new account with password.");
