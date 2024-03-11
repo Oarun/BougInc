@@ -2,8 +2,8 @@
 }
 
 <section class="text-center py-5 row search-engine-section p-3 row">
-    <div class="col-md-4 col-sm-12">
-        <div class="selection-menu search-menu-section">
+    <div class="col-md-4 col-sm-12 selection-container">
+        <div class="selection-menu search-menu-section w-75">
             <div class="d-flex justify-content-center align-items-center">
                 <a asp-controller="Home" asp-action="SearchEngines" class="nutrition-search-btn icon-btn">
                     Recipes
@@ -21,6 +21,18 @@
                 <button type="submit" class="search-btn">Search</button>
             </form>
             <div id="searchResults"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="recipeModal" tabindex="-1" aria-labelledby="recipeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-title-text modal-header">
+                    <h5 class="" id="recipeModalLabel">Recipe Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-1 m-0">
+                </div>
+            </div>
         </div>
     </div>
 </section>

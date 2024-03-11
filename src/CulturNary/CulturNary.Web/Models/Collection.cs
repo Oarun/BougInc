@@ -13,6 +13,8 @@ public partial class Collection
 
     public string? Description { get; set; }
 
+    public string? Tags { get; set; }
+
     public virtual Person? Person { get; set; }
 
     public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
