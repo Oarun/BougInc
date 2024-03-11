@@ -79,4 +79,28 @@ public class AdminController : Controller
             return StatusCode(500);
         }
     }
+    [HttpGet("Users/{userId}")]
+    public async Task<IActionResult> GetUser(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var userIsAdmin = await IsUserAdmin(user);
+
+        return Ok(new
+        {
+            user.Id,
+            user.UserName,
+            user.NormalizedUserName,
+            user.Email,
+            user.NormalizedEmail,
+            user.EmailConfirmed,
+            user.PhoneNumber,
+            user.TwoFactorEnabled,
+            IsAdmin = userIsAdmin
+        });
+    }
 }

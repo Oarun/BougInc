@@ -63,6 +63,38 @@ $(document).ready(function () {
         console.log(currentCollectionId);
     });
 
+    // Event listener for clicking the "Back" button in the add recipe form
+    $('#backButton').on('click', function() {
+        // This line hides the form
+        $('#addRecipeFormContainer').hide();
+    });
+
+    // Event listener for clicking the "Show Tags" button
+    $('#showTags').on('click', function () {
+        $('#addRecipeFormContainer').hide();
+        $('#addTagsFormContainer').hide();
+        $('#displayTagsContainer').show();
+        $('#hideTags').show();
+        $('#showTags').hide();
+    });
+
+    $('#hideTags').on('click', function () {
+        $('#addRecipeFormContainer').hide();
+        $('#addTagsFormContainer').hide();
+        $('#displayTagsContainer').hide();
+        $('#hideTags').hide();
+        $('#showTags').show();
+    });
+
+    // Event Listener for clicking the "Add Tags" icon
+    $('#addTagIcon').on('click', function () {
+        $('#addRecipeFormContainer').hide();
+        $('#displayTagsContainer').hide();
+        $('#addTagsFormContainer').show();
+        $('#hideTags').hide();
+        $('#showTags').show();
+    });
+
     $('#addRecipeForm').on('submit', function (event) {
         event.preventDefault();
         var recipeName = $('#recipeName').val();
@@ -115,6 +147,43 @@ $(document).ready(function () {
     });
 });
 
+$('#addTagsForm').on('submit', function (event) {
+    event.preventDefault();
+    var collectionTagsNew = $('#collectionTagsEdit').val();
+
+    // Store tags in temporary JSON object
+    var tagsData = {
+        id: currentCollectionId,
+        name: $('#collectionName').val(),
+        description: $('#collectionDescription').val(),
+        tags: collectionTagsNew
+    };
+
+    // Make an AJAX Post request for the current collection
+    $.ajax({
+        url: '/api/Collection/Tags/' + currentCollectionId,
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(tagsData),
+        success: function (data) {
+            // Tags added successfully
+            console.log('Tags added successfully to collection:' + currentCollectionId + ':', data);
+            updateTags(collectionTagsNew);
+            getCollection();
+            $('#addTagsFormContainer').hide();
+            $('#collectionTagsEdit').empty();
+            $('#displayTagsContainer').show();
+            $('#showTags').hide();
+            $('#hideTags').show();
+        },
+        error: function (xhr, status, error) {
+            // Error handling code
+            console.error('Error adding tags to collection ' + currentCollectionId + ':', error);
+            // Display an error message to the user or handle the error in any other way
+        }
+    });
+});
+
 function getPerson() {
     $.ajax({
         url: '/api/Person/GetCurrentPerson',
@@ -143,6 +212,7 @@ function getCollection() {
                 var cardBody = $('<div class="card-body text-center"></div>');
                 cardBody.append(`<h5 class="card-title">${collection.name}</h5>`);
                 cardBody.append(`<p class="card-text">${collection.description}</p>`);
+                cardBody.append(`<p class="card-tags" style="display:none">${collection.tags}</p>`);
                 var trashIcon = $(`<i class="fas fa-trash-alt icon-margin delete-collection" data-collection-id="${collection.id}"></i>`);
                 var pencilIcon = $(`<i class="fas fa-pencil-alt pencil-icon" data-collection-id="${collection.id}"></i>`);
                 cardBody.append(trashIcon);
@@ -239,11 +309,21 @@ $('#collectionContainer').on('click', '.collection-card', function () {
     console.log(collectionName)
     console.log('you are here')
     var collectionDescription = $(this).find('.collection-description').text();
+    var collectionTags = $(this).find('.card-tags').text();
+    //console.log(collectionTags)
+
+    //Run tag update
+    $('#collectionTagsEdit').empty();
+    updateTags(collectionTags);
 
     // Hide the create and edit collection form and recipe form
     $('#createCollectionFormContainer').hide();
     $('#editCollectionFormContainer').hide();
     $('#addRecipeFormContainer').hide();
+    $('#addTagsFormContainer').hide();
+    $('#displayTagsContainer').hide();
+    $('#hideTags').hide();
+    $('#showTags').show();
     // Populate and show collection details
     $('#collectionTitle').text(collectionName + " Collection");
     $('#collectionDescription').text(collectionDescription);
@@ -251,6 +331,19 @@ $('#collectionContainer').on('click', '.collection-card', function () {
 
     // Call function to fetch and display recipes for this collection
     displayRecipes(collectionId);
+});
+
+$('#collectionSearch').on('input', function () {
+    var searchValue = $(this).val().toLowerCase().trim();
+
+    $('.collection-card').each(function () {
+        var tagsText = $(this).find('.card-tags').text().toLowerCase();
+        if (tagsText.includes(searchValue)) {
+            $(this).show(); // Show the collection card if the search term matches the tags
+        } else {
+            $(this).hide(); // Hide the collection card if there's no match
+        }
+    });
 });
 
 function displayRecipes(collectionId) {
@@ -291,6 +384,26 @@ function displayRecipes(collectionId) {
             console.error('Error fetching recipes:', error);
         }
     });
+}
+
+function updateTags(tags){
+
+    if(tags == null || tags == "" || tags == "null"){
+        $('#collectionTagsDisplay').text("No tags found for this collection.");
+        $('#collectionTagsEdit').empty();
+    }
+    else{
+        //console.log('tags found')
+        $('#collectionTagsEdit').empty();
+        $('#collectionTagsEdit').text(tags);
+        var tagsSplit = tags.split(',');
+        var tagList = "";
+        tagsSplit.forEach(tagsSplit => {
+            tagList += `<p class="tag-item">${tagsSplit}</p>`;
+        });
+        //console.log(tagList);
+        $('#collectionTagsDisplay').html(tagList);
+    }
 }
 
 function deleteRecipe(recipeId, collectionId) {

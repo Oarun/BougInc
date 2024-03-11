@@ -4,11 +4,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using CulturNary.Web.Services;
 using System.Web;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CulturNary.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Signed,Admin")]
     public class RecipeSearchController : ControllerBase
     {
         private readonly IRecipeSearchService _recipeSearchService;

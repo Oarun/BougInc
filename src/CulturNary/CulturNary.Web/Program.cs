@@ -14,6 +14,7 @@ using CulturNary.DAL.Abstract;
 using CulturNary.DAL.Concrete;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using CulturNary.Web.Models;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 var builder = WebApplication.CreateBuilder(args);
 var appConnectionString = builder.Configuration.GetConnectionString("CulturNaryDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CulturNaryDbContextConnection' not found.");
@@ -55,6 +56,8 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequireAdministratorRole", 
                         policy => policy.RequireRole("Admin"));
+    options.AddPolicy("RequiresSignedRole",
+                        policy => policy.RequireRole("Signed"));
 });
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
@@ -62,6 +65,10 @@ builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 builder.Services.Configure<AzureStorageConfig>(builder.Configuration.GetSection("AzureStorageConfig"));
 
 builder.Services.AddScoped<ImageStorageService>();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
 
 var app = builder.Build();
 
@@ -71,6 +78,11 @@ using (var scope = app.Services.CreateScope())
     if (!roleManager.RoleExistsAsync("Admin").Result)
     {
         roleManager.CreateAsync(new IdentityRole("Admin")).Wait();
+    }
+
+    if (!roleManager.RoleExistsAsync("Signed").Result)
+    {
+        roleManager.CreateAsync(new IdentityRole("Signed")).Wait();
     }
 }
 // Configure the HTTP request pipeline.

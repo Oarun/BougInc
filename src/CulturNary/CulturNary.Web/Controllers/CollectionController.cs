@@ -10,11 +10,13 @@ using Microsoft.AspNetCore.Identity;
 using CulturNary.Web.Models.DTO;
 using System.Runtime.CompilerServices;
 using CulturNary.Web.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CulturNary.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Signed,Admin")]
     public class CollectionController : ControllerBase
     {
         private readonly CulturNaryDbContext _context;
@@ -46,7 +48,8 @@ namespace CulturNary.Web.Controllers
                                         Id = c.Id,
                                         PersonId = c.PersonId,
                                         Name = c.Name,
-                                        Description = c.Description
+                                        Description = c.Description,
+                                        Tags = c.Tags
                                         // Map additional properties if needed
                                     })
                                     .ToListAsync();
@@ -66,7 +69,8 @@ namespace CulturNary.Web.Controllers
                     Id = c.Id,
                     PersonId = c.PersonId,
                     Name = c.Name,
-                    Description = c.Description
+                    Description = c.Description,
+                    Tags = c.Tags
                     // Map additional properties if needed
                 })
                 .FirstOrDefaultAsync();
@@ -121,6 +125,45 @@ namespace CulturNary.Web.Controllers
             return NoContent();
         }
 
+        // PUT: api/Collection/Tags/5
+        [HttpPut("Tags/{id}")]
+        public async Task<IActionResult> PutCollectionTags(int id, CollectionDto collectionDto)
+        {
+            if (id != collectionDto.Id)
+            {
+                return BadRequest();
+            }
+
+            // Retrieve the collection entity from the database
+            var collection = await _context.Collections.FindAsync(id);
+            if (collection == null)
+            {
+                return NotFound();
+            }
+
+            // Update the properties of the retrieved collection entity
+            collection.Tags = collectionDto.Tags;
+
+            try
+            {
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CollectionExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // POST: api/Collection
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -131,7 +174,8 @@ namespace CulturNary.Web.Controllers
             {
                 PersonId = collectionDto.PersonId,
                 Name = collectionDto.Name,
-                Description = collectionDto.Description
+                Description = collectionDto.Description,
+                Tags = collectionDto.Tags
             };
 
             _context.Collections.Add(collection);
@@ -142,7 +186,8 @@ namespace CulturNary.Web.Controllers
             {
                 Id = collection.Id,
                 Name = collection.Name,
-                Description = collection.Description
+                Description = collection.Description,
+                Tags = collection.Tags
             };
 
             return CreatedAtAction("GetCollection", new { id = collection.Id }, createdCollectionDto);

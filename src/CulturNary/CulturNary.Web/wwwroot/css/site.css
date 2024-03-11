@@ -642,6 +642,14 @@ body.identity .manage button:hover {
         margin-bottom: 0;
     }
 
+.collections-text-light{
+    color: #DCEDCF;
+}
+
+.collections-text-dark{
+    color: #353F2D;
+}
+
 .btn-collections {
     background-color: #353F2D;
     color: #DCEDCF;
@@ -649,10 +657,28 @@ body.identity .manage button:hover {
     text-align: center;
 }
 
+.btn-collections-light {
+    background-color: #DCEDCF;
+    color: #353F2D;
+    text-decoration: none;
+    text-align: center;
+    border: 2px solid #DCEDCF;
+    padding: 0.25rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 150px;
+}
+
 .btn-recipes {
     background-color: #353F2D;
     color: #DCEDCF;
     text-decoration: none;
+}
+
+.btn-back{
+    color: #353F2D;
+    text-decoration:underline;
+    border: none;
+    background-color: #DCEDCF;
 }
 
 .icon-margin {
@@ -674,6 +700,11 @@ body.identity .manage button:hover {
 .card-body .delete-collection:hover {
     cursor: pointer;
     /* Change cursor to pointer to indicate interaction */
+}
+
+.card-body{
+    background-color: #DCEDCF;
+    color: #353F2D;
 }
 
 .collectionDetailsContainer {
@@ -699,6 +730,25 @@ body.identity .manage button:hover {
 
 .delete-recipe-icon {
     cursor: pointer;
+}
+
+.tag-item {
+    display: inline-block; /* Keep them in line */
+    margin-right: 10px; /* Space between tags */
+    padding: 5px; /* Padding inside the border */
+    border: 2px solid #353F2D; /* Border color */
+    border-radius: 5px; /* Optional: rounded corners */
+    white-space: nowrap; /* Prevents the text from wrapping */
+}
+
+.searchbarSmall {
+    width: 50%;
+    margin: auto;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 .container {
@@ -757,7 +807,8 @@ textarea.form-control {
 #createCollectionFormContainer,
 #editCollectionFormContainer,
 #addRecipeFormContainer {
-    background-color: #f9f9f9;
+    background-color: #DCEDCF;
+    color: #353F2D;
     /* padding: 1rem; */
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -765,7 +816,8 @@ textarea.form-control {
 }
 
 #collectionDetailsContainer {
-    background-color: #f9f9f9;
+    background-color: #DCEDCF;
+    color: #353F2D;
     /* padding: 1rem; */
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -1075,3 +1127,11 @@ textarea.form-control {
     text-decoration: none !important;
 }
 
+#collections ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+#collections li {
+    margin-bottom: 10px;
+}
