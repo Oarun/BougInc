@@ -32,116 +32,86 @@ function displayResults(data) {
     resultsDiv.innerHTML = '';
 
     if (data.hits && data.hits.length > 0) {
-        data.hits.forEach(hit => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.style.color = '#353F2D';
-            card.style.marginBottom = '20px';
-            resultsDiv.appendChild(card);
-
-            if (hit.recipe.image) {
-                const img = document.createElement('img');
-                img.src = hit.recipe.image;
-                img.className = 'card-img-top';
-                img.alt = hit.recipe.label;
-                img.style.width = '100%';
-                img.style.margin = 'auto';
-                img.style.padding = '10px';
-                card.appendChild(img);
-            }
-
-            const cardBody = document.createElement('div');
-            cardBody.className = 'card-body';
-            card.appendChild(cardBody);
-
-            const title = document.createElement('h5');
-            title.className = 'card-title';
-            title.textContent = hit.recipe.label;
-            cardBody.appendChild(title);
-
-            const calories = document.createElement('p');
-            calories.className = 'card-text';
-            calories.textContent = `${hit.recipe.calories} cals`;
-            cardBody.appendChild(calories);
-
-            const ingredients = document.createElement('p');
-            ingredients.className = 'card-text';
-            hit.recipe.ingredients.length = hit.recipe.ingredients.length ? hit.recipe.ingredients.length : 'N/A';
-            ingredients.textContent = `${hit.recipe.ingredients.length} Ingredients`;
-            cardBody.appendChild(ingredients);
-
-            if (hit.recipe.totalTime && hit.recipe.totalTime > 0) {
-                const totalTime = document.createElement('p');
-                totalTime.className = 'card-text';
-                totalTime.textContent = `${hit.recipe.totalTime} min`;
-                cardBody.appendChild(totalTime);
-            }
-
-
-            //if (hit.recipe.dietLabels.length > 0 || hit.recipe.healthLabels.length > 0) {
-            //    const text = document.createElement('p');
-            //    text.className = 'card-text';
-            //    text.textContent = `${hit.recipe.dietLabels.join(', ')}`;
-            //    cardBody.appendChild(text);
-            //}
-
-            //const listGroup = document.createElement('ul');
-            //listGroup.className = 'list-group list-group-flush';
-            //hit.recipe.ingredientLines.forEach(ingredient => {
-            //    const item = document.createElement('li');
-            //    item.className = 'list-group-item';
-            //    item.textContent = ingredient;
-            //    listGroup.appendChild(item);
-            //});
-            //card.appendChild(listGroup);
-
-            //const cardBodyLinks = document.createElement('div');
-            //cardBodyLinks.className = 'card-body';
-            //const recipeLink = document.createElement('a');
-            //recipeLink.href = hit.recipe.url;
-            //recipeLink.className = 'card-link';
-            //recipeLink.textContent = hit.recipe.source;
-            ////recipeLink.target = "_blank"; // Opens in new tab
-            //cardBodyLinks.appendChild(recipeLink);
-            //card.appendChild(cardBodyLinks);
-
-            const cardBodyLinks = document.createElement('div');
-            cardBodyLinks.className = 'card-body';
-
-            const recipeLink = document.createElement('button');
-            recipeLink.className = 'btn btn-primary';
-            recipeLink.style.backgroundColor = '#407A3B';
-            recipeLink.style.borderColor = '#407A3B';
-            recipeLink.style.color = '#DCEDCF';
-            recipeLink.textContent = 'View Recipe';
-            recipeLink.onclick = function () {
-                updateAndShowModal(hit.recipe);
-            };
-            cardBodyLinks.appendChild(recipeLink);
-            card.appendChild(cardBodyLinks);
+        data.hits.forEach(product => {
+            const cardHTML = `
+                <div class="card mb-3" style="max-width: 560px;">
+                    <div class="row m-0 p-2" style="brackground-color: #353F2D;">
+                        <div class="col-md-4 p-0" style="background-color: white;">
+                            <img src="${product.recipe.image}" class="img-fluid" alt="${product.recipe.label}">
+                        </div>
+                        <div class="col-md-8 p-0">
+                            <div class="card-text-body" style="background-color: #353f2dbf; color: white; height: 100%; width: 100%;">
+                                <p class="card-title label" style="text-transform: capitalize;"><strong>${product.recipe.label}</strong></h5>
+                                <p class="card-text" style="line-height: 3.5px; color: #DCEDCF;">${Math.round(product.recipe.calories)} kcal</p>
+                                <p class="card-text" style="line-height: 3.5px; color: #DCEDCF;">${product.recipe.ingredients.length} Ingredients</p>
+                                <button class="btn btn-primary" style="line-height: 4.5px; border: none;" onclick="updateAndShowModal(${JSON.stringify(product.recipe).replace(/"/g, '&quot;')})">View More ></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            resultsDiv.innerHTML += cardHTML;
         });
     } else {
-        resultsDiv.innerHTML = '<p>No recipes found.</p>';
+        resultsDiv.innerHTML = '<p>No products found.</p>';
     }
 }
 
 function updateAndShowModal(recipe) {
-    // Update the modal title
-    document.getElementById('recipeModalLabel').textContent = recipe.label;
-
-    // Update the modal body
-    const modalBody = document.querySelector('#recipeModal .modal-body');
-    modalBody.style.color = '#353F2D';
-    modalBody.innerHTML = `
-        <img src="${recipe.image}" class="img-fluid mb-3">
-        <p><strong>Ingredients:</strong> ${recipe.ingredientLines.join(', ')}</p>
+    let digestHtml = '';
+    recipe.digest.forEach((nutrient) => {
+        digestHtml += `
+        <tr>
+            <th scope="row">${nutrient.label}</th>
+            <td>${nutrient.total.toFixed(2)} ${nutrient.unit}</td>
+        </tr>
     `;
-
-    // Update the link in the modal footer
+    });
+    document.getElementById('recipeModalLabel').textContent = recipe.label;
+    const modalBody = document.querySelector('#recipeModal .modal-body');
+    modalBody.innerHTML = `
+    <img src="${recipe.image}" alt="${recipe.label}" class="img-fluid mb-3" style="border-radius: 200px; border: 2px solid #353F2D;">
+        <table class="table" style="color: #DCEDCF; background-color: #353F2D;">
+            <tbody>
+                <tr>
+                    <th scope="row">Ingredients</th>
+                    <td style="text-transform: capitalize;">${recipe.ingredientLines.join('<br>')}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Health Labels</th>
+                    <td style="text-transform: capitalize;">${recipe.healthLabels.join(', ')}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Diet Labels</th>
+                    <td style="text-transform: capitalize;">${recipe.dietLabels.join(', ')}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Cuisine Type</th>
+                    <td style="text-transform: capitalize;">${recipe.cuisineType.join(', ')}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Dish Type</th>
+                    <td style="text-transform: capitalize;">${recipe.dishType.join(', ')}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Meal Type</th>
+                    <td style="text-transform: capitalize;">${recipe.mealType.join(', ')}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="h2">Nutrition Facts: </th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="h4">Calories</th>
+                    <td style="text-transform: capitalize;">${Math.round(recipe.calories)} kcal</td>
+                </tr>
+                </tr>
+                ${digestHtml}
+            </tbody>
+        </table>
+        <a href="${recipe.url}" type="button" id="modalRecipeLink" target="_blank" class="btn btn-primary w-100 my-2">View Full Recipe</a>
+    `;
     const modalRecipeLink = document.getElementById('modalRecipeLink');
-    modalRecipeLink.href = recipe.url;
-
-    // Show the modal
     var recipeModal = new bootstrap.Modal(document.getElementById('recipeModal'));
     recipeModal.show();
 }
