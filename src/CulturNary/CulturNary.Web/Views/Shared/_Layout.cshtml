@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CulturNary</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @if (Session["Theme"] == null || Session["Theme"].ToString() == "dark")
+    {
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/lightmode.css" asp-append-version="true" />
+    }
     <link rel="stylesheet" href="~/CulturNary.Web.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -52,7 +59,17 @@
 
     <footer class="footer text-muted">
         <div class="container">
-            &copy; 2024 - CulturNary
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-check form-switch form-check-inline">
+                        <input class="form-check-input form-switch-input" type="checkbox" role="switch" id="siteColorSwitch" checked>
+                        <label class="form-switch-label" for="siteColorSwitch">Dark Mode</label>
+                    </div>
+                </div>
+                <div class="col-sm text-end">
+                    &copy; 2024 - CulturNary
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

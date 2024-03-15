@@ -1135,3 +1135,18 @@ textarea.form-control {
 #collections li {
     margin-bottom: 10px;
 }
+
+.form-switch-input {
+    margin-right: 10px;
+    background-color: #353F2D;
+}
+
+.form-switch-input:checked{
+    background-color: #407A3B;
+    box-shadow: none;
+}
+
+.form-switch-label {
+    background-color: #353F2D;
+    color: #DCEDCF;
+}
