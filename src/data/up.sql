@@ -11,6 +11,7 @@ CREATE TABLE Collections (
     person_id INT,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(500),
+    tags VARCHAR(1000),
     FOREIGN KEY (person_id) REFERENCES Person(id)
 );
 
