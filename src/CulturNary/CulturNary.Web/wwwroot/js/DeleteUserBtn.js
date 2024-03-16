@@ -1,18 +1,39 @@
-$(document).ready(function() {
-    $('.delete-user-button').click(function() {
-        var userId = $(this).data('user-id');
-        $.ajax({
-            url: '/Admin/DeleteUser/' + userId, // Include the userId in the URL
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ userId: userId }), // You can still include the userId in the request body if needed
-            success: function() {
-                alert('User has been deleted');
-                location.reload();
-            },
-            error: function() {
-                alert('Error deleting user');
-            }
-        });
+function deleteUser(userId, ajax) {
+    return ajax({
+        url: '/Admin/DeleteUser/' + userId,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ userId: userId }),
     });
-});
+}
+
+function handleSuccess(reload) {
+    alert('User has been deleted');
+    reload();
+}
+
+function handleError() {
+    alert('Error deleting user');
+}
+
+function setupClickHandler(getUserId, deleteUser, handleSuccess, handleError) {
+    return function() {
+        var userId = getUserId(this);
+        deleteUser(userId)
+            .then(() => handleSuccess(location.reload))
+            .catch(handleError);
+    };
+}
+
+function initialize(setupClickHandler) {
+    $(document).ready(() => {
+        $('.delete-user-button').click(setupClickHandler(
+            element => $(element).data('user-id'),
+            deleteUser.bind(null, $),
+            handleSuccess,
+            handleError
+        ));
+    });
+}
+
+module.exports = { deleteUser, handleSuccess, handleError, setupClickHandler, initialize };
