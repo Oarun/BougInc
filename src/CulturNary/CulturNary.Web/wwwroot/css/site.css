@@ -768,7 +768,6 @@ body.identity .manage button:hover {
 .form-label, .form-check-label {
     font-weight: bold;
     color: #333;
-    background-color: #f9f9f9;
 }
 
 .form-control {
