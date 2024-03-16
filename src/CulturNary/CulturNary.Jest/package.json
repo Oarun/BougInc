@@ -16,6 +16,7 @@
     "testEnvironment": "jsdom"
   },
   "dependencies": {
-    "jest-environment-jsdom": "^29.7.0"
+    "jest-environment-jsdom": "^29.7.0",
+    "jquery": "^3.7.1"
   }
 }

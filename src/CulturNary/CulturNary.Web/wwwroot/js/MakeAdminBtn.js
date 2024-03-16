@@ -1,18 +1,33 @@
-$(document).ready(function() {
+function makeAdmin(userId) {
+    return $.ajax({
+        url: '/Admin/MakeAdmin/' + userId,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ userId: userId }),
+    });
+}
+
+function handleSuccess() {
+    alert('User has been made admin');
+    location.reload();
+}
+
+function handleError() {
+    alert('Error making user admin');
+}
+
+// MakeAdminBtn.js
+function setupClickHandler() {
     $('.make-admin-button').click(function() {
         var userId = $(this).data('user-id');
-        $.ajax({
-            url: '/Admin/MakeAdmin/' + userId, // Include the userId in the URL
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ userId: userId }), // You can still include the userId in the request body if needed
-            success: function() {
-                alert('User has been made admin');
-                location.reload();
-            },
-            error: function() {
-                alert('Error making user admin');
-            }
-        });
+        makeAdmin(userId)
+            .then(handleSuccess)
+            .catch(handleError);
     });
-});
+}
+
+function initialize() {
+    $(document).ready(setupClickHandler);
+}
+
+module.exports = { makeAdmin, handleSuccess, handleError, setupClickHandler };
