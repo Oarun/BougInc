@@ -1,0 +1,14 @@
+@model string
+
+@if (Model == "dark")
+{
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+}
+else if (Model == "light")
+{
+    <link rel="stylesheet" href="~/css/lightmode.css" asp-append-version="true" />
+}
+else
+{
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+}
