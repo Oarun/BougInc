@@ -2,8 +2,10 @@ Loved, Longed for, Loathed, Learned
 
 Loved: Teamwork, getting things done, learning new things
 Longed for: Greater communication, more committment, getting things done earlier
-Loathed: Lack of communication, communication user stories, not getting things done
+Loathed: Lack of communication, communication of user stories, not getting things done
 Learned: That we need to enforce the already existing rules, we need to communicate more, we need to get things done earlier
+
+
 
 Rules That Still Hold From Sprint 1
 
