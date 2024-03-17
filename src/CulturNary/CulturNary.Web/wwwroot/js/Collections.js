@@ -151,38 +151,9 @@ $('#addTagsForm').on('submit', function (event) {
     event.preventDefault();
     var collectionTagsNew = $('#collectionTagsEdit').val();
 
-    // Store tags in temporary JSON object
-    var tagsData = {
-        id: currentCollectionId,
-        name: $('#collectionName').val(),
-        description: $('#collectionDescription').val(),
-        tags: collectionTagsNew
-    };
-
-    // Make an AJAX Post request for the current collection
-    $.ajax({
-        url: '/api/Collection/Tags/' + currentCollectionId,
-        type: 'PUT',
-        contentType: 'application/json',
-        data: JSON.stringify(tagsData),
-        success: function (data) {
-            // Tags added successfully
-            console.log('Tags added successfully to collection:' + currentCollectionId + ':', data);
-            updateTags(collectionTagsNew);
-            getCollection();
-            $('#addTagsFormContainer').hide();
-            $('#collectionTagsEdit').empty();
-            $('#displayTagsContainer').show();
-            $('#showTags').hide();
-            $('#hideTags').show();
-        },
-        error: function (xhr, status, error) {
-            // Error handling code
-            console.error('Error adding tags to collection ' + currentCollectionId + ':', error);
-            // Display an error message to the user or handle the error in any other way
-        }
-    });
+    putTags(collectionTagsNew, currentCollectionId);
 });
+
 
 function getPerson() {
     $.ajax({
@@ -386,6 +357,44 @@ function displayRecipes(collectionId) {
     });
 }
 
+function putTags(updatedTags, currentCollectionId) {
+
+    var collectionName = $.val('#collectionName');
+    var collectionDescription = $.val('#collectionDescription');
+
+
+    var tagsData = {
+        id: currentCollectionId,
+        name: collectionName,
+        description: collectionDescription,
+        tags: updatedTags
+    };
+
+    // Make an AJAX Post request for the current collection
+    $.ajax({
+        url: '/api/Collection/Tags/' + currentCollectionId,
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(tagsData),
+        success: function (data) {
+            // Tags added successfully
+            console.log('Tags added successfully to collection:' + currentCollectionId + ':', data);
+            updateTags(updatedTags);
+            getCollection();
+            $('#addTagsFormContainer').hide();
+            $('#collectionTagsEdit').empty();
+            $('#displayTagsContainer').show();
+            $('#showTags').hide();
+            $('#hideTags').show();
+        },
+        error: function (xhr, status, error) {
+            // Error handling code
+            console.error('Error adding tags to collection ' + currentCollectionId + ':', error);
+            // Display an error message to the user or handle the error in any other way
+        }
+    });
+}
+
 function updateTags(tags){
 
     if(tags == null || tags == "" || tags == "null"){
@@ -446,3 +455,5 @@ function displayCollectionsForRecipe() {
         }
     });
 }
+
+module.exports = { getPerson, getCollection, addCollection, deleteCollection, displayRecipes, putTags, updateTags, deleteRecipe, displayCollectionsForRecipe};
