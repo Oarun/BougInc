@@ -60,4 +60,21 @@ public class HomeController : Controller
         return View(errorViewModel);
 
     }
+
+    [HttpPost]
+    public IActionResult SwitchTheme(bool isDark)
+    {
+
+        string theme = isDark ? "dark" : "light";
+
+        HttpContext.Session.SetString("Theme", theme);
+
+        var refererUrl = Request.Headers["Referer"].ToString();
+        if(!string.IsNullOrEmpty(refererUrl))
+        {
+            return Redirect(refererUrl);
+        }
+
+        return RedirectToAction("Index", "Home");
+    }
 }
