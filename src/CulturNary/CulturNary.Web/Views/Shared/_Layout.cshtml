@@ -32,13 +32,16 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Collections">Collections</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="GroceryList">Grocery List</a>
+                            </li>
                         }
                     </ul>
                     <partial name="_LoginPartial" />
                     <ul class="nav justify-content-end">
                         @if (User.Identity.IsAuthenticated){
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="SearchEngines"><img src="/media/icons8-search-50.png" width="20" /></a>
+                            <a class="nav-link" asp-controller="Home" asp-action="RecipeSearchEngine"><img src="/media/icons8-search-50.png" width="20" /></a>
                         </li>
                         }
                     </ul>
@@ -77,6 +80,7 @@
     @await RenderSectionAsync("Scripts", required: false)
     <script src="~/js/NavItemsOnClick.js"></script>
     <script src="~/js/Collections.js"></script>
+    <script src="~/js/Groceries.js"></script>
 </body>
 </html>
 

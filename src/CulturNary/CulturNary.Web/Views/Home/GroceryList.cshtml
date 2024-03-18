@@ -1,0 +1,34 @@
+﻿@{
+}
+
+<div class="grocery-list">
+    <div class="list-container">
+        <div class="row list">
+            <div class="groceries col-md-12">
+                <h1 class="text-center display-6">Grocery Checklist</h1>
+                <div class="date-picker">
+                    <input type="date" id="checklistDate" value="">
+                </div>
+
+                <div class="d-flex flex-column align-items-center pb-4">
+                    <div class="container">
+                        <a id="reset" onclick="resetList()">Reset</a>
+                        <div class="grocery-main">
+                            <div>
+                                <button id="showAddChecklist" onclick="showChecklist()">Add Ingredient &#9998;</button>
+                                <div id="addChecklist">
+                                    <input type="text">
+                                    <a href="">Add</a>
+                                    <div id="underline"></div>
+                                </div>
+                            </div>
+                            <ul>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
