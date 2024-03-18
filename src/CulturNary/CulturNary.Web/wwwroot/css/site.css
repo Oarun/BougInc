@@ -870,16 +870,12 @@ textarea.form-control {
         color: white;
     }
 
-    .adminTable tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
     .adminTable tr:hover {
-        background-color: #ddd;
+        background-color: #4F7942;
     }
 
 .make-admin-button {
-    background-color: #4F7942; /* dark green */
+    background-color: #4F7959; /* dark green */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -896,7 +892,7 @@ textarea.form-control {
     color: #4F7942;
 }
 .delete-user-button {
-    background-color: #4F7942; /* dark green */
+    background-color: #4F7959; /* dark green */
     color: white;
     border: none;
     padding: 10px 20px;

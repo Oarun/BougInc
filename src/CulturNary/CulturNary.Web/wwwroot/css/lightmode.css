@@ -858,10 +858,6 @@ textarea.form-control {
         color: white;
     }
 
-    .adminTable tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
     .adminTable tr:hover {
         background-color: #ddd;
     }
