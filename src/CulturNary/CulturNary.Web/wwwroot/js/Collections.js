@@ -359,8 +359,8 @@ function displayRecipes(collectionId) {
 
 function putTags(updatedTags, currentCollectionId) {
 
-    var collectionName = $.val('#collectionName');
-    var collectionDescription = $.val('#collectionDescription');
+    var collectionName = $('#collectionName').val();
+    var collectionDescription = $('#collectionDescription').val();
 
 
     var tagsData = {
