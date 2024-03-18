@@ -43,12 +43,33 @@ namespace CulturNary.Web.Controllers
                                         CollectionId = c.CollectionId,
                                         Name = c.Name,
                                         Description = c.Description,
+                                        RecipeImg = c.Img,
                                         PersonId = c.PersonId
                                         // Map additional properties if needed
                                     })
                                     .ToListAsync();
 
             return Ok(Recipes);
+        }
+
+         // GET: api/Recipe/ByPersonId/5 This uses person id
+        [HttpGet("ByPersonId/{id}")]
+        public async Task<ActionResult<List<RecipeDto>>> GetRecipesByPersonId(int id)
+        {
+            var recipes = await _context.Recipes
+                                    .Where(x => x.PersonId == id)
+                                    .Select(c => new RecipeDto
+                                    {
+                                        Id = c.Id,
+                                        PersonId = c.PersonId,
+                                        Name = c.Name,
+                                        Description = c.Description,
+                                        RecipeImg = c.Img,
+                                        // Map additional properties if needed
+                                    })
+                                    .ToListAsync();
+
+            return Ok(recipes);
         }
 
         // PUT: api/Recipe/5
