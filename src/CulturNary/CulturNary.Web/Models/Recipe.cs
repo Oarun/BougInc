@@ -9,11 +9,13 @@ public partial class Recipe
 
     public int? CollectionId { get; set; }
 
+    public int? PersonId { get; set; }
+
     public string Name { get; set; } = null!;
 
     public string? Description { get; set; }
 
-    public int? PersonId { get; set; }
+    public string? Img { get; set; }
 
     public virtual Collection? Collection { get; set; }
 

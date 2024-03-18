@@ -10,8 +10,9 @@ CREATE TABLE Collections (
     id INT PRIMARY Key IDENTITY (1,1),
     person_id INT,
     name VARCHAR(255) NOT NULL,
-    description VARCHAR(500),
     tags VARCHAR(1000),
+    description VARCHAR(MAX),
+    img VARCHAR(MAX),
     FOREIGN KEY (person_id) REFERENCES Person(id)
 );
 
@@ -21,7 +22,8 @@ CREATE TABLE Recipes (
     collection_id INT,
     person_id INT, -- New column
     name VARCHAR(255) NOT NULL,
-    description VARCHAR(500),
+    description VARCHAR(MAX),
+    img VARCHAR(MAX),
     FOREIGN KEY (collection_id) REFERENCES Collections(id),
     FOREIGN KEY (person_id) REFERENCES Person(id) -- New foreign key constraint
 );
