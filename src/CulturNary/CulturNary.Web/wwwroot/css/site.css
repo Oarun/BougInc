@@ -1177,6 +1177,60 @@ textarea.form-control {
     margin-bottom: 10px;
 }
 
+#done {
+    text-decoration: line-through;
+}
+
+.grocery-list {
+    background-color: #353F2D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.list-container {
+    background-color: #505C47;
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    color: #DCEDCF;
+}
+
+.grocery-main button, .grocery-main a {
+    border: none;
+    cursor: pointer;
+    color: #407A3B;
+    border-radius: 10px;
+}
+
+.grocery-main ul {
+    margin-top: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+    width: 270px;
+}
+#checklistDate {
+    color: #407A3B;
+    border: none;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.grocery-main li {
+    list-style-type: none;
+}
+
+.groceries{
+    padding-right: 0 !important;
+}
+
 /* Style for the collection image */
 .collection-image {
     max-width: 100%;
