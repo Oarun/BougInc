@@ -33,9 +33,9 @@ body {
     display: flex;
     flex-direction: column;
     padding-top: 60px;
-    max-height: 100vh;
     background-color: #353F2D;
     color: #DCEDCF;
+    
 }
 
 .nav a,
@@ -919,6 +919,7 @@ textarea.form-control {
     flex-wrap: wrap;
     align-items: center;
     background-color: #353f2dbf;
+    
 }
 
     .modal-body td {
