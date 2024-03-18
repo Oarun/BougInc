@@ -33,7 +33,6 @@ body {
     display: flex;
     flex-direction: column;
     padding-top: 60px;
-    max-height: 100vh;
     background-color: #DCEDCF;
     color: #353F2D;
 }
@@ -857,10 +856,6 @@ textarea.form-control {
     .adminTable th {
         background-color: #4F7942; /* #353F2D */
         color: white;
-    }
-
-    .adminTable tr:nth-child(even) {
-        background-color: #f2f2f2;
     }
 
     .adminTable tr:hover {
