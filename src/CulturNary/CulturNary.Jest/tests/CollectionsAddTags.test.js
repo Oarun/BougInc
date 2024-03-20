@@ -23,7 +23,7 @@ global.$ = $;
 global.updateTags = jest.fn();
 global.getCollection = jest.fn();
 
-const { putTags, updateTags, getCollection } = require('../../CulturNary.Web/wwwroot/js/Collections');
+const { putTags } = require('../../CulturNary.Web/wwwroot/js/Collections');
 
 describe('putTags Function', () => {
     // Mock global variables and functions
@@ -38,11 +38,6 @@ describe('putTags Function', () => {
             return 'Mock Value';
         });
     });
-
-    // it('$.val returns the correct value', () => {
-    //     const result = $.val('#collectionName');
-    //     expect(result).toBe('Mock Value');
-    // });
 
     it('calls $.ajax with the correct parameters', () => {
         const updatedTags = ['tag1', 'tag2'];
