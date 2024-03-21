@@ -1,3 +1,4 @@
+
 const { deleteUser, handleSuccess, handleError, setupClickHandler, initialize } = require('../../CulturNary.Web/wwwroot/js/DeleteUserBtn');
 
 describe('DeleteUserBtn', () => {
