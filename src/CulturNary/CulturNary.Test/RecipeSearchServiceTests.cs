@@ -10,7 +10,7 @@ using Moq;
 using Moq.Protected;
 using NUnit.Framework;
 
-namespace CulturNary.Tests
+namespace CulturNary.Tests.Services
 {
     [TestFixture]
     public class RecipeSearchServiceTests
@@ -88,7 +88,7 @@ namespace CulturNary.Tests
         {
             var query = "chicken soup";
             // Use the same encoding as the service for consistency
-            var encodedQuery = HttpUtility.UrlEncode(query); // This will encode spaces as '+'
+            var encodedQuery = HttpUtility.UrlEncode(query);
             var expectedUri = new Uri($"https://api.edamam.com/api/recipes/v2?type=public&q={encodedQuery}&app_id=testAppId&app_key=testAppKey");
 
             HttpRequestMessage actualRequestMessage = null;
