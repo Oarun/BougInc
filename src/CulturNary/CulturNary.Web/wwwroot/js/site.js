@@ -7,33 +7,31 @@
     });
 });
 
-function searchRecipes(query) {
-    const url = `/api/RecipeSearch/search?q=${encodeURIComponent(query)}`;
+const RecipeSearch = {
+    searchRecipes: function (query) {
+        const url = `/api/RecipeSearch/search?q=${encodeURIComponent(query)}`;
 
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            displayResults(data);
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-            document.getElementById('searchResults').textContent = 'Failed to load recipes.';
-        });
-}
+        return fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                throw new Error('Failed to load recipes.');
+            });
+    },
 
-function displayResults(data) {
-    console.log(data);
-    const resultsDiv = document.getElementById('searchResults');
-    resultsDiv.innerHTML = '';
+    displayResults: function (data) {
+        console.log(data);
+        const resultsDiv = document.getElementById('searchResults');
+        resultsDiv.innerHTML = '';
 
-    if (data.hits && data.hits.length > 0) {
-        data.hits.forEach(product => {
-            const cardHTML = `
+        if (data.hits && data.hits.length > 0) {
+            data.hits.forEach(product => {
+                const cardHTML = `
                 <div class="card mb-3" style="max-width: 560px;">
                     <div class="row m-0 p-2" style="brackground-color: #353F2D;">
                         <div class="col-md-4 p-0" style="background-color: white;">
@@ -50,26 +48,26 @@ function displayResults(data) {
                     </div>
                 </div>
             `;
-            resultsDiv.innerHTML += cardHTML;
-        });
-    } else {
-        resultsDiv.innerHTML = '<p>No products found.</p>';
-    }
-}
+                resultsDiv.innerHTML += cardHTML;
+            });
+        } else {
+            resultsDiv.innerHTML = '<p>No products found.</p>';
+        }
+    },
 
-function updateAndShowModal(recipe) {
-    let digestHtml = '';
-    recipe.digest.forEach((nutrient) => {
-        digestHtml += `
+    updateAndShowModal: function (recipe) {
+        let digestHtml = '';
+        recipe.digest.forEach((nutrient) => {
+            digestHtml += `
         <tr>
             <th scope="row">${nutrient.label}</th>
             <td>${nutrient.total.toFixed(2)} ${nutrient.unit}</td>
         </tr>
     `;
-    });
-    document.getElementById('recipeModalLabel').textContent = recipe.label;
-    const modalBody = document.querySelector('#recipeModal .modal-body');
-    modalBody.innerHTML = `
+        });
+        document.getElementById('recipeModalLabel').textContent = recipe.label;
+        const modalBody = document.querySelector('#recipeModal .modal-body');
+        modalBody.innerHTML = `
     <img src="${recipe.image}" alt="${recipe.label}" class="img-fluid mb-3" style="border-radius: 200px; border: 2px solid #353F2D;">
         <table class="table" style="color: #DCEDCF; background-color: #353F2D;">
             <tbody>
@@ -111,7 +109,8 @@ function updateAndShowModal(recipe) {
         </table>
         <a href="${recipe.url}" type="button" id="modalRecipeLink" target="_blank" class="btn btn-primary w-100 my-2">View Full Recipe</a>
     `;
-    const modalRecipeLink = document.getElementById('modalRecipeLink');
-    var recipeModal = new bootstrap.Modal(document.getElementById('recipeModal'));
-    recipeModal.show();
-}
+        const modalRecipeLink = document.getElementById('modalRecipeLink');
+        var recipeModal = new bootstrap.Modal(document.getElementById('recipeModal'));
+        recipeModal.show();
+    }
+};
