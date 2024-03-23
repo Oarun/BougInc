@@ -11,7 +11,11 @@ public partial class Collection
 
     public string Name { get; set; } = null!;
 
+    public string? Tags { get; set; }
+
     public string? Description { get; set; }
+
+    public string? Img { get; set; }
 
     public virtual Person? Person { get; set; }
 

@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CulturNary</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @await Component.InvokeAsync("Theme")
+
     <link rel="stylesheet" href="~/CulturNary.Web.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -25,27 +27,51 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
-                         @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Collections">Collections</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="GroceryList">Grocery List</a>
+                            </li>
                         }
                     </ul>
                     <partial name="_LoginPartial" />
+                    <ul class="nav justify-content-end">
+                        @if (User.Identity.IsAuthenticated){
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="RecipeSearchEngine"><img src="/media/icons8-search-50.png" width="20" /></a>
+                        </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div>
+    <div class="main-content">
         <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer text-muted">
         <div class="container">
-            &copy; 2024 - CulturNary
+            <div class="row">
+                <form method="post" action="/Home/SwitchTheme" id="themeForm">
+                    <div class="form-group">
+                        <label for="isDark">Theme</label>
+                        <select class="form-control-small " name="isDark" id="isDark" onchange="document.getElementById('themeForm').submit();">
+                            <option value="" selected></option>
+                            <option value="true">Dark Mode</option>
+                            <option value="false">Light Mode</option>
+                        </select>
+                    </div>
+                </form>
+                <div class="col-sm text-end">
+                    &copy; 2024 - CulturNary
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -53,7 +79,9 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script src="~/js/NavItemsOnClick.js"></script>
+    <script src="~/js/Index.js"></script>
     <script src="~/js/Collections.js"></script>
+    <script src="~/js/Groceries.js"></script>
 </body>
 </html>
 

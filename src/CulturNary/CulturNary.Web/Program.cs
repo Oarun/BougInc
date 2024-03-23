@@ -14,6 +14,7 @@ using CulturNary.DAL.Abstract;
 using CulturNary.DAL.Concrete;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using CulturNary.Web.Models;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 var builder = WebApplication.CreateBuilder(args);
 var appConnectionString = builder.Configuration.GetConnectionString("CulturNaryDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CulturNaryDbContextConnection' not found.");
@@ -21,8 +22,11 @@ builder.Services.AddDbContext<CulturNaryDbContext>(options => options
     .UseLazyLoadingProxies()
     .UseSqlServer(appConnectionString));
 
+
 builder.Services.AddScoped<DbContext,CulturNaryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+builder.Services.AddScoped<IRecipeSearchService, RecipeSearchService>();
+
 //add a new repo builder.Services.AddScoped<interface, repo>();
 // Add services to the container.
 //change default connection
@@ -52,6 +56,8 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequireAdministratorRole", 
                         policy => policy.RequireRole("Admin"));
+    options.AddPolicy("RequiresSignedRole",
+                        policy => policy.RequireRole("Signed"));
 });
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
@@ -59,6 +65,17 @@ builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 builder.Services.Configure<AzureStorageConfig>(builder.Configuration.GetSection("AzureStorageConfig"));
 
 builder.Services.AddScoped<ImageStorageService>();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(120);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -68,6 +85,11 @@ using (var scope = app.Services.CreateScope())
     if (!roleManager.RoleExistsAsync("Admin").Result)
     {
         roleManager.CreateAsync(new IdentityRole("Admin")).Wait();
+    }
+
+    if (!roleManager.RoleExistsAsync("Signed").Result)
+    {
+        roleManager.CreateAsync(new IdentityRole("Signed")).Wait();
     }
 }
 // Configure the HTTP request pipeline.
@@ -100,7 +122,7 @@ app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

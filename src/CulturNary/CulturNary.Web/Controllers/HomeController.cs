@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using CulturNary.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CulturNary.Web.Controllers;
 
@@ -28,7 +29,24 @@ public class HomeController : Controller
         return View();
     }
 
+    [Authorize(Roles = "Signed,Admin")]
+    public IActionResult GroceryList()
+    {
+        return View();
+    }
+
+    [Authorize(Roles = "Signed,Admin")]
     public IActionResult Collections()
+    {
+        return View();
+    }
+    [Authorize(Roles = "Signed,Admin")]
+    public IActionResult SearchEngines()
+    {
+        return View();
+    }
+    [Authorize(Roles = "Signed,Admin")]
+    public IActionResult RecipeSearchEngine()
     {
         return View();
     }
@@ -47,5 +65,22 @@ public class HomeController : Controller
 
         return View(errorViewModel);
 
+    }
+
+    [HttpPost]
+    public IActionResult SwitchTheme(bool isDark)
+    {
+
+        string theme = isDark ? "dark" : "light";
+
+        HttpContext.Session.SetString("Theme", theme);
+
+        var refererUrl = Request.Headers["Referer"].ToString();
+        if(!string.IsNullOrEmpty(refererUrl))
+        {
+            return Redirect(refererUrl);
+        }
+
+        return RedirectToAction("Index", "Home");
     }
 }

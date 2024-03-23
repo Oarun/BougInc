@@ -10,11 +10,13 @@ using Microsoft.AspNetCore.Identity;
 using CulturNary.Web.Models.DTO;
 using System.Runtime.CompilerServices;
 using CulturNary.Web.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CulturNary.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Signed,Admin")]
     public class CollectionController : ControllerBase
     {
         private readonly CulturNaryDbContext _context;
@@ -46,7 +48,9 @@ namespace CulturNary.Web.Controllers
                                         Id = c.Id,
                                         PersonId = c.PersonId,
                                         Name = c.Name,
-                                        Description = c.Description
+                                        Description = c.Description,
+                                        Tags = c.Tags,
+                                        CollectionImg = c.Img,
                                         // Map additional properties if needed
                                     })
                                     .ToListAsync();
@@ -66,7 +70,9 @@ namespace CulturNary.Web.Controllers
                     Id = c.Id,
                     PersonId = c.PersonId,
                     Name = c.Name,
-                    Description = c.Description
+                    Description = c.Description,
+                    Tags = c.Tags,
+                    CollectionImg = c.Img,
                     // Map additional properties if needed
                 })
                 .FirstOrDefaultAsync();
@@ -100,6 +106,46 @@ namespace CulturNary.Web.Controllers
             // Update the properties of the retrieved collection entity
             collection.Name = collectionDto.Name;
             collection.Description = collectionDto.Description;
+            collection.Img = collectionDto.CollectionImg;
+
+            try
+            {
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CollectionExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // PUT: api/Collection/Tags/5
+        [HttpPut("Tags/{id}")]
+        public async Task<IActionResult> PutCollectionTags(int id, CollectionDto collectionDto)
+        {
+            if (id != collectionDto.Id)
+            {
+                return BadRequest();
+            }
+
+            // Retrieve the collection entity from the database
+            var collection = await _context.Collections.FindAsync(id);
+            if (collection == null)
+            {
+                return NotFound();
+            }
+
+            // Update the properties of the retrieved collection entity
+            collection.Tags = collectionDto.Tags;
 
             try
             {
@@ -126,12 +172,15 @@ namespace CulturNary.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<CollectionDto>> PostCollection(CollectionDto collectionDto)
         {
+            Console.WriteLine($"image: {collectionDto.CollectionImg}" );
             // Map the properties from CollectionDto to Collection
             Collection collection = new Collection()
             {
                 PersonId = collectionDto.PersonId,
                 Name = collectionDto.Name,
-                Description = collectionDto.Description
+                Description = collectionDto.Description,
+                Tags = collectionDto.Tags,
+                Img = collectionDto.CollectionImg
             };
 
             _context.Collections.Add(collection);
@@ -142,7 +191,9 @@ namespace CulturNary.Web.Controllers
             {
                 Id = collection.Id,
                 Name = collection.Name,
-                Description = collection.Description
+                Description = collection.Description,
+                Tags = collection.Tags,
+                CollectionImg = collection.Img
             };
 
             return CreatedAtAction("GetCollection", new { id = collection.Id }, createdCollectionDto);

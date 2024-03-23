@@ -9,11 +9,13 @@ using CulturNary.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using CulturNary.Web.Models.DTO;
 using CulturNary.Web.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CulturNary.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Signed,Admin")]
     public class PersonController : Controller
     {
         private readonly CulturNaryDbContext _context;
@@ -27,38 +29,27 @@ namespace CulturNary.Web.Controllers
 
         // GET: api/Person/GetCurrentPerson
         [HttpGet("GetCurrentPerson")]
-        public async Task<ActionResult<PersonDto>> GetCurrentPerson()
+        public async Task<ActionResult<Person>> GetCurrentPerson()
         {
             try
             {
-                // Get the user ID of the currently authenticated user
                 var userId = _userManager.GetUserId(User);
 
-               var person = await _context.People
-                                    .Where(x => x.IdentityId == userId)
-                                    .Select(x => new PersonDto
-                                    {
-                                        Id = x.Id,
-                                        IdentityId = x.IdentityId
-                                        // Map other properties as needed
-                                    })
-                                    .FirstOrDefaultAsync();
+                var person = await _context.People
+                                    .Include(p => p.Collections)
+                                    .Include(p => p.Recipes)
+                                    .FirstOrDefaultAsync(p => p.IdentityId == userId);
 
                 if (person == null)
                 {
-                    // If the person is not found, return a 404 Not Found response
                     return NotFound();
                 }
 
-                // Return the person DTO
-                return Ok(person); // Return a 200 OK response with the person DTO
+                return Ok(person);
             }
             catch (Exception ex)
             {
-                // Log the exception
                 Console.WriteLine($"Error retrieving current person: {ex.Message}");
-
-                // Return a 500 Internal Server Error response
                 return StatusCode(500);
             }
         }
@@ -134,7 +125,18 @@ namespace CulturNary.Web.Controllers
 
             return NoContent();
         }
+        [HttpGet("Identity/{identityId}")]
+        public async Task<ActionResult<Person>> GetPersonByIdentityId(Guid identityId)
+        {
+            var person = await _context.People.FirstOrDefaultAsync(p => p.IdentityId == identityId.ToString());
 
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            return person;
+        }
         private bool PersonExists(int id)
         {
             return _context.People.Any(e => e.Id == id);

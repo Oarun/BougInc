@@ -1,14 +1,8 @@
--- Drop the foreign key constraint in Recipes table
-ALTER TABLE Recipes DROP CONSTRAINT FK_Recipes_Person;
+-- Step 3: Drop the Recipes table
+DROP TABLE IF EXISTS Recipes;
 
--- Drop the foreign key constraint in Collections table
-ALTER TABLE Collections DROP CONSTRAINT FK_Collections_Person;
+-- Step 2: Drop the Collections table
+DROP TABLE IF EXISTS Collections;
 
--- Drop the Recipes table
-DROP TABLE Recipes;
-
--- Drop the Collections table
-DROP TABLE Collections;
-
--- Drop the Person table
-DROP TABLE Person;
+-- Step 1: Drop the Person table
+DROP TABLE IF EXISTS Person;
