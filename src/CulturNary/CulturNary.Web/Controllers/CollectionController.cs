@@ -49,7 +49,8 @@ namespace CulturNary.Web.Controllers
                                         PersonId = c.PersonId,
                                         Name = c.Name,
                                         Description = c.Description,
-                                        Tags = c.Tags
+                                        Tags = c.Tags,
+                                        CollectionImg = c.Img,
                                         // Map additional properties if needed
                                     })
                                     .ToListAsync();
@@ -70,7 +71,8 @@ namespace CulturNary.Web.Controllers
                     PersonId = c.PersonId,
                     Name = c.Name,
                     Description = c.Description,
-                    Tags = c.Tags
+                    Tags = c.Tags,
+                    CollectionImg = c.Img,
                     // Map additional properties if needed
                 })
                 .FirstOrDefaultAsync();
@@ -104,6 +106,7 @@ namespace CulturNary.Web.Controllers
             // Update the properties of the retrieved collection entity
             collection.Name = collectionDto.Name;
             collection.Description = collectionDto.Description;
+            collection.Img = collectionDto.CollectionImg;
 
             try
             {
@@ -169,13 +172,15 @@ namespace CulturNary.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<CollectionDto>> PostCollection(CollectionDto collectionDto)
         {
+            Console.WriteLine($"image: {collectionDto.CollectionImg}" );
             // Map the properties from CollectionDto to Collection
             Collection collection = new Collection()
             {
                 PersonId = collectionDto.PersonId,
                 Name = collectionDto.Name,
                 Description = collectionDto.Description,
-                Tags = collectionDto.Tags
+                Tags = collectionDto.Tags,
+                Img = collectionDto.CollectionImg
             };
 
             _context.Collections.Add(collection);
@@ -187,7 +192,8 @@ namespace CulturNary.Web.Controllers
                 Id = collection.Id,
                 Name = collection.Name,
                 Description = collection.Description,
-                Tags = collection.Tags
+                Tags = collection.Tags,
+                CollectionImg = collection.Img
             };
 
             return CreatedAtAction("GetCollection", new { id = collection.Id }, createdCollectionDto);

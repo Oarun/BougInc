@@ -33,9 +33,9 @@ body {
     display: flex;
     flex-direction: column;
     padding-top: 60px;
-    max-height: 100vh;
     background-color: #353F2D;
     color: #DCEDCF;
+    
 }
 
 .nav a,
@@ -143,6 +143,22 @@ body {
         background-image: url('/media/icons8-right-arrow-50-light.png');
     }
 
+/* Add bottom padding to the recipe template */
+#templateRecipes {
+    padding: 10px !important; /* Adjust the value as needed */
+}
+
+/* Add bottom padding to the collections template */
+#userCollectionsContainer {
+    padding: 20px !important; /* Adjust the value as needed */
+}
+.collectionCard{
+    padding: 20px !important;
+}
+#welcome-user{
+    padding-bottom: 50px !important;
+    background-color: #505C47 !important;
+}
 /*          Identity Styling
 -----------------------------------*/
 .ManageLayout {
@@ -854,16 +870,12 @@ textarea.form-control {
         color: white;
     }
 
-    .adminTable tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
     .adminTable tr:hover {
-        background-color: #ddd;
+        background-color: #4F7942;
     }
 
 .make-admin-button {
-    background-color: #4F7942; /* dark green */
+    background-color: #4F7959; /* dark green */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -880,7 +892,7 @@ textarea.form-control {
     color: #4F7942;
 }
 .delete-user-button {
-    background-color: #4F7942; /* dark green */
+    background-color: #4F7959; /* dark green */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -903,6 +915,7 @@ textarea.form-control {
     flex-wrap: wrap;
     align-items: center;
     background-color: #353f2dbf;
+    
 }
 
     .modal-body td {
@@ -1159,4 +1172,138 @@ textarea.form-control {
 
 #collections li {
     margin-bottom: 10px;
+}
+
+#done {
+    text-decoration: line-through;
+}
+
+.grocery-list {
+    background-color: #353F2D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.list-container {
+    background-color: #505C47;
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    color: #DCEDCF;
+}
+
+.grocery-main button, .grocery-main a {
+    border: none;
+    cursor: pointer;
+    color: #407A3B;
+    border-radius: 10px;
+}
+
+.grocery-main ul {
+    margin-top: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+    width: 270px;
+}
+#checklistDate {
+    color: #407A3B;
+    border: none;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.grocery-main li {
+    list-style-type: none;
+}
+
+.groceries{
+    padding-right: 0 !important;
+}
+
+/* Style for the collection image */
+.collection-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+/* Container to limit the image height */
+.image-container {
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.card {
+    width: 15rem;
+    margin-bottom: 20px; /* Add margin between cards */
+}
+
+/* Adjust padding and margin for better spacing */
+.collection-container {
+    /* Adjust as needed */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    text-align: center;
+    padding-bottom: 100px; /* Ensure space between cards and footer */
+}
+
+/* Ensure the footer doesn't cover the last card */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #353F2D;
+    color: #DCEDCF;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 999; /* Ensure footer stays above other content */
+}
+
+.main-content {
+    margin-bottom: 100px; /* Adjust the value as needed */
+}
+
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.image-container {
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.collectionImg {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.collectionImg:hover {
+    transform: scale(1.05);
+}
+
+.viewCollectionBtn {
+    margin-top: 10px;
 }
