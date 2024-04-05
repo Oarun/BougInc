@@ -30,6 +30,12 @@ public class HomeController : Controller
     }
 
     [Authorize(Roles = "Signed,Admin")]
+    public IActionResult MealPlanner()
+    {
+        return View();
+    }
+
+    [Authorize(Roles = "Signed,Admin")]
     public IActionResult GroceryList()
     {
         return View();
