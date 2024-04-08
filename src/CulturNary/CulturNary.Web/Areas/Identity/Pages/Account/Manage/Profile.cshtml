@@ -68,27 +68,28 @@
     </div>
     <div class="row align-items-start">
         <div class="col-md-6 text-center">
-            @if(false)
-            {
-                <h3>Likes:</h3>
-                // Display dietary restrictions like Tag system
-            }
-            else
+            @if(string.IsNullOrEmpty(Model.UserLikes))
             {
                 <h3>Likes:</h3>
                 <p>You have not set any likes.</p>
             }
+            else
+            {
+                <h3>Likes:</h3>
+                <p>@Model.UserLikes</p>
+            }
         </div>
         <div class="col-md-6 text-center">
-            @if(false)
-            {
-                <h3>Dislikes:</h3>
-                // Display dislikes in a paragraph form
-            }
-            else
+            @if(string.IsNullOrEmpty(Model.UserDislikes))
             {
                 <h3>Dislikes:</h3>
                 <p>You have not set any dislikes.</p>
+            }
+            else
+            {
+                
+                <h3>Dislikes:</h3>
+                <p>@Model.UserLikes</p>
             }
         </div>
         <div class="">
