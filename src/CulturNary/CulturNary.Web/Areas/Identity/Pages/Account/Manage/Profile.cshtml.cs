@@ -49,6 +49,8 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
 
         public string UserDislikes { get; set; }
 
+        public List<DietaryRestriction> DietaryRestrictions { get; set; }
+
         private async Task LoadAsync(SiteUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
@@ -59,6 +61,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
             Username = userName;
             UserLikes = userData.UserLikes;
             UserDislikes = userData.UserDislikes;
+            DietaryRestrictions = userData.GetDietaryRestrictions();
         }
 
         public async Task<IActionResult> OnGetAsync()

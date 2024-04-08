@@ -32,16 +32,27 @@ namespace CulturNary.Web.Areas.Identity.Data
             }
         }
 
-        public void SetDietaryRestrictions(List<DietaryRestriction> restrictions)
-        {
-            DietaryRestrictions = JsonSerializer.Serialize(restrictions);
-        }
+        // public void SetDietaryRestrictions(List<DietaryRestriction> restrictions)
+        // {
+        //     DietaryRestrictions = JsonSerializer.Serialize(restrictions);
+        // }
     }
 
-    public class DietaryRestriction
+    public class DietaryRestriction : IEquatable<DietaryRestriction>
     {
         public string? Name { get; set; }
         public bool Active { get; set; }
+
+        public bool Equals(DietaryRestriction other)
+        {
+            if (other == null) return false;
+            return this.Name == other.Name && this.Active == other.Active;
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, Active);
+        }
+
     }
 
 }
