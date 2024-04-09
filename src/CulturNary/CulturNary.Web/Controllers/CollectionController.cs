@@ -169,6 +169,7 @@ namespace CulturNary.Web.Controllers
 
         // POST: api/Collection
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /*
         [HttpPost]
         public async Task<ActionResult<CollectionDto>> PostCollection(CollectionDto collectionDto)
         {
@@ -198,7 +199,7 @@ namespace CulturNary.Web.Controllers
 
             return CreatedAtAction("GetCollection", new { id = collection.Id }, createdCollectionDto);
         }
-
+        */
         // DELETE: api/Collection/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCollection(int id)
