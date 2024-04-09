@@ -1,0 +1,35 @@
+@page
+@model LikeDislikeModel
+@{
+    ViewData["Title"] = "Change your Likes and Dislikes";
+    ViewData["ActivePage"] = ManageNavPages.Profile;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger-custom" role="alert"></div>
+            <div class="row">
+                <div class="col-md-6 form-floating mb-3">
+                    <textarea asp-for="Input.likes" class="form-control text-danger-custom profile-text-area" rows="10" cols="70" style="height:300px;" ></textarea>
+                    <label asp-for="Input.likes" class="form-label text-danger-custom">Likes</label>
+                    <span asp-validation-for="Input.likes" class="text-danger-custom"></span>
+                </div>
+                <div class="col-md-6 form-floating mb-3">
+                    <textarea asp-for="Input.dislikes" class="form-control text-danger-custom profile-text-area" rows="10" cols="70" style="height:300px;"></textarea>
+                    <label asp-for="Input.dislikes" class="form-label text-danger-custom">Dislikes</label>
+                    <span asp-validation-for="Input.dislikes" class="text-danger-custom"></span>
+                </div>
+            </div>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg profile-btn">Save</button>
+        </form>
+        <a class="profile-link" asp-page="Profile">Return to your Profile</a>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

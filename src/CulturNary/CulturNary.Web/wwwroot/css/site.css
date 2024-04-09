@@ -184,22 +184,45 @@ body {
 }
 
     .profile-btn:hover {
-        background-color: #DCEDCF;
-        color: #353F2D;
+        background-color: #353F2D;
+        color: #DCEDCF;
         text-decoration: none;
     }
 
     .profile-btn:focus {
-        background-color: #DCEDCF;
-        color: #353F2D;
+        background-color: #353F2D;
+        color: #DCEDCF;
         text-decoration: none;
     }
 
     .profile-btn:active {
-        background-color: #DCEDCF;
-        color: #353F2D;
+        background-color: #353F2D;
+        color: #DCEDCF;
         text-decoration: none;
     }
+
+.toggle-buttons .form-check-res{
+    display: inline-block;
+}
+
+.toggle-buttons .form-check-res-input{
+    display:none;
+}
+
+.toggle-buttons .form-check-res-label{
+    background-color: #DCEDCF;
+    color: #407A3B;
+    border: 1px solid #407A3B;
+    padding: 0.375rem 0.75rem;
+    margin: 0 0.1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.toggle-buttons .form-check-res-label.active {
+    background-color: #407A3B;
+    color: #DCEDCF;
+}
 
 .panel {
     background-color: #DCEDCF;
