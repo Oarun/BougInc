@@ -184,9 +184,32 @@ body {
     }
 
     .profile-btn:active {
-        background-color: #353F2D;
-        color: #DCEDCF;
+        background-color: #DCEDCF;
+        color: #353F2D;
         text-decoration: none;
+    }
+
+    .toggle-buttons .form-check-res{
+        display: inline-block;
+    }
+    
+    .toggle-buttons .form-check-res-input{
+        display:none;
+    }
+    
+    .toggle-buttons .form-check-res-label{
+        background-color: #407A3B;
+        color: #DCEDCF;
+        border: 1px solid #407A3B;
+        padding: 0.375rem 0.75rem;
+        margin: 0 0.1rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    }
+    
+    .toggle-buttons .form-check-res-label.active {
+        background-color: #DCEDCF;
+        color: #407A3B;
     }
 
 .panel {

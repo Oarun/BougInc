@@ -49,7 +49,10 @@
                 <ul>
                     @foreach (var restriction in Model.DietaryRestrictions)
                     {
-                        <li class="tag-item">@restriction.Name</li>
+                        @if(restriction.Active == true)
+                        {
+                            <li class="tag-item">@restriction.Name</li>
+                        }
                     }
                 </ul>
             }
