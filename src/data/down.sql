@@ -1,5 +1,5 @@
 -- Drop the FavoriteRecipes table
-DROP TABLE IF EXISTS FavoriteRecipes;
+DROP TABLE IF EXISTS FavoriteRecipe;
 
 -- Drop the Recipes table
 DROP TABLE IF EXISTS Recipes;

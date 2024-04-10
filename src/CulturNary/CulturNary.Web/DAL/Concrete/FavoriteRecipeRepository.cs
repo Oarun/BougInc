@@ -8,21 +8,28 @@ namespace CulturNary.DAL.Concrete
 {
     public class FavoriteRecipeRepository : Repository<FavoriteRecipe>, IFavoriteRecipeRepository
     {
-        public FavoriteRecipeRepository(DbContext ctx) : base(ctx)
+        private readonly CulturNaryDbContext _context;
+
+        public FavoriteRecipeRepository(CulturNaryDbContext context) : base(context)
         {
+            _context = context;
         }
 
-        // Implement the missing methods from IRepository<FavoriteRecipe> here. For example:
+        // Implement the missing methods from IRepository<FavoriteRecipes> here. For example:
         public override FavoriteRecipe FindById(int id)
         {
-            return _context.Set<FavoriteRecipe>().Find(id);
+            return _context.FavoriteRecipes.Find(id);
         }
 
         public override IQueryable<FavoriteRecipe> GetAll()
         {
-            return _context.Set<FavoriteRecipe>();
+            return _context.FavoriteRecipes;
         }
-
+        public async Task AddFavoriteRecipe(FavoriteRecipe favoriteRecipes)
+        {
+            _context.FavoriteRecipes.Add(favoriteRecipes);
+            await _context.SaveChangesAsync();
+        }
         // Implement the rest of the missing methods...
     }
 }

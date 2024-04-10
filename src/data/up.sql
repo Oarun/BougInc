@@ -29,7 +29,7 @@ CREATE TABLE Recipes (
 );
 
 -- Step 4: Create the FavoriteRecipes table
-CREATE TABLE FavoriteRecipes (
+CREATE TABLE FavoriteRecipe (
     id INT PRIMARY KEY IDENTITY(1,1),
     person_id INT NOT NULL,
     recipe_id INT NOT NULL,
