@@ -1,12 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById('searchForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const ingredients = document.getElementById('ingredients').value;
-        RecipeSearch.searchRecipes(ingredients)
-            .then(data => RecipeSearch.displayResults(data));
-    });
-});
+﻿
 
 const RecipeSearch = {
     searchRecipes: function (query) {
@@ -121,32 +113,27 @@ const RecipeSearch = {
                 url: '/api/Person/GetCurrentPerson',
                 type: 'GET',
                 success: function (data) {
-                    // If person data is received, show welcome-user section
-                    $('.welcome-user').show();
-                    // Hide welcome-section if it was initially visible
-                    $('.welcome-section').hide();
-                    // Process the received person data
+                    console.log("Received data for person")
                     resolve(data); // Resolve with the entire Person object
                 },
                 error: function (xhr, status, error) {
-                    // If error occurs (person not found), show welcome-section
-                    $('.welcome-section').show();
-                    // Hide welcome-user section if it was initially visible
-                    $('.welcome-user').hide();
+                    console.log("Didn't receive data for person")
                     reject(error);
                 }
             });
         });
     },
-    addToFavorites: function (recipe) {
-        const url = '/api/FavoriteRecipesApiController'; // Replace with your actual API endpoint
 
-        this.getPerson().then(person => {
+    addToFavorites: (recipe) => {
+        const url = '/api/FavoriteRecipesApi'; 
+
+        RecipeSearch.getPerson().then(person => {
+            console.log(person);
             const favoriteRecipe = {
-                PersonId: person.Id, // Use person.Id
+                PersonId: person.id, // Use person.Id
                 RecipeId: recipe.uri, // Assuming the recipe's URI is its ID
                 FavoriteDate: new Date().toISOString(),
-                Tags: '' // Replace with the actual tags
+                Person: person
             };
 
             fetch(url, {
@@ -166,5 +153,15 @@ const RecipeSearch = {
                 console.error('Fetch error:', error);
             });
         });
-    }.bind(this)
+    }
 };
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('searchForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const ingredients = document.getElementById('ingredients').value;
+        RecipeSearch.searchRecipes(ingredients)
+            .then(data => RecipeSearch.displayResults(data));
+    });
+});

@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CulturNary.Web.Models;
-using CulturNary.DAL.Concrete;
+using CulturNary.DAL.Abstract;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CulturNary.Web.Controllers
@@ -12,9 +12,9 @@ namespace CulturNary.Web.Controllers
     [Authorize(Roles = "Signed,Admin")]
     public class FavoriteRecipesApiController : ControllerBase
     {
-        private readonly FavoriteRecipeRepository _favoriteRecipeRepository;
+        private readonly IFavoriteRecipeRepository _favoriteRecipeRepository;
 
-        public FavoriteRecipesApiController(FavoriteRecipeRepository favoriteRecipeRepository)
+        public FavoriteRecipesApiController(IFavoriteRecipeRepository favoriteRecipeRepository)
         {
             _favoriteRecipeRepository = favoriteRecipeRepository;
         }
@@ -25,8 +25,8 @@ namespace CulturNary.Web.Controllers
         {
             try
             {
-                await _favoriteRecipeRepository.AddFavoriteRecipe(favoriteRecipe);
-                return CreatedAtAction("GetFavoriteRecipe", new { id = favoriteRecipe.Id }, favoriteRecipe);
+                _favoriteRecipeRepository.Add(favoriteRecipe);
+                return StatusCode(200);
             }
             catch (Exception)
             {

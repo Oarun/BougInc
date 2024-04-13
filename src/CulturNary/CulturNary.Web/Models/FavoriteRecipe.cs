@@ -9,13 +9,15 @@ public partial class FavoriteRecipe
 
     public int PersonId { get; set; }
 
-    public int RecipeId { get; set; }
+    public string RecipeId { get; set; } = null!;
 
     public DateTime FavoriteDate { get; set; }
 
+    public string? Label { get; set; }
+
     public string? Tags { get; set; }
 
-    public virtual Person Person { get; set; } = null!;
+    public string? Uri { get; set; }
 
-    public virtual Recipe Recipe { get; set; } = null!;
+    public virtual Person Person { get; set; } = null!;
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 public class UserRecommendationsController : Controller
 {
     [Route("Favorite")]
-    public async Task<IActionResult> Users(){
+    public async Task<IActionResult> Favorite(){
         return View("Favorite");
     }
 }
