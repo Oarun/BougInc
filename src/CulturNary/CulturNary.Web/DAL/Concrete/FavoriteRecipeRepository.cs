@@ -29,5 +29,8 @@ namespace CulturNary.DAL.Concrete
         public FavoriteRecipe GetFavoriteRecipeByRecipeId(string recipeId){
             return base.Where(x => x.RecipeId == recipeId).FirstOrDefault();
         }
+        public List<FavoriteRecipe> SearchFavoriteRecipesForPersonID(int personId, string search){
+            return base.Where(x => x.PersonId == personId && x.Label.Contains(search)).ToList();
+        }
     }
 }

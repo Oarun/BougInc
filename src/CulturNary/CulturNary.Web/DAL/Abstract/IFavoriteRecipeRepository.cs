@@ -10,5 +10,6 @@ namespace CulturNary.DAL.Abstract
         public void DeleteAllRecipeForPersonID(int personId);
         public FavoriteRecipe GetFavoriteRecipeForPersonIDAndRecipeID(int personId, int Id);
         public FavoriteRecipe GetFavoriteRecipeByRecipeId(string recipeId);
+        public List<FavoriteRecipe> SearchFavoriteRecipesForPersonID(int personId, string search);
     }
 }

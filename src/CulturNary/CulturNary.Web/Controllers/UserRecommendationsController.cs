@@ -73,4 +73,19 @@ public class UserRecommendationsController : Controller
 
         return RedirectToAction(nameof(Favorite));
     }
+    [HttpGet]
+    public async Task<IActionResult> SearchFavoriteRecipes(string search)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        var person = await _context.People.FirstOrDefaultAsync(p => p.IdentityId == user.Id);
+
+        if (person == null)
+        {
+            return NotFound();
+        }
+
+        var recipes = _favoriteRecipeRepository.SearchFavoriteRecipesForPersonID(person.Id, search);
+
+        return View("Favorite", recipes);
+    }
 }
