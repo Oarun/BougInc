@@ -1,13 +1,5 @@
 @model IEnumerable<CulturNary.Web.Models.FavoriteRecipe>
 
-<h2 class="text-center mb-4">Your Favorite Recipes</h2>
-
-<div class="form-group">
-    <input type="text" class="form-control" id="search" name="search" placeholder="Search recipes">
-</div>
-
-<div id="recipeTable">
-
 @if (!Model.Any())
 {
     <p class="text-center">You have no favorite recipes.</p>
@@ -43,23 +35,4 @@ else
             }
         </tbody>
     </table>
-}
-</div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            $('#search').on('keyup', function () {
-                var search = $(this).val();
-                $.ajax({
-                    url: '@Url.Action("SearchFavoriteRecipes", "UserRecommendations")',
-                    type: 'GET',
-                    data: { search: search },
-                    success: function (response) {
-                        $('#recipeTable').html(response);
-                    }
-                });
-            });
-        });
-    </script>
 }

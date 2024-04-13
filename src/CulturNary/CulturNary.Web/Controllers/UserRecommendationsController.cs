@@ -86,6 +86,6 @@ public class UserRecommendationsController : Controller
 
         var recipes = _favoriteRecipeRepository.SearchFavoriteRecipesForPersonID(person.Id, search);
 
-        return View("Favorite", recipes);
+        return PartialView("_FavoriteRecipesTable", recipes);
     }
 }
