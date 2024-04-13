@@ -11,7 +11,5 @@ public partial class Person
 
     public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
 
-    public virtual ICollection<FavoriteRecipe> FavoriteRecipes { get; set; } = new List<FavoriteRecipe>();
-
     public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 }

@@ -1,0 +1,47 @@
+@model IEnumerable<CulturNary.Web.Models.FavoriteRecipe>
+
+<h2 class="text-center mb-4">Your Favorite Recipes</h2>
+
+<form asp-controller="UserRecommendations" asp-action="SearchFavoriteRecipes" method="get">
+    <div class="form-group">
+        <input type="text" class="form-control" id="search" name="search" placeholder="Search recipes">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+@if (!Model.Any())
+{
+    <p class="text-center">You have no favorite recipes.</p>
+}
+else
+{
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Recipe ID</th>
+                <th>Favorite Date</th>
+                <th>Label</th>
+                <th>Tags</th>
+                <th>URI</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recipe in Model)
+            {
+                <tr>
+                    <td>@recipe.RecipeId</td>
+                    <td>@recipe.FavoriteDate.ToString("d")</td>
+                    <td>@recipe.Label</td>
+                    <td>@recipe.Tags</td>
+                    <td><a href="@recipe.Uri" class="btn btn-primary" target="_blank">Link to Recipe</a></td>
+                    <td>
+                        <form method="post" asp-controller="UserRecommendations" asp-action="DeleteFavoriteRecipe" asp-route-id="@recipe.Id">
+                            <button type="submit" class="btn btn-danger">Unfavorite</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

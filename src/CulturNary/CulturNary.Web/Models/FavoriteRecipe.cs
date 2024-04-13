@@ -18,6 +18,4 @@ public partial class FavoriteRecipe
     public string? Tags { get; set; }
 
     public string? Uri { get; set; }
-
-    public virtual Person Person { get; set; } = null!;
 }

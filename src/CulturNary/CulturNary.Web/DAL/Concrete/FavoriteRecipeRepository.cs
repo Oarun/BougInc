@@ -13,10 +13,21 @@ namespace CulturNary.DAL.Concrete
         {
             
         }
-        public FavoriteRecipe Add(FavoriteRecipe favoriteRecipes)
-        {
-            var entityEntry = _dbSet.Add(favoriteRecipes);
-            return entityEntry.Entity;
+        public List<FavoriteRecipe> GetFavoriteRecipeForPersonID(int personId){
+            return base.Where(x => x.PersonId == personId).ToList();
+        }
+        public void DeleteAllRecipeForPersonID(int personId){
+            var favoriteRecipes = GetFavoriteRecipeForPersonID(personId);
+            foreach (var recipe in favoriteRecipes)
+            {
+                base.Delete(recipe);
+            }
+        }
+        public FavoriteRecipe GetFavoriteRecipeForPersonIDAndRecipeID(int personId, int Id){
+            return base.Where(x => x.PersonId == personId && x.Id == Id).FirstOrDefault();
+        }
+        public FavoriteRecipe GetFavoriteRecipeByRecipeId(string recipeId){
+            return base.Where(x => x.RecipeId == recipeId).FirstOrDefault();
         }
     }
 }

@@ -104,5 +104,15 @@ namespace CulturNary.DAL.Concrete
             Delete(FindById(id));
             return;
         }
+        public virtual TEntity Add(TEntity entity)
+        {
+            _dbSet.Add(entity);
+            _context.SaveChanges();
+            return entity;
+        }
+        public IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _dbSet.Where(predicate);
+        }
     }
 }

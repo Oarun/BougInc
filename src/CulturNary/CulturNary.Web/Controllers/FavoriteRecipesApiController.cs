@@ -25,8 +25,25 @@ namespace CulturNary.Web.Controllers
         {
             try
             {
-                _favoriteRecipeRepository.Add(favoriteRecipe);
+                var existingRecipe = _favoriteRecipeRepository.GetFavoriteRecipeByRecipeId(favoriteRecipe.RecipeId);
+
+                if (existingRecipe == null)
+                {
+                    _favoriteRecipeRepository.Add(favoriteRecipe);
+                }
                 return StatusCode(200);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet]
+        public async Task<ActionResult<FavoriteRecipe>> GetFavoriteRecipe()
+        {
+            try
+            {
+                return Ok(_favoriteRecipeRepository.GetAll());
             }
             catch (Exception)
             {

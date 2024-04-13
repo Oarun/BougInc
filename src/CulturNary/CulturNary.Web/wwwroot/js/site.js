@@ -126,16 +126,17 @@ const RecipeSearch = {
 
     addToFavorites: (recipe) => {
         const url = '/api/FavoriteRecipesApi'; 
-
+    
         RecipeSearch.getPerson().then(person => {
             console.log(person);
             const favoriteRecipe = {
-                PersonId: person.id, // Use person.Id
-                RecipeId: recipe.uri, // Assuming the recipe's URI is its ID
+                PersonId: person.id,
+                RecipeId: recipe.uri,
                 FavoriteDate: new Date().toISOString(),
-                Person: person
+                Label: recipe.label,
+                Uri: recipe.url
             };
-
+    
             fetch(url, {
                 method: 'POST',
                 headers: {
