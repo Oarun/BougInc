@@ -9,26 +9,26 @@ else
     <table class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
             <tr>
-                <th>Recipe ID</th>
-                <th>Favorite Date</th>
-                <th>Label</th>
-                <th>Tags</th>
-                <th>URI</th>
-                <th>Action</th>
+                <th style="color: #BDB76B;">Image</th>
+                <th style="color: #BDB76B;">Favorite Date</th>
+                <th style="color: #BDB76B;">Label</th>
+                <th style="color: #BDB76B;">URI</th>
+                <th style="color: #BDB76B;">Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var recipe in Model)
             {
                 <tr>
-                    <td>@recipe.RecipeId</td>
-                    <td>@recipe.FavoriteDate.ToString("d")</td>
-                    <td>@recipe.Label</td>
-                    <td>@recipe.Tags</td>
-                    <td><a href="@recipe.Uri" class="btn btn-primary" target="_blank">Link to Recipe</a></td>
+                    <td>
+                        <img src="@recipe.ImageUrl" alt="Recipe Image" width="200" height="200" style="color: #BDB76B;">
+                    </td>
+                    <td style="color: #BDB76B;">@recipe.FavoriteDate.ToString("d")</td>
+                    <td style="color: #BDB76B;">@recipe.Label</td>
+                    <td><a href="@recipe.Uri" class="btn btn-custom" target="_blank" style="color: black;">Link to Recipe</a></td>
                     <td>
                         <form method="post" asp-controller="UserRecommendations" asp-action="DeleteFavoriteRecipe" asp-route-id="@recipe.Id">
-                            <button type="submit" class="btn btn-danger">Unfavorite</button>
+                            <button type="submit" class="btn btn-custom" style="color: black;">Unfavorite</button>
                         </form>
                     </td>
                 </tr>

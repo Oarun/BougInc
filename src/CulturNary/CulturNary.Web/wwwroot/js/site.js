@@ -134,6 +134,7 @@ const RecipeSearch = {
                 RecipeId: recipe.uri,
                 FavoriteDate: new Date().toISOString(),
                 Label: recipe.label,
+                ImageUrl: recipe.image,
                 Uri: recipe.url
             };
     

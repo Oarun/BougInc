@@ -11,6 +11,8 @@ public partial class FavoriteRecipe
 
     public string RecipeId { get; set; } = null!;
 
+    public string? ImageUrl { get; set; }
+
     public DateTime FavoriteDate { get; set; }
 
     public string? Label { get; set; }

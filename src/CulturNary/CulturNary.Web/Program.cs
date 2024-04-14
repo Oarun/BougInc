@@ -26,6 +26,7 @@ builder.Services.AddDbContext<CulturNaryDbContext>(options => options
 builder.Services.AddScoped<DbContext,CulturNaryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
 builder.Services.AddScoped<IRecipeSearchService, RecipeSearchService>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IFavoriteRecipeRepository, FavoriteRecipeRepository>();
 
 //add a new repo builder.Services.AddScoped<interface, repo>();

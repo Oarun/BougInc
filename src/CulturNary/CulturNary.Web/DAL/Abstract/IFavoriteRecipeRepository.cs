@@ -7,7 +7,7 @@ namespace CulturNary.DAL.Abstract
     {
         public FavoriteRecipe Add(FavoriteRecipe favoriteRecipes);
         public List<FavoriteRecipe> GetFavoriteRecipeForPersonID(int personId);
-        public void DeleteAllRecipeForPersonID(int personId);
+        public void DeleteAllRecipeForPersonID(string identityId);
         public FavoriteRecipe GetFavoriteRecipeForPersonIDAndRecipeID(int personId, int Id);
         public FavoriteRecipe GetFavoriteRecipeByRecipeId(string recipeId);
         public List<FavoriteRecipe> SearchFavoriteRecipesForPersonID(int personId, string search);
