@@ -190,7 +190,7 @@ namespace CulturNary.Web.Controllers
             // Map the Collection object back to CollectionDto before returning it
             CollectionDto createdCollectionDto = new CollectionDto()
             {
-                Id = collection.Id,
+                Id = collection.Id ,
                 Name = collection.Name,
                 Description = collection.Description,
                 Tags = collection.Tags,
