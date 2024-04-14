@@ -17,6 +17,8 @@ public partial class CulturNaryDbContext : DbContext
 
     public virtual DbSet<Collection> Collections { get; set; }
 
+    public virtual DbSet<FavoriteRecipe> FavoriteRecipes { get; set; }
+
     public virtual DbSet<Person> People { get; set; }
 
     public virtual DbSet<Recipe> Recipes { get; set; }
@@ -55,6 +57,28 @@ public partial class CulturNaryDbContext : DbContext
                 .WithOne(r => r.Collection)
                 .HasForeignKey(r => r.CollectionId)
                 .OnDelete(DeleteBehavior.Cascade); // Configure cascade delete 
+        });
+
+        modelBuilder.Entity<FavoriteRecipe>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Favorite__3213E83F807A5ABB");
+
+            entity.ToTable("FavoriteRecipe");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.FavoriteDate)
+                .HasColumnType("datetime")
+                .HasColumnName("favorite_date");
+            entity.Property(e => e.ImageUrl).HasColumnName("image_url");
+            entity.Property(e => e.Label)
+                .HasMaxLength(255)
+                .HasColumnName("label");
+            entity.Property(e => e.PersonId).HasColumnName("person_id");
+            entity.Property(e => e.RecipeId)
+                .HasMaxLength(450)
+                .HasColumnName("recipe_id");
+            entity.Property(e => e.Tags).HasColumnName("tags");
+            entity.Property(e => e.Uri).HasColumnName("uri");
         });
 
         modelBuilder.Entity<Person>(entity =>
