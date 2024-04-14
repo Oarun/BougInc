@@ -177,7 +177,7 @@ $(document).ready(function () {
     //get popular recipes
     function searchPopular(query) {
         const url = `/api/RecipeSearch/search?q=${encodeURIComponent(query)}`;
-
+        console.log(query)
         fetch(url)
             .then(response => {
                 if (!response.ok) {
