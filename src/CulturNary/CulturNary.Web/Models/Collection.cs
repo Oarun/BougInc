@@ -7,7 +7,7 @@ public partial class Collection
 {
     public int Id { get; set; }
 
-    public int PersonId { get; set; }
+    public int? PersonId { get; set; }
 
     public string Name { get; set; } = null!;
 
@@ -17,7 +17,7 @@ public partial class Collection
 
     public string? Img { get; set; }
 
-    public virtual Person Person { get; set; } = null!;
+    public virtual Person? Person { get; set; }
 
     public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 }

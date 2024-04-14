@@ -20,15 +20,13 @@ namespace CulturNary.DAL.Concrete
         public void DeleteAllRecipeForPersonID(string identityId)
         {
             var person = _personRepository.GetPersonByIdentityId(identityId);
-            if (person == null)
+            if (person != null)
             {
-                throw new Exception($"No person found with IdentityId {identityId}");
-            }
-
-            var favoriteRecipes = GetFavoriteRecipeForPersonID(person.Id);
-            foreach (var recipe in favoriteRecipes)
-            {
-                base.Delete(recipe);
+                var favoriteRecipes = GetFavoriteRecipeForPersonID(person.Id);
+                foreach (var recipe in favoriteRecipes)
+                {
+                    base.Delete(recipe);
+                }   
             }
         }
         public FavoriteRecipe GetFavoriteRecipeForPersonIDAndRecipeID(int personId, int Id){
