@@ -17,7 +17,9 @@ public partial class Recipe
 
     public string? Img { get; set; }
 
-    public virtual Collection Collection { get; set; } = null!;
+    public string? Uri { get; set; }
 
-    public virtual Person Person { get; set; } = null!;
+    public virtual Collection? Collection { get; set; }
+
+    public virtual Person? Person { get; set; }
 }

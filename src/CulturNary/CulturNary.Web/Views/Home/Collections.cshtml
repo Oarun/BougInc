@@ -67,6 +67,7 @@
             <div id="collectionDetailsContainer" class="col-md-6 collection-details-container" style="display: none;">
                 <h2 id="collectionTitle"></h2>
                 <i class="fas fa-plus add-recipe-icon btn-collections"> Add a Recipe</i>
+                <i class="fas fa-plus search-similar-recipes btn-collections" id="similarRecipesButton"> Search Similar Recipes </i>
                 <!-- Form for adding a new recipe -->
                 <div class="col-md-8 offset-md-2" id="addRecipeFormContainer" style="display: none;">
                     <!-- Adjusted column width and added offset for centering -->
@@ -141,4 +142,21 @@
             </div>
         </div>
     </div>
+    <div id="similarRecipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+        </div>
+    </div>
 </div>
+
+<template id="templateSimilarRecipes">
+    <div class="card mb-3 col-md-4" style="max-width: 100%;">
+        <div class="card-body">
+            <h2 id="SimilarRecipeName" class="SimilarRecipeName"></h2>
+            <h5 id="CuisineType" class="CuisineType"></h5>
+            <h5 id="MealType" class="MealType"></h5>
+            <img src="" class="SimilarRecipeImg" id="SimilarRecipeImg" alt="Image" style="max-width: 100%; height: auto;">
+            <button class="addSimilarRecipeBtn">Add to Collection</button>
+        </div>
+    </div>
+</template>
