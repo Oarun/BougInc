@@ -721,9 +721,9 @@ function PopulateRecipeModal(query) {
 // Function to handle adding a similar recipe to the collection
 function handleAddToCollection(recipe) {
     console.log("Recipe Name:", recipe.label);
-    // console.log("Cuisine Type:", recipe.cuisineType[0]);
-    // console.log("Meal Type:", recipe.mealType[0]);
-    // console.log("Image:", recipe.image);
+    console.log("Cuisine Type:", recipe.cuisineType[0]);
+    console.log("Meal Type:", recipe.mealType[0]);
+    console.log("Image:", recipe.image);
 
     // Create a JSON object with the recipe data
     var similarRecipeData = {
