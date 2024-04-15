@@ -44,8 +44,7 @@ namespace CulturNary.Web.Controllers
                                         Name = c.Name,
                                         Description = c.Description,
                                         RecipeImg = c.Img,
-                                        PersonId = c.PersonId,
-                                        Uri = c.Uri
+                                        PersonId = c.PersonId
                                         // Map additional properties if needed
                                     })
                                     .ToListAsync();
@@ -66,7 +65,6 @@ namespace CulturNary.Web.Controllers
                                         Name = c.Name,
                                         Description = c.Description,
                                         RecipeImg = c.Img,
-                                        Uri = c.Uri
                                         // Map additional properties if needed
                                     })
                                     .ToListAsync();

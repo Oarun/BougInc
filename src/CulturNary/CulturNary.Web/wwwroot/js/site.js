@@ -1,4 +1,11 @@
-﻿
+﻿document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('searchForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const ingredients = document.getElementById('ingredients').value;
+        searchRecipes(ingredients);
+    });
+});
 
 const RecipeSearch = {
     searchRecipes: function (query) {
@@ -36,12 +43,11 @@ const RecipeSearch = {
                                 <p class="card-text" style="line-height: 3.5px; color: #DCEDCF;">${Math.round(product.recipe.calories)} kcal</p>
                                 <p class="card-text" style="line-height: 3.5px; color: #DCEDCF;">${product.recipe.ingredients.length} Ingredients</p>
                                 <button class="btn btn-primary" style="line-height: 4.5px; border: none;" onclick="updateAndShowModal(${JSON.stringify(product.recipe).replace(/"/g, '&quot;')})">View More ></button>
-                                <button class="btn btn-primary" style="line-height: 4.5px; border: none;" onclick="RecipeSearch.addToFavorites(${JSON.stringify(product.recipe).replace(/"/g, '&quot;')})"><i class="fas fa-star"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
-                `;
+            `;
                 resultsDiv.innerHTML += cardHTML;
             });
         } else {
@@ -106,64 +112,5 @@ const RecipeSearch = {
         const modalRecipeLink = document.getElementById('modalRecipeLink');
         var recipeModal = new bootstrap.Modal(document.getElementById('recipeModal'));
         recipeModal.show();
-    },
-    getPerson: function () {
-        return new Promise((resolve, reject) => {
-            $.ajax({
-                url: '/api/Person/GetCurrentPerson',
-                type: 'GET',
-                success: function (data) {
-                    console.log("Received data for person")
-                    resolve(data); // Resolve with the entire Person object
-                },
-                error: function (xhr, status, error) {
-                    console.log("Didn't receive data for person")
-                    reject(error);
-                }
-            });
-        });
-    },
-
-    addToFavorites: (recipe) => {
-        const url = '/api/FavoriteRecipesApi'; 
-    
-        RecipeSearch.getPerson().then(person => {
-            console.log(person);
-            const favoriteRecipe = {
-                PersonId: person.id,
-                RecipeId: recipe.uri,
-                FavoriteDate: new Date().toISOString(),
-                Label: recipe.label,
-                ImageUrl: recipe.image,
-                Uri: recipe.url
-            };
-    
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(favoriteRecipe)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                console.log('Added to favorites:', recipe);
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-            });
-        });
     }
 };
-
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById('searchForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const ingredients = document.getElementById('ingredients').value;
-        RecipeSearch.searchRecipes(ingredients)
-            .then(data => RecipeSearch.displayResults(data));
-    });
-});
