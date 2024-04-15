@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CulturNary.Web", "CulturNar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CulturNary.Test", "CulturNary.Test\CulturNary.Test.csproj", "{33EDA8E9-C834-463D-B477-A248ACA7C314}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CulturNaryBDDProject", "CulturNaryBDDProject\CulturNaryBDDProject.csproj", "{D8AC04E8-90E6-4850-8927-2E6E1F77C92D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{33EDA8E9-C834-463D-B477-A248ACA7C314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33EDA8E9-C834-463D-B477-A248ACA7C314}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33EDA8E9-C834-463D-B477-A248ACA7C314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8AC04E8-90E6-4850-8927-2E6E1F77C92D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8AC04E8-90E6-4850-8927-2E6E1F77C92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8AC04E8-90E6-4850-8927-2E6E1F77C92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8AC04E8-90E6-4850-8927-2E6E1F77C92D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
