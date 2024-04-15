@@ -1,4 +1,14 @@
 {
     "appService.defaultWebAppToDeploy": "/subscriptions/82f55e65-33b1-4312-9caa-ba6a110d8357/resourceGroups/CulturNary/providers/Microsoft.Web/sites/culturnary",
-    "appService.deploySubpath": "CulturNary.Web\\bin\\Release\\net8.0\\publish"
+    "appService.deploySubpath": "CulturNary.Web\\bin\\Release\\net8.0\\publish",
+
+    "explorer.fileNesting.patterns": {  // shows *.feature.cs files as nested items
+        "*.feature": "${capture}.feature.cs"
+    },
+    "cucumber.glue": [ // sets the location of the step definition classes
+        "CulturNaryBDDProject/**/*.cs",
+    ],
+    "cucumber.features": [ // sets the location of the feature files
+        "CulturNaryBDDProject/**/*.feature",
+    ]
 }
