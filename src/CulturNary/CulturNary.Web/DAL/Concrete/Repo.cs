@@ -27,7 +27,7 @@ namespace CulturNary.DAL.Concrete
         // The context is private to enforce full separation, preventing a subclass from accessing
         // entities other than this one.  If you need other entities, write a separate "service" or "provider" class
         // that has access to all repositories needed
-        protected readonly DbContext _context;
+        private readonly DbContext _context;
         // This one is OK to use in a subclass because it only represents the entity for this type of repository
         // and it can be mocked
         protected readonly DbSet<TEntity> _dbSet;
@@ -103,16 +103,6 @@ namespace CulturNary.DAL.Concrete
         {
             Delete(FindById(id));
             return;
-        }
-        public virtual TEntity Add(TEntity entity)
-        {
-            _dbSet.Add(entity);
-            _context.SaveChanges();
-            return entity;
-        }
-        public IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> predicate)
-        {
-            return _dbSet.Where(predicate);
         }
     }
 }

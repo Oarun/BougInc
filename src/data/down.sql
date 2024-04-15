@@ -1,11 +1,8 @@
--- Drop the FavoriteRecipes table
-DROP TABLE IF EXISTS FavoriteRecipe;
-
--- Drop the Recipes table
+-- Step 3: Drop the Recipes table
 DROP TABLE IF EXISTS Recipes;
 
--- Drop the Collections table
+-- Step 2: Drop the Collections table
 DROP TABLE IF EXISTS Collections;
 
--- Drop the Person table
+-- Step 1: Drop the Person table
 DROP TABLE IF EXISTS Person;

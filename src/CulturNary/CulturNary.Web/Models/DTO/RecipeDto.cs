@@ -10,6 +10,5 @@ namespace CulturNary.Web.Models.DTO
         public string Name { get; set; }
         public string Description { get; set; }
         public string? RecipeImg {get; set; }
-        public string? Uri { get; set; }
     }
 }

@@ -1,18 +1,11 @@
 var personId;
 var currentCollectionId;
-var recipeTitles;
-var similarRecipeList;
 
 $(document).ready(function () {
     $('#noCollectionsMessage').hide();
     getPerson();
     $('.carousel').carousel();
 
-    const similarRecipesButton = document.getElementById('similarRecipesButton');
-
-    similarRecipesButton.addEventListener('click', function() {
-        PopulateRecipeModal(recipeTitles);
-    });
 
     // Bind event listener for form submission to add new collection
     $('#createCollectionForm').on('submit', function (event) {
@@ -534,18 +527,13 @@ function displayRecipes(collectionId) {
             $('#collectionRecipes').empty();
             if (data.length === 0) {
                 // If no recipes found, display a message
-                similarRecipesButton.style.display = 'none';
                 $('#collectionRecipes').append('<ul>No recipes found for this collection. You can add some!</ul>');
             } else {
-                recipeTitles = [];
-                // Add each recipe uri to the list
-                similarRecipeList = [];
+                // Add each recipe to the list
                 data.forEach(function (recipe) {
-                    similarRecipesButton.style.display = 'block';
                     var recipeCard = $(`<div class="card mx-auto recipe-card"></div>`);
                     var cardBody = $('<div class="card-body"></div>');
                     cardBody.append(`<h5 class="card-title">${recipe.name}</h5>`);
-                    recipeTitles.push(recipe.name); 
                     cardBody.append(`<p class="card-text">${recipe.description}</p>`);
                     var deleteIcon = $(`<i class="fas fa-trash-alt delete-recipe-icon" data-recipe-id="${recipe.id}"></i>`);
                     cardBody.append(deleteIcon);
@@ -556,11 +544,7 @@ function displayRecipes(collectionId) {
                         var recipeId = $(this).data('recipe-id');
                         deleteRecipe(recipeId, collectionId);
                     });
-                    if(recipe.uri!=null){
-                        similarRecipeList.push(recipe.uri)
-                    }
                 });
-                console.log(recipeTitles)
             }
             // Call the function to display available collections when the page loads
 
@@ -671,103 +655,4 @@ function displayCollectionsForRecipe() {
     });
 }
 
-// Function to populate the recipe modal
-function PopulateRecipeModal(query) {
-    // Your code to populate the recipe modal goes here
-    console.log("Populating recipe modal...");
-    var num = query.length;
-    var randomIndex = Math.floor(Math.random() * num);
-    console.log(query)
-    console.log(num)
-    console.log(query[randomIndex])
-    const url = `/api/RecipeSearch/search?q=${encodeURIComponent(query[randomIndex])}`;
-    console.log(similarRecipeList)
-
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Response data:", data);
-            const similarRecipesToDisplay = data.hits.slice(0, 20);
-            similarRecipesToDisplay.forEach(hit => {
-                // Add your code here to display each similar recipe
-                if (!similarRecipeList.includes(hit.recipe.uri)) {
-                var templateClone = document.getElementById('templateSimilarRecipes').content.cloneNode(true);
-                templateClone.querySelector('.SimilarRecipeName').textContent = `${hit.recipe.label}`;
-                templateClone.querySelector('.CuisineType').textContent = `Cuisine: ${hit.recipe.cuisineType}`;
-                templateClone.querySelector('.MealType').textContent = `Type: ${hit.recipe.mealType}`;
-                templateClone.querySelector('.SimilarRecipeImg').src = hit.recipe.image;
-
-                // Add an event listener to the "Add to Collection" button within the cloned template
-                templateClone.querySelector('.addSimilarRecipeBtn').addEventListener('click', function() {
-                    handleAddToCollection(hit.recipe); // Pass the recipe data to the event handler
-                });
-
-                document.querySelector('.modal-content').appendChild(templateClone);
-            }
-            });
-            document.getElementById('similarRecipeModal').style.display = 'block';
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-            document.getElementById('searchResults').textContent = 'Failed to load recipes.';
-        });
-}
-
-// Function to handle adding a similar recipe to the collection
-function handleAddToCollection(recipe) {
-    console.log("Recipe Name:", recipe.label);
-    console.log("Cuisine Type:", recipe.cuisineType[0]);
-    console.log("Meal Type:", recipe.mealType[0]);
-    console.log("Image:", recipe.image);
-
-    // Create a JSON object with the recipe data
-    var similarRecipeData = {
-        personId: personId,
-        name: recipe.label,
-        description: recipe.cuisineType[0],
-        collectionId: currentCollectionId,
-        img: recipe.image,
-        uri: recipe.uri
-    };
-    console.log(similarRecipeData)
-    // Make an AJAX POST request to add the recipe to the current collection
-    $.ajax({
-        url: '/api/Recipe',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(similarRecipeData),
-        success: function (data) {
-            // Recipe added successfully
-            console.log('Recipe added successfully to collection ' + collectionId + ':', data);
-        },
-        error: function (xhr, status, error) {
-            // Error handling code
-            console.error('Error adding recipe to collection ' + collectionId + ':', error);
-            // Display an error message to the user or handle the error in any other way
-        }
-    });
-}
-
-// Function to close the modal
-function closeModal() {
-    document.getElementById('similarRecipeModal').style.display = 'none';
-    while (modalContent.firstChild) {
-        modalContent.removeChild(modalContent.firstChild);
-    }
-    // Call the function to update the recipe list
-    displayRecipes(currentCollectionId)
-}
-
-// Add event listener to the close button within the modal
-document.querySelector('.close').addEventListener('click', function() {
-    closeModal();
-});
-
-
-
-// module.exports = { getPerson, getCollection, addCollection, deleteCollection, displayRecipes, putTags, updateTags, deleteRecipe, displayCollectionsForRecipe };
+module.exports = { getPerson, getCollection, addCollection, deleteCollection, displayRecipes, putTags, updateTags, deleteRecipe, displayCollectionsForRecipe };
