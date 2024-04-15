@@ -9,7 +9,7 @@
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="container mt-4">
     <div class="row align-items-start">
-        <div class="col-md-6 text-center">
+        <div class="text-center">
             @if(string.IsNullOrEmpty(Model.DisplayName))
             {
                 <h2>You have not set a display name.</h2>
@@ -18,21 +18,8 @@
             {
                 <h2>@Model.DisplayName</h2>
             }
-            <div class="profile-bio-box">
-                @if(string.IsNullOrEmpty(Model.Biography))
-                {
-                    <p>You have not set a biography.</p>
-                }
-                else
-                {
-                    <p>@Model.Biography</p>
-                }
-            </div>
-            <form id="edit-displayname" asp-page="EditDisplayName" method="post">
+            <form id="edit-displayname" asp-page="EditDisplayName" method="get">
                 <button class="w-30 btn btn-lg profile-btn" type="submit">Edit Display Name</button>
-            </form>
-            <form id="edit-biography" asp-page="EditBiography" method="post">
-                <button class="w-30 btn btn-lg profile-btn" type="submit">Edit Biography</button>
             </form>
         </div>
         <div class="col-md-6 text-center">
@@ -46,8 +33,78 @@
             {
                 <img src="@Model.ProfilePicture" alt="Profile Image" class="img-fluid pfp-rounded-circle" />
             }
-            <form id="edit-profilepic" asp-page="EditProfileImage" method="post">
+            <form id="edit-profilepic" asp-page="EditProfileImage" method="get">
                 <button class="w-20 btn profile-btn" type="submit">Change Profile Image</button>
+            </form>
+        </div>
+        <div class="col-md-6 text-center">
+            @if(@Model.DietaryRestrictions.Count == 0 || Model.DietaryRestrictions == null)
+            {
+                <h3>Dietary Restrictions:</h3>
+                <p>You have not set any dietary restrictions.</p>
+            }
+            else
+            {
+                <h3>Dietary Restrictions:</h3>
+                <ul>
+                    @foreach (var restriction in Model.DietaryRestrictions)
+                    {
+                        @if(restriction.Active == true)
+                        {
+                            <li class="tag-item">@restriction.Name</li>
+                        }
+                    }
+                </ul>
+            }
+            <form id="edit-restrictions" asp-page="EditRestrictions" method="get">
+                <button class="w-30 btn btn-lg profile-btn" type="submit">Edit Dietary Restictions</button>
+            </form>
+            <div class="profile-bio-box">
+                @if(string.IsNullOrEmpty(Model.Biography))
+                {
+                    <p>You have not set a biography.</p>
+                }
+                else
+                {
+                    <p>@Model.Biography</p>
+                }
+            </div>
+            <form id="edit-biography" asp-page="EditBiography" method="get">
+                <button class="w-30 btn btn-lg profile-btn" type="submit">Edit Biography</button>
+            </form>
+        </div>
+    </div>
+    <div class="row align-items-start">
+        <div class="col-md-6 text-center">
+            <br>
+            @if(string.IsNullOrEmpty(Model.UserLikes))
+            {
+                <h3>Likes:</h3>
+                <p>You have not set any likes.</p>
+            }
+            else
+            {
+                <h3>Likes:</h3>
+                <p>@Model.UserLikes</p>
+            }
+        </div>
+        <div class="col-md-6 text-center">
+            <br>
+            @if(string.IsNullOrEmpty(Model.UserDislikes))
+            {
+                <h3>Dislikes:</h3>
+                <p>You have not set any dislikes.</p>
+            }
+            else
+            {
+                
+                <h3>Dislikes:</h3>
+                <p>@Model.UserLikes</p>
+            }
+        </div>
+        <div class="d-flex justify-content-center">
+            <form id="edit-likedislike" asp-page="EditLikesDislikes" method="post">
+                <button class="w-30 btn btn-lg profile-btn" type="submit">Edit Likes/Dislikes</button>
             </form>
         </div>
     </div>
