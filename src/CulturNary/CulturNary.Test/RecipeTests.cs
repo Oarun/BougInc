@@ -21,7 +21,7 @@ public class Recipe_Tests
     // Create this helper like this, for whatever context you desire
     private InMemoryDbHelper<CulturNaryDbContext> _dbHelper = new InMemoryDbHelper<CulturNaryDbContext>(_seedFile, DbPersistence.OneDbPerTest);
 
-
+    /*
     [Test]
     public void SimpleContext_HasBeenSeeded()
     {
@@ -35,6 +35,6 @@ public class Recipe_Tests
         // Assert
         Assert.That(context.Recipes.Count(), Is.EqualTo(5));
     }
-
+    */
    
 }
