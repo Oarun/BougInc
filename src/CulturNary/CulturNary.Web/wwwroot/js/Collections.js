@@ -755,12 +755,12 @@ function handleAddToCollection(recipe) {
 
 // Function to close the modal
 function closeModal() {
+    // Call the function to update the recipe list
+    displayRecipes(currentCollectionId)
     document.getElementById('similarRecipeModal').style.display = 'none';
     while (modalContent.firstChild) {
         modalContent.removeChild(modalContent.firstChild);
     }
-    // Call the function to update the recipe list
-    displayRecipes(currentCollectionId)
 }
 
 // Add event listener to the close button within the modal
