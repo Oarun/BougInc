@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +25,7 @@ namespace CulturNaryBDDProject.Shared
             {"ProfileName", "/Identity/Account/Manage/EditDisplayName?"},
             {"ProfileBio", "/Identity/Account/Manage/EditBiography?"},
             {"ProfilePic", "/Identity/Account/Manage/EditProfileImage?"},
+            {"RecipeSearchEngine", "/Home/RecipeSearchEngine"}
 
         };
 

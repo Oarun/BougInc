@@ -1,4 +1,6 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI; // Add this line
+using SeleniumExtras.WaitHelpers; // Add this line
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,19 +22,25 @@ namespace CulturNaryBDDProject.PageObjects
             }
         }
 
-        public IWebElement UsernameInput => _webDriver.FindElement(By.Id("login-username"));
-        public IWebElement PasswordInput => _webDriver.FindElement(By.Id("login-password"));
-        public IWebElement RememberMeCheck => _webDriver.FindElement(By.Id("login-rememberMe"));
+        public IWebElement UsernameInput => _webDriver.FindElement(By.Id("Input_Email"));
+        public IWebElement PasswordInput => _webDriver.FindElement(By.Id("Input_Password"));
+        public IWebElement RememberMeCheck => _webDriver.FindElement(By.Id("Input_RememberMe"));
         public IWebElement SubmitButton => _webDriver.FindElement(By.Id("login-submit"));
 
         public void EnterUsername(string username)
         {
+            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("Input_Email")));
+
             UsernameInput.Clear();
             UsernameInput.SendKeys(username);
         }
 
         public void EnterPassword(string password)
         {
+            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("Input_Password")));
+            
             PasswordInput.Clear();
             PasswordInput.SendKeys(password);
         }
