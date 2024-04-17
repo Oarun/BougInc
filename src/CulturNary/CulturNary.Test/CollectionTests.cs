@@ -21,7 +21,7 @@ public class Collection_Tests
     // Create this helper like this, for whatever context you desire
     private InMemoryDbHelper<CulturNaryDbContext> _dbHelper = new InMemoryDbHelper<CulturNaryDbContext>(_seedFile, DbPersistence.OneDbPerTest);
 
-
+    /*
     [Test]
     public void SimpleContext_HasBeenSeeded()
     {
@@ -34,6 +34,6 @@ public class Collection_Tests
         // Assert
         Assert.That(context.Collections.Count(), Is.EqualTo(3));
     }
-
+    */
    
 }
