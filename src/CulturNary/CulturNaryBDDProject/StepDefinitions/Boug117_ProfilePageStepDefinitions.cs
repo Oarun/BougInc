@@ -63,7 +63,11 @@ namespace CulturNaryBDDProject.StepDefinitions
                 _loginPage.EnterPassword(password);
                 _loginPage.Login();
             }
-
+            [When("the user navigates to the Profile page")]
+            public void WhenTheUserNavigatesToTheProfilePage()
+            {
+                _profilePage.GoTo();
+            }
             [Then("the user should see their display name, biography, and profile picture")]
             public void ThenTheUserShouldSeeTheirDisplayNameBiographyAndProfilePicture()
             {
@@ -157,6 +161,26 @@ namespace CulturNaryBDDProject.StepDefinitions
             {
                 _ProfileEditPicturePage.GoToProfile();
                 Assert.That(_profilePage.ProfilePicture.GetAttribute("src"), Is.EqualTo(@"https://culturnaryimage.blob.core.windows.net/images/harp.jpg"));
+            }
+            [Given("the user navigates to the Profile page")]
+            public void GivenTheUserNavigatesToTheProfilePage()
+            {
+                _scenarioContext.Pending();
+            }
+            [Then("the user should see the updated biopgraphy on their profile page")]
+            public void ThenTheUserShouldSeeTheUpdatedBiopgraphyOnTheirProfilePage()
+            {
+                _scenarioContext.Pending();
+            }
+            [When("the user selects a new picture on the edit page")]
+            public void WhenTheUserSelectsANewPictureOnTheEditPage()
+            {
+                _scenarioContext.Pending();
+            }
+            [Then("the user should see the new profile picture on their profile page")]
+            public void ThenTheUserShouldSeeTheNewProfilePictureOnTheirProfilePage()
+            {
+                _scenarioContext.Pending();
             }
         }
     }
