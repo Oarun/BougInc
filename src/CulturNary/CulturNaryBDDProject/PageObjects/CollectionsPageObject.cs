@@ -15,8 +15,8 @@ namespace CulturNaryBDDProject.PageObjects
 
         public IWebElement CreateCollectionFormContainer => _webDriver.FindElement(By.Id("createCollectionFormContainer"));
         public IWebElement CollectionContainer => _webDriver.FindElement(By.Id("CollectionContainer"));
-        public IWebElement EditIcon => _webDriver.FindElement(By.Id("editIcon"));
-        public IWebElement DeleteIcon => _webDriver.FindElement(By.Id("deleteIcon"));
+        public IWebElement EditIcon => _webDriver.FindElement(By.Id("CollectionContainer"));
+        public IWebElement DeleteIcon => _webDriver.FindElement(By.Id("CollectionContainer"));
 
     }
 }
