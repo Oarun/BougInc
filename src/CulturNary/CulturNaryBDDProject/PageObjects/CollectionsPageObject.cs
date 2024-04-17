@@ -10,38 +10,13 @@ namespace CulturNaryBDDProject.PageObjects
     {
         public CollectionsPageObject(IWebDriver webDriver) : base(webDriver)
         {
-            // using a named page (in Common.cs)
-            _pageName = "Home";
+            _pageName = "Collections";
         }
 
-        public IWebElement RegisterButton => _webDriver.FindElement(By.Id("register-link"));
-        public IWebElement NavBarHelloLink => _webDriver.FindElement(By.CssSelector("a[title=\"Manage\"]"));  //or _webDriver.FindElement(By.CssSelector("a[href=\"/Identity/Account/Manage\"]"));
+        public IWebElement CreateCollectionFormContainer => _webDriver.FindElement(By.Id("createCollectionFormContainer"));
+        public IWebElement CollectionContainer => _webDriver.FindElement(By.Id("CollectionContainer"));
+        public IWebElement EditIcon => _webDriver.FindElement(By.Id("editIcon"));
+        public IWebElement DeleteIcon => _webDriver.FindElement(By.Id("deleteIcon"));
 
-        public IWebElement NewsletterEmailInput => _webDriver.FindElement(By.Id("newsletter-subscribe-email"));
-        public IWebElement NewsletterSubscribeButton => _webDriver.FindElement(By.Id("newsletter-subscribe-submit-button"));
-        
-        private ReadOnlyCollection<IWebElement> Questions => _webDriver.FindElements(By.CssSelector("li.question a"));
-
-        public string NavbarWelcomeText()
-        {
-            return NavBarHelloLink.Text;
-        }
-
-        public void Logout()
-        {
-            IWebElement navbarLogoutButton = _webDriver.FindElement(By.Id("logout-button"));
-            navbarLogoutButton.Click();
-        }
-
-        public bool HasQuestionText(string text)
-        {
-            // Look through all the questions and see if text is present
-            return Questions.Any(q => q.Text.Contains(text));
-        }
-
-        public void SubmitNewsletterEmail()
-        {
-            NewsletterSubscribeButton.Click();
-        }
     }
 }
