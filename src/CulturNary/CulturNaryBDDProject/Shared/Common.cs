@@ -25,7 +25,8 @@ namespace CulturNaryBDDProject.Shared
             {"ProfileName", "/Identity/Account/Manage/EditDisplayName?"},
             {"ProfileBio", "/Identity/Account/Manage/EditBiography?"},
             {"ProfilePic", "/Identity/Account/Manage/EditProfileImage?"},
-            {"RecipeSearchEngine", "/Home/RecipeSearchEngine"}
+            {"RecipeSearchEngine", "/Home/RecipeSearchEngine"},
+            {"Collections", "/Home/Collections"}
 
         };
 
