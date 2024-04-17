@@ -325,8 +325,8 @@ function getCarousel() {
                         <div class="card-body text-center">
                             <h5 class="card-title">${collection.name}</h5>
                             <p class="card-text">${collection.description}</p>
-                            <i class="fas fa-trash-alt icon-margin delete-collection" data-collection-id="${collection.id}"></i>
-                            <i class="fas fa-pencil-alt pencil-icon" data-collection-id="${collection.id}"></i>
+                            <i id="deleteIcon" class="fas fa-trash-alt icon-margin delete-collection" data-collection-id="${collection.id}"></i>
+                            <i id="editIcon" class="fas fa-pencil-alt pencil-icon" data-collection-id="${collection.id}"></i>
                         </div>
                     </div>
                 </div>`;
@@ -755,12 +755,12 @@ function handleAddToCollection(recipe) {
 
 // Function to close the modal
 function closeModal() {
+    // Call the function to update the recipe list
+    displayRecipes(currentCollectionId)
     document.getElementById('similarRecipeModal').style.display = 'none';
     while (modalContent.firstChild) {
         modalContent.removeChild(modalContent.firstChild);
     }
-    // Call the function to update the recipe list
-    displayRecipes(currentCollectionId)
 }
 
 // Add event listener to the close button within the modal
