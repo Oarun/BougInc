@@ -12,11 +12,11 @@
         <div class="text-center">
             @if(string.IsNullOrEmpty(Model.DisplayName))
             {
-                <h2>You have not set a display name.</h2>
+                <h2 id="displayName">You have not set a display name.</h2>
             }
             else
             {
-                <h2>@Model.DisplayName</h2>
+                <h2 id="displayName">@Model.DisplayName</h2>
             }
             <form id="edit-displayname" asp-page="EditDisplayName" method="get">
                 <button class="w-30 btn btn-lg profile-btn" type="submit">Edit Display Name</button>
@@ -27,11 +27,11 @@
             <br>
             @if(string.IsNullOrEmpty(Model.ProfilePicture))
             {
-                <img src="~/Media/ProfileImages/default.png" alt="Profile Image" class="img-fluid pfp-rounded-circle"/>
+                <img src="~/Media/ProfileImages/default.png" alt="Profile Image" class="img-fluid pfp-rounded-circle" id="profilePicture"/>
             }
             else
             {
-                <img src="@Model.ProfilePicture" alt="Profile Image" class="img-fluid pfp-rounded-circle" />
+                <img src="@Model.ProfilePicture" alt="Profile Image" class="img-fluid pfp-rounded-circle" id="profilePicture"/>
             }
             <form id="edit-profilepic" asp-page="EditProfileImage" method="get">
                 <button class="w-20 btn profile-btn" type="submit">Change Profile Image</button>
@@ -62,11 +62,11 @@
             <div class="profile-bio-box">
                 @if(string.IsNullOrEmpty(Model.Biography))
                 {
-                    <p>You have not set a biography.</p>
+                    <p id="biography">You have not set a biography.</p>
                 }
                 else
                 {
-                    <p>@Model.Biography</p>
+                    <p id="biography">@Model.Biography</p>
                 }
             </div>
             <form id="edit-biography" asp-page="EditBiography" method="get">
