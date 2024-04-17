@@ -26,11 +26,10 @@ namespace CulturNaryBDDProject.Shared
             {"ProfileBio", "/Identity/Account/Manage/EditBiography?"},
             {"ProfilePic", "/Identity/Account/Manage/EditProfileImage?"},
             {"RecipeSearchEngine", "/Home/RecipeSearchEngine"},
-            {"Collections", "/Home/Collections"}
+            {"Collections", "/Home/Collections"},
             {"ProfileEditName", "/Identity/Account/Manage/EditDisplayName?"},
             {"ProfileEditBio", "/Identity/Account/Manage/EditBiography?"},
-            {"ProfileEditPicture", "/Identity/Account/Manage/EditProfileImage?"},
-            {"RecipeSearchEngine", "/Home/RecipeSearchEngine"}
+            {"ProfileEditPicture", "/Identity/Account/Manage/EditProfileImage?"}
 
         };
 
