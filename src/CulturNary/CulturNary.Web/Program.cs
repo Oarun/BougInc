@@ -28,6 +28,7 @@ builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
 builder.Services.AddScoped<IRecipeSearchService, RecipeSearchService>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IFavoriteRecipeRepository, FavoriteRecipeRepository>();
+builder.Services.AddHttpClient<MealPlannerService>();
 
 //add a new repo builder.Services.AddScoped<interface, repo>();
 // Add services to the container.
