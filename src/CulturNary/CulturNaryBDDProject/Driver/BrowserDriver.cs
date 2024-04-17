@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace CulturNaryBDDProject.Drivers
 {
@@ -16,11 +17,13 @@ namespace CulturNaryBDDProject.Drivers
     public class BrowserDriver : IDisposable
     {
         private readonly Lazy<IWebDriver> _currentWebDriverLazy;
+        private IJavaScriptExecutor js;
         private bool _isDisposed = false;
 
         public BrowserDriver()
         {
             _currentWebDriverLazy = new Lazy<IWebDriver>(CreateWebDriver);
+            js = (IJavaScriptExecutor)Current;
         }
 
         /// <summary>
@@ -38,11 +41,15 @@ namespace CulturNaryBDDProject.Drivers
             //ChromeDriverService chromeDriverService = ChromeDriverService.CreateDefaultService();
             //ChromeOptions chromeOptions = new ChromeOptions();
             //ChromeDriver driver = new ChromeDriver(chromeDriverService, chromeOptions);
+            //driver.Manage().Window.Maximize();
+
 
             // Firefox (never trusts the self-signed cert when running locally, so must bypass)
             FirefoxOptions firefoxOptions = new FirefoxOptions();
             firefoxOptions.AcceptInsecureCertificates = true;
             FirefoxDriver driver = new FirefoxDriver(firefoxOptions);
+            driver.Manage().Window.Maximize();
+
 
             return driver;
         }
@@ -63,6 +70,19 @@ namespace CulturNaryBDDProject.Drivers
             }
 
             _isDisposed = true;
+        }
+
+        public void ScrollToElement(IWebElement element)
+        {
+            if (element != null)
+            {
+                js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                throw new ArgumentNullException("Element is null");
+            }
         }
     }
 }

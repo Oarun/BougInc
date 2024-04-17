@@ -16,6 +16,8 @@ using OpenQA.Selenium.Firefox;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium.DevTools.V121.Profiler;
+using System.Threading;
+using SpecFlow.Actions.Selenium;
 
 namespace CulturNaryBDDProject.StepDefinitions
 {
@@ -25,7 +27,9 @@ namespace CulturNaryBDDProject.StepDefinitions
         [Binding]
         public class ProfilePageStepDefinitions
         {
+            private readonly Drivers.BrowserDriver _browserDriver;
             private readonly ScenarioContext _scenarioContext;
+            private readonly HomePageObject _homePage;
             private readonly LoginPageObject _loginPage;
             private readonly ProfilePageObject _profilePage;
             private readonly ProfileEditNamePageObject _ProfileEditNamePage;
@@ -34,9 +38,11 @@ namespace CulturNaryBDDProject.StepDefinitions
 
             private readonly IWebDriver _webDriver;
 
-            public ProfilePageStepDefinitions(ScenarioContext context, BrowserDriver browserDriver)
+            public ProfilePageStepDefinitions(ScenarioContext context, Drivers.BrowserDriver browserDriver)
             {
+                _browserDriver = browserDriver;
                 _webDriver = browserDriver.Current;
+                _homePage = new HomePageObject(_webDriver);
                 _loginPage = new LoginPageObject(_webDriver);
                 _profilePage = new ProfilePageObject(_webDriver);
                 _ProfileEditNamePage = new ProfileEditNamePageObject(_webDriver);
@@ -45,8 +51,8 @@ namespace CulturNaryBDDProject.StepDefinitions
                 _scenarioContext = context;
             }
 
-            [Given("the following user exists")]
-            public void GivenTheFollowingUserExists(DataTable dataTable)
+            [Given("the following user exists in BougOneSeventeen")]
+            public void GivenTheFollowingUserExistsInBougOneSeventeen(DataTable dataTable)
             {
                 dataTable.Rows.ToList().ForEach(row =>
                 {
@@ -62,6 +68,18 @@ namespace CulturNaryBDDProject.StepDefinitions
                 _loginPage.EnterUsername(username);
                 _loginPage.EnterPassword(password);
                 _loginPage.Login();
+            }
+
+            [When("the user navigates to the Profile page")]
+            public void WhenTheUserNavigatesToTheProfilePage()
+            {
+                _profilePage.GoTo();
+            }
+
+            [Given("the user navigates to their Profile page")]
+            public void WhenTheUserNavigatesToTheirProfilePage()
+            {
+                _profilePage.GoTo();
             }
 
             [Then("the user should see their display name, biography, and profile picture")]
@@ -82,6 +100,7 @@ namespace CulturNaryBDDProject.StepDefinitions
                 Assert.That(_profilePage.EditDisplayNameButton.Displayed);
                 Assert.That(_profilePage.EditBiographyButton.Displayed);
                 Assert.That(_profilePage.EditProfilePictureButton.Displayed);
+                _homePage.Logout();
             }
             
             [Given("clicks the button to edit their display name")]
@@ -107,6 +126,7 @@ namespace CulturNaryBDDProject.StepDefinitions
             {
                 _ProfileEditNamePage.GoToProfile();
                 Assert.That(_profilePage.DisplayName.Text, Is.EqualTo("New Display Name"));
+                _homePage.Logout();
             }
 
             [Given("clicks the button to edit their biography")]
@@ -127,11 +147,12 @@ namespace CulturNaryBDDProject.StepDefinitions
                 _ProfileEditBioPage.Save();
             }
 
-            [Then("the user should see the updated biography on their profile page")]
-            public void ThenTheUserShouldSeeTheUpdatedBiographyOnTheirProfilePage()
+            [Then("the user should see the updated biopgraphy on their profile page")]
+            public void ThenTheUserShouldSeeTheUpdatedBiopgraphyOnTheirProfilePage()
             {
                 _ProfileEditBioPage.GoToProfile();
                 Assert.That(_profilePage.Biography.Text, Is.EqualTo("New Biography"));
+                _homePage.Logout();
             }
 
             [Given("clicks the button to edit their profile picture")]
@@ -149,14 +170,17 @@ namespace CulturNaryBDDProject.StepDefinitions
             [When("clicks the button to upload their new picture")]
             public void WhenClicksTheButtonToUploadTheirNewProfilePicture()
             {
+                _browserDriver.ScrollToElement(_ProfileEditPicturePage.UploadButton);
                 _ProfileEditPicturePage.Upload();
             }
 
-            [Then("the user should see the updated profile picture on their profile page")]
-            public void ThenTheUserShouldSeeTheUpdatedProfilePictureOnTheirProfilePage()
+            [Then("the user should see the new profile picture on their profile page")]
+            public void ThenTheUserShouldSeeTheNewProfilePictureOnTheirProfilePage()
             {
+                _browserDriver.ScrollToElement(_ProfileEditPicturePage.ProfileButton);
                 _ProfileEditPicturePage.GoToProfile();
                 Assert.That(_profilePage.ProfilePicture.GetAttribute("src"), Is.EqualTo(@"https://culturnaryimage.blob.core.windows.net/images/harp.jpg"));
+                _homePage.Logout();
             }
         }
     }
