@@ -1,4 +1,5 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,11 +28,13 @@ namespace CulturNaryBDDProject.PageObjects
 
         public void UploadPicture(string filePath)
         {
+            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
             PictureInput.SendKeys(filePath);
         }
 
         public void Upload()
         {
+            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
             UploadButton.Click();
         }
 
