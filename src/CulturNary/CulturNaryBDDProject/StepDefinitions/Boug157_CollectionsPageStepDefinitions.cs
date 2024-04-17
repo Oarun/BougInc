@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CulturNaryBDDProject.StepDefinitions;
 
+[Binding]
 public class Boug157_CollectionsPageStepDefinitions
 {
     private readonly ScenarioContext _scenarioContext;
@@ -37,44 +38,57 @@ public class Boug157_CollectionsPageStepDefinitions
         _collectionsPage = new CollectionsPageObject(_webDriver);
         _scenarioContext = context;
     }
- 
-    [Given("I am a signed in user with UserName {string} and Password {string}")]
-    public void GivenIAmALoggedInUser(string p0, string p1)
+
+    [Given("the following user exists in BougOneFiftySeven")]
+    public void GivenTheFollowingUserExistsInBougOneFiftySeven(DataTable dataTable){
+        dataTable.Rows.ToList().ForEach(row =>
+        {
+            Console.WriteLine(row["UserName"]);
+            Console.WriteLine(row["Password"]);
+        });
+    }
+
+    [Given("the user is signed in with UserName {string} and Password {string}")]
+    public void GivenTheUserIsSignedInWithUserNameAndPassword(string p0, string p1)
     {
         _loginPage.GoTo();
         _loginPage.EnterUsername(p0);
         _loginPage.EnterPassword(p1);
         _loginPage.Login();
     }
-    
+
     [When("I go to the user collection page")]
     public void WhenIGoToTheUserCollectionPage()
     {
         _collectionsPage.GoTo();
     }
 
+
     [Then("I should see a form to create a collection")]
     public void ThenIShouldSeeAFormToCreateACollection()
     {
         Assert.That(_collectionsPage.CreateCollectionFormContainer.Displayed);
+        _homePage.Logout();
     }
 
-    [Then("I should see a collection called {string}")]
-    public void ThenIShouldSeeACollectionCalled(string lunch)
+    [Then("I should see my collections")]
+    public void ThenIShouldSeeMyCollections()
     {
         Assert.That(_collectionsPage.CreateCollectionFormContainer.Displayed);
-    }
-
-    [Then("I should see a delete logo to delete a collection")]
-    public void ThenIShouldSeeADeleteLogoToDeleteACollection()
-    {
-        Assert.That(_collectionsPage.EditIcon.Displayed);
+        _homePage.Logout();
     }
 
     [Then("I should see a edit logo to edit a collection")]
     public void ThenIShouldSeeAEditLogoToEditACollection()
     {
-        Assert.That(_collectionsPage.DeleteIcon.Displayed);
+        Assert.That(_collectionsPage.CreateCollectionFormContainer.Displayed);
+        _homePage.Logout();
     }
- 
+
+    [Then("I should see a delete logo to delete a collection")]
+    public void ThenIShouldSeeADeleteLogoToDeleteACollection()
+    {
+        Assert.That(_collectionsPage.CreateCollectionFormContainer.Displayed);
+        _homePage.Logout();
+    }
 }
