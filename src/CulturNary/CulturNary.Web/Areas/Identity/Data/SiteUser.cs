@@ -1,5 +1,6 @@
 using System.Security.Policy;
 using System.Text.Json;
+using CulturNary.Web.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace CulturNary.Web.Areas.Identity.Data
@@ -19,6 +20,9 @@ namespace CulturNary.Web.Areas.Identity.Data
         public string? UserDislikes { get; set; }
         [PersonalData]
         public string? DietaryRestrictions { get; set; }
+        [PersonalData]
+        public string? MealPlans { get; set; }
+
 
         public List<DietaryRestriction> GetDietaryRestrictions()
         {
@@ -36,6 +40,18 @@ namespace CulturNary.Web.Areas.Identity.Data
         // {
         //     DietaryRestrictions = JsonSerializer.Serialize(restrictions);
         // }
+
+        public List<MealPlan>? GetMealPlans()
+        {
+            return string.IsNullOrEmpty(MealPlans) ?
+            new List<MealPlan>() :
+                JsonSerializer.Deserialize<List<MealPlan>>(MealPlans);
+        }
+
+        public void SetMealPlans(List<MealPlan> mealPlans)
+        {
+            MealPlans = JsonSerializer.Serialize(mealPlans);
+        }
     }
 
     public class DietaryRestriction : IEquatable<DietaryRestriction>
