@@ -37,9 +37,8 @@ namespace CulturNaryBDDProject.StepDefinitions
             _scenarioContext = context;
         }
 
-        [Given("the following user exists")]
-        public void GivenTheFollowingUserExists(DataTable dataTable)
-        {
+        [Given("the following user exists in BougOneTwentySeven")]
+        public void GivenTheFollowingUserExistsInBougOneTwentySeven(DataTable dataTable){
             dataTable.Rows.ToList().ForEach(row =>
             {
                 Console.WriteLine(row["UserName"]);

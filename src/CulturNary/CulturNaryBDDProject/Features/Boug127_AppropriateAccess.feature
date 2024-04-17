@@ -4,9 +4,9 @@ Logged in users should be able to access logged in user information and can't ac
 
 And also the opposite, non-logged in users should be able to access non-logged in user information and can't access logged in pages
     Background:
-        Given the following user exists
+        Given the following user exists in BougOneTwentySeven
             | UserName | Password | DisplayName | Biography | ProfileImageName |
-            | testuser@fakemail.com | Password123! | Test User    | Hello!    | scrongle.jpg |
+            | testuser@fakemail.com | Password123! | Test User    | Hello!    | scrungle.jpg |
 
     Scenario: Signed-in user attempts to access non-signed-in user pages
         Given a user is signed in with UserName "testuser@fakemail.com" and Password "Password123!"
