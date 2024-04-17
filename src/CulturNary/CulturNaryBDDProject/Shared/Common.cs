@@ -22,9 +22,9 @@ namespace CulturNaryBDDProject.Shared
             { "Home" , "/" },
             { "Login", "/Identity/Account/Login" },
             {"Profile", "/Identity/Account/Manage/Profile"},
-            {"ProfileName", "/Identity/Account/Manage/EditDisplayName?"},
-            {"ProfileBio", "/Identity/Account/Manage/EditBiography?"},
-            {"ProfilePic", "/Identity/Account/Manage/EditProfileImage?"},
+            {"ProfileEditName", "/Identity/Account/Manage/EditDisplayName?"},
+            {"ProfileEditBio", "/Identity/Account/Manage/EditBiography?"},
+            {"ProfileEditPicture", "/Identity/Account/Manage/EditProfileImage?"},
             {"RecipeSearchEngine", "/Home/RecipeSearchEngine"}
 
         };
