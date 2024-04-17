@@ -2,414 +2,170 @@
 }
 
 <div class="container py-4" id="meal-plan">
-    <!-- Meal Plan Steps Section -->
     <div class="row">
         <div class="col-md-4 mb-3">
             <div class="bg-light p-3 rounded">
                 <h4 class="mb-3">Meal Plan Steps</h4>
-                <div class="d-flex align-items-center mb-2">
-                    <span class="badge rounded-pill me-2">1</span>
-                    <span>Choose meals per day</span>
-                </div>
-                <div class="d-flex align-items-center mb-2">
-                    <span class="badge rounded-pill me-2">2</span>
-                    <span>Set filters for all meals</span>
-                </div>
-                <div class="d-flex align-items-center">
-                    <span class="badge rounded-pill me-2">3</span>
-                    <span>Set your meals</span>
-                </div>
+                @{
+                    var numberOfMeals = MealPlannerLabels.MealSelections.Count;
+                    for (int i = 0; i < numberOfMeals; i++)
+                    {
+                        var step = MealPlannerLabels.MealPlanSteps[i];
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="badge rounded-pill me-2">@step.Number</span>
+                            <span>@step.Description</span>
+                        </div>
+                    }
+                }
             </div>
         </div>
-
-        <!-- Toggle and Form Section -->
         <div class="col-md-8 mb-3 container-preferences">
             <div class="bg-light p-3 rounded">
-                <!-- Filters Section -->
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-light p-3 rounded">
                             <h5>Meal Selection</h5>
-                            <!-- Meal Toggles -->
-                            <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" id="breakfastToggle" checked>
-                                <label class="form-check-label" for="breakfastToggle">Breakfast</label>
-                            </div>
-                            <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" id="lunchToggle" checked>
-                                <label class="form-check-label" for="lunchToggle">Lunch</label>
-                            </div>
-                            <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" id="dinnerToggle" checked>
-                                <label class="form-check-label" for="dinnerToggle">Dinner</label>
-                            </div>
+                            @foreach (var mealIndex in Enumerable.Range(0, MealPlannerLabels.MealSelections.Count))
+                            {
+                                var meal = MealPlannerLabels.MealSelections[mealIndex];
+                                var description = MealPlannerLabels.MealPlanSteps[mealIndex].Description;
+                                <div class="form-switch mb-2 meal-selection">
+                                    <input class="form-check-input" type="checkbox" id="@meal.ToLower()Toggle">
+                                    <label class="form-check-label" for="@meal.ToLower()Toggle">@meal</label>
+                                </div>
+                            }
                             <hr>
-                            <!-- Allergies -->
+
                             <h5>Allergies</h5>
-                            <div class="d-flex flex-wrap mb-3">
-                                <!-- Allergy Buttons -->
-                                <!-- Repeat this structure for each allergy -->
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Celery-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Crustacean-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Dairy-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Egg-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Fish-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Gluten-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Lupine-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Mustard-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Peanut-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Sesame-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Shellfish-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Soy-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Tree-Nut-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Wheat-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    FODMAP-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Peanut-Supportive <span class="badge">i</span>
-                                </button>
+                            <div class="d-flex flex-wrap mb-3 allergies parent">
+                                @foreach (var allergy in NutritionLabels.Allergies)
+                                {
+                                    <div class="form-check allergies">
+                                        <label class="form-check-label" for="@allergy.Value">
+                                            <input class="form-check-input" type="checkbox" id="@allergy.Value" value="@allergy.Value">
+                                            @allergy.Value
+                                            <span class="badge">i</span>
+                                        </label>
+                                    </div>
+                                }
                             </div>
 
-                            <!-- Diets -->
                             <h5>Diets</h5>
-                            <div class="d-flex flex-wrap mb-3">
-                                <!-- Diet Buttons -->
-                                <!-- Repeat this structure for each diet -->
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Alcohol-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Balanced <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    DASH <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    High-Fiber <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    High-Protein <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Keto <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Kidney friendly <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Kosher <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Low-Carb <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Low-Fat <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Low potassium <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Low-Sodium <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Mediterranean <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    No oil added <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    No-sugar <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Paleo <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Pescatarian  <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Pork-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Red meat-free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Sugaer-conscious <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Vegan <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Vegetarian <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Mollusk-Free <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Sulfite-Free <span class="badge">i</span>
-                                </button>
+                            <div class="d-flex flex-wrap mb-3 diets parent">
+                                @foreach (var diet in NutritionLabels.Diets)
+                                {
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="@diet.Value">
+                                            <input class="form-check-input" type="checkbox" id="@diet.Value" value="@diet.Value">
+                                            @diet.Value
+                                            <span class="badge">i</span>
+                                        </label>
+                                    </div>
+                                }
                             </div>
-
-                            <!-- Daily Budget -->
                             <h5>Daily Budget</h5>
                             <p>Default value is selected based on a min 1600 and max 2000 calorie diet. Please enter your preferred min/max values.</p>
                             <div class="input-group mb-3">
-                                <input type="number" class="form-control" placeholder="min" aria-label="Minimum calorie" value="1000">
+                                <input type="number" id="calorieMin" class="form-control" placeholder="min" aria-label="Minimum calorie">
                                 <span class="input-group-text">-</span>
-                                <input type="number" class="form-control" placeholder="max" aria-label="Maximum calorie" value="2000">
+                                <input type="number" id="calorieMax" class="form-control" placeholder="max" aria-label="Maximum calorie">
                                 <span class="input-group-text">kcal</span>
-                                <button class="btn btn-outline-success" type="button">Add</button>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" id="includeCalories" aria-label="Include Calories">
+                                    </div>
+                                    <button class="btn btn-outline-success" type="button" id="addCalories">Add</button>
+                                </div>
                             </div>
 
 
-                            <!-- Macronutrients -->
                             <h5>Macronutrients</h5>
-                            <div class="d-flex flex-wrap mb-3">
-                                <!-- Macronutrient Buttons -->
-                                <!-- Repeat this structure for each macronutrient -->
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Fat <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Saturated <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Trans <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Monounsaturated <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Polyunsaturated <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Carbs <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Fiber <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Sugars <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Protein <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Added sugar <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Carbohydrate <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Water <span class="badge">i</span>
-                                </button>
+                            <div class="d-flex flex-wrap mb-3 macronutrients parent">
+                                @foreach (var macro in NutritionLabels.Macronutrients)
+                                {
+                                    <div class="form-check macro">
+                                        <label class="form-check-label" for="@macro.Value">
+                                            <input class="form-check-input" type="checkbox" id="@macro.Value" value="@macro.Value">
+                                            @macro.Value
+                                            <span class="badge">i</span>
+                                        </label>
+                                        <div class="min-max-inputs" style="display: none;">
+                                            <div>
+                                                <label for="@($"{macro.Value}_min")">Min:</label>
+                                                <input type="number" id="@($"{macro.Value}_min")" name="@($"{macro.Value}_min")">
+                                            </div>
+                                            <div>
+                                                <label for="@($"{macro.Value}_max")">Max:</label>
+                                                <input type="number" id="@($"{macro.Value}_max")" name="@($"{macro.Value}_max")">
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary add-button">Add</button>
+                                    </div>
+                                }
                             </div>
 
-                            <!-- Micronutrients -->
                             <h5>Micronutrients</h5>
-                            <div class="d-flex flex-wrap mb-3">
-                                <!-- Micronutrient Buttons -->
-                                <!-- Repeat this structure for each micronutrient -->
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Cholesterol <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Sodium <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Calcium <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Magnesium <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Potassium <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Iron <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Phosphorus <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Vitamin A <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Vitamin C <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Thiamin (B1) <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Riboflavin (B2) <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Niacin (B3) <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Vitamin B6 <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Folate (Equivalent) <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Vitamin (B12) <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Vitamin D <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Vitamin E <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Vitamin K <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Folate, food <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Folic acid <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Sugar alcohols <span class="badge">i</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary m-2">
-                                    Zinc, Zn <span class="badge">i</span>
-                                </button>
+                            <div class="d-flex flex-wrap mb-3 micronutrients parent">
+                                @foreach (var micro in NutritionLabels.Micronutrients)
+                                {
+                                    <div class="form-check macro">
+                                        <label class="form-check-label" for="@micro.Value">
+                                            <input class="form-check-input" type="checkbox" id="@micro.Value" value="@micro.Value">
+                                            @micro
+                                            <span class="badge">i</span>
+                                        </label>
+                                        <div class="min-max-inputs">
+                                            <div>
+                                                <label for="@($"{micro.Value}_min")">Min:</label>
+                                                <input type="number" id="@($"{micro.Value}_min")" name="@($"{micro.Value}_min")">
+                                            </div>
+                                            <div>
+                                                <label for="@($"{micro.Value}_max")">Max:</label>
+                                                <input type="number" id="@($"{micro.Value}_max")" name="@($"{micro.Value}_max")">
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary add-button">Add</button>
+                                    </div>
+                                }
                             </div>
+
                             <hr>
-                            <!-- Meal Setting Section -->
                             <div class="bg-light p-3 rounded mt-3">
                                 <h4 class="mb-3">Preferred Meals</h4>
                                 <ul class="nav nav-tabs" id="mealTabs" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="breakfast-tab" data-bs-toggle="tab" data-bs-target="#breakfast" type="button" role="tab" aria-controls="breakfast" aria-selected="true">Breakfast</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="lunch-tab" data-bs-toggle="tab" data-bs-target="#lunch" type="button" role="tab" aria-controls="lunch" aria-selected="false">Lunch</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="dinner-tab" data-bs-toggle="tab" data-bs-target="#dinner" type="button" role="tab" aria-controls="dinner" aria-selected="false">Dinner</button>
-                                    </li>
+                                    @for (int i = 0; i < MealPlannerLabels.MealSelections.Count; i++)
+                                    {
+                                        var meal = MealPlannerLabels.MealSelections[i];
+                                        var isActive = i == 0 ? "active" : "";
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link @isActive" id="@meal.ToLower() + " -tab"" data-bs-toggle="tab" data-bs-target="#@meal.ToLower()" type="button" role="tab" aria-controls="@meal.ToLower()" aria-selected="@(isActive == "active")">@meal</button>
+                                        </li>
+                                    }
                                 </ul>
                                 <div class="tab-content" id="mealTabsContent">
-                                    <div class="tab-pane fade show active" id="breakfast" role="tabpanel" aria-labelledby="breakfast-tab">
-                                        <!-- Breakfast options buttons -->
-                                        <!-- Repeat for each breakfast option -->
-                                        <button type="button" class="btn btn-outline-secondary m-2">Alcohol cocktail <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Biscuits and cookies <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Bread <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Cereals <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Condiments and sauces <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Desserts  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Drinks  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Egg  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Ice cream and custard <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Main course  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pancake <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pasta <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pastry <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pies and tarts <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Preps  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Preserve  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Salad  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Sandwiches  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Seafood  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Side dish   <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Soup  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Special occasions  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Starter   <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Sweets   <span class="badge">i</span></button>
-                                    </div>
-                                    <div class="tab-pane fade" id="lunch" role="tabpanel" aria-labelledby="lunch-tab">
-                                        <!-- Lunch options buttons -->
-                                        <!-- Repeat for each lunch option -->
-                                        <button type="button" class="btn btn-outline-secondary m-2">Alcohol cocktail <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Biscuits and cookies <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Bread <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Cereals <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Condiments and sauces <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Desserts  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Drinks  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Egg  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Ice cream and custard <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Main course  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pancake <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pasta <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pastry <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pies and tarts <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Preps  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Preserve  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Salad  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Sandwiches  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Seafood  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Side dish   <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Soup  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Special occasions  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Starter   <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Sweets   <span class="badge">i</span></button>
-                                    </div>
-                                    <div class="tab-pane fade" id="dinner" role="tabpanel" aria-labelledby="dinner-tab">
-                                        <!-- Dinner options buttons -->
-                                        <!-- Repeat for each dinner option -->
-                                        <button type="button" class="btn btn-outline-secondary m-2">Alcohol cocktail <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Biscuits and cookies <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Bread <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Cereals <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Condiments and sauces <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Desserts  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Drinks  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Egg  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Ice cream and custard <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Main course  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pancake <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pasta <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pastry <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Pies and tarts <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Preps  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Preserve  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Salad  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Sandwiches  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Seafood  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Side dish   <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Soup  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Special occasions  <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Starter   <span class="badge">i</span></button>
-                                        <button type="button" class="btn btn-outline-secondary m-2">Sweets   <span class="badge">i</span></button>
-                                    </div>
+                                    @foreach (var meal in MealPlannerLabels.MealOptions)
+                                    {
+                                        var isActive = meal.Key == "Breakfast" ? "show active" : "";
+                                        <div class="tab-pane fade @isActive" id="@meal.Key.ToLower()" role="tabpanel" aria-labelledby="@meal.Key.ToLower()-tab">
+                                            @foreach (var option in meal.Value)
+                                            {
+                                                var optionId = option.ToLower().Replace(" ", "").ToLower() + "Toggle";
+                                                <div class="form-check meals">
+                                                    <label class="form-check-label" for="@optionId">
+                                                        <input class="form-check-input" type="checkbox" id="@optionId" value="@option">
+                                                        @option
+                                                        <span class="badge">i</span>
+                                                    </label>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <button id="searchButton" class="btn btn-primary">Search</button>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -417,3 +173,17 @@
     </div>
 </div>
 
+<div class="container py-4" id="meal-plan">
+    <div id="statusMessage" class="alert alert-info" role="alert">
+        Select meal options to see updates here.
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+        </div>
+        <div class="col-md-8 mb-3 container-preferences">
+            <div class="bg-light p-3 rounded mt-3">
+                <h4 class="mb-3">Preferred Meals</h4>
+            </div>
+        </div>
+    </div>
+</div>

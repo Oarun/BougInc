@@ -3,19 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CulturNary.Web", "CulturNary.Web\CulturNary.Web.csproj", "{312ABCBA-0B0F-40F9-B8C9-EC9A0EEBEF8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CulturNary.Web", "CulturNary.Web\CulturNary.Web.csproj", "{312ABCBA-0B0F-40F9-B8C9-EC9A0EEBEF8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CulturNary.Test", "CulturNary.Test\CulturNary.Test.csproj", "{33EDA8E9-C834-463D-B477-A248ACA7C314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CulturNary.Test", "CulturNary.Test\CulturNary.Test.csproj", "{33EDA8E9-C834-463D-B477-A248ACA7C314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CulturNaryBDDProject", "CulturNaryBDDProject\CulturNaryBDDProject.csproj", "{D8AC04E8-90E6-4850-8927-2E6E1F77C92D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CulturNaryBDDProject", "CulturNaryBDDProject\CulturNaryBDDProject.csproj", "{D8AC04E8-90E6-4850-8927-2E6E1F77C92D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{312ABCBA-0B0F-40F9-B8C9-EC9A0EEBEF8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +27,11 @@ Global
 		{D8AC04E8-90E6-4850-8927-2E6E1F77C92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8AC04E8-90E6-4850-8927-2E6E1F77C92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8AC04E8-90E6-4850-8927-2E6E1F77C92D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CB58F9F-6348-4157-950A-14D2F2662659}
 	EndGlobalSection
 EndGlobal
