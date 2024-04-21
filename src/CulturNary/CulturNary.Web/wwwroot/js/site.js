@@ -35,7 +35,7 @@ const RecipeSearch = {
                                 <p class="card-title label" style="text-transform: capitalize;"><strong>${product.recipe.label}</strong></h5>
                                 <p class="card-text" style="line-height: 3.5px; color: #DCEDCF;">${Math.round(product.recipe.calories)} kcal</p>
                                 <p class="card-text" style="line-height: 3.5px; color: #DCEDCF;">${product.recipe.ingredients.length} Ingredients</p>
-                                <button class="btn btn-primary" style="line-height: 4.5px; border: none;" onclick="updateAndShowModal(${JSON.stringify(product.recipe).replace(/"/g, '&quot;')})">View More ></button>
+                                <button class="btn btn-primary" style="line-height: 4.5px; border: none;" onclick="RecipeSearch.updateAndShowModal(${JSON.stringify(product.recipe).replace(/"/g, '&quot;')})">View More ></button>
                                 <button class="btn btn-primary" style="line-height: 4.5px; border: none;" onclick="RecipeSearch.addToFavorites(${JSON.stringify(product.recipe).replace(/"/g, '&quot;')})"><i class="fas fa-star"></i></button>
                             </div>
                         </div>
