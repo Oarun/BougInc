@@ -21,6 +21,7 @@
 }
 
 <ul class="nav justify-content-end">
+    
     @if (SignInManager.IsSignedIn(User))
     {
         var isAdmin = await UserManager.IsInRoleAsync(user, "Admin");
