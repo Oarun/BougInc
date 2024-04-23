@@ -1,0 +1,49 @@
+@model CulturNary.Web.Models.ImageRecognitionResult
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Image Recognition</title>
+</head>
+<body>
+    <h2>Image Recognition</h2>
+    <form asp-action="ImageRecognition" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="file">Select Image:</label>
+            <input type="file" name="file" id="file" accept="image/*" required />
+        </div>
+        <button type="submit">Upload</button>
+    </form>
+
+    @if (Model != null && Model.items != null && Model.items.Any())
+    {
+        <h3>Analysis Result:</h3>
+        <ul>
+            @foreach (var item in Model.items)
+            {
+                <li>
+                    @if (item.food != null && item.food.foodInfo != null)
+                    {
+                        <span>@item.food.foodInfo.display_Name</span>
+                        <span>@item.food.confidence</span>
+                        @if (item.food.ingredients != null && item.food.ingredients.Any())
+                        {
+                            <ul>
+                                @foreach (var ingredient in item.food.ingredients)
+                                {
+                                    <li>@ingredient.foodInfo.display_Name</li>
+                                }
+                            </ul>
+                        }
+                    }
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No analysis result available.</p>
+    }
+</body>
+</html>
