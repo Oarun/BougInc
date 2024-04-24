@@ -1,0 +1,188 @@
+@using System.ComponentModel.DataAnnotations
+@model CulturNary.Web.Models.FriendSearchModel
+
+<form asp-action="Friends" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger-custom" role="alert"></div>
+    <div class="toggle-buttons">
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="AlcoholFree" class="form-check-res-input" id="Input_AlcoholFree">
+            <label asp-for="AlcoholFree" class="form-check-res-label btn btn-profile">Alcohol-Free</label>
+            <span asp-validation-for="AlcoholFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="CeleryFree" class="form-check-res-input" id="Input_CeleryFree">
+            <label asp-for="CeleryFree" class="form-check-res-label btn btn-profile">Celery-Free</label>
+            <span asp-validation-for="CeleryFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="CrustaceanFree" class="form-check-res-input" id="Input_CrustaceanFree">
+            <label asp-for="CrustaceanFree" class="form-check-res-label btn btn-profile">Crustacean-Free</label>
+            <span asp-validation-for="CrustaceanFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="DairyFree" class="form-check-res-input" id="Input_DairyFree">
+            <label asp-for="DairyFree" class="form-check-res-label btn btn-profile">Dairy-Free</label>
+            <span asp-validation-for="DairyFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="EggFree" class="form-check-res-input" id="Input_EggFree">
+            <label asp-for="EggFree" class="form-check-res-label btn btn-profile">Egg-Free</label>
+            <span asp-validation-for="EggFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="FishFree" class="form-check-res-input" id="Input_FishFree">
+            <label asp-for="FishFree" class="form-check-res-label btn btn-profile">Fish-Free</label>
+            <span asp-validation-for="FishFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="GlutenFree" class="form-check-res-input" id="Input_GlutenFree">
+            <label asp-for="GlutenFree" class="form-check-res-label btn btn-profile">Gluten-Free</label>
+            <span asp-validation-for="GlutenFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="ImmunoSupportive" class="form-check-res-input" id="Input_ImmunoSupportive">
+            <label asp-for="ImmunoSupportive" class="form-check-res-label btn btn-profile">Immuno-Supportive</label>
+            <span asp-validation-for="ImmunoSupportive" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="KetoFriendly" class="form-check-res-input" id="Input_KetoFriendly">
+            <label asp-for="KetoFriendly" class="form-check-res-label btn btn-profile">Keto-Friendly</label>
+            <span asp-validation-for="KetoFriendly" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="KidneyFriendly" class="form-check-res-input" id="Input_KidneyFriendly">
+            <label asp-for="KidneyFriendly" class="form-check-res-label btn btn-profile">Kidney-Friendly</label>
+            <span asp-validation-for="KidneyFriendly" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="Kosher" class="form-check-res-input" id="Input_Kosher">
+            <label asp-for="Kosher" class="form-check-res-label btn btn-profile">Kosher</label>
+            <span asp-validation-for="Kosher" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="LowPotassium" class="form-check-res-input" id="Input_LowPotassium">
+            <label asp-for="LowPotassium" class="form-check-res-label btn btn-profile">Low-Potassium</label>
+            <span asp-validation-for="LowPotassium" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="LowSugar" class="form-check-res-input" id="Input_LowSugar">
+            <label asp-for="LowSugar" class="form-check-res-label btn btn-profile">Low-Sugar</label>
+            <span asp-validation-for="LowSugar" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="LupineFree" class="form-check-res-input" id="Input_LupineFree">
+            <label asp-for="LupineFree" class="form-check-res-label btn btn-profile">Lupine-Free</label>
+            <span asp-validation-for="LupineFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="Mediterranean" class="form-check-res-input" id="Input_Mediterranean">
+            <label asp-for="Mediterranean" class="form-check-res-label btn btn-profile">Mediterranean</label>
+            <span asp-validation-for="Mediterranean" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="MolluskFree" class="form-check-res-input" id="Input_MolluskFree">
+            <label asp-for="MolluskFree" class="form-check-res-label btn btn-profile">Mollusk-Free</label>
+            <span asp-validation-for="MolluskFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="MustardFree" class="form-check-res-input" id="Input_MustardFree">
+            <label asp-for="MustardFree" class="form-check-res-label btn btn-profile">Mustard-Free</label>
+            <span asp-validation-for="MustardFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="Paleo" class="form-check-res-input" id="Input_Paleo">
+            <label asp-for="Paleo" class="form-check-res-label btn btn-profile">Paleo</label>
+            <span asp-validation-for="Paleo" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="PeanutFree" class="form-check-res-input" id="Input_PeanutFree">
+            <label asp-for="PeanutFree" class="form-check-res-label btn btn-profile">Peanut-Free</label>
+            <span asp-validation-for="PeanutFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="Pescatarian" class="form-check-res-input" id="Input_Pescatarian">
+            <label asp-for="Pescatarian" class="form-check-res-label btn btn-profile">Pescatarian</label>
+            <span asp-validation-for="Pescatarian" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="PorkFree" class="form-check-res-input" id="Input_PorkFree">
+            <label asp-for="PorkFree" class="form-check-res-label btn btn-profile">Pork-Free</label>
+            <span asp-validation-for="PorkFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="RedMeatFree" class="form-check-res-input" id="Input_RedMeatFree">
+            <label asp-for="RedMeatFree" class="form-check-res-label btn btn-profile">Red Meat-Free</label>
+            <span asp-validation-for="RedMeatFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="SesameFree" class="form-check-res-input" id="Input_SesameFree">
+            <label asp-for="SesameFree" class="form-check-res-label btn btn-profile">Sesame-Free</label>
+            <span asp-validation-for="SesameFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="ShellfishFree" class="form-check-res-input" id="Input_ShellfishFree">
+            <label asp-for="ShellfishFree" class="form-check-res-label btn btn-profile">Shellfish-Free</label>
+            <span asp-validation-for="ShellfishFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="SoyFree" class="form-check-res-input" id="Input_SoyFree">
+            <label asp-for="SoyFree" class="form-check-res-label btn btn-profile">Soy-Free</label>
+            <span asp-validation-for="SoyFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="TreeNutFree" class="form-check-res-input" id="Input_TreeNutFree">
+            <label asp-for="TreeNutFree" class="form-check-res-label btn btn-profile">Tree Nut-Free</label>
+            <span asp-validation-for="TreeNutFree" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="Vegan" class="form-check-res-input" id="Input_Vegan">
+            <label asp-for="Vegan" class="form-check-res-label btn btn-profile">Vegan</label>
+            <span asp-validation-for="Vegan" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="Vegetarian" class="form-check-res-input" id="Input_Vegetarian">
+            <label asp-for="Vegetarian" class="form-check-res-label btn btn-profile">Vegetarian</label>
+            <span asp-validation-for="Vegetarian" class="text-danger-custom"></span>
+        </div>
+
+        <div class="form-check-res mb-3">
+            <input type="checkbox" asp-for="WheatFree" class="form-check-res-input" id="Input_WheatFree">
+            <label asp-for="WheatFree" class="form-check-res-label btn btn-profile">Wheat-Free</label>
+            <span asp-validation-for="WheatFree" class="text-danger-custom"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/js/FavoriteRecipeSearch.js"></script>

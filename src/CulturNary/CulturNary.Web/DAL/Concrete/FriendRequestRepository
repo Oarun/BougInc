@@ -1,0 +1,33 @@
+using CulturNary.DAL.Abstract;
+using CulturNary.Web.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace CulturNary.DAL.Concrete
+{
+    public class FriendRequestRepository : Repository<FriendRequest>, IFriendRequestRepository
+    {
+        public FriendRequestRepository(CulturNaryDbContext context) : base(context)
+        {
+        }
+        public FriendRequest SendFriendRequestToPerson(int requesterId, int recipientId){
+            var friendRequest = new FriendRequest{
+                RequesterId = requesterId,
+                RecipientId = recipientId
+            };
+            _context.FriendRequests.Add(friendRequest);
+            _context.SaveChanges();
+            return friendRequest;
+        }
+        public FriendRequest AcceptFriendRequest(int requesterId, int recipientId){
+            
+        }
+        public FriendRequest RejectFriendRequest(int requesterId, int recipientId){
+
+        }
+        public FriendRequest GetFriendRequestByRequesterIdAndRecipientId(int requesterId, int recipientId){
+            return _context.FriendRequests.FirstOrDefault(f => f.RequesterId == requesterId && f.RecipientId == recipientId);
+        }
+    }
+}
