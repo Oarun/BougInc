@@ -1,0 +1,27 @@
+@{
+}
+
+<body>
+<div class="container mt-4">
+    <div class="row align-items-start">
+        <div class="col-md-6 text-center" id="timer-div">
+            <h2>Settable Timer with Alarm</h2>
+            <div class="timer-input">
+                <input type="number" id="hours" placeholder="00" min="0" max="99" step="1">
+                <span>:</span>
+                <input type="number" id="minutes" placeholder="00" min="0" max="59" step="1">
+                <span>:</span>
+                <input type="number" id="seconds" placeholder="00" min="0" max="59" step="1">
+            </div>
+            <button class="profile-btn" onclick="setTimer()">Set Timer</button>
+            <button class="profile-btn" id="pauseResumeBtn" onclick="pauseResumeTimer()" disabled>Pause</button>
+            <p id="timer" class="digital-clock">00:00:00</p>
+            <audio id="alarmSound" src="~/Media/Sounds/alarm.mp3" preload="auto"></audio>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/Tools.js"></script>
+
+</body>
