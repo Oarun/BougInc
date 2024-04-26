@@ -184,5 +184,48 @@
         </div>
     </div>
 </form>
+
+@using (Html.BeginForm())
+{
+    @if (Model.IsSubmitted && Model.Users != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Profile Image</th>
+                    <th>Display Name</th>
+                    <th>Biography</th>
+                    <th>User Name</th>
+                    <th>Friendship Status</th> <!-- Added header for Friendship Status -->
+                    <!-- Add more columns as needed -->
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Users.Count; i++)
+                {
+                    var user = Model.Users[i];
+                    <tr>
+                        <td>
+                            @if (!string.IsNullOrEmpty(user.ProfileImageName))
+                            {
+                                <img src="@user.ProfileImageName" alt="@user.DisplayName's profile image" width="200" height="200" />
+                            }
+                            else
+                            {
+                                <img src="~/path/to/question-mark.jpg" alt="Default image" width="200" height="200" />
+                            }
+                        </td>
+                        <td>@(string.IsNullOrEmpty(user.DisplayName) ? "Display Name is missing" : user.DisplayName)</td>
+                        <td>@(string.IsNullOrEmpty(user.Biography) ? "Biography is missing" : user.Biography)</td>
+                        <td>@(user.UserName.Length > 2 ? user.UserName.Substring(0, 2) + new String('*', user.UserName.Length - 2) : user.UserName)</td>
+                        <td>@Model.FriendshipStatus[i]</td>
+                        <!-- Add more cells as needed -->
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="~/js/FavoriteRecipeSearch.js"></script>

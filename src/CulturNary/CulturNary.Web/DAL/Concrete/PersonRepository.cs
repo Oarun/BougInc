@@ -19,21 +19,13 @@ namespace CulturNary.DAL.Concrete
         public Person GetPersonByIdentityId(string identityId){
             return base.Where(x => x.IdentityId == identityId).FirstOrDefault();
         }
-        public async Task<List<SiteUser>> GetUsersWithDietaryRestrictions(FriendSearchModel model)
+        public async Task<List<SiteUser>> GetUsersWithDietaryRestrictions(FriendSearchModel model, string currentUserId)
         {
-            var users = await _userManager.Users.ToListAsync();
-            var usersWithRestriction = new List<SiteUser>();
-
-            foreach (var user in users)
-            {
-                var restrictions = user.GetDietaryRestrictions();
-                if (restrictions.Any(r => r.Name == model.DietaryRestriction && r.Active))
-                {
-                    usersWithRestriction.Add(user);
-                }
-            }
-
-            return usersWithRestriction;
+            var users = await _userManager.Users
+            .Where(user => user.Id != currentUserId)
+            .ToListAsync();
+            
+            return users;
         }
     }
 }

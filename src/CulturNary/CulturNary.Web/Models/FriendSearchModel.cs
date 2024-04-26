@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using CulturNary.Web.Areas.Identity.Data;
 namespace CulturNary.Web.Models;
 public class FriendSearchModel
 {
@@ -91,4 +92,9 @@ public class FriendSearchModel
 
     [Display(Name = "Wheat-Free")]
     public bool WheatFree { get; set; }
+
+
+    public List<SiteUser>? Users { get; set; } = null;
+    public bool IsSubmitted { get; set; } = false;
+    public List<string>? FriendshipStatus { get; set; } = null;
 }
