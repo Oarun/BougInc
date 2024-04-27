@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CulturNary.Web.Models;
 using CulturNary.DAL.Abstract;
+using CulturNary.DAL.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using CulturNary.Web.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
@@ -13,12 +14,19 @@ namespace CulturNary.Web.Controllers
     [Route("SocialMedia")]
     [Authorize(Roles = "Signed,Admin")]
     public class SocialMediaController : Controller
-    {
+    {  
         private readonly IPersonRepository _personRepository;
+        private readonly IFriendRequestRepository _friendRequestRepository;
+        private readonly IFriendshipRepository _friendshipRepository;
 
-        public SocialMediaController(IPersonRepository personRepository)
+        public SocialMediaController(
+            IPersonRepository personRepository, 
+            IFriendshipRepository friendshipRepository,
+            IFriendRequestRepository friendRequestRepository)
         {
             _personRepository = personRepository;
+            _friendRequestRepository = friendRequestRepository;
+            _friendshipRepository = friendshipRepository;
         }
 
         // GET: SocialMedia/Friends
@@ -50,12 +58,12 @@ namespace CulturNary.Web.Controllers
             foreach (var user in model.Users)
             {
                 // Check if they are friends
-                if (await _personRepository.AreFriends(currentUserId, user.Id))
+                if (_friendshipRepository.AreFriends(currentUserId, user.Id))
                 {
                     model.FriendshipStatus.Add("Friended");
                 }
                 // Check if there's a pending friend request
-                else if (await _personRepository.IsFriendRequestPending(currentUserId, user.Id))
+                else if (_friendRequestRepository.IsFriendRequestPending(currentUserId, user.Id))
                 {
                     model.FriendshipStatus.Add("Friend Request Pending");
                 }

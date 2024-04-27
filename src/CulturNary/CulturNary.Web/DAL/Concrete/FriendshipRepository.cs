@@ -19,5 +19,11 @@ namespace CulturNary.DAL.Concrete
                 .Where(f => f.Person1Id == personId || f.Person2Id == personId)
                 .ToList();
         }
+        public bool AreFriends(string currentUserId, string friendId){
+            return _dbSet
+                .Where(f => (f.Person1.IdentityId == currentUserId && f.Person2.IdentityId == friendId) || 
+                            (f.Person1.IdentityId == friendId && f.Person2.IdentityId == currentUserId))
+                .Any();
+        }
     }
 }

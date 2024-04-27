@@ -196,14 +196,14 @@
                     <th>Display Name</th>
                     <th>Biography</th>
                     <th>User Name</th>
-                    <th>Friendship Status</th> <!-- Added header for Friendship Status -->
-                    <!-- Add more columns as needed -->
+                    <th>Friendship Status</th>
                 </tr>
             </thead>
             <tbody>
                 @for (int i = 0; i < Model.Users.Count; i++)
                 {
                     var user = Model.Users[i];
+                    var buttonText = Model.FriendshipStatus[i];
                     <tr>
                         <td>
                             @if (!string.IsNullOrEmpty(user.ProfileImageName))
@@ -212,14 +212,26 @@
                             }
                             else
                             {
-                                <img src="~/path/to/question-mark.jpg" alt="Default image" width="200" height="200" />
+                                <img src="~/media/BOUG Logo Circle.png" alt="Default image" width="200" height="200" />
                             }
                         </td>
                         <td>@(string.IsNullOrEmpty(user.DisplayName) ? "Display Name is missing" : user.DisplayName)</td>
                         <td>@(string.IsNullOrEmpty(user.Biography) ? "Biography is missing" : user.Biography)</td>
                         <td>@(user.UserName.Length > 2 ? user.UserName.Substring(0, 2) + new String('*', user.UserName.Length - 2) : user.UserName)</td>
-                        <td>@Model.FriendshipStatus[i]</td>
-                        <!-- Add more cells as needed -->
+                        <td>
+                            @if(buttonText == "Send Friend Request")
+                            {
+                                <button type="button" class="btn btn-primary" data-user-id="@user.Id">@buttonText</button>
+                            }
+                            else if(buttonText == "Friend Request Pending")
+                            {
+                                <button type="button" class="btn btn-secondary" disabled data-user-id="@user.Id">@buttonText</button>
+                            }
+                            else if(buttonText == "Friended")
+                            {
+                                <button type="button" class="btn btn-success" data-user-id="@user.Id">@buttonText</button>
+                            }
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -227,5 +239,6 @@
     }
 }
 
+<script src="~/js/buttonActions.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="~/js/FavoriteRecipeSearch.js"></script>
+<script src="~/js/EditRestrictions.js"></script>

@@ -11,7 +11,6 @@ namespace CulturNary.DAL.Concrete
     public class PersonRepository : Repository<Person>, IPersonRepository
     {
         private readonly UserManager<SiteUser> _userManager;
-
         public PersonRepository(CulturNaryDbContext context, UserManager<SiteUser> userManager) : base(context)
         {
             _userManager = userManager;

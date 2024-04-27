@@ -1,13 +1,13 @@
-using CulturNary.Web.Models;
-using System.Threading.Tasks;
+
 
 namespace CulturNary.DAL.Abstract
 {
-    public interface IFriendRequestRepository : IRepository<FriendRequest>
+    public interface IFriendRequestRepository
     {
-        public FriendRequest SendFriendRequestToPerson(int requesterId, int recipientId);
-        public FriendRequest AcceptFriendRequest(int requesterId, int recipientId);
-        public FriendRequest RejectFriendRequest(int requesterId, int recipientId);
-        public FriendRequest GetFriendRequestByRequesterIdAndRecipientId(int requesterId, int recipientId);
+        bool IsFriendRequestPending(string currentUserId, string userId);
+        Task SendFriendRequest(string currentUserId, string userId);
+        Task AcceptFriendRequest(string currentUserId, string userId);
+        Task RejectFriendRequest(string currentUserId, string userId);
+        Task CancelFriendRequest(string currentUserId, string userId);
     }
 }
