@@ -1472,3 +1472,58 @@ footer {
     font-size: 24px;
     line-height: 50px;
 }
+
+.tab-links {
+    margin-bottom: 20px;
+}
+
+.tab-links button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #c8e6c9;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tab-links button.active {
+    background-color: #407A3B;
+    color: #fff;
+}
+
+.unit-btn {
+    background-color: #407A3B;
+    color: #DCEDCF;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+    .unit-btn:hover {
+        background-color: #c8e6c9;
+        color: #407A3B;
+        text-decoration: none;
+    }
+
+    .unit-btn:focus {
+        background-color: #c8e6c9;
+        color: #407A3B;
+        text-decoration: none;
+    }
+
+    .unit-btn:active {
+        background-color: #c8e6c9;
+        color: #407A3B;
+        text-decoration: none;
+    }
+
+.activeButton{
+    color: #407A3B;
+    background-color: #c8e6c9;
+}
