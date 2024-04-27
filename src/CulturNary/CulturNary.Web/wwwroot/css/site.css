@@ -1446,3 +1446,10 @@ footer {
 .min-max-inputs {
     display: none;
 }
+.dropdown-item-green:hover {
+    color: #407A3B !important; /* Change the color on hover */
+}
+
+.dropdown-item-green {
+    color: #353F2D !important; /* Default color */
+}

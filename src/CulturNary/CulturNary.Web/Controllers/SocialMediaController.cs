@@ -76,5 +76,15 @@ namespace CulturNary.Web.Controllers
             model.IsSubmitted = true;
             return View(model);
         }
+        [HttpGet("FriendsList")]
+        public async Task<IActionResult> FriendsList()
+        {
+            return View();
+        }
+        [HttpGet("Messaging")]
+        public async Task<IActionResult> Messaging()
+        {
+            return View();
+        }
     }
 }
