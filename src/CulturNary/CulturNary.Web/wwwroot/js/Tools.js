@@ -2,6 +2,7 @@ var timer;
 var isPaused = false;
 var totalTime = 0;
 var alertDisplayed = false;
+var displayStack = [];
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -437,4 +438,111 @@ function formatTime(seconds) {
         (minutes < 10 ? "0" : "") + minutes + ":" +
         (secs < 10 ? "0" : "") + secs
     );
+}
+
+function addToDisplay(value) {
+    if (value === 'Back') { // If the value is "Back", remove the last item from the display stack
+        displayStack.pop();
+    } else if (value === '.') { // If the value is a decimal point
+        var lastValue = displayStack[displayStack.length - 1];
+        // Check if the last value is a number
+        if (!lastValue || isNaN(parseFloat(lastValue))) { // If last value is empty or not a number
+            displayStack.push('0.'); // Add "0." to the display stack
+        } else if (!lastValue.includes('.')) { // If the last value doesn't already contain a decimal point
+            displayStack[displayStack.length - 1] += '.'; // Append decimal point to the last value
+        }
+    } else { // For other values, push them onto the display stack
+        displayStack.push(value);
+    }
+
+    document.getElementById("display").value = displayStack.join('');
+}
+
+function calculate() {
+    var expression = document.getElementById("display").value;
+    var result;
+    try {
+        result = evaluateExpression(expression);
+        document.getElementById("display").value = result;
+    } catch (error) {
+        document.getElementById("display").value = "Error";
+        displayStack = [];
+    }
+}
+
+function evaluateExpression(expression) {
+    // Using regular expression to extract numbers, operators, and parentheses
+    var tokens = expression.match(/\d+(\.\d+)?|\+|\-|\*|\/|\(|\)/g); // Updated regular expression to match decimal numbers
+
+    // Implementing basic order of operations
+    var output = [];
+    var operatorStack = [];
+    var precedence = {
+        '+': 1,
+        '-': 1,
+        '*': 2,
+        '/': 2
+    };
+
+    tokens.forEach(function(token) {
+        if (/^\d+(\.\d+)?$/.test(token)) { // Check if token is a number or a decimal
+            output.push(parseFloat(token));
+        } else if ('+-*/'.indexOf(token) !== -1) {
+            while (operatorStack.length > 0 && precedence[operatorStack[operatorStack.length - 1]] >= precedence[token]) {
+                output.push(operatorStack.pop());
+            }
+            operatorStack.push(token);
+        } else if (token === '(') {
+            operatorStack.push(token);
+        } else if (token === ')') {
+            while (operatorStack[operatorStack.length - 1] !== '(') {
+                output.push(operatorStack.pop());
+            }
+            operatorStack.pop(); // Discard the '('
+        }
+    });
+
+    while (operatorStack.length > 0) {
+        output.push(operatorStack.pop());
+    }
+
+    // Evaluating the postfix expression
+    var stack = [];
+    output.forEach(function(token) {
+        if (typeof token === 'number') {
+            stack.push(token);
+        } else {
+            var b = stack.pop();
+            var a = stack.pop();
+            switch (token) {
+                case '+':
+                    stack.push(a + b);
+                    break;
+                case '-':
+                    stack.push(a - b);
+                    break;
+                case '*':
+                    stack.push(a * b);
+                    break;
+                case '/':
+                    if (b === 0) {
+                        throw new Error('Division by zero');
+                    }
+                    stack.push(a / b);
+                    break;
+            }
+        }
+    });
+
+    if (stack.length !== 1) {
+        throw new Error('Invalid expression');
+    }
+
+    displayStack = [stack[0]];
+    return stack[0];
+}
+
+function clearDisplay() {
+    displayStack = [];
+    document.getElementById("display").value = "";
 }

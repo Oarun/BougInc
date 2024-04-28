@@ -62,6 +62,37 @@
             </div>
         </div>
     </div>
+    <div class="row align-items-start">
+        <div class="col-md-6 text-center" id="calculator-div">
+            <div id="calculator">
+                <input class="calculator-display" type="text" id="display" readonly>
+                <div class="buttons">
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('7')">7</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('8')">8</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('9')">9</button>
+                    <button class="unit-btn calc-btn" onclick="clearDisplay()">Clear</button>
+                    <br>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('4')">4</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('5')">5</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('6')">6</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('÷')">÷</button>
+                    <br>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('1')">1</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('2')">2</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('3')">3</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('x')">X</button>
+                    <br>
+                    <button class="unit-btn calc-btn-wide" onclick="addToDisplay('0')">0</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('+')">+</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('-')">-</button>
+                    <br>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('Back')">Back</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('.')">.</button>
+                    <button class="unit-btn calc-btn-wide" onclick="calculate()">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="~/js/Tools.js"></script>
