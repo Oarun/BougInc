@@ -1,7 +1,7 @@
 @using System.ComponentModel.DataAnnotations
 @model CulturNary.Web.Models.FriendSearchModel
 
-<form asp-action="Friends" method="post">
+<form asp-action="Friends" method="post" id="friendSearchForm">
     <div asp-validation-summary="ModelOnly" class="text-danger-custom" role="alert"></div>
     <div class="toggle-buttons">
         <div class="form-check-res mb-3">
@@ -240,5 +240,5 @@
 }
 
 <script src="~/js/buttonActions.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="~/js/EditRestrictions.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

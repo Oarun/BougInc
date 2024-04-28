@@ -23,7 +23,11 @@ namespace CulturNary.Web.Areas.Identity.Data
         [PersonalData]
         public string? MealPlans { get; set; }
 
-
+        public bool[] GetDietaryRestrictionsActiveArray()
+        {
+            var restrictions = GetDietaryRestrictions();
+            return restrictions.Select(r => r.Active).ToArray();
+        }
         public List<DietaryRestriction> GetDietaryRestrictions()
         {
             if (string.IsNullOrEmpty(DietaryRestrictions))
