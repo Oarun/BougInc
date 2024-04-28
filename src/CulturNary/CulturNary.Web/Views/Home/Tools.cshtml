@@ -63,8 +63,17 @@
         </div>
     </div>
     <div class="row align-items-start">
+        <div class="col-md-6 text-center" id="checklist-div">
+            <div class="checklist">
+                <h2>Checklist</h2>
+                <input class="checklist-text" type="text" id="addItemInput" placeholder="Add new item">
+                <button class="unit-btn" onclick="addItem()">Add</button>
+                <ul id="checklistItems"></ul>
+            </div>
+        </div>
         <div class="col-md-6 text-center" id="calculator-div">
             <div id="calculator">
+                <h2>Calculator</h2>
                 <input class="calculator-display" type="text" id="display" readonly>
                 <div class="buttons">
                     <button class="unit-btn calc-btn" onclick="addToDisplay('7')">7</button>

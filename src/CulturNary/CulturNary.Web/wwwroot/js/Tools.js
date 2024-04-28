@@ -361,6 +361,10 @@ document.addEventListener("DOMContentLoaded", function() {
             gallons: 1
         }
     };
+
+    // Checklist
+
+
 });
 
 function setTimer() {
@@ -546,3 +550,102 @@ function clearDisplay() {
     displayStack = [];
     document.getElementById("display").value = "";
 }
+
+function addItem() {
+    var input = document.getElementById("addItemInput");
+    var itemText = input.value.trim();
+    if (itemText === "") return;
+
+    var newItem = document.createElement("li");
+    newItem.className = "checklist-item";
+    newItem.draggable = true;
+    newItem.innerHTML = `
+        <label class="checklist-toggle-container">
+        <input type="checkbox">
+        <span class="checklist-toggle" onchange="toggleItem(this)"></span>
+        </label>
+        <input class="checklist-text"  type="text" value="${itemText}" disabled>
+        <button class="unit-btn"  onclick="editItem(this)">Edit</button>
+        <button class="unit-btn" onclick="deleteItem(this)">Delete</button>
+    `;
+
+    newItem.querySelector(".checklist-toggle").addEventListener("click", function() {
+        console.log("toggle");
+        toggleItem(this);
+    });
+
+    // newItem.addEventListener("dragstart", handleDragStart);
+    // newItem.addEventListener("dragenter", handleDragEnter);
+    // newItem.addEventListener("dragover", handleDragOver);
+    // newItem.addEventListener("dragleave", handleDragLeave);
+    // newItem.addEventListener("drop", handleDrop);
+
+    document.getElementById("checklistItems").appendChild(newItem);
+    input.value = "";
+}
+
+function editItem(button) {
+    var item = button.parentNode;
+    var textInput = item.querySelector("input[type='text']");
+    var buttonText = button.textContent;
+
+    if (buttonText === "Edit") {
+        textInput.disabled = false;
+        button.textContent = "Save";
+    } else {
+        textInput.disabled = true;
+        button.textContent = "Edit";
+    }
+}
+
+function deleteItem(button) {
+    var item = button.parentNode;
+    item.parentNode.removeChild(item);
+}
+
+function toggleItem(checkbox) {
+    var textInput = checkbox.parentNode.nextElementSibling;
+    console.log(textInput);
+    if (textInput.style.textDecoration !== "line-through") {
+        textInput.style.textDecoration = "line-through";
+    } else {
+        textInput.style.textDecoration = "none";
+    }
+}
+
+// function handleDragStart(event) {
+//     event.dataTransfer.setData("text/plain", event.target.id);
+//     event.target.classList.add("dragging");
+// }
+
+// function handleDragEnter(event) {
+//     event.preventDefault();
+//     event.target.classList.add("dragover");
+// }
+
+// function handleDragOver(event) {
+//     event.preventDefault();
+// }
+
+// function handleDragLeave(event) {
+//     event.target.classList.remove("dragover");
+// }
+
+// function handleDrop(event) {
+//     event.preventDefault();
+//     var draggedItem = document.querySelector('.dragging');
+//     var newList = this.parentNode;
+
+//     var draggedIndex = Array.from(newList.children).indexOf(draggedItem);
+//     var dropIndex = Array.from(newList.children).indexOf(this);
+
+//     // If the dragged item is already above the drop target, insert it before the drop target.
+//     if (draggedIndex < dropIndex) {
+//         newList.insertBefore(draggedItem, this.nextSibling);
+//     } 
+//     // If the dragged item is below the drop target, or the drop target is the last item,
+//     // insert it before the drop target.
+//     else if (draggedIndex > dropIndex || dropIndex === -1) {
+//         newList.insertBefore(draggedItem, this);
+//     }
+// }
