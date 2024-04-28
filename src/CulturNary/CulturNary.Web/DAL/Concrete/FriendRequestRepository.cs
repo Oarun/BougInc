@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Identity;
 namespace CulturNary.DAL.Concrete{
     public class FriendRequestRepository : Repository<FriendRequest>, IFriendRequestRepository
     {
+        private readonly UserManager<SiteUser> _userManager;
         private readonly IPersonRepository _personRepository;
-        public FriendRequestRepository(CulturNaryDbContext context, IPersonRepository personRepository) : base(context)
+        public FriendRequestRepository(CulturNaryDbContext context, IPersonRepository personRepository, UserManager<SiteUser> userManager) : base(context)
         {
+            _userManager = userManager;
             _personRepository = personRepository;
         }
         public Task AcceptFriendRequest(string currentUserId, string userId)
@@ -48,6 +50,29 @@ namespace CulturNary.DAL.Concrete{
                 Status = "Pending"
             });
             
+        }
+        public async Task<List<SiteUser>> GetFriendRequests(string Id)
+        {
+            int userPersonId = _personRepository.GetPersonByIdentityId(Id).Id;
+            var requesterIds = base
+                .Where(f => f.RecipientId == userPersonId)
+                .Select(f => f.RequesterId)
+                .ToList();
+
+            var friendRequests = new List<SiteUser>();
+            foreach (var requesterId in requesterIds)
+            {
+                var user = await _userManager.FindByIdAsync(_personRepository.GetPersonByPersonId(requesterId).IdentityId);
+                if (user != null)
+                {
+                    friendRequests.Add(user);
+                }
+            }
+
+            return friendRequests;
+        }
+        public FriendRequest GetByRequestAndRecipientId(int requestId, int recipientId){
+            return base.Where(x => x.RequesterId == requestId && x.RecipientId == recipientId).FirstOrDefault();
         }
     }
 }

@@ -8,5 +8,6 @@ namespace CulturNary.DAL.Abstract
     {
         public Person GetPersonByIdentityId(string identityId);
         public Task<List<SiteUser>> GetUsersWithDietaryRestrictions(FriendSearchModel model, string currentUserId);
+        public Person GetPersonByPersonId(int personId);
     }
 }

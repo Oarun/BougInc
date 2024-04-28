@@ -26,5 +26,8 @@ namespace CulturNary.DAL.Concrete
             
             return users;
         }
+        public Person GetPersonByPersonId(int personId){
+            return base.Where(x => x.Id == personId).FirstOrDefault();
+        }
     }
 }

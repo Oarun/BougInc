@@ -44,5 +44,54 @@ namespace CulturNary.Web.Controllers
                 return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
             }
         }
+        [HttpPost]
+        [Route("RespondToFriendRequest/{requestId}/{accept}")]
+        public IActionResult RespondToFriendRequest(string requestId, bool accept)
+        {
+            try
+            {
+                string currentUserId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
+                if (accept)
+                {
+                    _friendshipRepository.AcceptFriendRequest(currentUserId, requestId);
+                }
+                else
+                {
+                    _friendshipRepository.RejectFriendRequest(currentUserId, requestId);
+                }
+
+                return RedirectToAction("FriendsList", "SocialMedia"); // Assuming you have a FriendsList action
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions, e.g., friend request not found
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+        [HttpPost]
+        [Route("RemoveFriend/{id}")]
+        public IActionResult RemoveFriend(string id)
+        {
+            // Get the current user's ID
+            var currentUserId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            // Check if the friend exists
+            var friend = _personRepository.GetPersonByIdentityId(id);
+            if (friend == null)
+            {
+                return NotFound();
+            }
+
+            // Check if the current user and the friend are friends
+            if (!_friendshipRepository.AreFriends(currentUserId, id))
+            {
+                return BadRequest("You are not friends with this user.");
+            }
+
+            // Remove the friend
+            _friendshipRepository.RemoveFriend(currentUserId, id);
+
+             return RedirectToAction("FriendsList", "SocialMedia");
+        }
     }
 }

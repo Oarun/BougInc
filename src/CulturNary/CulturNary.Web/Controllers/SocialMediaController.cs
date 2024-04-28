@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using CulturNary.Web.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using CulturNary.Web.Areas.Identity.Data;
 
 namespace CulturNary.Web.Controllers
 {
@@ -60,7 +61,7 @@ namespace CulturNary.Web.Controllers
                 // Check if they are friends
                 if (_friendshipRepository.AreFriends(currentUserId, user.Id))
                 {
-                    model.FriendshipStatus.Add("Friended");
+                    model.FriendshipStatus.Add("Friend");
                 }
                 // Check if there's a pending friend request
                 else if (_friendRequestRepository.IsFriendRequestPending(currentUserId, user.Id))
@@ -79,7 +80,12 @@ namespace CulturNary.Web.Controllers
         [HttpGet("FriendsList")]
         public async Task<IActionResult> FriendsList()
         {
-            return View();
+            var model = new FriendModel
+            {
+                Friends = await _friendshipRepository.GetFriends(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                FriendRequests = await _friendRequestRepository.GetFriendRequests(User.FindFirstValue(ClaimTypes.NameIdentifier))
+            };
+            return View(model);
         }
         [HttpGet("Messaging")]
         public async Task<IActionResult> Messaging()
