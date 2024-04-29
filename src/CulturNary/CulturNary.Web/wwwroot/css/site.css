@@ -1453,3 +1453,25 @@ footer {
 .dropdown-item-green {
     color: #353F2D !important; /* Default color */
 }
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.form-check {
+    width: 18%; /* Adjusted for five columns */
+    margin-bottom: 10px;
+}
+
+.form-check-label {
+    color: #f0f0f0; /* Brighter color */
+}
+
+.submit-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

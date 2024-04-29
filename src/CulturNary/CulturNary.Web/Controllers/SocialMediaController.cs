@@ -51,7 +51,11 @@ namespace CulturNary.Web.Controllers
             }
 
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            model.Users = await _personRepository.GetUsersWithDietaryRestrictions(model, currentUserId);
+            var userMatchPercentages = await _personRepository.GetUsersWithDietaryRestrictions(model, currentUserId);
+
+            // Assign the users and match percentages to the model
+            model.Users = userMatchPercentages.Keys.ToList();
+            model.UserMatchPercentages = userMatchPercentages;
 
             // Initialize FriendshipStatus list
             model.FriendshipStatus = new List<string>();

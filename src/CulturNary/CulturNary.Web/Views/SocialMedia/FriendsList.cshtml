@@ -32,7 +32,7 @@
                                 </td>
                                 <td>@(string.IsNullOrEmpty(friendRequest.DisplayName) ? "Display Name is missing" : friendRequest.DisplayName)</td>
                                 <td>@(string.IsNullOrEmpty(friendRequest.Biography) ? "Biography is missing" : friendRequest.Biography)</td>
-                                <td>@(friendRequest.UserName.Length > 2 ? friendRequest.UserName.Substring(0, 2) + new String('*', friendRequest.UserName.Length - 2) : friendRequest.UserName)</td>
+                                <td>@(friendRequest.UserName.Split('@')[0])</td>
                                 <td>
                                     <form action="/api/FriendApi/RespondToFriendRequest/@friendRequest.Id/true" method="post">
                                         <button type="submit" class="btn btn-primary">Accept</button>
@@ -81,7 +81,7 @@
                                 </td>
                                 <td>@(string.IsNullOrEmpty(friend.DisplayName) ? "Display Name is missing" : friend.DisplayName)</td>
                                 <td>@(string.IsNullOrEmpty(friend.Biography) ? "Biography is missing" : friend.Biography)</td>
-                                <td>@(friend.UserName.Length > 2 ? friend.UserName.Substring(0, 2) + new String('*', friend.UserName.Length - 2) : friend.UserName)</td>
+                                <td>@(friend.UserName.Split('@')[0])</td>
                                 <td>
                                     <form action="/api/FriendApi/RemoveFriend/@friend.Id" method="post">
                                         <button type="submit" class="btn btn-danger">Unfriend</button>
