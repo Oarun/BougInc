@@ -1,0 +1,101 @@
+@model FriendModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Friend Requests</h2>
+            @if (Model.FriendRequests != null && Model.FriendRequests.Count > 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Profile Image</th>
+                            <th>Display Name</th>
+                            <th>Biography</th>
+                            <th>User Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var friendRequest in Model.FriendRequests)
+                        {
+                            <tr>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(friendRequest.ProfileImageName))
+                                    {
+                                        <img src="@friendRequest.ProfileImageName" alt="@friendRequest.DisplayName's profile image" width="200" height="200" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/media/BOUG Logo Circle.png" alt="Default image" width="200" height="200" />
+                                    }
+                                </td>
+                                <td>@(string.IsNullOrEmpty(friendRequest.DisplayName) ? "Display Name is missing" : friendRequest.DisplayName)</td>
+                                <td>@(string.IsNullOrEmpty(friendRequest.Biography) ? "Biography is missing" : friendRequest.Biography)</td>
+                                <td>@(friendRequest.UserName.Split('@')[0])</td>
+                                <td>
+                                    <form action="/api/FriendApi/RespondToFriendRequest/@friendRequest.Id/true" method="post">
+                                        <button type="submit" class="btn btn-primary">Accept</button>
+                                    </form>
+                                    <form action="/api/FriendApi/RespondToFriendRequest/@friendRequest.Id/false" method="post">
+                                        <button type="submit" class="btn btn-danger">Decline</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No friend requests</p>
+            }
+        </div>
+        <div class="col-md-6">
+            <h2>Friends</h2>
+            @if (Model.Friends != null && Model.Friends.Count > 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Profile Image</th>
+                            <th>Display Name</th>
+                            <th>Biography</th>
+                            <th>User Name</th>
+                            <th>Action</th> <!-- Add a new header for the action column -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var friend in Model.Friends)
+                        {
+                            <tr>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(friend.ProfileImageName))
+                                    {
+                                        <img src="@friend.ProfileImageName" alt="@friend.DisplayName's profile image" width="200" height="200" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/media/BOUG Logo Circle.png" alt="Default image" width="200" height="200" />
+                                    }
+                                </td>
+                                <td>@(string.IsNullOrEmpty(friend.DisplayName) ? "Display Name is missing" : friend.DisplayName)</td>
+                                <td>@(string.IsNullOrEmpty(friend.Biography) ? "Biography is missing" : friend.Biography)</td>
+                                <td>@(friend.UserName.Split('@')[0])</td>
+                                <td>
+                                    <form action="/api/FriendApi/RemoveFriend/@friend.Id" method="post">
+                                        <button type="submit" class="btn btn-danger">Unfriend</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No friends</p>
+            }
+        </div>
+    </div>
+</div>
