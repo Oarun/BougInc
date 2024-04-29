@@ -1456,22 +1456,32 @@ footer {
 .form-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    font-family: Arial, sans-serif;
 }
 
 .form-check {
-    width: 18%; /* Adjusted for five columns */
+    flex: 0 0 18%; /* Adjusted for five columns */
     margin-bottom: 10px;
+    padding: 15px; /* Increased padding */
+    margin-right: 10px; /* Added margin */
+    transition: background-color 0.2s ease-in-out;
 }
 
 .form-check-label {
-    color: #f0f0f0; /* Brighter color */
+    font-size: 0.9em;
 }
 
 .submit-container {
-    width: 100%;
+    flex-basis: 100%;
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
+
+.btn-primary {
+    padding: 15px 30px; /* Increased padding */
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
