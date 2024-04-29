@@ -2,7 +2,7 @@ using System.Security.Policy;
 using System.Text.Json;
 using CulturNary.Web.Models;
 using Microsoft.AspNetCore.Identity;
-
+using System.Text;
 namespace CulturNary.Web.Areas.Identity.Data
 {
     public class SiteUser : IdentityUser
@@ -23,7 +23,11 @@ namespace CulturNary.Web.Areas.Identity.Data
         [PersonalData]
         public string? MealPlans { get; set; }
 
-
+        public bool[] GetDietaryRestrictionsActiveArray()
+        {
+            var restrictions = GetDietaryRestrictions();
+            return restrictions.Select(r => r.Active).ToArray();
+        }
         public List<DietaryRestriction> GetDietaryRestrictions()
         {
             if (string.IsNullOrEmpty(DietaryRestrictions))
@@ -34,6 +38,21 @@ namespace CulturNary.Web.Areas.Identity.Data
             {
                 return JsonSerializer.Deserialize<List<DietaryRestriction>>(DietaryRestrictions);
             }
+        }
+        public string GetDietaryRestrictionsString()
+        {
+            List<DietaryRestriction> dietaryRestrictions = GetDietaryRestrictions();
+            StringBuilder restrictionsString = new StringBuilder();
+
+            foreach (DietaryRestriction restriction in dietaryRestrictions)
+            {
+                if (restriction.Active)
+                {
+                    restrictionsString.AppendLine($"Name: {restriction.Name}, Active: {restriction.Active}");
+                }
+            }
+
+            return restrictionsString.ToString();
         }
 
         // public void SetDietaryRestrictions(List<DietaryRestriction> restrictions)
