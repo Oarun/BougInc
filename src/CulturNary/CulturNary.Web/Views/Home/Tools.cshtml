@@ -1,0 +1,109 @@
+@{
+}
+
+<body>
+<div class="container mt-4">
+    <div class="row align-items-start">
+        <div class="col-md-6 text-center" id="timer-div">
+            <h2>Settable Timer with Alarm</h2>
+            <div class="timer-input">
+                <input type="number" id="hours" placeholder="00" min="0" max="99" step="1">
+                <span>:</span>
+                <input type="number" id="minutes" placeholder="00" min="0" max="59" step="1">
+                <span>:</span>
+                <input type="number" id="seconds" placeholder="00" min="0" max="59" step="1">
+            </div>
+            <button class="profile-btn" onclick="setTimer()">Set Timer</button>
+            <button class="profile-btn" id="pauseResumeBtn" onclick="pauseResumeTimer()" disabled>Pause</button>
+            <p id="timer" class="digital-clock">00:00:00</p>
+            <audio id="alarmSound" src="~/Media/Sounds/alarm.mp3" preload="auto"></audio>
+        </div>
+        <div class="col-md-6 text-center" id="unit-div">
+            <h2>Unit Conversion</h2>
+            <div class="tab-links">
+                <button class="tab-link active" id="weight-button">Weight (Dry)</button>
+                <button class="tab-link" id="volume-button">Volume (Liquid)</button>
+            </div>
+            <div class="mt-3" id="tab-content">
+                <div id="weight-tab">
+                    <h4>Dry Weight Conversion</h4>
+                    <div class="conversion-boxes">
+                        <div class="input-box">
+                            <input type="text" id="weight-input" placeholder="Enter value">
+                        </div>
+                        <div class="unit-buttons" id="weight-unit-buttons-input">
+                            <!-- Buttons for weight units will be added here -->
+                        </div>
+                        <div class="output-box">
+                            <input type="text" id="weight-output" readonly>
+                        </div>
+                        <div class="unit-buttons" id="weight-unit-buttons-output">
+                            <!-- Buttons for weight units will be added here -->
+                        </div>
+                    </div>
+                </div>
+                <div id="volume-tab">
+                    <h4>Liquid Volume Conversion</h4>
+                    <div class="conversion-boxes">
+                        <div class="input-box">
+                            <input type="text" id="volume-input" placeholder="Enter value">
+                        </div>
+                        <div class="unit-buttons" id="volume-unit-buttons-input">
+                            <!-- Buttons for volume units will be added here -->
+                        </div>
+                        <div class="output-box">
+                            <input type="text" id="volume-output" readonly>
+                        </div>
+                        <div class="unit-buttons" id="volume-unit-buttons-output">
+                            <!-- Buttons for volume units will be added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-start">
+        <div class="col-md-6 text-center" id="checklist-div">
+            <div class="checklist">
+                <h2>Checklist</h2>
+                <input class="checklist-text" type="text" id="addItemInput" placeholder="Add new item">
+                <button class="unit-btn" onclick="addItem()">Add</button>
+                <ul id="checklistItems"></ul>
+            </div>
+        </div>
+        <div class="col-md-6 text-center" id="calculator-div">
+            <div id="calculator">
+                <h2>Calculator</h2>
+                <input class="calculator-display" type="text" id="display" readonly>
+                <div class="buttons">
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('7')">7</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('8')">8</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('9')">9</button>
+                    <button class="unit-btn calc-btn" onclick="clearDisplay()">Clear</button>
+                    <br>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('4')">4</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('5')">5</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('6')">6</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('÷')">÷</button>
+                    <br>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('1')">1</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('2')">2</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('3')">3</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('x')">X</button>
+                    <br>
+                    <button class="unit-btn calc-btn-wide" onclick="addToDisplay('0')">0</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('+')">+</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('-')">-</button>
+                    <br>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('Back')">Back</button>
+                    <button class="unit-btn calc-btn" onclick="addToDisplay('.')">.</button>
+                    <button class="unit-btn calc-btn-wide" onclick="calculate()">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/Tools.js"></script>
+
+</body>

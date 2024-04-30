@@ -57,6 +57,12 @@ public class HomeController : Controller
         return View();
     }
 
+    [Authorize(Roles = "Signed,Admin")]
+    public IActionResult Tools()
+    {
+        return View();
+    }
+
     [Route("Home/Error/{code?}")]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error(int? code)
