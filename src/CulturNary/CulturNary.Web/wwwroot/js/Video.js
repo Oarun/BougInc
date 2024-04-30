@@ -90,16 +90,16 @@ $(document).ready(function() {
             }
             
             var videoItem = `
-            <div class="card mb-3 col-md-4" style="max-width: 100%;">
-                <div class="card-body">
-                    <h2 class="videoName">${video.videoName}</h2>
-                    <h5 class="videoType">${video.videoType}</h5>
-                    <div class="video-container" style="position: relative; overflow: hidden; padding-top: 56.25%; display: flex; justify-content: center; align-items: center;">
-                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="${videoSrc}" frameborder="0" allowfullscreen></iframe>
+                <div class="card mb-3 col-md-4" style="max-width: 100%;">
+                    <div class="card-body">
+                        <h2 class="videoName">${video.videoName}</h2>
+                        <h5 class="videoType">${video.videoType}</h5>
+                        <div class="video-container" style="position: relative; overflow: hidden; padding-top: 56.25%; display: flex; justify-content: center; align-items: center;">
+                            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="${videoSrc}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        <h5 class="videoNotes">${video.videoNotes}</h5>
                     </div>
-                    <h5 class="videoNotes">${video.videoNotes}</h5>
-                </div>
-            </div>`;
+                </div>`;
             if(video.videoType != ""){
                 allVideoTypes.push(video.videoType);
             }
@@ -115,11 +115,14 @@ $(document).ready(function() {
     function isYouTubeLink(link) {
         return link.includes('youtube.com') || link.includes('youtu.be');
     }
+    
     function extractYouTubeVideoId(url) {
         var videoId = url.split('v=')[1];
-        var ampersandPosition = videoId.indexOf('&');
-        if (ampersandPosition !== -1) {
-            videoId = videoId.substring(0, ampersandPosition);
+        if (videoId) {
+            var ampersandPosition = videoId.indexOf('&');
+            if (ampersandPosition !== -1) {
+                videoId = videoId.substring(0, ampersandPosition);
+            }
         }
         return videoId;
     }
