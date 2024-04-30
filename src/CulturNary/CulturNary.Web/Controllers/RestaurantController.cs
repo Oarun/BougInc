@@ -17,13 +17,13 @@ namespace CulturNary.Web.Controllers
     {
         private readonly CulturNaryDbContext _context;
         private readonly UserManager<SiteUser> _userManager;
-        // private readonly IGoogleMapsService _googleMapsService;
+        //  private readonly IGoogleMapsService _googleMapsService;
 
         public RestaurantController(CulturNaryDbContext context, UserManager<SiteUser> userManager) //, IGoogleMapsService googleMapsService)
         {
             _context = context;
             _userManager = userManager;
-            //_googleMapsService = googleMapsService;
+            // _googleMapsService = googleMapsService;
         }
 
         // GET: api/Restaurant
