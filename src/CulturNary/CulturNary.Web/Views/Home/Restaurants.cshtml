@@ -87,4 +87,104 @@
         </div>
     </div>
 </div>
+@* <div id="zipSearch">
+    <form id="restaurant-search">
+    <label for="zipcode">Enter Zipcode:</label>
+    <input type="text" id="zipcode" name="zipcode" required>
+    <button type="submit">Find Restaurants</button>
+  </form>
+</div>
+<div id="map">Map Is Here</div> *@
 </body>
+@* <script>
+    var apiKey="";
+    async function loadMapScript() {
+        try {
+            const response = await fetch('/api/Restaurant/GetGoogleApi');
+            if (!response.ok) {
+            throw new Error('Failed to fetch API key');
+            }
+            const data = await response.json();
+            apiKey = data.apiKey;
+
+            // Proceed with loading the Google Maps script
+            var script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&libraries=places&callback=initMap`; //&callback=initMap`;&loading=async&libraries=places&callback=initMap
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+        } catch (error) {
+            console.error('Error fetching API key:', error.message);
+        }
+    }
+
+    function initMap() {
+        var mapOptions = {
+            center: { lat: 44.9429, lng: -123.0351 }, // Set default center to (0,0)
+            zoom: 10 // Set default zoom level
+        };
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    }
+
+    // Function to fetch restaurants based on zip code (passing API key as argument)
+    async function fetchRestaurantsByZip(zipcode, apiKey) {
+    // Base URL for the Places Text Search API
+    const baseUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/json?';
+
+    // Build the query parameters
+    const params = new URLSearchParams({
+        key: apiKey,
+        query: `restaurants near ${zipcode}`,
+    });
+
+    // Make the API call
+    const response = await fetch(baseUrl + params.toString());
+    if (!response.ok) {
+        throw new Error('Failed to fetch restaurants');
+    }
+
+    const data = await response.json();
+
+    // Extract and return restaurant data
+    return data.results.map((restaurant) => ({
+        name: restaurant.name,
+        latitude: restaurant.geometry.location.lat,
+        longitude: restaurant.geometry.location.lng,
+    }));
+    }
+
+    // Function to update map with restaurants
+    function updateMapWithRestaurants(restaurants) {
+    // Clear existing markers (optional)
+    // ... (your logic to clear existing markers if needed)
+
+    // Loop through restaurants and add markers to the map
+    for (const restaurant of restaurants) {
+        const marker = new google.maps.Marker({
+        position: { lat: restaurant.latitude, lng: restaurant.longitude },
+        map: map,
+        });
+    }
+    }
+
+    // Add event listener to the form
+    document.getElementById('restaurant-search').addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    const zipcode = document.getElementById('zipcode').value;
+
+    try {
+        // Fetch restaurants based on zipcode (pass the API key)
+        const restaurants = await fetchRestaurantsByZip(zipcode, apiKey);
+
+        // Update map with retrieved restaurants
+        updateMapWithRestaurants(restaurants);
+    } catch (error) {
+        console.error('Error fetching restaurants:', error.message);
+        // Handle errors (e.g., display an error message to the user)
+    }
+    });
+
+    // Call the function to load the map script
+    loadMapScript();
+</script> *@
