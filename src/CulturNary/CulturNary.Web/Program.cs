@@ -26,9 +26,9 @@ builder.Services.AddDbContext<CulturNaryDbContext>(options => options
 builder.Services.AddScoped<DbContext,CulturNaryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
 builder.Services.AddScoped<IRecipeSearchService, RecipeSearchService>();
-builder.Services.AddScoped<IFavoriteRecipeRepository, FavoriteRecipeRepository>();
-builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
-builder.Services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
+// builder.Services.AddScoped<IFavoriteRecipeRepository, FavoriteRecipeRepository>();
+// builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
+// builder.Services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddHttpClient<MealPlannerService>();
 

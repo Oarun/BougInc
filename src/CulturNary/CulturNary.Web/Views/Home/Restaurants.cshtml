@@ -1,0 +1,87 @@
+@{
+    ViewData["Title"] = "Restaurants Page";
+}
+<head>
+    <title>Google Maps</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="row pt-5 text-center">
+        <!-- Column for creating a new Restaurant (6 columns) -->
+        <div class="col-md-6" id="createRestaurantFormContainer">
+            <h2>Create New Restaurant</h2>
+            <!-- Add your form here to create a new Restaurant -->
+            <form class="form" id="createRestaurantForm" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="restaurantName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="restaurantName" placeholder="Restaurant name"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="restaurantType" class="form-label">Type</label>
+                    <input type="text" class="form-control" id="restaurantType" placeholder="Restaurant type" required>
+                </div>
+                <div class="mb-3">
+                    <label for="restaurantAddress" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="restaurantAddress" placeholder="Restaurant address">
+                </div>
+                <div class="mb-3">
+                    <label for="restaurantWebsite" class="form-label">Website</label>
+                    <input type="text" class="form-control" id="restaurantWebsite" placeholder="Restaurant website">
+                </div>
+                <div class="mb-3">
+                    <label for="restaurantMenu" class="form-label">Menu</label>
+                    <input type="file" class="form-control" id="restaurantMenu" accept="image/*">
+                    <small id="menuValidationMessage" class="text-danger"></small>
+                </div>
+                <div class="mb-3">
+                    <label for="restaurantPhoneNumber" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="restaurantPhoneNumber" placeholder="Restaurant phone number">
+                </div>
+                <div class="mb-3">
+                    <label for="restaurantNotes" class="form-label">Notes</label>
+                    <textarea class="form-control" id="restaurantNotes" placeholder="Restaurant notes"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Restaurant</button>
+            </form>
+            <br>
+        </div>
+        <!-- Column for displaying existing restaurants (6 columns) -->
+        <div class="col-md-6">
+            <h2>Your Restaurants</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <select class="form-control" id="RestaurantTypeFilter">
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+            </div>
+            <div id="UserRestaurantsList">  
+                <!-- This is where your existing restaurants will be displayed -->
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="menuModalLabel">Restaurant Menu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img id="menuModalImage" src="" class="img-fluid" alt="Restaurant Menu">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+</body>

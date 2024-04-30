@@ -44,6 +44,7 @@ namespace CulturNary.Web.Controllers
                             .Where(x => x.PersonId == id)
                             .Select (r => new VideoDto
                             {
+                                PersonId = r.PersonId,
                                 VideoName = r.VideoName,
                                 VideoLink = r.VideoLink,
                                 VideoNotes = r.VideoNotes,
