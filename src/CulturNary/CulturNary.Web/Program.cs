@@ -26,11 +26,12 @@ builder.Services.AddDbContext<CulturNaryDbContext>(options => options
 builder.Services.AddScoped<DbContext,CulturNaryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
 builder.Services.AddScoped<IRecipeSearchService, RecipeSearchService>();
-builder.Services.AddScoped<IFavoriteRecipeRepository, FavoriteRecipeRepository>();
-builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
-builder.Services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
+// builder.Services.AddScoped<IFavoriteRecipeRepository, FavoriteRecipeRepository>();
+// builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
+// builder.Services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddHttpClient<MealPlannerService>();
+// builder.Services.AddScoped<IGoogleMapsService, GoogleMapsService>();
 
 //add a new repo builder.Services.AddScoped<interface, repo>();
 // Add services to the container.
@@ -41,6 +42,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     .UseLazyLoadingProxies() 
     .UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+// var configuration = new ConfigurationBuilder()
+//     .SetBasePath(Directory.GetCurrentDirectory())
+//     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+//     .Build();
 
 builder.Services.AddDefaultIdentity<SiteUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
