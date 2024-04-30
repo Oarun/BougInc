@@ -4,6 +4,7 @@ namespace CulturNary.Web.Models.DTO
 {
     public class RestaurantDto
     {
+        public int Id { get; set; }
         public int? PersonId { get; set; }
 
         public string RestaurantsName { get; set; } = null!;

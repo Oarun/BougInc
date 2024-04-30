@@ -133,9 +133,10 @@ $(document).ready(function() {
                         <h5 class="RestaurantsAddress">${restaurant.restaurantsAddress}</h5>
                         <a href="${restaurant.restaurantsWebsite}" style="color: #007bff; text-decoration: none; border-bottom: 1px solid #007bff;">Visit Website</a>
                         <h5 class="RestaurantsPhoneNumber">${restaurant.restaurantsPhoneNumber}</h5>
-                        ${restaurant.restaurantsMenu ? `<img class="restaurant-menu-image" src="${restaurant.restaurantsMenu}" alt="Restaurant Menu" style="max-width: 100%; height: auto;">` : `<p>No menu uploaded</p>`}
+                        ${restaurant.restaurantsMenu ? `<img class="restaurant-menu-image clickable" src="${restaurant.restaurantsMenu}" alt="Restaurant Menu" style="max-width: 100%; height: auto;">` : `<p>No menu uploaded</p>`}
                         <h5 class="RestaurantsNotes">${restaurant.restaurantsNotes ? restaurant.restaurantsNotes : "No notes available"}</h5>
-                        </div>
+                        <button class="btn btn-danger delete-restaurant" data-restaurant-id="${restaurant.id}">Delete</button>
+                    </div>
                 </div>
             `;
             if(restaurant.restaurantType != ""){
@@ -180,6 +181,33 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Event listener for delete button click
+    $(document).on("click", ".delete-restaurant", function() {
+        var restaurantId = $(this).data("restaurant-id");
+        deleteRestaurant(restaurantId);
+    });
+
+    function deleteRestaurant(restaurantId) {
+        $.ajax({
+            url: "/api/Restaurant/" + restaurantId,
+            type: "DELETE",
+            success: function(response) {
+                console.log("Restaurant deleted successfully");
+                // Remove the deleted restaurant item from the UI
+                var deletedRestaurantElement = restaurantElements.find(function(element) {
+                    return element.find(".delete-restaurant").data("restaurant-id") === restaurantId;
+                });
+                deletedRestaurantElement.remove();
+    
+                // Remove the corresponding filter option from the filter dropdown
+                generateFilterOptions()
+            },
+            error: function(error) {
+                console.error("Error deleting restaurant:", error);
+            }
+        });
+    }
 
     // Event listener for closing the modal when the "Close" button is clicked
     $("#menuModal").on("click", "button[data-dismiss='modal']", function() {

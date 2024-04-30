@@ -50,6 +50,7 @@ namespace CulturNary.Web.Controllers
                             .Where(x => x.PersonId == id)
                             .Select (r => new RestaurantDto
                             {
+                                Id = r.Id,
                                 PersonId = r.PersonId,
                                 RestaurantsName = r.RestaurantsName,
                                 RestaurantsAddress = r.RestaurantsAddress,
@@ -117,6 +118,7 @@ namespace CulturNary.Web.Controllers
 
             RestaurantDto createdRestaurantDto = new RestaurantDto()
             {
+                Id = restaurant.Id,
                 PersonId = restaurant.PersonId,
                 RestaurantsName = restaurant.RestaurantsName,
                 RestaurantsAddress = restaurant.RestaurantsAddress,

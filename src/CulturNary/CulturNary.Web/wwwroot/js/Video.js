@@ -98,6 +98,7 @@ $(document).ready(function() {
                             <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="${videoSrc}" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <h5 class="videoNotes">${video.videoNotes}</h5>
+                        <button class="btn btn-danger delete-video" data-video-id="${video.id}">Delete</button>
                     </div>
                 </div>`;
             if(video.videoType != ""){
@@ -115,7 +116,7 @@ $(document).ready(function() {
     function isYouTubeLink(link) {
         return link.includes('youtube.com') || link.includes('youtu.be');
     }
-    
+
     function extractYouTubeVideoId(url) {
         var videoId = url.split('v=')[1];
         if (videoId) {
@@ -158,4 +159,32 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(document).on("click", ".delete-video", function() {
+        var videoId = $(this).data("video-id");
+        deleteVideo(videoId);
+    });
+
+    // Function to delete a video
+    function deleteVideo(videoId) {
+        $.ajax({
+            url: "/api/Video/" + videoId,
+            type: "DELETE",
+            success: function(response) {
+                console.log("Video deleted successfully");
+                // Remove the deleted video item from the UI
+                var deletedVideoElement = videoElements.find(function(element) {
+                    return element.find(".delete-video").data("video-id") === videoId;
+                });
+                deletedVideoElement.remove();
+
+                // Remove the corresponding filter option from the filter dropdown
+                generateVideoFilterOptions()
+            },
+            error: function(error) {
+                console.error("Error deleting video:", error);
+            }
+        });
+    }
+
 });
