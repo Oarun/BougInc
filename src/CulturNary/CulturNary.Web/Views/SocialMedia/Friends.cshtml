@@ -1,0 +1,92 @@
+@using System.ComponentModel.DataAnnotations
+@model CulturNary.Web.Models.FriendSearchModel
+
+<form asp-action="Friends" method="post" class="form-container">
+    @foreach (var property in ViewData.ModelMetadata.Properties)
+    {
+        if (property.PropertyName != "Users" && property.PropertyName != "IsSubmitted" && property.PropertyName != "FriendshipStatus" && property.PropertyName != "UserMatchPercentages")
+        {
+            <div class="form-check">
+                <input class="form-check-input"
+                    type="checkbox"
+                    value="true"
+                    id="@property.PropertyName"
+                    name="@property.PropertyName"
+                    @( Model != null && Model.GetType().GetProperty(property.PropertyName) != null && (bool) Model.GetType().GetProperty(property.PropertyName).GetValue(Model, null) ? "checked=\"checked\"" : "") />
+                <label class="form-check-label" for="@property.PropertyName">
+                    @property.DisplayName
+                </label>
+            </div>
+        }
+    }
+    <div class="submit-container">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+@using (Html.BeginForm())
+{
+    @if (Model.IsSubmitted && Model.Users != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Profile Image</th>
+                    <th>Display Name</th>
+                    <th>Biography</th>
+                    <th>User Name</th>
+                    <th>Friendship Status</th>
+                    <th>Match Probability</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Users.Count; i++)
+                {
+                    var user = Model.Users[i];
+                    var buttonText = Model.FriendshipStatus[i];
+                    var matchProbability = Model.UserMatchPercentages[user];
+                    <tr>
+                        <td>
+                            @if (!string.IsNullOrEmpty(user.ProfileImageName))
+                            {
+                                <img src="@user.ProfileImageName" alt="@user.DisplayName's profile image" width="200" height="200" />
+                            }
+                            else
+                            {
+                                <img src="~/media/BOUG Logo Circle.png" alt="Default image" width="200" height="200" />
+                            }
+                        </td>
+                        <td>@(string.IsNullOrEmpty(user.DisplayName) ? "Display Name is missing" : user.DisplayName)</td>
+                        <td>@(string.IsNullOrEmpty(user.Biography) ? "Biography is missing" : user.Biography)</td>
+                        <td>@(user.UserName.Split('@')[0])</td>
+                        <td>
+                            @if(buttonText == "Send Friend Request")
+                            {
+                                <button type="button" class="btn btn-primary" data-user-id="@user.Id">@buttonText</button>
+                            }
+                            else if(buttonText == "Friend Request Pending")
+                            {
+                                <button type="button" class="btn btn-secondary" disabled data-user-id="@user.Id">@buttonText</button>
+                            }
+                            else if(buttonText == "Friend")
+                            {
+                                <button type="button" class="btn btn-success" data-user-id="@user.Id">@buttonText</button>
+                            }
+                        </td>
+                        <td>
+                            @matchProbability% <!-- Display the match probability -->
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: @matchProbability%;" aria-valuenow="@matchProbability" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+@section Scripts {
+    <script src="~/js/EditRestrictions.js"></script>
+    <script src="~/js/buttonActions.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+}
