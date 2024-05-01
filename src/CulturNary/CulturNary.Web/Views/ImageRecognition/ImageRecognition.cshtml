@@ -16,8 +16,39 @@
         <button type="submit">Upload</button>
     </form>
 
-    @if (Model != null && Model.items != null && Model.items.Any())
+    @if(Model != null && Model.imageUrl != null)
     {
+        <div>
+            <h3>Image URL:</h3>
+            <img src="@Model.imageUrl" alt="Uploaded Image" />
+        </div>
+    }
+
+    @if (Model != null && Model.response != null && Model.response.data != null && Model.response.data.Any()){
+    
+        <div>
+            <h3>Recognition Labels:</h3>
+            <ul>
+                @foreach (var data in Model.response.data)
+                {
+                    <li>
+                        <h4>Data:</h4>
+                        <ul>
+                            @foreach (var label in data.labels)
+                            {
+                                <li>@label.name</li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    } 
+
+    
+    @* @if (Model != null && Model.items != null && Model.items.Any())
+    {
+        <h3>
         <h3>Analysis Result:</h3>
         <ul>
             @foreach (var item in Model.items)
@@ -44,6 +75,6 @@
     else
     {
         <p>No analysis result available.</p>
-    }
+    } *@
 </body>
 </html>

@@ -8,16 +8,19 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using CulturNary.Web.Services;
 using CulturNary.Web.Models;
+using System.Drawing;
 
 namespace CulturNary.Web.Controllers
 {
     public class ImageRecognitionController : Controller
     {
         private readonly IImageRecognitionService _imageRecognitionService;
+        private readonly ImageStorageService _imageStorageService;
 
-        public ImageRecognitionController(IImageRecognitionService imageRecognitionService)
+        public ImageRecognitionController(IImageRecognitionService imageRecognitionService, ImageStorageService imageStorageService)
         {
             _imageRecognitionService = imageRecognitionService;
+            _imageStorageService = imageStorageService;
         }
 
         public IActionResult ImageRecognition()
@@ -32,21 +35,27 @@ namespace CulturNary.Web.Controllers
             {
                 try
                 {
-                    await using var memoryStream = new MemoryStream();
-                    await file.CopyToAsync(memoryStream);
-                    var bytes = memoryStream.ToArray();
-                    var byteString = Convert.ToBase64String(bytes);
+                    var imageUrl = await _imageStorageService.UploadImageAsync(file);
 
-                    Console.WriteLine(byteString.Length);
+                    string base64Image;
+                    using (var ms = new MemoryStream())
+                    {
+                        await file.CopyToAsync(ms);
+                        base64Image = Convert.ToBase64String(ms.ToArray());
+                    }
+
                     Console.WriteLine("Calling Image Recognition API");
-                    // Call the image recognition service with the base64 string
-                    var resultJson = await _imageRecognitionService.ImageRecognitionAsync(byteString);
+                    // Call the image recognition service
+                    var resultJSON = await _imageRecognitionService.ImageRecognitionAsync(base64Image);
+                    var result = JsonConvert.DeserializeObject<OpenAIResponse>(resultJSON);
                     
-                    // Deserialize the JSON response into a model
-                    var result = JsonConvert.DeserializeObject<ImageRecognitionResult>(resultJson);
+                    ImageRecognitionResult resultCompiled = new ImageRecognitionResult(){
+                        response = result,
+                        imageUrl = imageUrl,
+                    };  
                     
-                    // Return the deserialized model as JSON
-                    return View("ImageRecognition", result);
+                    // Return the deserialized model?
+                    return View("ImageRecognition", resultCompiled);
                 }
                 catch (Exception ex)
                 {
@@ -61,14 +70,14 @@ namespace CulturNary.Web.Controllers
             return View(model);
         }
 
-        private string ConvertToBase64(IFormFile file)
-        {
-            using (var ms = new MemoryStream())
-            {
-                file.CopyTo(ms);
-                byte[] imageBytes = ms.ToArray();
-                return Convert.ToBase64String(imageBytes);
-            }
-        }
+        // private string ConvertToBase64(IFormFile file)
+        // {
+        //     using (var ms = new MemoryStream())
+        //     {
+        //         file.CopyTo(ms);
+        //         byte[] imageBytes = ms.ToArray();
+        //         return Convert.ToBase64String(imageBytes);
+        //     }
+        // }
     }
 }
