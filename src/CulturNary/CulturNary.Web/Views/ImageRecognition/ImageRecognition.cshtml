@@ -7,43 +7,34 @@
     <title>Image Recognition</title>
 </head>
 <body>
+    <br>
     <h2>Image Recognition</h2>
+    <br>
+    <br>
     <form asp-action="ImageRecognition" method="post" enctype="multipart/form-data">
         <div>
             <label for="file">Select Image:</label>
             <input type="file" name="file" id="file" accept="image/*" required />
         </div>
-        <button type="submit">Upload</button>
+        <button class="profile-btn" type="submit">Upload</button>
     </form>
 
-    @if(Model != null && Model.imageUrl != null)
-    {
-        <div>
-            <h3>Image URL:</h3>
-            <img src="@Model.imageUrl" alt="Uploaded Image" />
-        </div>
-    }
+    <div class="row">
+        @if(Model != null && Model.imageUrl != null)
+        {
+            <div class="col-6">
+                <h3>Submitted Image:</h3>
+                <img src="@Model.imageUrl" alt="Uploaded Image" style="width:480px; height:720px"/>
+            </div>
+        }
 
-    @if (Model != null && Model.response != null && Model.response.data != null && Model.response.data.Any()){
-    
-        <div>
-            <h3>Recognition Labels:</h3>
-            <ul>
-                @foreach (var data in Model.response.data)
-                {
-                    <li>
-                        <h4>Data:</h4>
-                        <ul>
-                            @foreach (var label in data.labels)
-                            {
-                                <li>@label.name</li>
-                            }
-                        </ul>
-                    </li>
-                }
-            </ul>
-        </div>
-    } 
+        @if (Model != null && Model.response != null){ 
+            <div class="col-6 align-items-center my-5">
+                <h3>AI Response:</h3>
+                <p>@Model.response.Choices[0].Message.Content</p>
+            </div>
+        }
+    </div>
 
     
     @* @if (Model != null && Model.items != null && Model.items.Any())

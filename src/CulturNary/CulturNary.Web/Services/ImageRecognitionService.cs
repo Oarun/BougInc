@@ -30,22 +30,11 @@ namespace CulturNary.Web.Services
         public async Task<string> ImageRecognitionAsync(string imagePath)
         {
             try{
-                
-                Console.WriteLine("                                             SERVICE BEING CALLED");
-
                 string apiKey = _configuration["OpenAI:ImageRecognitionAppKey"];
-                Console.WriteLine("                                             API KEY BEING SET");
                 string base64_image = imagePath;
-                Console.WriteLine("                                             BASE64IMAGE BEING SET");
 
                 var client = new HttpClient();
-                Console.WriteLine("                                             CLIENT HAS BEEN CREATED");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-                Console.WriteLine("                                             AUTHORIZATION HAS BEEN ADDED");
-                //client.DefaultRequestHeaders.Add("Content-Type", "application/json");
-                Console.WriteLine("                                             CONTENT-TYPE HAS BEEN ADDED");
-
-                Console.WriteLine("                                             HEADERS HAVE BEEN CREATED");
 
                 var payload = new
                         {
@@ -77,28 +66,23 @@ namespace CulturNary.Web.Services
                             max_tokens = 800
                         };
 
-                Console.WriteLine("                                             PAYLOAD HAS BEEN CREATED");
-
                 var jsonPayload = JsonConvert.SerializeObject(payload);
-
-                Console.WriteLine("                                             PAYLOAD HAS BEEN CONVERTED");
 
                 var httpContent = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
-                Console.WriteLine("                                             HTTPCONTENT HAS BEEN CREATED");
+                //Console.WriteLine("Initiating API Call to OpenAI Image Recognition API");
 
-                Console.WriteLine("Initiating API Call to OpenAI Image Recognition API");
-
-                HttpResponseMessage response = await client.PostAsJsonAsync("https://api.openai.com/v1/chat/completions", httpContent);
+                HttpResponseMessage response = await client.PostAsync("https://api.openai.com/v1/chat/completions", httpContent);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Image Recognition API call successful");
+                    //Console.WriteLine("Image Recognition API call successful");
+                    Console.WriteLine(response.Content.ReadAsStringAsync().Result);
                     return await response.Content.ReadAsStringAsync();
                 }
                 else
                 {
-                    Console.WriteLine("Image Recognition API call failed");
+                    //Console.WriteLine("Image Recognition API call failed");
                     Console.WriteLine(response.ToString());
                     Console.WriteLine(response.Content.ReadAsStringAsync().Result);
                     throw new HttpRequestException($"Error fetching image recognition result: {response.ReasonPhrase}");

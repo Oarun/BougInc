@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace CulturNary.Web.Models
 {
@@ -11,17 +12,35 @@ namespace CulturNary.Web.Models
 
     public class OpenAIResponse
     {
-        public OpenAIData[] data { get; set; }
+        public string Id { get; set; }
+        public string Object { get; set; }
+        public int Created { get; set; }
+        public string Model { get; set; }
+        public OpenAPIChoices[] Choices { get; set; }
+
+        [JsonIgnore]
+        public object Usage { get; set; }
+
+        public string SystemFingerprint { get; set; }
     }
 
-    public class OpenAIData
+    public class OpenAPIChoices
     {
-        public OpenAILabel[] labels { get; set; }
+        public int Index { get; set; }
+        public OpenAPIMessage Message { get; set; }
+
+        [JsonIgnore]
+        public object? LogProbs { get; set; }
+
+        [JsonProperty("finish_reason")]
+        public string FinishReason { get; set; }
+
     }
 
-    public class OpenAILabel
+    public class OpenAPIMessage
     {
-        public string name { get; set; }
+        public string Role { get; set; }
+        public string Content { get; set; }
     }
 
 
