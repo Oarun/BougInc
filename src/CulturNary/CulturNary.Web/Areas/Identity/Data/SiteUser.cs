@@ -60,17 +60,17 @@ namespace CulturNary.Web.Areas.Identity.Data
         //     DietaryRestrictions = JsonSerializer.Serialize(restrictions);
         // }
 
-        //     public List<MealPlan>? GetMealPlans()
-        //     {
-        //         return string.IsNullOrEmpty(MealPlans) ?
-        //         new List<MealPlan>() :
-        //             JsonSerializer.Deserialize<List<MealPlan>>(MealPlans);
-        //     }
+        public List<MealPlan>? GetMealPlans()
+        {
+            return string.IsNullOrEmpty(MealPlans) ?
+            new List<MealPlan>() :
+                JsonSerializer.Deserialize<List<MealPlan>>(MealPlans);
+        }
 
-        //     public void SetMealPlans(List<MealPlan> mealPlans)
-        //     {
-        //         MealPlans = JsonSerializer.Serialize(mealPlans);
-        //     }
+        public void SetMealPlans(List<MealPlan> mealPlans)
+        {
+            MealPlans = JsonSerializer.Serialize(mealPlans);
+        }
     }
 
     public class DietaryRestriction : IEquatable<DietaryRestriction>

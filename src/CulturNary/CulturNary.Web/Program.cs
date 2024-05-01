@@ -31,7 +31,6 @@ builder.Services.AddScoped<IFavoriteRecipeRepository, FavoriteRecipeRepository>(
 builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
 builder.Services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
-builder.Services.AddScoped<IImageRecognitionService, ImageRecognitionService>();
 // builder.Services.AddScoped<IGoogleMapsService, GoogleMapsService>();
 
 //add a new repo builder.Services.AddScoped<interface, repo>();
