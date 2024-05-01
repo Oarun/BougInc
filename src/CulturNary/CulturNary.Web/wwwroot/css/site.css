@@ -1327,3 +1327,119 @@ footer {
 .viewCollectionBtn {
     margin-top: 10px;
 }
+
+/*-------------Meal Planner Css---------------*/
+.input-group .btn-outline-success {
+    height: calc(2.25rem + 2px) !important;
+    margin-left: -1px !important;
+}
+
+    .input-group .btn-outline-success svg {
+        vertical-align: middle;
+    }
+
+.input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    height: calc(2.25rem + 2px) !important;
+}
+
+.input-group > .form-control, .input-group > .form-select {
+    height: calc(2.25rem + 2px) !important;
+}
+
+#searchButton.btn-primary {
+    background-color: #407A3B;
+    border-color: #407A3B;
+}
+
+    #searchButton.btn-primary:hover {
+        background-color: white;
+        border-color: #407A3B;
+        color: #407A3B;
+    }
+
+    #searchButton.btn-primary:focus {
+        background-color: white;
+        border-color: #407A3B;
+        color: #407A3B;
+    }
+
+    #searchButton.btn-primary:active {
+        background-color: white;
+        border-color: #407A3B;
+        color: #407A3B;
+    }
+
+#lunch-tab.nav-link, #dinner-tab.nav-link, #breakfast-tab.nav-link {
+    color: #407A3B;
+}
+
+#meal-plan {
+    color: #353F2D !important;
+}
+
+#breakfast-tab.nav-link.active, #dinner-tab.nav-link.active, #lunch-tab.nav-link.active {
+    background-color: #407a3b1c !important;
+    border-color: #495057 #495057 #fff;
+}
+
+@media (min-width: 768px) and (max-width: 1145px) {
+    .container {
+        margin-top: 100px;
+    }
+
+    .form-check-label {
+        margin-left: 0;
+        margin-right: 10px;
+    }
+
+    .container-preferences {
+        padding-bottom: 100px;
+    }
+}
+
+.form-check-input:checked {
+    background-color: #407A3B;
+    border-color: #407a3be7;
+}
+
+.form-check {
+    color: #407A3B;
+    border-color: #407A3B;
+}
+
+    .form-check:hover {
+        color: white;
+        background-color: #407A3B;
+        border-color: #407A3B;
+    }
+
+        .form-check:hover .badge {
+            color: #407A3B;
+            background-color: white;
+        }
+
+.form-check {
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid #353F2D;
+    padding: 10px;
+    margin: 10px;
+}
+
+    .form-check label input {
+        position: absolute;
+        top: -20px;
+    }
+
+.badge {
+    background-color: #407A3B;
+    color: white;
+}
+
+.form-check input[type="checkbox"]:checked + label {
+    background-color: #c8e6c9; /* Light green */
+}
+
+.min-max-inputs {
+    display: none;
+}
