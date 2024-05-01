@@ -1,0 +1,189 @@
+﻿@{
+}
+
+<div class="container py-4" id="meal-plan">
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="bg-light p-3 rounded">
+                <h4 class="mb-3">Meal Plan Steps</h4>
+                @{
+                    var numberOfMeals = MealPlannerLabels.MealSelections.Count;
+                    for (int i = 0; i < numberOfMeals; i++)
+                    {
+                        var step = MealPlannerLabels.MealPlanSteps[i];
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="badge rounded-pill me-2">@step.Number</span>
+                            <span>@step.Description</span>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-md-8 mb-3 container-preferences">
+            <div class="bg-light p-3 rounded">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light p-3 rounded">
+                            <h5>Meal Selection</h5>
+                            @foreach (var mealIndex in Enumerable.Range(0, MealPlannerLabels.MealSelections.Count))
+                            {
+                                var meal = MealPlannerLabels.MealSelections[mealIndex];
+                                var description = MealPlannerLabels.MealPlanSteps[mealIndex].Description;
+                                <div class="form-switch mb-2 meal-selection">
+                                    <input class="form-check-input" type="checkbox" id="@meal.ToLower()Toggle">
+                                    <label class="form-check-label" for="@meal.ToLower()Toggle">@meal</label>
+                                </div>
+                            }
+                            <hr>
+
+                            <h5>Allergies</h5>
+                            <div class="d-flex flex-wrap mb-3 allergies parent">
+                                @foreach (var allergy in NutritionLabels.Allergies)
+                                {
+                                    <div class="form-check allergies">
+                                        <label class="form-check-label" for="@allergy.Value">
+                                            <input class="form-check-input" type="checkbox" id="@allergy.Value" value="@allergy.Value">
+                                            @allergy.Value
+                                            <span class="badge">i</span>
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+
+                            <h5>Diets</h5>
+                            <div class="d-flex flex-wrap mb-3 diets parent">
+                                @foreach (var diet in NutritionLabels.Diets)
+                                {
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="@diet.Value">
+                                            <input class="form-check-input" type="checkbox" id="@diet.Value" value="@diet.Value">
+                                            @diet.Value
+                                            <span class="badge">i</span>
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                            <h5>Daily Budget</h5>
+                            <p>Default value is selected based on a min 1600 and max 2000 calorie diet. Please enter your preferred min/max values.</p>
+                            <div class="input-group mb-3">
+                                <input type="number" id="calorieMin" class="form-control" placeholder="min" aria-label="Minimum calorie">
+                                <span class="input-group-text">-</span>
+                                <input type="number" id="calorieMax" class="form-control" placeholder="max" aria-label="Maximum calorie">
+                                <span class="input-group-text">kcal</span>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" id="includeCalories" aria-label="Include Calories">
+                                    </div>
+                                    <button class="btn btn-outline-success" type="button" id="addCalories">Add</button>
+                                </div>
+                            </div>
+
+
+                            <h5>Macronutrients</h5>
+                            <div class="d-flex flex-wrap mb-3 macronutrients parent">
+                                @foreach (var macro in NutritionLabels.Macronutrients)
+                                {
+                                    <div class="form-check macro">
+                                        <label class="form-check-label" for="@macro.Value">
+                                            <input class="form-check-input" type="checkbox" id="@macro.Value" value="@macro.Value">
+                                            @macro.Value
+                                            <span class="badge">i</span>
+                                        </label>
+                                        <div class="min-max-inputs" style="display: none;">
+                                            <div>
+                                                <label for="@($"{macro.Value}_min")">Min:</label>
+                                                <input type="number" id="@($"{macro.Value}_min")" name="@($"{macro.Value}_min")">
+                                            </div>
+                                            <div>
+                                                <label for="@($"{macro.Value}_max")">Max:</label>
+                                                <input type="number" id="@($"{macro.Value}_max")" name="@($"{macro.Value}_max")">
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary add-button">Add</button>
+                                    </div>
+                                }
+                            </div>
+
+                            <h5>Micronutrients</h5>
+                            <div class="d-flex flex-wrap mb-3 micronutrients parent">
+                                @foreach (var micro in NutritionLabels.Micronutrients)
+                                {
+                                    <div class="form-check macro">
+                                        <label class="form-check-label" for="@micro.Value">
+                                            <input class="form-check-input" type="checkbox" id="@micro.Value" value="@micro.Value">
+                                            @micro
+                                            <span class="badge">i</span>
+                                        </label>
+                                        <div class="min-max-inputs">
+                                            <div>
+                                                <label for="@($"{micro.Value}_min")">Min:</label>
+                                                <input type="number" id="@($"{micro.Value}_min")" name="@($"{micro.Value}_min")">
+                                            </div>
+                                            <div>
+                                                <label for="@($"{micro.Value}_max")">Max:</label>
+                                                <input type="number" id="@($"{micro.Value}_max")" name="@($"{micro.Value}_max")">
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary add-button">Add</button>
+                                    </div>
+                                }
+                            </div>
+
+                            <hr>
+                            <div class="bg-light p-3 rounded mt-3">
+                                <h4 class="mb-3">Preferred Meals</h4>
+                                <ul class="nav nav-tabs" id="mealTabs" role="tablist">
+                                    @for (int i = 0; i < MealPlannerLabels.MealSelections.Count; i++)
+                                    {
+                                        var meal = MealPlannerLabels.MealSelections[i];
+                                        var isActive = i == 0 ? "active" : "";
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link @isActive" id="@meal.ToLower() + " -tab"" data-bs-toggle="tab" data-bs-target="#@meal.ToLower()" type="button" role="tab" aria-controls="@meal.ToLower()" aria-selected="@(isActive == "active")">@meal</button>
+                                        </li>
+                                    }
+                                </ul>
+                                <div class="tab-content" id="mealTabsContent">
+                                    @foreach (var meal in MealPlannerLabels.MealOptions)
+                                    {
+                                        var isActive = meal.Key == "Breakfast" ? "show active" : "";
+                                        <div class="tab-pane fade @isActive" id="@meal.Key.ToLower()" role="tabpanel" aria-labelledby="@meal.Key.ToLower()-tab">
+                                            @foreach (var option in meal.Value)
+                                            {
+                                                var optionId = option.ToLower().Replace(" ", "").ToLower() + "Toggle";
+                                                <div class="form-check meals">
+                                                    <label class="form-check-label" for="@optionId">
+                                                        <input class="form-check-input" type="checkbox" id="@optionId" value="@option">
+                                                        @option
+                                                        <span class="badge">i</span>
+                                                    </label>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <button id="searchButton" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-4" id="meal-plan">
+    <div id="statusMessage" class="alert alert-info" role="alert">
+        Select meal options to see updates here.
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+        </div>
+        <div class="col-md-8 mb-3 container-preferences">
+            <div class="bg-light p-3 rounded mt-3">
+                <h4 class="mb-3">Preferred Meals</h4>
+            </div>
+        </div>
+    </div>
+</div>

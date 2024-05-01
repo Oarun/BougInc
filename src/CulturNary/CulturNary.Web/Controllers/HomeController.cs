@@ -30,19 +30,7 @@ public class HomeController : Controller
     }
 
     [Authorize(Roles = "Signed,Admin")]
-    public IActionResult MealPlanIndex()
-    {
-        return View();
-    }
-
-    [Authorize(Roles = "Signed,Admin")]
-    public IActionResult MealPlanGenerator()
-    {
-        return View();
-    }
-
-    [Authorize(Roles = "Signed,Admin")]
-    public IActionResult Plan()
+    public IActionResult MealPlanner()
     {
         return View();
     }
@@ -100,6 +88,7 @@ public class HomeController : Controller
         Console.WriteLine($"Error: {code}");
 
         return View(errorViewModel);
+
     }
 
     [HttpPost]
