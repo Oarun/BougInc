@@ -6,7 +6,7 @@ And also the opposite, non-logged in users should be able to access non-logged i
     Background:
         Given the following user exists in BougOneTwentySeven
             | UserName | Password | DisplayName | Biography | ProfileImageName |
-            | testuser@fakemail.com | Password123! | Test User    | Hello!    | scrungle.jpg |
+            | testuser@fakemail.com | Password123! | Test User    | Hello!    | scrongle.jpg |
 
     Scenario: Signed-in user attempts to access non-signed-in user pages
         Given a user is signed in with UserName "testuser@fakemail.com" and Password "Password123!"
