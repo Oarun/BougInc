@@ -29,75 +29,85 @@ namespace CulturNary.Web.Services
 
         public async Task<string> ImageRecognitionAsync(string imagePath)
         {
-            Console.WriteLine("                                             SERVICE BEING CALLED");
+            try{
+                
+                Console.WriteLine("                                             SERVICE BEING CALLED");
 
-            string apiKey = _configuration["OpenAI:ImageRecognitionAppKey"];
-            Console.WriteLine("                                             API KEY BEING SET");
-            string base64_image = imagePath;
-            Console.WriteLine("                                             BASE64IMAGE BEING SET");
+                string apiKey = _configuration["OpenAI:ImageRecognitionAppKey"];
+                Console.WriteLine("                                             API KEY BEING SET");
+                string base64_image = imagePath;
+                Console.WriteLine("                                             BASE64IMAGE BEING SET");
 
-            var client = new HttpClient();
-            Console.WriteLine("                                             CLIENT HAS BEEN CREATED");
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-            Console.WriteLine("                                             AUTHORIZATION HAS BEEN ADDED");
-            client.DefaultRequestHeaders.Add("Content-Type", "application/json");
-            Console.WriteLine("                                             CONTENT-TYPE HAS BEEN ADDED");
+                var client = new HttpClient();
+                Console.WriteLine("                                             CLIENT HAS BEEN CREATED");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+                Console.WriteLine("                                             AUTHORIZATION HAS BEEN ADDED");
+                //client.DefaultRequestHeaders.Add("Content-Type", "application/json");
+                Console.WriteLine("                                             CONTENT-TYPE HAS BEEN ADDED");
 
-            Console.WriteLine("                                             HEADERS HAVE BEEN CREATED");
+                Console.WriteLine("                                             HEADERS HAVE BEEN CREATED");
 
-            var payload = new
-                    {
-                        model = "gpt-4-turbo",
-                        messages = new[]
+                var payload = new
                         {
-                            new
+                            model = "gpt-4-turbo",
+                            messages = new[]
                             {
-                                role = "user",
-                                content = new object[]
+                                new
                                 {
-                                    new
+                                    role = "user",
+                                    content = new object[]
                                     {
-                                        type = "text",
-                                        text = "What kind of food or ingredients is in this picture?"
-                                    },
-                                    new
-                                    {
-                                        type = "image_url",
-                                        image_url = new
+                                        new
                                         {
-                                            url = $"data:image/jpeg;base64,{base64_image}",
-                                            detail = "low"
+                                            type = "text",
+                                            text = "What kind of food or ingredients is in this picture?"
+                                        },
+                                        new
+                                        {
+                                            type = "image_url",
+                                            image_url = new
+                                            {
+                                                url = $"data:image/jpeg;base64,{base64_image}",
+                                                detail = "low"
+                                            }
                                         }
                                     }
                                 }
-                            }
-                        },
-                        max_tokens = 800
-                    };
+                            },
+                            max_tokens = 800
+                        };
 
-            Console.WriteLine("                                             PAYLOAD HAS BEEN CREATED");
+                Console.WriteLine("                                             PAYLOAD HAS BEEN CREATED");
 
-            var jsonPayload = JsonConvert.SerializeObject(payload);
+                var jsonPayload = JsonConvert.SerializeObject(payload);
 
-            Console.WriteLine("                                             PAYLOAD HAS BEEN CONVERTED");
+                Console.WriteLine("                                             PAYLOAD HAS BEEN CONVERTED");
 
-            var httpContent = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+                var httpContent = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
-            Console.WriteLine("                                             HTTPCONTENT HAS BEEN CREATED");
+                Console.WriteLine("                                             HTTPCONTENT HAS BEEN CREATED");
 
-            Console.WriteLine("Initiating API Call to OpenAI Image Recognition API");
+                Console.WriteLine("Initiating API Call to OpenAI Image Recognition API");
 
-            HttpResponseMessage response = await client.PostAsync("https://api.openai.com/v1/vision/label", httpContent);
+                HttpResponseMessage response = await client.PostAsJsonAsync("https://api.openai.com/v1/chat/completions", httpContent);
 
-            if (response.IsSuccessStatusCode)
-            {
-                Console.WriteLine("Image Recognition API call successful");
-                return await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Image Recognition API call successful");
+                    return await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    Console.WriteLine("Image Recognition API call failed");
+                    Console.WriteLine(response.ToString());
+                    Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+                    throw new HttpRequestException($"Error fetching image recognition result: {response.ReasonPhrase}");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Image Recognition API call failed");
-                throw new HttpRequestException($"Error fetching image recognition result: {response.ReasonPhrase}");
+                Console.WriteLine("Error in Image Recognition Service: " + ex.Message);
+                throw new HttpRequestException($"Error fetching image recognition result: {ex.Message}");
             }
         }
     }
