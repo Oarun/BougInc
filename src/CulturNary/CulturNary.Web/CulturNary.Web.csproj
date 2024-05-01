@@ -6,6 +6,9 @@
     <UserSecretsId>aspnet-CulturNary.Web-96eb2941-870d-4997-8d64-87a79f6ae2f8</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="wwwroot\js\MealPlanner.js" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
     <PackageReference Include="Captcha.NET" Version="1.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.1" />

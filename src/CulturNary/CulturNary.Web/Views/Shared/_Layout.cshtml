@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CulturNary</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
     @await Component.InvokeAsync("Theme")
-
+    @Html.Partial("_Favicons")
     <link rel="stylesheet" href="~/CulturNary.Web.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -33,7 +32,7 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownPlanners">
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="Collections">Collections</a>
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="GroceryList">Grocery List</a>
-                                    <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="MealPlanner">Meal Planner</a>
+                                    <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="MealPlanIndex">Meal Planner</a>
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="Tools">Cooking Utilities</a>
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="Video">Cooking Videos</a>
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="Restaurants">Your Restaurants</a>
@@ -103,30 +102,9 @@
     <script src="~/js/Groceries.js"></script>
     <script src="~/js/Video.js"></script>
     <script src="~/js/Restaurants.js"></script>
+    <script src="~/js/MealPlannerObfuscator.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.2/purify.min.js"></script>
 </body>
 </html>
 
 
-
-
-
-@* <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/media/Logo.png" width="40" /></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"><img src="~/media/icons8-more-50.png" width="30" /></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-                <li class="nav-item">
-                    <a class="nav-link" style="color: #DCEDCF;" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color: #DCEDCF;" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                </li>
-            </ul>
-            <partial name="_LoginPartial" />
-        </div>
-    </div>
-</nav> *@
