@@ -15,6 +15,7 @@ using CulturNary.DAL.Concrete;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using CulturNary.Web.Models;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Reqnroll.Assist;
 
 var builder = WebApplication.CreateBuilder(args);
 var appConnectionString = builder.Configuration.GetConnectionString("CulturNaryDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CulturNaryDbContextConnection' not found.");
@@ -26,10 +27,12 @@ builder.Services.AddDbContext<CulturNaryDbContext>(options => options
 builder.Services.AddScoped<DbContext,CulturNaryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
 builder.Services.AddScoped<IRecipeSearchService, RecipeSearchService>();
-builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IFavoriteRecipeRepository, FavoriteRecipeRepository>();
-builder.Services.AddHttpClient<MealPlannerService>();
+builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
+builder.Services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IImageRecognitionService, ImageRecognitionService>();
+// builder.Services.AddScoped<IGoogleMapsService, GoogleMapsService>();
 
 //add a new repo builder.Services.AddScoped<interface, repo>();
 // Add services to the container.
@@ -41,10 +44,26 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     .UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+// var configuration = new ConfigurationBuilder()
+//     .SetBasePath(Directory.GetCurrentDirectory())
+//     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+//     .Build();
+
 builder.Services.AddDefaultIdentity<SiteUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 //google sign-in
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
@@ -100,6 +119,8 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
@@ -123,6 +144,7 @@ else
 
 app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
 
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
