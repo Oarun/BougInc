@@ -78,3 +78,9 @@
 .team-member h5 {
     font-weight: 100;
 }
+
+@media (max-width: 767px) {
+    .margin-settings {
+        margin-top: 1rem; /* Adjust as needed */
+    }
+}
