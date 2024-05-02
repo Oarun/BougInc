@@ -2,91 +2,94 @@
     ViewData["Title"] = "About Page";
 }
 
-<div class="about-section">
-    <div class="container-fluid">
-        <div class="row" height="100vh;">
-            <div id="carouselExampleDark" class="carousel slide d-flex align-items-center justify-content-center" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <div class="carousel-inner">
-                    <div class="carousel-item container active" data-bs-interval="50000">
-                        <h1 class="about-title display-2 d-flex justify-content-center align-content-center text-decoration-underline">ABOUT BOUG INC.</h1>
-                        <div class="row pt-5">
-                            <div class="logo-sm-img col-md-2 d-flex justify-content-center align-content-center">
-                                <img src="~/media/BOUG Logo About Background.png" width="150px" />
-                            </div>
-                            <div class="col-md-10">
-                                <p class="text-1 display-6">
-                                    Boug Inc was created in 2024 by a small team of Computer Science students at Western Oregon University.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row pt-5">
-                            <div class="col-md-6">
-                                <p class="text-1 display-6">Our team was brought together by the common goal of creating a web project that is both innovative and useful to society at large, and we found that food is a common denominator that unites us all.</p>
-                            </div>
-                            <div class="col-md-6">
-                                <img src="~/media/teamwork.jpg" width="600px" />
-                            </div>
-                        </div>
+<head>
+    <link rel="stylesheet" href="~/css/about.css">
+</head>
+
+<body>
+    <div id="carouselExampleDark" class="carousel slide container" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <div class="carousel-inner">
+            <div class="carousel-item container active" data-bs-interval="50000">
+                <h1 class="about-title display-2 d-flex justify-content-center align-content-center text-decoration-underline">ABOUT BOUG INC.</h1>
+                <div class="row pt-5">
+                    <div class="logo-sm-img col-md-2">
+                        <img src="~/media/BOUG Logo Circle.png" class="img-fluid" />
                     </div>
-                    <div class="carousel-item container" data-bs-interval="50000">
-                        <h1 class="about-title display-2 text-decoration-underline">VISION STATEMENT</h1>
-                        <div class="row pt-2">
-                            <div class="col-md-8 text-center text-1 pt-3">
-                                <h4 class="vision-statement">Our nutrition solution is a web application designed to assist individuals with diet restrictions, whether stemming from medical, religious, or personal reasons. CulturNary helps you constructs a user profile through a comprehensive questionnaire, facilitating personalized recommendations for recipes and then displaying them for your easy consumption. We have a custom advanced search feature available, allowing users to specify their constraints and preferences, encompassing allergies, intolerances, deficiencies, and limited intake parameters like sodium, carbs, and sugar. Additionally, users can filter and receive recommendations tailored to religion-based dietary restrictions, such as adherence to Halal and Kosher rules. The true strength of our application lies in its ability to harmonize dietary choices with individual medical needs. This topic is of high importance to our team and society as a whole, considering the universal applicability of our solution: everyone needs to eat, and a health-conscious diet is a conduit to a thriving life for all. Unlike our competitors such as eatingwell.com and delish.com, our application excels in integrating diverse requirements through advanced search functionalities and personalized profiles. This results in precise dish recommendations tailored to users' distinct needs and desires.</h4>
-                            </div>
-                            <div class="col-md-4">
-                                <img src="~/media/Vision Satement Image.png" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item container" data-bs-interval="50000">
-                        <h1 class="about-title display-2 text-decoration-underline">MEET THE TEAM</h1>
-                        <div class="background">
-                            <div class="row spacing team">
-                                <div class="col-md-6 team-section mb-3 display-4">
-                                    <div class="team-member">
-                                        <h1 class="">Austin Davis</h1>
-                                        <h5>Austin is a Computer Science major at Western Oregon University, and is the most senior member of the team. He has a background in app development spanning a multitude of programming languages.</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 team-section mb-3">
-                                    <div class="team-member">
-                                        <h1>Evgeny Gubin</h1>
-                                        <h5>Evgeny is a Math and Computer Science major at Western Oregon University, and serves as the team leader for Boug Inc. He came up with Boug as a name, altered from the randomly generated "Bugocalypse" as a play on words combining Bog and Bug</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 team-section">
-                                    <div class="team-member">
-                                        <h1>Izabel Roman Martinez</h1>
-                                        <h5>Izabel is a Computer Science major at Western Oregon University, and is the primary graphic designer and front-end developer of the team. She created the entire design scheme for the website is responsible for the majority of the style of CulturNary.</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 team-section">
-                                    <div class="team-member">
-                                        <h1>Lunafreyja Schafer</h1>
-                                        <h5>Lunafreyja is a Business and Computer Science major at Western Oregon University, and is a jack of all trades who fills in positions as needed. She has a past in mod development for video games, which brought her into the world of coding.</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-10">
+                        <p class="display-6">
+                            Boug Inc was created in 2024 by a small team of Computer Science students at Western Oregon University.
+                        </p>
                     </div>
                 </div>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                <div class="row pt-5">
+                    <div class="col-md-6">
+                        <p class="display-6">Our team was brought together by the common goal of creating a web project that is both innovative and useful to society at large, and we found that food is a common denominator that unites us all.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="~/media/teamwork.jpg" class="img-fluid" width="100%" />
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item container" data-bs-interval="50000">
+                <h1 class="about-title display-2 text-decoration-underline">VISION STATEMENT</h1>
+                <div id="vision-statement" class="row pt-2">
+                    <div class="col-md-8 pt-3">
+                        <p class="indented">Our nutrition solution is a web application designed to assist individuals with diet restrictions, whether stemming from medical, religious, or personal reasons. CulturNary helps you constructs a user profile through a comprehensive questionnaire, facilitating personalized recommendations for recipes and then displaying them for your easy consumption.</p>
+                        <p class="indented"> We have a custom advanced search feature available, allowing users to specify their constraints and preferences, encompassing allergies, intolerances, deficiencies, and limited intake parameters like sodium, carbs, and sugar. Additionally, users can filter and receive recommendations tailored to religion-based dietary restrictions, such as adherence to Halal and Kosher rules.</p>
+                        <p class="indented">The true strength of our application lies in its ability to harmonize dietary choices with individual medical needs. This topic is of high importance to our team and society as a whole, considering the universal applicability of our solution: everyone needs to eat, and a health-conscious diet is a conduit to a thriving life for all. Unlike our competitors such as eatingwell.com and delish.com, our application excels in integrating diverse requirements through advanced search functionalities and personalized profiles. This results in precise dish recommendations tailored to users' distinct needs and desires.</p>
+                    </div>
+                    <div class="col-md-4 img-section">
+                        <img src="~/media/Vision Satement Image-small.png" class="img-fluid phone-img"/>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item container" data-bs-interval="50000">
+                <h1 class="about-title display-2 text-decoration-underline">MEET THE TEAM</h1>
+                <div class="background mb-0">
+                    <div class="row spacing team">
+                        <div class="col-md-6 team-section mb-3 display-4">
+                            <div class="team-member">
+                                <h1 class="">Austin Davis</h1>
+                                <h5>Austin is a Computer Science major at Western Oregon University, and is the most senior member of the team. He has a background in app development spanning a multitude of programming languages.</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6 team-section mb-3">
+                            <div class="team-member">
+                                <h1>Evgeny Gubin</h1>
+                                <h5>Evgeny is a Math and Computer Science major at Western Oregon University, and serves as the team leader for Boug Inc. He came up with Boug as a name, altered from the randomly generated "Bugocalypse" as a play on words combining Bog and Bug</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 team-section">
+                            <div class="team-member">
+                                <h1>Izabel Roman Martinez</h1>
+                                <h5>Izabel is a Computer Science major at Western Oregon University, and is the primary graphic designer and front-end developer of the team. She created the entire design scheme for the website is responsible for the majority of the style of CulturNary.</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6 team-section">
+                            <div class="team-member margin-settings">
+                                <h1>Lunafreyja Schafer</h1>
+                                <h5>Lunafreyja is a Business and Computer Science major at Western Oregon University, and is a jack of all trades who fills in positions as needed. She has a past in mod development for video games, which brought her into the world of coding.</h5>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-</div> 
+</body>

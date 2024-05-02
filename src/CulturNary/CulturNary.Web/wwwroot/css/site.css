@@ -8,6 +8,13 @@ html {
     }
 }
 
+.navbar-nav .dropdown-menu .dropdown-item:active,
+.navbar-nav .dropdown-menu .dropdown-item:focus,
+.navbar-nav .dropdown-menu .dropdown-item:hover {
+    color: #ff4500; /* New color for active state */
+    text-decoration: underline;
+}
+
 .btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
@@ -322,87 +329,6 @@ body.identity .manage button:hover {
 .google-logo {
     width: 30px;
     height: 30px
-}
-
-/*    About Page Styling
------------------------------------*/
-.about-section {
-    background-color: #353F2D;
-}
-
-.background {
-    background: url('/media/BOUG Logo About Background.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100%;
-    height: 100%;
-    padding-bottom: 160px;
-}
-
-.vision-statement-img {
-    max-width: 100%;
-    max-height: 100%;
-    height: auto; /* Maintain aspect ratio */
-    width: auto; /* Maintain aspect ratio */
-    display: block; /* Removes bottom space associated with inline elements */
-}
-
-.carousel-item::-webkit-scrollbar {
-    width: 10px;
-}
-
-.carousel-item::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-.carousel-item::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
-    .carousel-item::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
-
-.carousel-img, .logo-sm-img img {
-    max-width: 100%; /* Ensures images are responsive */
-    height: auto; /* Maintains aspect ratio */
-}
-
-.text-1 {
-    word-wrap: break-word; /* Ensures text fits within the container */
-    color: #DCEDCF;
-}
-
-.vision-statement {
-    color: #DCEDCF;
-    font-weight: 100;
-    line-height: 1.5;
-}
-
-.team-member {
-    color: azure;
-    line-height: 24px;
-    height: 100%;
-    background-color: rgba(220, 237, 207, 0.4);
-    -moz-box-shadow: inherit;
-    -webkit-box-shadow: inherit;
-    box-shadow: inherit;
-    padding: 30px;
-    margin-top: 45px;
-}
-
-    .team-member h1, .team-member h5 {
-        font-weight: 100;
-    }
-
-.spacing {
-    margin-top: 40px;
-}
-
-.team-member h1,
-.team-member h5 {
-    font-weight: 100;
 }
 
 /*    Account Management Styling

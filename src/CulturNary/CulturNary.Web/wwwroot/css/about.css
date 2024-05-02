@@ -1,0 +1,86 @@
+﻿body {
+    background-color: #353F2D;
+}
+
+.background {
+    background: url('/media/BOUG Logo About Background-small.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: auto;
+    padding-bottom: 60px;
+}
+
+.carousel-item.container {
+    padding-top: 10% !important;
+    padding-left: 10% !important;
+    padding-right: 10% !important;
+}
+.carousel-item {
+    background-color: #353F2D;
+    color: #DCEDCF !important;
+    margin-bottom: 10%;
+    width: 100%;
+}
+
+.col-md-4.img-section{
+    display: flex;
+    justify-content: space-evenly !important;
+    flex-direction: column-reverse !important;
+}
+
+.carousel-item::-webkit-scrollbar {
+    width: 10px;
+}
+
+.carousel-item::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.carousel-item::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    .carousel-item::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+.indented {
+    text-indent: 30px; /* Adjust the indent value as needed */
+}
+.carousel-item container {
+    margin-left: 20px !important;
+}
+.display-6 {
+    font-size: 30px;
+}
+
+.team-member {
+    color: azure;
+    line-height: 24px;
+    height: 100%;
+    background-color: rgba(220, 237, 207, 0.4);
+    -moz-box-shadow: inherit;
+    -webkit-box-shadow: inherit;
+    box-shadow: inherit;
+    padding: 20px;
+}
+
+    .team-member h1, .team-member h5 {
+        font-weight: 100;
+    }
+
+.spacing {
+    margin-top: 50px;
+}
+
+.team-member h1,
+.team-member h5 {
+    font-weight: 100;
+}
+
+@media (max-width: 767px) {
+    .margin-settings {
+        margin-top: 1rem; /* Adjust as needed */
+    }
+}
