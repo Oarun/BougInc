@@ -21,7 +21,7 @@ namespace CulturNary.Web.Controllers
 
         // POST: api/FavoriteRecipes/favorite/add
         [HttpPost("favorite/add")]  // Changed from [HttpPost("favorite")]
-        public async Task<ActionResult<FavoriteRecipe>> AddFavoriteRecipe(FavoriteRecipe favoriteRecipe)
+        public async Task<ActionResult<FavoriteRecipe>> PostFavoriteRecipe(FavoriteRecipe favoriteRecipe)
         {
             try
             {
