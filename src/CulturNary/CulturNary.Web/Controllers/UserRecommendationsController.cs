@@ -26,7 +26,7 @@ public class UserRecommendationsController : Controller
         _favoriteRecipeRepository = favoriteRecipeRepository;
         _logger = logger;
     }
-    [Route("Favorite")]
+    [HttpGet("Favorite")]
     public async Task<IActionResult> Favorite()
     {
         var user = await _userManager.GetUserAsync(User);
@@ -51,7 +51,8 @@ public class UserRecommendationsController : Controller
 
         return View(favoriteRecipes);
     }
-    [HttpPost]
+
+    [HttpPost("add")]
     public async Task<IActionResult> DeleteFavoriteRecipe(int id)
     {
         var user = await _userManager.GetUserAsync(User);
@@ -73,7 +74,7 @@ public class UserRecommendationsController : Controller
 
         return RedirectToAction(nameof(Favorite));
     }
-    [HttpGet]
+    [HttpGet("all")]
     public async Task<IActionResult> SearchFavoriteRecipes(string search)
     {
         var user = await _userManager.GetUserAsync(User);
