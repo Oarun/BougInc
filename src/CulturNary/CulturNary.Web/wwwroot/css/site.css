@@ -8,12 +8,12 @@ html {
     }
 }
 
-.navbar-nav .dropdown-menu .dropdown-item:active,
+/*.navbar-nav .dropdown-menu .dropdown-item:active,
 .navbar-nav .dropdown-menu .dropdown-item:focus,
 .navbar-nav .dropdown-menu .dropdown-item:hover {
-    color: #ff4500; /* New color for active state */
-    text-decoration: underline;
-}
+    color: #ff4500;*/ /* New color for active state */
+    /*text-decoration: underline;
+}*/
 
 .btn:focus,
 .btn:active:focus,

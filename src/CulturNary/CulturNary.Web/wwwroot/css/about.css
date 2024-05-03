@@ -46,7 +46,7 @@
         background: #555;
     }
 .indented {
-    text-indent: 30px; /* Adjust the indent value as needed */
+    text-indent: 30px;
 }
 .carousel-item container {
     margin-left: 20px !important;
@@ -81,6 +81,10 @@
 
 @media (max-width: 767px) {
     .margin-settings {
-        margin-top: 1rem; /* Adjust as needed */
+        margin-top: 1rem;
     }
+}
+
+.carousel-indicators {
+display: none !important;
 }
