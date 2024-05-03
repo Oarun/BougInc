@@ -10,13 +10,13 @@ namespace CulturNaryBDDProject.StepDefinitions
     public class Boug_186_MealPlannerStepDefinitions
     {
         private IWebDriver _driver;
-        private MealPlannerPageObject _mealPlanPage;
+        //private MealPlannerPageObject _mealPlanPage;
 
         [BeforeScenario]
         public void BeforeScenario()
         {
             _driver = new FirefoxDriver();
-            _mealPlanPage = new MealPlannerPageObject(_driver);
+            //_mealPlanPage = new MealPlannerPageObject(_driver);
         }
 
         [AfterScenario]
