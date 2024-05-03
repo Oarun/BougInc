@@ -15,6 +15,10 @@ using CulturNary.DAL.Concrete;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using CulturNary.Web.Models;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.OpenApi.Models;
+using Reqnroll.Assist;
+using System.Reflection;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 var appConnectionString = builder.Configuration.GetConnectionString("CulturNaryDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CulturNaryDbContextConnection' not found.");
@@ -30,7 +34,7 @@ builder.Services.AddScoped<IFavoriteRecipeRepository, FavoriteRecipeRepository>(
 builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
 builder.Services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
-builder.Services.AddHttpClient<MealPlannerService>();
+builder.Services.AddHttpClient<INewsService, NewsService>();
 builder.Services.AddScoped<IImageRecognitionService, ImageRecognitionService>();
 // builder.Services.AddScoped<IGoogleMapsService, GoogleMapsService>();
 
@@ -53,6 +57,21 @@ builder.Services.AddDefaultIdentity<SiteUser>(options => options.SignIn.RequireC
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddEndpointsApiExplorer(); // Ensures API endpoints are exposed for Swagger
+
+// Configure Swagger
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "CulturNary API's", Version = "v1" });
+    c.CustomOperationIds(apiDesc =>
+    {
+        return apiDesc.TryGetMethodInfo(out MethodInfo methodInfo)
+            ? methodInfo.DeclaringType.Name + "_" + methodInfo.Name
+            : null;
+    });
+});
+
 
 //google sign-in
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
@@ -108,6 +127,8 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API v1"));
 }
 else
 {
