@@ -7,7 +7,7 @@ namespace CulturNary.DAL.Abstract
     public interface IPersonRepository : IRepository<Person>
     {
         public Person GetPersonByIdentityId(string identityId);
-        public Task<Dictionary<SiteUser, double>> GetUsersWithDietaryRestrictions(FriendSearchModel model, string currentUserId);
+        public Task<Dictionary<SiteUser, double>> GetUsersWithDietaryRestrictions(string currentUserId);
         public Person GetPersonByPersonId(int personId);
     }
 }

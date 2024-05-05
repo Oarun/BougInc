@@ -39,19 +39,8 @@ namespace CulturNary.Web.Controllers
                 Users = new List<SiteUser>()
             };
 
-            return View(model);
-        }
-
-        [HttpPost("Friends")]
-        public async Task<IActionResult> Friends(FriendSearchModel model)
-        {
-            if (model == null)
-            {
-                model = new FriendSearchModel();
-            }
-
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userMatchPercentages = await _personRepository.GetUsersWithDietaryRestrictions(model, currentUserId);
+            var userMatchPercentages = await _personRepository.GetUsersWithDietaryRestrictions(currentUserId);
 
             // Assign the users and match percentages to the model
             model.Users = userMatchPercentages.Keys.ToList();
@@ -81,6 +70,7 @@ namespace CulturNary.Web.Controllers
             model.IsSubmitted = true;
             return View(model);
         }
+
         [HttpGet("FriendsList")]
         public async Task<IActionResult> FriendsList()
         {

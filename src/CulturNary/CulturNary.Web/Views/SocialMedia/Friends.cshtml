@@ -1,29 +1,5 @@
 @using System.ComponentModel.DataAnnotations
 @model CulturNary.Web.Models.FriendSearchModel
-
-<form asp-action="Friends" method="post" class="form-container">
-    @foreach (var property in ViewData.ModelMetadata.Properties)
-    {
-        if (property.PropertyName != "Users" && property.PropertyName != "IsSubmitted" && property.PropertyName != "FriendshipStatus" && property.PropertyName != "UserMatchPercentages")
-        {
-            <div class="form-check">
-                <input class="form-check-input"
-                    type="checkbox"
-                    value="true"
-                    id="@property.PropertyName"
-                    name="@property.PropertyName"
-                    @( Model != null && Model.GetType().GetProperty(property.PropertyName) != null && (bool) Model.GetType().GetProperty(property.PropertyName).GetValue(Model, null) ? "checked=\"checked\"" : "") />
-                <label class="form-check-label" for="@property.PropertyName">
-                    @property.DisplayName
-                </label>
-            </div>
-        }
-    }
-    <div class="submit-container">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-</form>
-
 @using (Html.BeginForm())
 {
     @if (Model.IsSubmitted && Model.Users != null)
