@@ -19,8 +19,8 @@ namespace CulturNary.Web.Controllers
             _favoriteRecipeRepository = favoriteRecipeRepository;
         }
 
-        // POST: api/FavoriteRecipes
-        [HttpPost]
+        // POST: api/FavoriteRecipes/favorite/add
+        [HttpPost("favorite/add")]  // Changed from [HttpPost("favorite")]
         public async Task<ActionResult<FavoriteRecipe>> PostFavoriteRecipe(FavoriteRecipe favoriteRecipe)
         {
             try
@@ -30,20 +30,12 @@ namespace CulturNary.Web.Controllers
                 if (existingRecipe == null)
                 {
                     _favoriteRecipeRepository.Add(favoriteRecipe);
+                    return StatusCode(201);
                 }
-                return StatusCode(200);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-        [HttpGet]
-        public async Task<ActionResult<FavoriteRecipe>> GetFavoriteRecipe()
-        {
-            try
-            {
-                return Ok(_favoriteRecipeRepository.GetAll());
+                else
+                {
+                    return StatusCode(409, "Recipe already favorited");
+                }
             }
             catch (Exception)
             {
@@ -51,6 +43,21 @@ namespace CulturNary.Web.Controllers
             }
         }
 
-        // Other methods (GET, PUT, DELETE) go here...
+        // GET: api/FavoriteRecipes/favorite
+        [HttpGet("favorite")]  // This route is unchanged
+        public async Task<ActionResult<FavoriteRecipe>> GetFavoriteRecipes()
+        {
+            try
+            {
+                var favorites = _favoriteRecipeRepository.GetAll();
+                return Ok(favorites);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        // Other methods (PUT, DELETE) go here...
     }
 }
