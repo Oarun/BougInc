@@ -42,6 +42,21 @@ namespace CulturNary.Web.Controllers
             return Ok(new { ApiKey = apiKey });
         }
 
+         // Get: api/Restaurant/NearbySearchRestaurants
+        [HttpGet("NearbySearchRestaurants")]
+        public async Task<ActionResult> NearbySearchRestaurants(double latitude, double longitude, int radius, string type)
+        {
+            HttpClient client = new HttpClient();
+            var apiKey = await _googleMapsService.GetApiKeyAsync();
+            string url = $"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&radius={radius}&type={type}&key={apiKey}";
+
+            HttpResponseMessage response = await client.GetAsync(url);
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            // Forward the response from Google Maps API to the client
+            return Content(responseBody, "application/json");
+        }
+
         // GET: api/Restaurant/5 Uses Person Id
         [HttpGet("{id}")]
         public async Task<ActionResult<List<RestaurantDto>>> GetRestaurant(int id)
