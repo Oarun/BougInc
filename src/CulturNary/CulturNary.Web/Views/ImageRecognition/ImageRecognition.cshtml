@@ -2,70 +2,62 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Image Recognition</title>
-</head>
-<body>
-    <br>
-    <h2>Image Recognition</h2>
-    <br>
-    <br>
-    <form asp-action="ImageRecognition" method="post" enctype="multipart/form-data">
-        <div>
-            <label for="file">Select Image:</label>
-            <input type="file" name="file" id="file" accept="image/*" required />
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Image Recognition</title>
+    </head>
+    <body>
+        <br>
+        <h2>Image Recognition</h2>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-6 my-5">
+                <h3>Upload Image</h3>
+                <form asp-action="ImageRecognition" method="post" enctype="multipart/form-data" id="imageForm">
+                    <div>
+                        <label for="file">Select Image:</label>
+                        <input type="file" name="file" id="file" accept="image/*"/>
+                    </div>
+                    <button class="profile-btn" id="uploadButton1" type="submit">Upload</button>
+                </form>
+            </div>
+            <div class="col-6 my-5">
+                <h3>Capture Image</h3>
+                <button class="profile-btn" id="startCameraButton">Start Camera</button>
+                <video id="video" width="720" height="480" style="display:none;" autoplay></video>
+                <button class="profile-btn" id="captureButton" style="display:none;">Capture Image</button>
+                <canvas id="canvas" width="720" height="480" style="display:none;"></canvas>
+                <button class="profile-btn" id="uploadButton2" style="display:none;">Upload Image</button>
+                <div id="preview"></div>
+                <form asp-action="ImageRecognition" method="post" enctype="multipart/form-data" id="cameraForm">
+                    <div>
+                        <input type="file" name="cameraFile" id="cameraFile" accept="image/*" style="display:none;/>
+                    </div>
+                    <button class="profile-btn" id="cameraUpload" type="submit" style="display:none;"></button>
+                </form>
+            </div>
+
         </div>
-        <button class="profile-btn" type="submit">Upload</button>
-    </form>
 
-    <div class="row">
-        @if(Model != null && Model.imageUrl != null)
-        {
-            <div class="col-6">
-                <h3>Submitted Image:</h3>
-                <img src="@Model.imageUrl" alt="Uploaded Image" style="width:50%;"/>
-            </div>
-        }
-
-        @if (Model != null && Model.response != null){ 
-            <div class="col-6 align-items-center my-5">
-                <h3>AI Response:</h3>
-                <p>@Model.response.Choices[0].Message.Content</p>
-            </div>
-        }
-    </div>
-
-    
-    @* @if (Model != null && Model.items != null && Model.items.Any())
-    {
-        <h3>
-        <h3>Analysis Result:</h3>
-        <ul>
-            @foreach (var item in Model.items)
+        <div class="row">
+            @if(Model != null && Model.imageUrl != null)
             {
-                <li>
-                    @if (item.food != null && item.food.foodInfo != null)
-                    {
-                        <span>@item.food.foodInfo.display_Name</span>
-                        <span>@item.food.confidence</span>
-                        @if (item.food.ingredients != null && item.food.ingredients.Any())
-                        {
-                            <ul>
-                                @foreach (var ingredient in item.food.ingredients)
-                                {
-                                    <li>@ingredient.foodInfo.display_Name</li>
-                                }
-                            </ul>
-                        }
-                    }
-                </li>
+                <div class="col-6">
+                    <h3>Submitted Image:</h3>
+                    <img src="@Model.imageUrl" alt="Uploaded Image" style="width:50%;"/>
+                </div>
             }
-        </ul>
-    }
-    else
-    {
-        <p>No analysis result available.</p>
-    } *@
-</body>
+
+            @if (Model != null && Model.response != null){ 
+                <div class="col-6 align-items-center my-5">
+                    <h3>AI Response:</h3>
+                    <p>@Model.response.Choices[0].Message.Content</p>
+                </div>
+            }
+        </div>
+    </body>
+
+    <script src="~/js/ImageRecognition.js"></script>
+
 </html>

@@ -48,7 +48,7 @@ namespace CulturNary.Web.Controllers
                     // Call the image recognition service
                     var resultJSON = await _imageRecognitionService.ImageRecognitionAsync(base64Image);
                     var result = JsonConvert.DeserializeObject<OpenAIResponse>(resultJSON);
-                    
+
                     ImageRecognitionResult resultCompiled = new ImageRecognitionResult(){
                         response = result,
                         imageUrl = imageUrl,
@@ -70,14 +70,5 @@ namespace CulturNary.Web.Controllers
             return View(model);
         }
 
-        // private string ConvertToBase64(IFormFile file)
-        // {
-        //     using (var ms = new MemoryStream())
-        //     {
-        //         file.CopyTo(ms);
-        //         byte[] imageBytes = ms.ToArray();
-        //         return Convert.ToBase64String(imageBytes);
-        //     }
-        // }
     }
 }
