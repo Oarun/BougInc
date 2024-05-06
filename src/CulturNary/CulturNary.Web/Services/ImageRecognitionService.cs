@@ -12,7 +12,7 @@ namespace CulturNary.Web.Services
 {
     public interface IImageRecognitionService
     {
-        Task<string> ImageRecognitionAsync(string imagePath);
+        Task<string> ImageRecognitionAsync(string imagePath, string requestText);
     }
 
 
@@ -27,7 +27,7 @@ namespace CulturNary.Web.Services
             _configuration = configuration;
         }
 
-        public async Task<string> ImageRecognitionAsync(string imagePath)
+        public async Task<string> ImageRecognitionAsync(string imagePath, string requestText)
         {
             try{
                 string apiKey = _configuration["OpenAI:ImageRecognitionAppKey"];
@@ -35,6 +35,17 @@ namespace CulturNary.Web.Services
 
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+
+                string textPrompt;
+
+                if(requestText == "default")
+                {
+                    textPrompt = "What kind of food or ingredients is in this picture?";
+                }
+                else
+                {
+                    textPrompt = $"What would the price be to purchase the ingredients in this picture, or the ingredients to make the food in this picture, in US dollars for a person living in the Zip Code: {requestText}?";
+                }
 
                 var payload = new
                         {
@@ -49,7 +60,7 @@ namespace CulturNary.Web.Services
                                         new
                                         {
                                             type = "text",
-                                            text = "What kind of food or ingredients is in this picture?"
+                                            text = textPrompt
                                         },
                                         new
                                         {
