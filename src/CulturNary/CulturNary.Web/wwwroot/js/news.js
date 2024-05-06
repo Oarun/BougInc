@@ -8,6 +8,9 @@
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
+                response = response.json();
+                console.log(response);
+
             })
             .catch(error => {
                 console.error('Fetch error:', error);
@@ -42,7 +45,7 @@
                     card.style.borderRadius = '10px';
                     card.style.boxShadow = '0 4px 8px 0 rgba(0,0,0,0.2)';
                     card.style.height = '55s0px';
-                    const description = truncateText(article.description, 140); // Assuming truncateText function is defined elsewhere
+                    const description = article.description; // Assuming truncateText function is defined elsewhere
                     card.innerHTML = `
                     <img src="${article.urlToImage}" class="card-img-top p-3" alt="Article Image">
                     <div class="card-article-body pt-1 text-dark pb-3">
@@ -73,7 +76,3 @@ document.getElementById('categoryForm').addEventListener('submit', function (eve
         document.getElementById('newsContainer').innerHTML = 'Error loading news.';
     });
 });
-
-function truncateText(text, maxLength) {
-    return text.length > maxLength ? text.substring(0, maxLength - 3) + '...' : text;
-}
