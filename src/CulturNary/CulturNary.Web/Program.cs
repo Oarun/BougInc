@@ -34,7 +34,7 @@ builder.Services.AddScoped<IFavoriteRecipeRepository, FavoriteRecipeRepository>(
 builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
 builder.Services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
-builder.Services.AddHttpClient<INewsService, NewsService>();
+builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IImageRecognitionService, ImageRecognitionService>();
 // builder.Services.AddScoped<IGoogleMapsService, GoogleMapsService>();
 
