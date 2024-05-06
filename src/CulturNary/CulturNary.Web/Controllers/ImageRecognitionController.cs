@@ -37,7 +37,7 @@ namespace CulturNary.Web.Controllers
                 try
                 {
                     var imageUrl = await _imageStorageService.UploadImageAsync(request.file);
-                    var prompt = request.zipCode == null ? "default" : request.zipCode;
+                    var prompt = request.zipCode == null || request.zipCode == "" ? "default" : request.zipCode;
 
                     string base64Image;
                     using (var ms = new MemoryStream())
@@ -81,7 +81,7 @@ namespace CulturNary.Web.Controllers
                 try
                 {
                     var imageUrl = await _imageStorageService.UploadImageAsync(request.file);
-                    var prompt = request.zipCode == null ? "default" : request.zipCode;
+                    var prompt = request.zipCode == null || request.zipCode == "" ? "default" : request.zipCode;
 
                     string base64Image;
                     using (var ms = new MemoryStream())

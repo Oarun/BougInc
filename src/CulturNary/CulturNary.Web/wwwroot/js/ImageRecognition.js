@@ -61,10 +61,12 @@ document.addEventListener("DOMContentLoaded", function() {
         var file = new Blob([new Uint8Array(array)], { type: 'image/jpg' });
         //var file = new File([blob], "image.jpg", { type: 'image/jpg' })
 
+        var zipCode = document.getElementById('zipCode').value;
+
         // Create FormData object
         var formData = new FormData();
         formData.append('file', file, 'image.jpg');
-
+        formData.append('zipCode', zipCode);
 
         // Use fetch API to upload image
         fetch('/ImageRecognition/ImageRecognitionCam', {
