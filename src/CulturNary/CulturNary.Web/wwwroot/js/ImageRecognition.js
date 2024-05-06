@@ -17,8 +17,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 video.srcObject = stream;
                 video.play();
 
-                // Show capture button
                 document.getElementById('video').style.display = 'block';
+                document.getElementById('startCameraButton').style.display = 'none';
+                document.getElementById('canvas').style.display = 'none';
                 document.getElementById('captureButton').style.display = 'block';
             })
             .catch(function(err) {
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.getElementById('captureButton').addEventListener('click', function() {
-        // Get video element and canvas
+        
         var video = document.getElementById('video');
         var canvas = document.getElementById('canvas');
 
@@ -46,7 +47,8 @@ document.addEventListener("DOMContentLoaded", function() {
         var canvas = document.getElementById('canvas');
         var dataURL = canvas.toDataURL();
 
-        //document.getElementById('canvas').style.display = 'none';
+        document.getElementById('canvas').style.display = 'none';
+        document.getElementById('startCameraButton').style.display = 'block';
         document.getElementById('captureButton').style.display = 'none';
         document.getElementById('uploadButton2').style.display = 'none';
 
@@ -57,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
             array.push(blobBin.charCodeAt(i));
         }
         var file = new Blob([new Uint8Array(array)], { type: 'image/jpg' });
+        //var file = new File([blob], "image.jpg", { type: 'image/jpg' })
 
         // Create FormData object
         var formData = new FormData();
@@ -64,16 +67,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         // Use fetch API to upload image
-        fetch('/ImageRecognition/ImageRecognition', {
+        fetch('/ImageRecognition/ImageRecognitionCam', {
             method: 'POST',
             body: formData
         })
-        .then(function(response) {
+        .then(async function(response) {
             console.log('Image uploaded successfully.');
             // Handle response
+            let data = await response.json();
+            console.log(data);
+
+            var imageUrl = data.imageUrl;
+            var result = data.response.choices[0].message.content;
+
+            const aiImage = document.getElementById('aiImage');
+            const aiContent = document.getElementById('aiContent');
+
+            aiImage.innerHTML = '<h3>Submitted Image:</h3> <img src="' + imageUrl + '" />';
+            aiContent.innerHTML = '<h3>AI Response:</h3> <p>' + result + '</p>';
+
+
         })
         .catch(function(error) {
             console.error('Error uploading image.', error);
         });
+
     });
 });

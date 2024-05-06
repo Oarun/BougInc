@@ -29,24 +29,26 @@ namespace CulturNary.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ImageRecognition(ImageRecognitionResult model, IFormFile file)
+        public async Task<IActionResult> ImageRecognition(ImageRecognitionResult model, ImageRecognitionRequest request)
+        // public async Task<IActionResult> ImageRecognition(ImageRecognitionResult model, IFormFile file)
         {
-            if (file != null && file.Length > 0)
+            if (request.file != null && request.file.Length > 0)
             {
                 try
                 {
-                    var imageUrl = await _imageStorageService.UploadImageAsync(file);
+                    var imageUrl = await _imageStorageService.UploadImageAsync(request.file);
+                    var prompt = request.zipCode == null ? "default" : request.zipCode;
 
                     string base64Image;
                     using (var ms = new MemoryStream())
                     {
-                        await file.CopyToAsync(ms);
+                        await request.file.CopyToAsync(ms);
                         base64Image = Convert.ToBase64String(ms.ToArray());
                     }
 
                     Console.WriteLine("Calling Image Recognition API");
                     // Call the image recognition service
-                    var resultJSON = await _imageRecognitionService.ImageRecognitionAsync(base64Image);
+                    var resultJSON = await _imageRecognitionService.ImageRecognitionAsync(base64Image, prompt);
                     var result = JsonConvert.DeserializeObject<OpenAIResponse>(resultJSON);
 
                     ImageRecognitionResult resultCompiled = new ImageRecognitionResult(){
@@ -56,6 +58,50 @@ namespace CulturNary.Web.Controllers
                     
                     // Return the deserialized model?
                     return View("ImageRecognition", resultCompiled);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "An error occurred while processing the image: " + ex.Message);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Please select a file to upload.");
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ImageRecognitionCam(ImageRecognitionResult model, ImageRecognitionRequest request)
+        // public async Task<IActionResult> ImageRecognitionCam(ImageRecognitionResult model, IFormFile file)
+        {
+            if (request.file != null && request.file.Length > 0)
+            {
+                try
+                {
+                    var imageUrl = await _imageStorageService.UploadImageAsync(request.file);
+                    var prompt = request.zipCode == null ? "default" : request.zipCode;
+
+                    string base64Image;
+                    using (var ms = new MemoryStream())
+                    {
+                        await request.file.CopyToAsync(ms);
+                        base64Image = Convert.ToBase64String(ms.ToArray());
+                    }
+
+                    Console.WriteLine("Calling Image Recognition API");
+                    // Call the image recognition service
+                    var resultJSON = await _imageRecognitionService.ImageRecognitionAsync(base64Image, prompt);
+                    var result = JsonConvert.DeserializeObject<OpenAIResponse>(resultJSON);
+
+                    ImageRecognitionResult resultCompiled = new ImageRecognitionResult(){
+                        response = result,
+                        imageUrl = imageUrl,
+                    };  
+                    
+                    // Return the deserialized model?
+                    return Ok(resultCompiled);
                 }
                 catch (Exception ex)
                 {
