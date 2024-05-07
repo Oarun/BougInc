@@ -23,9 +23,10 @@ namespace CulturNary.Web.Services
 
         public async Task<string> UploadImageAsync(IFormFile file)
         {
+            var uniqueFileName = Guid.NewGuid().ToString();
             var blobServiceClient = new BlobServiceClient(_config.ConnectionString);
             var blobContainerClient = blobServiceClient.GetBlobContainerClient(_config.ImageContainerName);
-            var blobClient = blobContainerClient.GetBlobClient(file.FileName);
+            var blobClient = blobContainerClient.GetBlobClient(uniqueFileName + ".jpg");
 
             await blobClient.UploadAsync(file.OpenReadStream(), true);
             return blobClient.Uri.ToString();
