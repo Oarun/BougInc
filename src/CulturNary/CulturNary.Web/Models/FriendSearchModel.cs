@@ -5,6 +5,7 @@ public class FriendSearchModel
 {
     public List<SiteUser>? Users { get; set; } = null;
     public bool IsSubmitted { get; set; } = false;
+    public List<string>? Tags { get; set; } = null;
     public List<string>? FriendshipStatus { get; set; } = null;
     public Dictionary<SiteUser, double> UserMatchPercentages { get; set; } = null;
     public bool[] GetDietaryRestrictionsActiveArray()

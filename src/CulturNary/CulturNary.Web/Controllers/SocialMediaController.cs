@@ -48,9 +48,10 @@ namespace CulturNary.Web.Controllers
 
             // Initialize FriendshipStatus list
             model.FriendshipStatus = new List<string>();
-
+            model.Tags = new List<string>();
             foreach (var user in model.Users)
             {
+                model.Tags.Add(user.GetDietaryRestrictionsActiveString());
                 // Check if they are friends
                 if (_friendshipRepository.AreFriends(currentUserId, user.Id))
                 {

@@ -8,9 +8,8 @@
             <thead>
                 <tr>
                     <th>Profile Image</th>
-                    <th>Display Name</th>
-                    <th>Biography</th>
                     <th>User Name</th>
+                    <th>Tags</th> 
                     <th>Friendship Status</th>
                     <th>Match Probability</th>
                 </tr>
@@ -21,6 +20,7 @@
                     var user = Model.Users[i];
                     var buttonText = Model.FriendshipStatus[i];
                     var matchProbability = Model.UserMatchPercentages[user];
+                    var tags = Model.Tags[i]; // Get the tags for the user
                     <tr>
                         <td>
                             @if (!string.IsNullOrEmpty(user.ProfileImageName))
@@ -32,9 +32,8 @@
                                 <img src="~/media/BOUG Logo Circle.png" alt="Default image" width="200" height="200" />
                             }
                         </td>
-                        <td>@(string.IsNullOrEmpty(user.DisplayName) ? "Display Name is missing" : user.DisplayName)</td>
-                        <td>@(string.IsNullOrEmpty(user.Biography) ? "Biography is missing" : user.Biography)</td>
                         <td>@(user.UserName.Split('@')[0])</td>
+                        <td>@tags</td> <!-- Display the tags -->
                         <td>
                             @if(buttonText == "Send Friend Request")
                             {
