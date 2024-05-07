@@ -78,8 +78,18 @@ namespace CulturNary.Web.Controllers
             var model = new FriendModel
             {
                 Friends = await _friendshipRepository.GetFriends(User.FindFirstValue(ClaimTypes.NameIdentifier)),
-                FriendRequests = await _friendRequestRepository.GetFriendRequests(User.FindFirstValue(ClaimTypes.NameIdentifier))
+                FriendRequests = await _friendRequestRepository.GetFriendRequests(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                FriendTags = new List<string>(),
+                RequestTags = new List<string>()
             };
+            foreach (var friend in model.Friends)
+            {
+                model.FriendTags.Add(friend.GetDietaryRestrictionsActiveString());
+            }
+            foreach (var request in model.FriendRequests)
+            {
+                model.RequestTags.Add(request.GetDietaryRestrictionsActiveString());
+            }   
             return View(model);
         }
         [HttpGet("Messaging")]

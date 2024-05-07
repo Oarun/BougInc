@@ -1,5 +1,9 @@
 @using System.ComponentModel.DataAnnotations
 @model CulturNary.Web.Models.FriendSearchModel
+
+
+<link rel="stylesheet" type="text/css" href="~/css/socials.css">
+
 @using (Html.BeginForm())
 {
     @if (Model.IsSubmitted && Model.Users != null)
@@ -32,25 +36,26 @@
                                 <img src="~/media/BOUG Logo Circle.png" alt="Default image" width="200" height="200" />
                             }
                         </td>
-                        <td>@(user.UserName.Split('@')[0])</td>
-                        <td>@tags</td> <!-- Display the tags -->
+                        <td style="color: white;">@(user.UserName.Split('@')[0])</td>
                         <td>
-                            @if(buttonText == "Send Friend Request")
+                            @if (!String.IsNullOrEmpty(tags))
                             {
-                                <button type="button" class="btn btn-primary" data-user-id="@user.Id">@buttonText</button>
+                                @foreach (var tag in tags.Split(','))
+                                {
+                                    <span class="tag">@tag.Trim()</span>
+                                }
                             }
-                            else if(buttonText == "Friend Request Pending")
+                            else
                             {
-                                <button type="button" class="btn btn-secondary" disabled data-user-id="@user.Id">@buttonText</button>
-                            }
-                            else if(buttonText == "Friend")
-                            {
-                                <button type="button" class="btn btn-success" data-user-id="@user.Id">@buttonText</button>
+                                <span>No tags</span>
                             }
                         </td>
                         <td>
-                            @matchProbability% <!-- Display the match probability -->
-                            <div class="progress">
+                            <button type="button" class="btn btn-custom" data-user-id="@user.Id">@buttonText</button>
+                        </td>
+                        <td>
+                            <span style="color: white;">@matchProbability%</span> 
+                            <div class="progress" >
                                 <div class="progress-bar" role="progressbar" style="width: @matchProbability%;" aria-valuenow="@matchProbability" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </td>
@@ -60,6 +65,7 @@
         </table>
     }
 }
+
 @section Scripts {
     <script src="~/js/EditRestrictions.js"></script>
     <script src="~/js/buttonActions.js"></script>
