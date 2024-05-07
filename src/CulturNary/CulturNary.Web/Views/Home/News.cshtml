@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Food & Nutrition News Page";
+}
+<head>
+    <link rel="stylesheet" href="~/css/news.css">
+</head>
+<body>
+    <div id="new-container" class="container mt-4">
+        <div class="col-md-12 w-100">
+            <h1 class="display-1 text-capitalize text-center">Food & Nutrition News</h1>
+        </div>
+        <div class="col-md-12 news-form text-center">
+            <form id="categoryForm">
+                <label for="categorySelect">Choose a category:</label>
+                <select id="categorySelect">
+                    <option value="Health">Health</option>
+                    <option value="Nutrition">Nutrition</option>
+                    <option value="Diet">Diet</option>
+                    <option value="Food">Food</option>
+                    <option value="Recipes">Recipes</option>
+                </select>
+                <button type="submit" class="primary resizing-btn mt-4 mb-4">Submit</button>
+            </form>
+        </div>
+        <div id="newsContainer" class="mt-4s">
+        </div>
+    </div>
+
+    <script src="~/js/news.js"></script>
+</body>

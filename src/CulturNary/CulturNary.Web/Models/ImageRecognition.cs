@@ -3,6 +3,13 @@ using Newtonsoft.Json;
 
 namespace CulturNary.Web.Models
 {
+
+    public class ImageRecognitionRequest
+    {
+        public IFormFile file { get; set; }
+        public string? zipCode { get; set; }
+    }
+
     public class ImageRecognitionResult
     {
         public OpenAIResponse response { get; set; }
