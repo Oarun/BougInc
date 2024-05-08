@@ -93,13 +93,13 @@
     <input type="text" id="zipCodeInput" name="zipCodeInput" required>
     <button type="submit">Find Restaurants</button>
   </form>
-
   <button type="showRestaurants">Show My Restaurants</button>
 </div>
 <div id="map"></div>
 </body>
 <script>
     var apiKey="";
+    var map;
     async function loadMapScript() {
         try {
             const response = await fetch('/api/Restaurant/GetGoogleApi');
@@ -125,7 +125,7 @@
         center: { lat: 44.9429, lng: -123.0351 }, // Set default center to (0,0)
         zoom: 10 // Set default zoom level
     };
-    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
     document.getElementById("zipCodeForm").addEventListener("submit", (event) => {
         event.preventDefault();
@@ -163,13 +163,13 @@
                             });
 
                             const infoWindowContent = `<div style="color: darkgreen;"><h3>${result.name}</h3>
-                                                    <p>Rating: ${result.rating || 'N/A'}</p>
+                                                 <p>Rating: ${result.rating || 'N/A'}</p>
                                                     <p>Price Level: ${'$'.repeat(result.price_level || 0)}</p>
                                                     <p>Address: ${result.vicinity || 'N/A'}</p></div>`;
 
                             const infoWindow = new google.maps.InfoWindow({
                                 content: infoWindowContent
-                            });
+                            });   
 
                             restaurantMarker.addListener("click", () => {
                                 // Close all other info windows before opening the clicked one
@@ -193,36 +193,104 @@
             }
         });
     });
+    // Add event listener to the button
+    document.querySelector('button[type="showRestaurants"]').addEventListener('click', () => {
+        fetchRestaurantAddressesFromDOM();
+    });
 }
 
-// Function to fetch restaurants from ASP.NET API endpoint
-function fetchRestaurantsFromAPI(location, callback) {
-    const latitude = location.lat();
-    const longitude = location.lng();
-    const radius = 10000; // Set your desired radius
-    const type = 'restaurant'; // Set the type of place you want to search for
+    // Function to fetch restaurants from ASP.NET API endpoint
+    function fetchRestaurantsFromAPI(location, callback) {
+        const latitude = location.lat();
+        const longitude = location.lng();
+        const radius = 10000; // Set your desired radius
+        const type = 'restaurant'; // Set the type of place you want to search for
 
-    // Make a request to your ASP.NET API endpoint
-    fetch(`/api/Restaurant/NearbySearchRestaurants?latitude=${latitude}&longitude=${longitude}&radius=${radius}&type=${type}`)
-        .then(response => {
+        // Make a request to your ASP.NET API endpoint
+        fetch(`/api/Restaurant/NearbySearchRestaurants?latitude=${latitude}&longitude=${longitude}&radius=${radius}&type=${type}`)
+            .then(response => {
+                // Check if the response is successful
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Parse the JSON response
+                return response.json();
+            })
+            .then(data => {
+                // Pass the retrieved restaurants to the callback function
+                callback(data);
+            })
+            .catch(error => {
+                // Handle errors
+                console.error('There was a problem with the fetch operation:', error);
+                // Pass an empty array to the callback in case of error
+                callback([]);
+            });
+    }
+    
+    async function fetchRestaurantAddressesFromDOM() {
+        const addresses = document.querySelectorAll('.RestaurantsAddress');
+        const addressesArray = Array.from(addresses).map(address => address.textContent);
+        console.log(addressesArray);
+
+        try {
+            // Make an HTTP POST request to the Web API endpoint using Fetch API
+            const response = await fetch('/api/Restaurant/RestaurantAddressConvert', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(addressesArray)
+            });
+
             // Check if the response is successful
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+
             // Parse the JSON response
-            return response.json();
-        })
-        .then(data => {
-            // Pass the retrieved restaurants to the callback function
-            callback(data);
-        })
-        .catch(error => {
-            // Handle errors
-            console.error('There was a problem with the fetch operation:', error);
-            // Pass an empty array to the callback in case of error
-            callback([]);
-        });
-}
+            const geocodedAddresses = await response.json();
+
+            console.log(geocodedAddresses)
+
+            // Now you have the geocoded addresses (list of objects with latitude and longitude)
+            displayAddressesOnMap(geocodedAddresses);
+        } catch (error) {
+            console.error("Error fetching addresses:", error);
+            // Handle errors appropriately (e.g., display an error message to the user)
+        }
+    }
+
+    function displayAddressesOnMap(geocodedAddresses) {
+        if (!geocodedAddresses || !geocodedAddresses.length) {
+            console.log("No addresses found to display on map.");
+            return;
+        }
+
+        const markers = []; // Array to store markers
+
+        for (const address of geocodedAddresses) {
+            const lat = address.item1;
+            const lng = address.item2
+            if (lat && lng) { // Check if both latitude and longitude are available
+            const location = new google.maps.LatLng(lat, lng);
+            console.log("Latitude:", location.lat());
+            console.log("Longitude:", location.lng());
+            console.log("Location:", { lat: location.lat(), lng: location.lng() });
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                title: address.name || address.text || 'Restaurant' // Use appropriate property for address name
+            });
+            markers.push(marker);
+            } else {
+            console.warn(`Skipping address: ${address.text || address.name} due to missing latitude or longitude.`);
+            }
+        }
+
+        // Optionally adjust map center and zoom to fit all markers
+        const bounds = new google.maps.LatLngBounds();
+        markers.forEach(marker => bounds.extend(marker.getPosition()));
+        map.fitBounds(bounds);
+    }
     // Call the function to load the map script
     loadMapScript();
-</script>
+    </script>
