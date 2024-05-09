@@ -20,10 +20,12 @@ namespace CulturNary.DAL.Concrete
         public Person GetPersonByIdentityId(string identityId){
             return base.Where(x => x.IdentityId == identityId).FirstOrDefault();
         }
-        public async Task<Dictionary<SiteUser, double>> GetUsersWithDietaryRestrictions(FriendSearchModel model, string currentUserId)
+        public async Task<Dictionary<SiteUser, double>> GetUsersWithDietaryRestrictions(string currentUserId)
         {
-            var modelDietaryRestrictions = model.GetDietaryRestrictionsActiveArray();
-            _logger.LogInformation($"Model dietary restrictions: {string.Join(", ", modelDietaryRestrictions)}");
+            // Fetch the current user and their dietary restrictions
+            var currentUser = await _userManager.FindByIdAsync(currentUserId);
+            var currentUserDietaryRestrictions = currentUser.GetDietaryRestrictionsActiveArray();
+            _logger.LogInformation($"Current user dietary restrictions: {string.Join(", ", currentUserDietaryRestrictions)}");
 
             var users = await _userManager.Users
                 .Where(user => user.Id != currentUserId)
@@ -37,14 +39,14 @@ namespace CulturNary.DAL.Concrete
                 _logger.LogInformation($"User {user.Id} dietary restrictions: {string.Join(", ", userDietaryRestrictions)}");
 
                 double score = 0;
-                if (modelDietaryRestrictions.Any() && userDietaryRestrictions.Any())
+                if (currentUserDietaryRestrictions.Any() && userDietaryRestrictions.Any())
                 {
-                    var activeModelRestrictions = modelDietaryRestrictions
+                    var activeCurrentUserRestrictions = currentUserDietaryRestrictions
                         .Select((restriction, index) => new { Restriction = restriction, Index = index })
                         .Where(x => x.Restriction)
                         .Select(x => x.Index);
 
-                    score = activeModelRestrictions
+                    score = activeCurrentUserRestrictions
                         .Select(index => userDietaryRestrictions[index] ? 1 : 0)
                         .DefaultIfEmpty(0)
                         .Average();

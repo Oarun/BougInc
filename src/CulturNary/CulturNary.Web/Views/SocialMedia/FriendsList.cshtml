@@ -1,4 +1,5 @@
 @model FriendModel
+<link rel="stylesheet" type="text/css" href="~/css/socials.css">
 
 <div class="container">
     <div class="row">
@@ -10,15 +11,16 @@
                     <thead>
                         <tr>
                             <th>Profile Image</th>
-                            <th>Display Name</th>
-                            <th>Biography</th>
+                            <th>Tags</th> 
                             <th>User Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var friendRequest in Model.FriendRequests)
+                        @for (var i = 0; i < Model.FriendRequests.Count; i++)
                         {
+                            var friendRequest = Model.FriendRequests[i];
+                            var tags = Model.RequestTags[i]; // Get the tags for the user
                             <tr>
                                 <td>
                                     @if (!string.IsNullOrEmpty(friendRequest.ProfileImageName))
@@ -30,18 +32,26 @@
                                         <img src="~/media/BOUG Logo Circle.png" alt="Default image" width="200" height="200" />
                                     }
                                 </td>
-                                <td>@(string.IsNullOrEmpty(friendRequest.DisplayName) ? "Display Name is missing" : friendRequest.DisplayName)</td>
-                                <td>@(string.IsNullOrEmpty(friendRequest.Biography) ? "Biography is missing" : friendRequest.Biography)</td>
+                                <td>
+                                    @if (!String.IsNullOrEmpty(tags))
+                                    {
+                                        <span class="tag">@tags</span>
+                                    }
+                                    else
+                                    {
+                                        <span>No tags</span>
+                                    }
+                                </td>
                                 <td>@(friendRequest.UserName.Split('@')[0])</td>
                                 <td>
                                     <form action="/api/FriendApi/RespondToFriendRequest/@friendRequest.Id/true" method="post">
-                                        <button type="submit" class="btn btn-primary">Accept</button>
+                                        <button type="submit" class="btn btn-accept">Accept</button>
                                     </form>
                                     <form action="/api/FriendApi/RespondToFriendRequest/@friendRequest.Id/false" method="post">
-                                        <button type="submit" class="btn btn-danger">Decline</button>
+                                        <button type="submit" class="btn btn-reject">Decline</button>
                                     </form>
                                 </td>
-                            </tr>
+                             </tr>
                         }
                     </tbody>
                 </table>
@@ -59,15 +69,16 @@
                     <thead>
                         <tr>
                             <th>Profile Image</th>
-                            <th>Display Name</th>
-                            <th>Biography</th>
+                            <th>Tags</th>
                             <th>User Name</th>
                             <th>Action</th> <!-- Add a new header for the action column -->
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var friend in Model.Friends)
+                        @for (var i = 0; i < Model.Friends.Count; i++)
                         {
+                            var friend = Model.Friends[i];
+                            var tags = Model.FriendTags[i];
                             <tr>
                                 <td>
                                     @if (!string.IsNullOrEmpty(friend.ProfileImageName))
@@ -79,15 +90,25 @@
                                         <img src="~/media/BOUG Logo Circle.png" alt="Default image" width="200" height="200" />
                                     }
                                 </td>
-                                <td>@(string.IsNullOrEmpty(friend.DisplayName) ? "Display Name is missing" : friend.DisplayName)</td>
-                                <td>@(string.IsNullOrEmpty(friend.Biography) ? "Biography is missing" : friend.Biography)</td>
-                                <td>@(friend.UserName.Split('@')[0])</td>
+                                <td>
+                                    @if (!String.IsNullOrEmpty(tags))
+                                    {
+                                        @foreach (var tag in tags.Split(','))
+                                        {
+                                            <span class="tag">@tag.Trim()</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>No tags</span>
+                                    }
+                                <td style="color:white;">@(friend.UserName.Split('@')[0])</td>
                                 <td>
                                     <form action="/api/FriendApi/RemoveFriend/@friend.Id" method="post">
-                                        <button type="submit" class="btn btn-danger">Unfriend</button>
+                                        <button type="submit" class="btn btn-unfriend">Unfriend</button>
                                     </form>
                                 </td>
-                            </tr>
+                             </tr>
                         }
                     </tbody>
                 </table>

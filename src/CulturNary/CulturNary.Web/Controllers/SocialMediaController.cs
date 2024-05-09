@@ -39,19 +39,8 @@ namespace CulturNary.Web.Controllers
                 Users = new List<SiteUser>()
             };
 
-            return View(model);
-        }
-
-        [HttpPost("Friends")]
-        public async Task<IActionResult> Friends(FriendSearchModel model)
-        {
-            if (model == null)
-            {
-                model = new FriendSearchModel();
-            }
-
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userMatchPercentages = await _personRepository.GetUsersWithDietaryRestrictions(model, currentUserId);
+            var userMatchPercentages = await _personRepository.GetUsersWithDietaryRestrictions(currentUserId);
 
             // Assign the users and match percentages to the model
             model.Users = userMatchPercentages.Keys.ToList();
@@ -59,9 +48,10 @@ namespace CulturNary.Web.Controllers
 
             // Initialize FriendshipStatus list
             model.FriendshipStatus = new List<string>();
-
+            model.Tags = new List<string>();
             foreach (var user in model.Users)
             {
+                model.Tags.Add(user.GetDietaryRestrictionsActiveString());
                 // Check if they are friends
                 if (_friendshipRepository.AreFriends(currentUserId, user.Id))
                 {
@@ -81,14 +71,25 @@ namespace CulturNary.Web.Controllers
             model.IsSubmitted = true;
             return View(model);
         }
+
         [HttpGet("FriendsList")]
         public async Task<IActionResult> FriendsList()
         {
             var model = new FriendModel
             {
                 Friends = await _friendshipRepository.GetFriends(User.FindFirstValue(ClaimTypes.NameIdentifier)),
-                FriendRequests = await _friendRequestRepository.GetFriendRequests(User.FindFirstValue(ClaimTypes.NameIdentifier))
+                FriendRequests = await _friendRequestRepository.GetFriendRequests(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                FriendTags = new List<string>(),
+                RequestTags = new List<string>()
             };
+            foreach (var friend in model.Friends)
+            {
+                model.FriendTags.Add(friend.GetDietaryRestrictionsActiveString());
+            }
+            foreach (var request in model.FriendRequests)
+            {
+                model.RequestTags.Add(request.GetDietaryRestrictionsActiveString());
+            }   
             return View(model);
         }
         [HttpGet("Messaging")]

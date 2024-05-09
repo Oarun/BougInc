@@ -28,6 +28,11 @@ namespace CulturNary.Web.Areas.Identity.Data
             var restrictions = GetDietaryRestrictions();
             return restrictions.Select(r => r.Active).ToArray();
         }
+        public string GetDietaryRestrictionsActiveString()
+        {
+            var restrictions = GetDietaryRestrictions();
+            return string.Join(", ", restrictions.Where(r => r.Active).Select(r => r.Name));
+        }
         public List<DietaryRestriction> GetDietaryRestrictions()
         {
             if (string.IsNullOrEmpty(DietaryRestrictions))
