@@ -1,0 +1,56 @@
+@model CulturNary.Web.Models.ImageRecognitionResult
+@{
+    ViewData["Title"] = "Image Recognition";
+}
+
+<br>
+<h2>Image Recognition</h2>
+<br>
+<br>
+
+
+<div class="row">
+    <div class="col-6 my-5">
+        <h3>Upload Image</h3>
+        <form asp-action="ImageRecognition" method="post" enctype="multipart/form-data" id="imageForm">
+            <div>
+                <label for="file">Select Image:</label>
+                <input type="file" name="file" id="file" accept="image/*"/>
+            </div>
+            <br>
+            <div>
+                <label for ="zipCode">To get price information, input Zip Code</label>
+                <input type="text" name="zipCode" id="zipCode" placeholder=""/>
+            </div>
+            <button class="profile-btn" id="uploadButton1" type="submit">Upload</button>
+        </form>
+    </div>
+    <div class="col-6 my-5">
+        <h3>Capture Image</h3>
+        <button class="profile-btn" id="startCameraButton">Start Camera</button>
+        <video id="video" width="720" height="480" style="display:none;" autoplay></video>
+        <button class="profile-btn" id="captureButton" style="display:none;">Capture Image</button>
+        <canvas id="canvas" width="720" height="480" style="display:none;"></canvas>
+        <button class="profile-btn" id="uploadButton2" style="display:none;">Upload Image</button>
+        <div id="preview"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6" id="aiImage">
+        @if(Model != null && Model.imageUrl != null)
+        {
+            <h3>Submitted Image:</h3>
+            <img src="@Model.imageUrl" alt="Uploaded Image" style="width:50%;"/>
+        }
+    </div>
+
+    
+    <div class="col-6 align-items-center my-5" id="aiContent">
+        @if (Model != null && Model.response != null){ 
+            <h3>AI Response:</h3>
+            <p>@Model.response.Choices[0].Message.Content</p>
+        }
+    </div>
+</div>
+<script src="~/js/ImageRecognition.js"></script>

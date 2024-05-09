@@ -28,6 +28,11 @@ namespace CulturNary.Web.Areas.Identity.Data
             var restrictions = GetDietaryRestrictions();
             return restrictions.Select(r => r.Active).ToArray();
         }
+        public string GetDietaryRestrictionsActiveString()
+        {
+            var restrictions = GetDietaryRestrictions();
+            return string.Join(", ", restrictions.Where(r => r.Active).Select(r => r.Name));
+        }
         public List<DietaryRestriction> GetDietaryRestrictions()
         {
             if (string.IsNullOrEmpty(DietaryRestrictions))
@@ -60,17 +65,6 @@ namespace CulturNary.Web.Areas.Identity.Data
         //     DietaryRestrictions = JsonSerializer.Serialize(restrictions);
         // }
 
-        public List<MealPlan>? GetMealPlans()
-        {
-            return string.IsNullOrEmpty(MealPlans) ?
-            new List<MealPlan>() :
-                JsonSerializer.Deserialize<List<MealPlan>>(MealPlans);
-        }
-
-        public void SetMealPlans(List<MealPlan> mealPlans)
-        {
-            MealPlans = JsonSerializer.Serialize(mealPlans);
-        }
     }
 
     public class DietaryRestriction : IEquatable<DietaryRestriction>

@@ -15,6 +15,7 @@ public class AdminController : Controller
     {
         _userManager = userManager;
     }
+    [HttpGet("IsUserAdmin")]
     public async Task<bool> IsUserAdmin(SiteUser user)
     {
         var roles = await _userManager.GetRolesAsync(user);

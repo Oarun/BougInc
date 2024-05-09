@@ -21,7 +21,5 @@ public partial class Recipe
 
     public virtual Collection? Collection { get; set; }
 
-    public virtual ICollection<FavoriteRecipe> FavoriteRecipes { get; set; } = new List<FavoriteRecipe>();
-
     public virtual Person? Person { get; set; }
 }

@@ -8,13 +8,21 @@
             <div class="col-md-12">
                 <div class="row align-items-center section">
                     <div class="col-md-7">
-                        <h1 class="welcome-message custom-align display-2 text-uppercase overflow-hidden">The culinary
-                            experience just for you</h1>
-                        <div class="d-flex custom-align pb-4">
-                            <a asp-area="Identity" asp-page="/Account/Register" class="btn-outline-custom icon-btn">
-                                Start Your Account
-                            </a>
-                        </div>
+                        <h1 class="welcome-message custom-align display-2 text-uppercase overflow-hidden">
+                            The culinary
+                            experience just for you
+                        </h1>
+                        @{
+                            if (!User.Identity.IsAuthenticated)
+                            {
+                                <div class="d-flex custom-align pb-4">
+                                    <a asp-area="Identity" asp-page="/Account/Register" class="btn-outline-custom icon-btn">
+                                        Start Your Account
+                                    </a>
+                                </div>
+                            }
+                        }
+
                         @* <div class="d-flex custom-align">
                         <iframe src="https://www.youtube.com/embed/AopeJjkcRvU?si=NkL4y8kkgMYXmwge" title="YouTube video
                         player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
@@ -35,111 +43,94 @@
             <div class="col-md-6" id="recipeCardContainer">
                 <template id="recipeCountTemplate">
                     <div class="card mb-3" style="max-width: 100%;">
-                        @* <div class="no-gutters">
-                            <div class="col-md-8"> *@
-                                <div class="card-body">
-                                    <h5 class="card-title">Number of Recipes</h5>
-                                    <p class="card-text" id="recipeCount">Loading...</p>
-                                </div>
-                            </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Number of Recipes</h5>
+                            <p class="card-text" id="recipeCount">Loading...</p>
                         </div>
                     </div>
-                </template>
             </div>
-            <div class="col-md-6" id="collectionCardContainer">
-                <template id="collectionCountTemplate">
-                    <div class="card mb-3" style="max-width: 100%;">
-                        @* <div class="no-gutters">
-                            <div class="col-md-8"> *@
-                                <div class="card-body">
-                                    <h5 class="card-title">Number of Collections</h5>
-                                    <p class="card-text" id="collectionCount">Loading...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+        </template>
+    </div>
+    <div class="col-md-6" id="collectionCardContainer">
+        <template id="collectionCountTemplate">
+            <div class="card mb-3" style="max-width: 100%;">
+                <div class="card-body">
+                    <h5 class="card-title">Number of Collections</h5>
+                    <p class="card-text" id="collectionCount">Loading...</p>
+                </div>
+            </div>
+    </div>
+</div>
                 </template>
             </div>
         </div>
     </div>
-    <div class="container pt-5">
-        <h2 class="text-center pt-5">Recipes You Might Enjoy</h2>
-        <div id="popularRecipesContainer" class="row pt-5 text-center">
-            <!-- Recipe Card Template -->
-        </div>
+<div class="container pt-5">
+    <h2 class="text-center pt-5">Recipes You Might Enjoy</h2>
+    <div id="popularRecipesContainer" class="row pt-5 text-center">
     </div>
-    <div class="container pt-5">
-        <h2 class="text-center pt-5">Your Recipes</h2>
-        <div id="userRecipesContainer" class="row pt-5 text-center">
-            <!-- Recipe Card Template -->
-        </div>
+</div>
+<div class="container pt-5">
+    <h2 class="text-center pt-5">Your Recipes</h2>
+    <div id="userRecipesContainer" class="row pt-5 text-center">
     </div>
-    <div class="container pt-5">
-        <h2 class="text-center pt-5">Your Collections</h2>
-        <div id="userCollectionsContainer" class="row text-center">
-            <!-- Recipe Card Template -->
-        </div>
+</div>
+<div class="container pt-5">
+    <h2 class="text-center pt-5">Your Collections</h2>
+    <div id="userCollectionsContainer" class="row text-center">
     </div>
-    <div id="recipeModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modalRecipeName"></h2>
-            <p id="modalRecipeDescription"></p>
-            <!-- Add more details here as needed -->
-        </div>
+</div>
+<div id="recipeModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalRecipeName"></h2>
+        <p id="modalRecipeDescription"></p>
     </div>
-    <div id="collectionModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modalCollectionName"></h2>
-            <p id="modalCollectionDescription"></p>
-            <img src="" id="modalCollectionImg" alt="Image">
-            <!-- Add more details here as needed -->
-        </div>
+</div>
+<div id="collectionModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalCollectionName"></h2>
+        <p id="modalCollectionDescription"></p>
+        <img src="" id="modalCollectionImg" alt="Image">
     </div>
+</div>
 </div>
 
 
 <template id="templateRecipes">
     <div class="card mb-3" style="max-width: 100%;">
-        @* <div class="no-gutters">
-            <div class="col-md-8"> *@
-                <div class="card-body">
-                    <h2 id="RecipeName" class="RecipeName"></h2>
-                    @* <h5 id="RecipeDescription" class="RecipeDescription"></h5> *@
-                    <button class="viewRecipeBtn">View</button>
-                </div>
-            </div>
+        <div class="card-body">
+            <h2 id="RecipeName" class="RecipeName"></h2>
+            <button class="viewRecipeBtn">View</button>
         </div>
+    </div>
+    </div>
     </div>
 </template>
 
 <template id="templateCollections">
     <div id="collectionCard" class="card mb-3" style="max-width: 100%;">
-        @* <div class="no-gutters">
-            <div class="col-md-8"> *@
-                <div class="card-body">
-                    <h2 id="CollectionName" class="CollectionName"></h2>
-                    @* <h5 id="CollectionDescription" class="CollectionDescription"></h5> *@
-                    <img src="" class="collectionImg" id="collectionImg" alt="Image" style="max-width: 100%; height: auto;">
-                    <button class="viewCollectionBtn">View</button>
-                </div>
-            </div>
+        <div class="card-body">
+            <h2 id="CollectionName" class="CollectionName"></h2>
+            <img src="" class="collectionImg" id="collectionImg" alt="Image" style="max-width: 100%; height: auto;">
+            <button class="viewCollectionBtn">View</button>
         </div>
+    </div>
+    </div>
     </div>
 </template>
 
 <template id="templatePopular">
     <div id="collectionCard" class="card mb-3" style="max-width: 100%;">
-        @* <div class="no-gutters">
-            <div class="col-md-8"> *@
-                <div class="card-body">
-                    <h2 id="PopularName" class="PopularName"></h2>
-                    <h5 id="PopularCuisineType" class="PopularCuisineType"></h5>
-                    <h5 id="PopularMealType" class="PopularMealType"></h5>
-                    <img src="" class="PopularImg" id="PopularImg" alt="Image" style="max-width: 100%; height: auto;">>
-                </div>
-            </div>
+        <div class="card-body">
+            <h2 id="PopularName" class="PopularName"></h2>
+            <h5 id="PopularCuisineType" class="PopularCuisineType"></h5>
+            <h5 id="PopularMealType" class="PopularMealType"></h5>
+            <img src="" class="PopularImg" id="PopularImg" alt="Image" style="max-width: 100%; height: auto;">>
         </div>
+    </div>
+    </div>
     </div>
 </template>

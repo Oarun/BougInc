@@ -1,0 +1,100 @@
+﻿body {
+}
+
+#categorySelect {
+    text-transform: lowercase !important;
+    padding: 2px;
+    border-radius: 5px;
+}
+.news-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.5em;
+}
+.resizing-btn {
+    font-size: 0.8em;
+    display: flex;
+    width: 80%;
+}
+.primary {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #407A3B; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none; /* If the button is an <a> tag */
+    border-radius: 5px; /* Optional for rounded corners */
+    outline: none; /* Removes the outline to keep focus styles clean */
+}
+
+    .primary:hover {
+        background-color: #4c9346; /* Darker shade for hover effect */
+    }
+
+.article-card {
+    align-items: stretch;
+    width: 100% !important;
+    color: #407A3B;
+}
+
+    .article-card img {
+        height: 300px; /* Fixed height for images */
+        object-fit: cover; /* Cover ensures the image covers the area, can be adjusted as needed */
+    }
+
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines you want to display */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+#newsContainer.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.article-card {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto; /* Flex-grow, flex-shrink and flex-basis */
+}
+
+.card-body {
+    flex-grow: 1; /* Makes the card body grow to use available space, pushing footer to bottom */
+}
+.card-article-author,
+.card-article-title,
+.card-article-description,
+.card-article-link {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.card-article-link {
+    text-decoration: none;
+    color: #407A3B;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+    .card-article-link:hover {
+    color: #4c9346;
+}
+
+    /*.card-article-author {
+        font-size: 1.2vw;*/ /* Adjust the size as needed */
+    /*}*/
+    .card-article-footer {
+        background-color: #fff;
+    }
+.card-rows {
+    --bs-gutter-x: 0 !important;
+}
