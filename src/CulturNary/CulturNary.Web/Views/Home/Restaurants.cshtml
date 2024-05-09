@@ -88,14 +88,20 @@
     </div>
 </div>
 <div id="zipSearch">
+    <h4>Enter Zipcode To Find Restaurants Near You</h4>
     <form id="zipCodeForm">
-    <label for="zipcode">Enter Zipcode:</label>
-    <input type="text" id="zipCodeInput" name="zipCodeInput" required>
-    <button type="submit">Find Restaurants</button>
+    <label for="zipcode"></label>
+    <input type="text" id="zipCodeInput" name="zipCodeInput" placeholder="Enter Zipcode" required>
+    <button type="submit" class="btn btn-secondary">Find Restaurants</button></br>
   </form>
-  <button type="showRestaurants">Show My Restaurants</button>
 </div>
-<div id="map"></div>
+<div>
+    <h4>Click the button below to see your saved restaurants on the Map</h4>
+    <button type="showRestaurants" class="btn btn-secondary">Show My Restaurants</button>
+</div>
+<div>
+    <div id="map"></div>
+</div>
 </body>
 <script>
     var apiKey="";
@@ -161,10 +167,11 @@
                                 map: map,
                                 title: result.name
                             });
-
+                            const openStatus = result.opening_hours && typeof result.opening_hours.open_now === 'boolean' ? (result.opening_hours.open_now ? 'Yes' : 'No') : 'Please call';
                             const infoWindowContent = `<div style="color: darkgreen;"><h3>${result.name}</h3>
                                                  <p>Rating: ${result.rating || 'N/A'}</p>
                                                     <p>Price Level: ${'$'.repeat(result.price_level || 0)}</p>
+                                                    <p>Currently Open: ${openStatus}</p>
                                                     <p>Address: ${result.vicinity || 'N/A'}</p></div>`;
 
                             const infoWindow = new google.maps.InfoWindow({
@@ -278,7 +285,8 @@
             const marker = new google.maps.Marker({
                 position: location,
                 map: map,
-                title: address.name || address.text || 'Restaurant' // Use appropriate property for address name
+                title: address.name || address.text || 'Restaurant', // Use appropriate property for address name
+                icon: starSVG         
             });
             markers.push(marker);
             } else {
@@ -293,4 +301,14 @@
     }
     // Call the function to load the map script
     loadMapScript();
+
+    // Define an SVG path for a star
+    const starSVG = {
+        path: 'M 100 10 L 120 90 L 190 90 L 130 140 L 150 220 L 100 170 L 50 220 L 70 140 L 10 90 L 80 90 Z', // SVG path for a star shape
+        fillColor: 'yellow', // Fill color of the star
+        fillOpacity: 1, // Fill opacity
+        scale: 0.1, // Scale of the star
+        strokeColor: 'black', // Stroke color
+        strokeWeight: 1 // Stroke weight
+    };
     </script>
