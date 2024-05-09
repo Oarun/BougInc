@@ -94,8 +94,11 @@
     <input type="text" id="zipCodeInput" name="zipCodeInput" placeholder="Enter Zipcode" required>
     <button type="submit" class="btn btn-secondary">Find Restaurants</button></br>
   </form>
+  <div id="errorMessage" style="display: none;">
+        <p>Zip code did not return any restaurants.</p>
+    </div>
 </div>
-<div>
+<div id="savedRestaurantsOnMap">
     <h4>Click the button below to see your saved restaurants on the Map</h4>
     <button type="showRestaurants" class="btn btn-secondary">Show My Restaurants</button>
 </div>
@@ -192,10 +195,12 @@
                         }
                     } else {
                         console.log("No restaurants found in this area.");
+                        showErrorMessage(); // Show error message
                     }
                 });
             } else {
                 console.error("Error:", status);
+                showErrorMessage(); // Show error message
                 // Handle errors from the geocoder (optional)
             }
         });
@@ -301,6 +306,16 @@
     }
     // Call the function to load the map script
     loadMapScript();
+
+    // Function to handle displaying the error message
+    function showErrorMessage() {
+        document.getElementById("errorMessage").style.display = "block";
+    }
+
+    // Function to handle hiding the error message
+    function hideErrorMessage() {
+        document.getElementById("errorMessage").style.display = "none";
+    }
 
     // Define an SVG path for a star
     const starSVG = {
