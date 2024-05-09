@@ -8,7 +8,7 @@
             height: 400px;
             width: 100%;
         }
-        .clickable{
+        .clickable {
             cursor: pointer;
         }
     </style>
@@ -17,37 +17,37 @@
     <div class="row pt-5 text-center">
         <!-- Column for creating a new Restaurant (6 columns) -->
         <div class="col-md-6" id="createRestaurantFormContainer">
-            <h2>Create New Restaurant</h2>
+            <h2>Add A Restaurant</h2>
             <!-- Add your form here to create a new Restaurant -->
             <form class="form" id="createRestaurantForm" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="restaurantName" class="form-label">Name</label>
+                    <label style="color: #DCEDCF" for="restaurantName" class="form-label">Name</label>
                     <input type="text" class="form-control" id="restaurantName" placeholder="Restaurant name"
                         required>
                 </div>
                 <div class="mb-3">
-                    <label for="restaurantType" class="form-label">Type</label>
+                    <label style="color: #DCEDCF" for="restaurantType" class="form-label">Type</label>
                     <input type="text" class="form-control" id="restaurantType" placeholder="Restaurant type" required>
                 </div>
                 <div class="mb-3">
-                    <label for="restaurantAddress" class="form-label">Address</label>
+                    <label style="color: #DCEDCF" for="restaurantAddress" class="form-label">Address</label>
                     <input type="text" class="form-control" id="restaurantAddress" placeholder="Restaurant address">
                 </div>
                 <div class="mb-3">
-                    <label for="restaurantWebsite" class="form-label">Website</label>
+                    <label style="color: #DCEDCF" for="restaurantWebsite" class="form-label">Website</label>
                     <input type="text" class="form-control" id="restaurantWebsite" placeholder="Restaurant website">
                 </div>
                 <div class="mb-3">
-                    <label for="restaurantMenu" class="form-label">Menu</label>
+                    <label style="color: #DCEDCF" for="restaurantMenu" class="form-label">Menu</label>
                     <input type="file" class="form-control" id="restaurantMenu" accept="image/*">
                     <small id="menuValidationMessage" class="text-danger"></small>
                 </div>
                 <div class="mb-3">
-                    <label for="restaurantPhoneNumber" class="form-label">Phone Number</label>
+                    <label style="color: #DCEDCF" for="restaurantPhoneNumber" class="form-label">Phone Number</label>
                     <input type="text" class="form-control" id="restaurantPhoneNumber" placeholder="Restaurant phone number">
                 </div>
                 <div class="mb-3">
-                    <label for="restaurantNotes" class="form-label">Notes</label>
+                    <label style="color: #DCEDCF" for="restaurantNotes" class="form-label">Notes</label>
                     <textarea class="form-control" id="restaurantNotes" placeholder="Restaurant notes"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Create Restaurant</button>
@@ -87,4 +87,243 @@
         </div>
     </div>
 </div>
+<div id="zipSearch">
+    <h4>Enter Zipcode To Find Restaurants Near You</h4>
+    <form id="zipCodeForm">
+    <label for="zipcode"></label>
+    <input type="text" id="zipCodeInput" name="zipCodeInput" placeholder="Enter Zipcode" required>
+    <button type="submit" class="btn btn-secondary">Find Restaurants</button></br>
+  </form>
+  <div id="errorMessage" style="display: none;">
+        <p>Zip code did not return any restaurants.</p>
+    </div>
+</div>
+<div id="savedRestaurantsOnMap">
+    <h4>Click the button below to see your saved restaurants on the Map</h4>
+    <button type="showRestaurants" class="btn btn-secondary">Show My Restaurants</button>
+</div>
+<div>
+    <div id="map"></div>
+</div>
 </body>
+<script>
+    var apiKey="";
+    var map;
+    async function loadMapScript() {
+        try {
+            const response = await fetch('/api/Restaurant/GetGoogleApi');
+            if (!response.ok) {
+            throw new Error('Failed to fetch API key');
+            }
+            const data = await response.json();
+            apiKey = data.apiKey;
+
+            // Proceed with loading the Google Maps script
+            var script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&libraries=places&callback=initMap`; //&callback=initMap`;&loading=async&libraries=places&callback=initMap
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+        } catch (error) {
+            console.error('Error fetching API key:', error.message);
+        }
+    }
+
+    function initMap() {
+    var mapOptions = {
+        center: { lat: 44.9429, lng: -123.0351 }, // Set default center to (0,0)
+        zoom: 10 // Set default zoom level
+    };
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    document.getElementById("zipCodeForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const zipCode = document.getElementById("zipCodeInput").value;
+        console.log(zipCode);
+
+        const geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({ address: zipCode }, (results, status) => {
+            if (status === 'OK') {
+                // Access the retrieved location from results
+                const location = results[0].geometry.location;
+
+                // Update the existing map center and zoom
+                map.setCenter(location);
+                map.setZoom(12);
+
+                // Optional marker for the zip code location
+                const marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    title: zipCode
+                });
+
+                // Make a request to your ASP.NET API endpoint to find restaurants near the location
+                fetchRestaurantsFromAPI(location, (restaurants) => {
+                    console.log(restaurants);
+                    if (restaurants.results && restaurants.results.length > 0) {
+                        let infoWindows = [];
+                        for (const result of restaurants.results) {
+                            const restaurantMarker = new google.maps.Marker({
+                                position: result.geometry.location,
+                                map: map,
+                                title: result.name
+                            });
+                            const openStatus = result.opening_hours && typeof result.opening_hours.open_now === 'boolean' ? (result.opening_hours.open_now ? 'Yes' : 'No') : 'Please call';
+                            const infoWindowContent = `<div style="color: darkgreen;"><h3>${result.name}</h3>
+                                                 <p>Rating: ${result.rating || 'N/A'}</p>
+                                                    <p>Price Level: ${'$'.repeat(result.price_level || 0)}</p>
+                                                    <p>Currently Open: ${openStatus}</p>
+                                                    <p>Address: ${result.vicinity || 'N/A'}</p></div>`;
+
+                            const infoWindow = new google.maps.InfoWindow({
+                                content: infoWindowContent
+                            });   
+
+                            restaurantMarker.addListener("click", () => {
+                                // Close all other info windows before opening the clicked one
+                                infoWindows.forEach((infoWindow) => {
+                                    infoWindow.close();
+                                });
+
+                                infoWindow.open(map, restaurantMarker);
+                            });
+
+                            // Add the info window to the array
+                            infoWindows.push(infoWindow);
+                        }
+                    } else {
+                        console.log("No restaurants found in this area.");
+                        showErrorMessage(); // Show error message
+                    }
+                });
+            } else {
+                console.error("Error:", status);
+                showErrorMessage(); // Show error message
+                // Handle errors from the geocoder (optional)
+            }
+        });
+    });
+    // Add event listener to the button
+    document.querySelector('button[type="showRestaurants"]').addEventListener('click', () => {
+        fetchRestaurantAddressesFromDOM();
+    });
+}
+
+    // Function to fetch restaurants from ASP.NET API endpoint
+    function fetchRestaurantsFromAPI(location, callback) {
+        const latitude = location.lat();
+        const longitude = location.lng();
+        const radius = 10000; // Set your desired radius
+        const type = 'restaurant'; // Set the type of place you want to search for
+
+        // Make a request to your ASP.NET API endpoint
+        fetch(`/api/Restaurant/NearbySearchRestaurants?latitude=${latitude}&longitude=${longitude}&radius=${radius}&type=${type}`)
+            .then(response => {
+                // Check if the response is successful
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Parse the JSON response
+                return response.json();
+            })
+            .then(data => {
+                // Pass the retrieved restaurants to the callback function
+                callback(data);
+            })
+            .catch(error => {
+                // Handle errors
+                console.error('There was a problem with the fetch operation:', error);
+                // Pass an empty array to the callback in case of error
+                callback([]);
+            });
+    }
+    
+    async function fetchRestaurantAddressesFromDOM() {
+        const addresses = document.querySelectorAll('.RestaurantsAddress');
+        const addressesArray = Array.from(addresses).map(address => address.textContent);
+        console.log(addressesArray);
+
+        try {
+            // Make an HTTP POST request to the Web API endpoint using Fetch API
+            const response = await fetch('/api/Restaurant/RestaurantAddressConvert', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(addressesArray)
+            });
+
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // Parse the JSON response
+            const geocodedAddresses = await response.json();
+
+            console.log(geocodedAddresses)
+
+            // Now you have the geocoded addresses (list of objects with latitude and longitude)
+            displayAddressesOnMap(geocodedAddresses);
+        } catch (error) {
+            console.error("Error fetching addresses:", error);
+            // Handle errors appropriately (e.g., display an error message to the user)
+        }
+    }
+
+    function displayAddressesOnMap(geocodedAddresses) {
+        if (!geocodedAddresses || !geocodedAddresses.length) {
+            console.log("No addresses found to display on map.");
+            return;
+        }
+
+        const markers = []; // Array to store markers
+
+        for (const address of geocodedAddresses) {
+            const lat = address.item1;
+            const lng = address.item2
+            if (lat && lng) { // Check if both latitude and longitude are available
+            const location = new google.maps.LatLng(lat, lng);
+            console.log("Latitude:", location.lat());
+            console.log("Longitude:", location.lng());
+            console.log("Location:", { lat: location.lat(), lng: location.lng() });
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                title: address.name || address.text || 'Restaurant', // Use appropriate property for address name
+                icon: starSVG         
+            });
+            markers.push(marker);
+            } else {
+            console.warn(`Skipping address: ${address.text || address.name} due to missing latitude or longitude.`);
+            }
+        }
+
+        // Optionally adjust map center and zoom to fit all markers
+        const bounds = new google.maps.LatLngBounds();
+        markers.forEach(marker => bounds.extend(marker.getPosition()));
+        map.fitBounds(bounds);
+    }
+    // Call the function to load the map script
+    loadMapScript();
+
+    // Function to handle displaying the error message
+    function showErrorMessage() {
+        document.getElementById("errorMessage").style.display = "block";
+    }
+
+    // Function to handle hiding the error message
+    function hideErrorMessage() {
+        document.getElementById("errorMessage").style.display = "none";
+    }
+
+    // Define an SVG path for a star
+    const starSVG = {
+        path: 'M 100 10 L 120 90 L 190 90 L 130 140 L 150 220 L 100 170 L 50 220 L 70 140 L 10 90 L 80 90 Z', // SVG path for a star shape
+        fillColor: 'yellow', // Fill color of the star
+        fillOpacity: 1, // Fill opacity
+        scale: 0.1, // Scale of the star
+        strokeColor: 'black', // Stroke color
+        strokeWeight: 1 // Stroke weight
+    };
+    </script>
