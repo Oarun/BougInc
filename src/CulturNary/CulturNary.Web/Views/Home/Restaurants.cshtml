@@ -171,15 +171,15 @@
                                 title: result.name
                             });
                             const openStatus = result.opening_hours && typeof result.opening_hours.open_now === 'boolean' ? (result.opening_hours.open_now ? 'Yes' : 'No') : 'Please call';
-                            const infoWindowContent = `<div style="color: darkgreen;"><h3>${result.name}</h3>
+                            const infoWindowContent = `<div style="color: darkgreen;"><h3 id="restaurantGoogleName">${result.name}</h3>
                                                  <p>Rating: ${result.rating || 'N/A'}</p>
-                                                    <p>Price Level: ${'$'.repeat(result.price_level || 0)}</p>
-                                                    <p>Currently Open: ${openStatus}</p>
-                                                    <p>Address: ${result.vicinity || 'N/A'}</p></div>`;
-                                                    //add button to add restaurant to list
+                                                    <p id="priceLevel">Price Level: ${'$'.repeat(result.price_level || 0)}</p>
+                                                    <p id="currentlyOpen">Currently Open: ${openStatus}</p>
+                                                    <p id="address">Address: ${result.vicinity || 'N/A'}</p></div>
+                                                    <button id="addToMyRestaurantsButton">Add to my restaurants</button>;`
                             const infoWindow = new google.maps.InfoWindow({
                                 content: infoWindowContent
-                            });   
+                            });
 
                             restaurantMarker.addListener("click", () => {
                                 // Close all other info windows before opening the clicked one
