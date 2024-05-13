@@ -1,5 +1,6 @@
-function deleteUser(userId, ajax) {
-    return ajax({
+// Define AJAX request function
+function deleteUser(userId) {
+    return $.ajax({
         url: '/Admin/DeleteUser/' + userId,
         type: 'POST',
         contentType: 'application/json',
@@ -7,33 +8,25 @@ function deleteUser(userId, ajax) {
     });
 }
 
-function handleSuccess(reload) {
+// Define success and error handlers
+function handleSuccess() {
     alert('User has been deleted');
-    reload();
+    location.reload();
 }
 
 function handleError() {
     alert('Error deleting user');
 }
 
-function setupClickHandler(getUserId, deleteUser, handleSuccess, handleError) {
-    return function() {
-        var userId = getUserId(this);
+// Define click handler setup function
+function setupClickHandler() {
+    $('.delete-user-button').on('click', function() {
+        const userId = $(this).data('user-id');
         deleteUser(userId)
-            .then(() => handleSuccess(location.reload))
+            .then(handleSuccess)
             .catch(handleError);
-    };
-}
-
-function initialize(setupClickHandler) {
-    $(document).ready(() => {
-        $('.delete-user-button').click(setupClickHandler(
-            element => $(element).data('user-id'),
-            deleteUser.bind(null, $),
-            handleSuccess,
-            handleError
-        ));
     });
 }
 
-module.exports = { deleteUser, handleSuccess, handleError, setupClickHandler, initialize };
+// Initialize on document ready
+$(document).ready(setupClickHandler);
