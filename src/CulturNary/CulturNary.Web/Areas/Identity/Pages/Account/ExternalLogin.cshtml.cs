@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using CulturNary.Web.Areas.Identity.Data;
+using CulturNary.Web.Models;
 
 namespace CulturNary.Web.Areas.Identity.Pages.Account
 {
@@ -30,13 +31,15 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<SiteUser> _emailStore;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly CulturNaryDbContext _culturNaryDbContext;
 
         public ExternalLoginModel(
             SignInManager<SiteUser> signInManager,
             UserManager<SiteUser> userManager,
             IUserStore<SiteUser> userStore,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            CulturNaryDbContext culturNaryDbContext)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -44,6 +47,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _logger = logger;
             _emailSender = emailSender;
+            _culturNaryDbContext = culturNaryDbContext;
         }
 
         /// <summary>
@@ -148,11 +152,20 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                 user = new SiteUser { UserName = email, Email = email, EmailConfirmed = true };
                 var password = GenerateRandomPassword(); // Ensure this generates a valid password
                 var createResult = await _userManager.CreateAsync(user, password);
+                
                 if (!createResult.Succeeded)
                 {
                     _logger.LogError($"User creation failed: {string.Join(", ", createResult.Errors.Select(e => e.Description))}");
                     return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
                 }
+
+                var person = new Person
+                {
+                    IdentityId = user.Id,
+                    // Set other properties of the Person entity as needed
+                };
+                _culturNaryDbContext.People.Add(person);
+                await _culturNaryDbContext.SaveChangesAsync();
             }
 
 
@@ -220,14 +233,14 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                 ErrorMessage = "Error loading external login information during confirmation.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
-
+        
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
+        
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-
+        
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -235,7 +248,7 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
-
+        
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -244,17 +257,25 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                             pageHandler: null,
                             values: new { area = "Identity", userId = userId, code = code },
                             protocol: Request.Scheme);
-
+        
                         await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                             $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
+        
                         // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)
                         {
                             return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
                         }
-
+        
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+        
+                        // Add a "signed" role to the user
+                        var roleResult = await _userManager.AddToRoleAsync(user, "Signed");
+                        if (!roleResult.Succeeded)
+                        {
+                            _logger.LogError($"Failed to add 'Signed' role for {Input.Email}: {string.Join(", ", roleResult.Errors.Select(e => e.Description))}");
+                        }
+        
                         return LocalRedirect(returnUrl);
                     }
                 }
@@ -263,12 +284,11 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
+        
             ProviderDisplayName = info.ProviderDisplayName;
             ReturnUrl = returnUrl;
             return Page();
         }
-
         private SiteUser CreateUser()
         {
             try
