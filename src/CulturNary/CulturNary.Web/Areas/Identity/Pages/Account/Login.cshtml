@@ -36,8 +36,8 @@
                     <button id="login-submit" type="submit" class="w-100 btn btn-lg text-white login-btn">Log in</button>
                 </form>
                 <hr>
-                <h3 class="text-center">OR</h3>
-                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                @* <h3 class="text-center">OR</h3> *@
+                @* <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
                     <div class="d-flex flex-column align-items-center">
                         @foreach (var provider in Model.ExternalLogins!)
                         {
@@ -51,7 +51,7 @@
                             </div>
                         }
                     </div>
-                </form>
+                </form> *@
                 <div class="align-items-center justify-content-center">
                     <p>
                         <a id="forgot-password" asp-page="./ForgotPassword" class="login-extra-text">Forgot your password?</a>
