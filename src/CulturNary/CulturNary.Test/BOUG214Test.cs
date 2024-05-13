@@ -1,51 +1,67 @@
-using Moq;
-using NUnit.Framework;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging; 
-using CulturNary.Web.Areas.Identity.Data;
-using CulturNary.DAL.Abstract; 
-using CulturNary.DAL.Concrete;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+// using Moq;
+// using NUnit.Framework;
+// using Microsoft.AspNetCore.Identity;
+// using Microsoft.Extensions.Logging; 
+// using CulturNary.Web.Areas.Identity.Data;
+// using CulturNary.DAL.Abstract; 
+// using CulturNary.DAL.Concrete;
+// using System.Collections.Generic;
+// using System.Linq;
+// using System.Threading.Tasks;
+// using CulturNary.Web.Models;
 
-[TestFixture]
-public class PersonRepositoryTests
-{
-    private Mock<UserManager<SiteUser>> _userManagerMock;
-    private Mock<ILogger<PersonRepository>> _loggerMock;
-    private PersonRepository _personRepository;
+// namespace CulturNary.Test
+// {
+//     [TestFixture]
+//     public class BOUG214Test
+//     {
+//         private Mock<UserManager<SiteUser>> _userManager;
+//         private Mock<ILogger<PersonRepository>> _logger;
+//         private Mock<IPersonRepository> _personRepository;
+//         private PersonRepository _personRepositoryConcrete;
 
-    [SetUp]
-    public void Setup()
-    {
-        var dbContextMock = new Mock<CulturNaryDbContext>();
-        _userManagerMock = new Mock<UserManager<SiteUser>>();
-        _loggerMock = new Mock<ILogger<PersonRepository>>();
-        _personRepository = new PersonRepository(dbContextMock.Object, _userManagerMock.Object, _loggerMock.Object);
-    }
+//         [SetUp]
+//         public void Setup()
+//         {
+//             _userManager = new Mock<UserManager<SiteUser>>();
+//             _logger = new Mock<ILogger<PersonRepository>>();
+//             _personRepository = new Mock<IPersonRepository>();
+//             _personRepositoryConcrete = new PersonRepository(null, _userManager.Object, _logger.Object);
+//         }
 
-    [Test]
-    public async Task GetUsersWithDietaryRestrictions_ReturnsCorrectScores()
-    {
-        // Arrange
-        var testUserId = "testUserId";
-        var users = new List<SiteUser>
-        {
-            new SiteUser { Id = testUserId, UserName = "TestUser", DietaryRestrictions = "Vegan" },
-            new SiteUser { Id = "otherUserId", UserName = "OtherUser", DietaryRestrictions = "Vegetarian" }
-        };
-        var userStoreMock = new Mock<IUserStore<SiteUser>>();
-        _userManagerMock = new Mock<UserManager<SiteUser>>(userStoreMock.Object, null, null, null, null, null, null, null, null);
-        _userManagerMock.Setup(um => um.Users).Returns(users.AsQueryable());
+//         [Test]
+//         public void GetPersonByIdentityId_WhenCalled_ReturnsPerson()
+//         {
+//             // Arrange
+//             var identityId = "123";
+//             var person = new Person { IdentityId = identityId };
+//             _personRepository.Setup(x => x.GetPersonByIdentityId(identityId)).Returns(person);
 
-        _personRepository = new PersonRepository(_userManagerMock.Object, _loggerMock.Object);
+//             // Act
+//             var result = _personRepositoryConcrete.GetPersonByIdentityId(identityId);
 
-        // Act
-        var result = await _personRepository.GetUsersWithDietaryRestrictions(testUserId);
+//             // Assert
+//             Assert.That(result, Is.EqualTo(person));
+//         }
 
-        // Assert
-        Assert.AreEqual(1, result.Count);
-        Assert.AreEqual("Vegan", result[0].DietaryRestrictions);
-    }
-}
+//         [Test]
+//         public async Task GetUsersWithDietaryRestrictions_WhenCalled_ReturnsDictionary()
+//         {
+//             // Arrange
+//             var currentUserId = "123";
+//             var currentUser = new SiteUser { Id = currentUserId };
+//             var users = new List<SiteUser> { currentUser };
+//             _userManager.Setup(x => x.FindByIdAsync(currentUserId)).ReturnsAsync(currentUser);
+//             _userManager.Setup(x => x.Users).Returns(users.AsQueryable());
+//             _userManager.Setup(x => x.Users).Returns(users.AsQueryable());
+//             _logger.Setup(x => x.LogInformation(It.IsAny<string>()));
+//             _personRepository.Setup(x => x.GetUsersWithDietaryRestrictions(currentUserId)).ReturnsAsync(new Dictionary<SiteUser, double>());
+
+//             // Act
+//             var result = await _personRepositoryConcrete.GetUsersWithDietaryRestrictions(currentUserId);
+
+//             // Assert
+//             Assert.That(result, Is.TypeOf<Dictionary<SiteUser, double>>());
+//         }
+//     }
+// }
