@@ -50,20 +50,6 @@ function populateCollections(collections) {
 }
 
 $(document).ready(function() {
-    $('tr[data-user-id]').on('click', function() {
-        var userId = getUserIdFromRow(this);
 
-        fetchUserDetails(userId)
-            .then(user => {
-                populateUserDetails(user);
-                return fetchPersonDetails(userId);
-            })
-            .then(person => fetchCollections(person.id))
-            .then(collections => {
-                populateCollections(collections);
-                $('#myModal').modal('show');
-            })
-            .catch(error => console.error('Error:', error));
-    });
 });
 module.exports = { getUserIdFromRow, fetchUserDetails, populateUserDetails, fetchPersonDetails, fetchCollections, populateCollections };

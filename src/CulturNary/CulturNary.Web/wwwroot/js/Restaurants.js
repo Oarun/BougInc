@@ -16,6 +16,38 @@ $(document).ready(function() {
         }
     });
 
+    document.addEventListener('click', function(event) {
+        // Check if the clicked element is the "Add to my restaurants" button
+        if (event.target && event.target.id === 'addToMyRestaurantsButton') {
+            // Call addToMyRestaurants function passing the clicked element as an argument
+            console.log('clicked')
+             // Retrieve information from HTML elements
+            const name = document.getElementById('restaurantGoogleName').textContent;
+            const address = document.getElementById('address').textContent || 'N/A';
+             // Create an object with the captured information
+             const restaurantInfo = {
+                RestaurantsName: name,
+                RestaurantsAddress: address
+             };
+            console.log(restaurantInfo)
+            addToMyRestaurants(restaurantInfo.RestaurantsName, restaurantInfo.RestaurantsAddress);
+        }
+    });
+
+    function addToMyRestaurants(RestaurantsName, RestaurantsAddress) {
+        // Create Restaurant object from the restaurant information
+        var restaurant = {
+            PersonId: personId,
+            RestaurantsName: RestaurantsName,
+            RestaurantsAddress: RestaurantsAddress || 'N/A',
+            RestaurantsNotes: 'Added using google search', // You can set this to empty or some default value
+        };
+        
+        console.log(restaurant)
+        // Send data to API using AJAX
+        sendDataToAPI(restaurant);
+    }
+
     // Event listener for clicking on the restaurant menu image
     $(document).on("click", ".restaurant-menu-image", function() {
         var imageUrl = $(this).attr("src");
@@ -129,10 +161,12 @@ $(document).ready(function() {
                 <div class="card mb-3 col-md-4" style="max-width: 100%;">
                     <div class="card-body">
                         <h2 class="RestaurantsName">${restaurant.restaurantsName}</h2>
-                        <h5 class="RestaurantType">${restaurant.restaurantType}</h5>
+                        <h5 class="RestaurantType">${restaurant.restaurantType ? restaurant.restaurantType : ""}</h5>
                         <h5 class="RestaurantsAddress">${restaurant.restaurantsAddress}</h5>
-                        <a href="${restaurant.restaurantsWebsite}" style="color: #007bff; text-decoration: none; border-bottom: 1px solid #007bff;">Visit Website</a>
-                        <h5 class="RestaurantsPhoneNumber">${restaurant.restaurantsPhoneNumber}</h5>
+                        <a href="${restaurant.restaurantsWebsite ?? ''}" style="color: #007bff; text-decoration: none; border-bottom: 1px solid #007bff; ${restaurant.restaurantsWebsite ? '' : 'display: none;'}">
+                        Visit Website
+                        </a>
+                        <h5 class="RestaurantsPhoneNumber">${restaurant.restaurantsPhoneNumber ? restaurant.restaurantsPhoneNumber : ""}</h5>
                         ${restaurant.restaurantsMenu ? `<img class="restaurant-menu-image clickable" src="${restaurant.restaurantsMenu}" alt="Restaurant Menu" style="max-width: 100%; height: auto;">` : `<p>No menu uploaded</p>`}
                         <h5 class="RestaurantsNotes">${restaurant.restaurantsNotes ? restaurant.restaurantsNotes : "No notes available"}</h5>
                         <button class="btn btn-danger delete-restaurant" data-restaurant-id="${restaurant.id}">Delete</button>
