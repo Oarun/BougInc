@@ -19,16 +19,16 @@ jobs:
         dotnet-version: '8.0.204'  # Adjust to your .NET version
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore src/CulturNary/CulturNary.Web/CulturNary.Web.csproj
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build src/CulturNary/CulturNary.Web/CulturNary.Web.csproj --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test src/CulturNary/CulturNary.Test/CulturNary.Test.csproj --no-restore --verbosity normal
 
     - name: Publish
-      run: dotnet publish --configuration Release --no-build -o ./publish
+      run: dotnet publish src/CulturNary/CulturNary.Web/CulturNary.Web.csproj --configuration Release --no-build -o ./publish
 
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2
