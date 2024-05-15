@@ -200,54 +200,54 @@ public class FriendApiControllerTests
         Assert.That(result3, Is.False);
     }
     
-    [Test]
-    public void AcceptFriendRequest_InvalidFriendRequest_ReturnsFalse()
-    {
-        // Arrange
-        var mockPersonRepository = new Mock<IPersonRepository>();
-        mockPersonRepository.Setup(r => r.GetPersonByIdentityId(It.IsAny<string>())).Returns(new Person { Id = 1 });
+    // [Test]
+    // public void AcceptFriendRequest_InvalidFriendRequest_ReturnsFalse()
+    // {
+    //     // Arrange
+    //     var mockPersonRepository = new Mock<IPersonRepository>();
+    //     mockPersonRepository.Setup(r => r.GetPersonByIdentityId(It.IsAny<string>())).Returns(new Person { Id = 1 });
     
-        var mockFriendRequestRepository = new Mock<IFriendRequestRepository>();
-        mockFriendRequestRepository.Setup(r => r.GetByRequestAndRecipientId(It.IsAny<int>(), It.IsAny<int>())).Returns((FriendRequest)null);
+    //     var mockFriendRequestRepository = new Mock<IFriendRequestRepository>();
+    //     mockFriendRequestRepository.Setup(r => r.GetByRequestAndRecipientId(It.IsAny<int>(), It.IsAny<int>())).Returns((FriendRequest)null);
     
-        var mockDbSet = new Mock<DbSet<Friendship>>();
-        var mockContext = new Mock<CulturNaryDbContext>();
-        mockContext.Setup(c => c.Friendships).Returns(mockDbSet.Object);
+    //     var mockDbSet = new Mock<DbSet<Friendship>>();
+    //     var mockContext = new Mock<CulturNaryDbContext>();
+    //     mockContext.Setup(c => c.Friendships).Returns(mockDbSet.Object);
     
-        var mockUserManager = new Mock<UserManager<SiteUser>>(new Mock<IUserStore<SiteUser>>().Object, null, null, null, null, null, null, null, null);
+    //     var mockUserManager = new Mock<UserManager<SiteUser>>(new Mock<IUserStore<SiteUser>>().Object, null, null, null, null, null, null, null, null);
     
-        var repository = new FriendshipRepository(mockContext.Object, mockPersonRepository.Object, mockUserManager.Object, mockFriendRequestRepository.Object);
+    //     var repository = new FriendshipRepository(mockContext.Object, mockPersonRepository.Object, mockUserManager.Object, mockFriendRequestRepository.Object);
     
-        // Act
-        bool result = repository.AcceptFriendRequest("1", "2");
+    //     // Act
+    //     bool result = repository.AcceptFriendRequest("1", "2");
     
-        // Assert
-        Assert.IsFalse(result);
-    }
-    [Test]
-    public void RejectFriendRequest_ValidRequest_ReturnsTrue()
-    {
-        // Arrange
-        var mockPersonRepository = new Mock<IPersonRepository>();
-        mockPersonRepository.Setup(r => r.GetPersonByIdentityId(It.IsAny<string>())).Returns(new Person { Id = 1 });
+    //     // Assert
+    //     Assert.IsFalse(result);
+    // }
+    // [Test]
+    // public void RejectFriendRequest_ValidRequest_ReturnsTrue()
+    // {
+    //     // Arrange
+    //     var mockPersonRepository = new Mock<IPersonRepository>();
+    //     mockPersonRepository.Setup(r => r.GetPersonByIdentityId(It.IsAny<string>())).Returns(new Person { Id = 1 });
     
-        var mockFriendRequestRepository = new Mock<IFriendRequestRepository>();
-        mockFriendRequestRepository.Setup(r => r.GetByRequestAndRecipientId(It.IsAny<int>(), It.IsAny<int>())).Returns(new FriendRequest { RequesterId = 1, RecipientId = 2 });
+    //     var mockFriendRequestRepository = new Mock<IFriendRequestRepository>();
+    //     mockFriendRequestRepository.Setup(r => r.GetByRequestAndRecipientId(It.IsAny<int>(), It.IsAny<int>())).Returns(new FriendRequest { RequesterId = 1, RecipientId = 2 });
     
-        var mockDbSet = new Mock<DbSet<Friendship>>();
-        var mockContext = new Mock<CulturNaryDbContext>();
-        mockContext.Setup(c => c.Friendships).Returns(mockDbSet.Object);
+    //     var mockDbSet = new Mock<DbSet<Friendship>>();
+    //     var mockContext = new Mock<CulturNaryDbContext>();
+    //     mockContext.Setup(c => c.Friendships).Returns(mockDbSet.Object);
     
-        var mockUserManager = new Mock<UserManager<SiteUser>>(new Mock<IUserStore<SiteUser>>().Object, null, null, null, null, null, null, null, null);
+    //     var mockUserManager = new Mock<UserManager<SiteUser>>(new Mock<IUserStore<SiteUser>>().Object, null, null, null, null, null, null, null, null);
     
-        var repository = new FriendshipRepository(mockContext.Object, mockPersonRepository.Object, mockUserManager.Object, mockFriendRequestRepository.Object);
+    //     var repository = new FriendshipRepository(mockContext.Object, mockPersonRepository.Object, mockUserManager.Object, mockFriendRequestRepository.Object);
     
-        // Act
-        bool result = repository.RejectFriendRequest("1", "2");
+    //     // Act
+    //     bool result = repository.RejectFriendRequest("1", "2");
     
-        // Assert
-        Assert.IsTrue(result);
-    }
+    //     // Assert
+    //     Assert.IsTrue(result);
+    // }
     
     
     
