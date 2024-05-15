@@ -33,6 +33,10 @@ namespace CulturNary.Web.Controllers
         [HttpPost("SendFriendRequest/{id}")]
         public async Task<IActionResult> SendFriendRequest(string id) 
         {
+            if (string.IsNullOrEmpty(id) || id == User.FindFirstValue(ClaimTypes.NameIdentifier))
+            {
+                return BadRequest("Invalid friend ID.");
+            }
             try
             {
                 string currentUserId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
@@ -48,6 +52,10 @@ namespace CulturNary.Web.Controllers
         [Route("RespondToFriendRequest/{requestId}/{accept}")]
         public IActionResult RespondToFriendRequest(string requestId, bool accept)
         {
+            if (string.IsNullOrEmpty(requestId))
+            {
+                return NotFound();
+            }
             try
             {
                 string currentUserId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
