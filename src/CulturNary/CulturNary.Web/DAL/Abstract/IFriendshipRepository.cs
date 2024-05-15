@@ -9,8 +9,8 @@ namespace CulturNary.DAL.Abstract
         public List<Friendship> GetFriendshipByPersonId(int personId);
         public Task<List<SiteUser>> GetFriends(string id);
         public bool AreFriends(string currentUserId, string friendId);
-        public void AcceptFriendRequest(string currentUserId, string requestId);
-        public void RejectFriendRequest(string currentUserId, string requestId);
-        public void RemoveFriend(string currentUserId, string friendId);
+        public bool AcceptFriendRequest(string currentUserId, string requestId);
+        public bool RejectFriendRequest(string currentUserId, string requestId);
+        public bool RemoveFriend(string currentUserId, string friendId);
     }
 }

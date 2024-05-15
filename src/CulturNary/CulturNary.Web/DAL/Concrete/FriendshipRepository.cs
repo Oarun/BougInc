@@ -53,11 +53,16 @@ namespace CulturNary.DAL.Concrete
 
             return friendAsUser;
         }
-        public void AcceptFriendRequest(string currentUserId, string requestId)
+        public bool AcceptFriendRequest(string currentUserId, string requestId)
         {
             int currentUserPersonId = _personRepository.GetPersonByIdentityId(currentUserId).Id;
             int requesterUserPersonId = _personRepository.GetPersonByIdentityId(requestId).Id;
             var thisFriendRequest = _friendRequestRepository.GetByRequestAndRecipientId(requesterUserPersonId, currentUserPersonId);
+        
+            if (thisFriendRequest == null)
+            {
+                return false;
+            }
         
             // Ensure Person1Id is less than Person2Id
             int person1Id, person2Id;
@@ -79,23 +84,44 @@ namespace CulturNary.DAL.Concrete
                 FriendshipDate = DateTime.Now
             });
             _friendRequestRepository.Delete(thisFriendRequest);
+        
+            return true;
         }
-
-        public void RejectFriendRequest(string currentUserId, string requestId){
+        
+        public bool RejectFriendRequest(string currentUserId, string requestId)
+        {
             int currentUserPersonId = _personRepository.GetPersonByIdentityId(currentUserId).Id;
             int requesterUserPersonId = _personRepository.GetPersonByIdentityId(requestId).Id;
             var thisFriendRequest = _friendRequestRepository.GetByRequestAndRecipientId(requesterUserPersonId, currentUserPersonId);
+        
+            if (thisFriendRequest == null)
+            {
+                return false;
+            }
+        
             _friendRequestRepository.Delete(thisFriendRequest);
+        
+            return true;
         }
-        public void RemoveFriend(string currentUserId, string friendId){
+        
+        public bool RemoveFriend(string currentUserId, string friendId)
+        {
             int currentUserPersonId = _personRepository.GetPersonByIdentityId(currentUserId).Id;
             int friendPersonId = _personRepository.GetPersonByIdentityId(friendId).Id;
             var friendship = _dbSet
                 .Where(f => (f.Person1Id == currentUserPersonId && f.Person2Id == friendPersonId) || 
                             (f.Person1Id == friendPersonId && f.Person2Id == currentUserPersonId))
                 .FirstOrDefault();
+        
+            if (friendship == null)
+            {
+                return false;
+            }
+        
             _dbSet.Remove(friendship);
             _context.SaveChanges();
+        
+            return true;
         }
     }
 }
