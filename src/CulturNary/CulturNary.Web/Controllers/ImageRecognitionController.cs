@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using CulturNary.Web.Services;
 using CulturNary.Web.Models;
 using System.Drawing;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CulturNary.Web.Controllers
 {
@@ -23,11 +24,13 @@ namespace CulturNary.Web.Controllers
             _imageStorageService = imageStorageService;
         }
 
+        [Authorize(Roles = "Signed,Admin")]
         public IActionResult ImageRecognition()
         {
             return View();
         }
 
+        [Authorize(Roles = "Signed,Admin")]
         [HttpPost]
         public async Task<IActionResult> ImageRecognition(ImageRecognitionResult model, ImageRecognitionRequest request)
         // public async Task<IActionResult> ImageRecognition(ImageRecognitionResult model, IFormFile file)
@@ -72,6 +75,7 @@ namespace CulturNary.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Signed,Admin")]
         [HttpPost]
         public async Task<IActionResult> ImageRecognitionCam(ImageRecognitionResult model, ImageRecognitionRequest request)
         // public async Task<IActionResult> ImageRecognitionCam(ImageRecognitionResult model, IFormFile file)
