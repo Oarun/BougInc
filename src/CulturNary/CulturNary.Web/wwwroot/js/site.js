@@ -125,7 +125,7 @@ const RecipeSearch = {
     },
 
     addToFavorites: (recipe) => {
-        const url = '/api/FavoriteRecipesApi'; 
+        const url = '/api/FavoriteRecipesApi/favorite/add'; 
     
         RecipeSearch.getPerson().then(person => {
             console.log(person);
