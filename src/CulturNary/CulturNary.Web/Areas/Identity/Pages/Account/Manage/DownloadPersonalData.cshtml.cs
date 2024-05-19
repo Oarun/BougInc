@@ -13,20 +13,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using CulturNary.Web.Areas.Identity.Data;
-
+using CulturNary.DAL.Abstract;
+using CulturNary.DAL.Concrete;
 namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
 {
     public class DownloadPersonalDataModel : PageModel
     {
         private readonly UserManager<SiteUser> _userManager;
         private readonly ILogger<DownloadPersonalDataModel> _logger;
+        private readonly IFavoriteRecipeRepository _favoriteRecipeRepository;
+        private readonly IPersonRepository _personRepository;  // Add this line
 
         public DownloadPersonalDataModel(
             UserManager<SiteUser> userManager,
-            ILogger<DownloadPersonalDataModel> logger)
+            ILogger<DownloadPersonalDataModel> logger,
+            IFavoriteRecipeRepository favoriteRecipeRepository,
+            IPersonRepository personRepository)  // Add this line
         {
             _userManager = userManager;
             _logger = logger;
+            _favoriteRecipeRepository = favoriteRecipeRepository;
+            _personRepository = personRepository;  // Add this line
         }
 
         public IActionResult OnGet()
@@ -51,6 +58,16 @@ namespace CulturNary.Web.Areas.Identity.Pages.Account.Manage
             foreach (var p in personalDataProps)
             {
                 personalData.Add(p.Name, p.GetValue(user)?.ToString() ?? "null");
+            }
+
+            // Get the person associated with the current identity id
+            var person = _personRepository.GetPersonByIdentityId(user.Id);
+
+            // If the person exists, get their favorite recipes
+            if (person != null)
+            {
+                var favoriteRecipes = _favoriteRecipeRepository.GetFavoriteRecipeForPersonID(person.Id);
+                personalData.Add("Favorite Recipes", string.Join(", ", favoriteRecipes.Select(r => $"Label: {r.Label}, Uri: {r.Uri}")));
             }
 
             var logins = await _userManager.GetLoginsAsync(user);
