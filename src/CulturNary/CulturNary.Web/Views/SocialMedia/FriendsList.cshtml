@@ -42,7 +42,7 @@
                                         <span>No tags</span>
                                     }
                                 </td>
-                                <td>@(friendRequest.UserName.Split('@')[0])</td>
+                                <td style="color: white;">@(friendRequest.UserName.Split('@')[0])</td>
                                 <td>
                                     <form action="/api/FriendApi/RespondToFriendRequest/@friendRequest.Id/true" method="post">
                                         <button type="submit" class="btn btn-accept">Accept</button>
