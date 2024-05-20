@@ -9,7 +9,13 @@ public partial class Person
 
     public string? IdentityId { get; set; }
 
+    public virtual ICollection<CalorieLog> CalorieLogs { get; set; } = new List<CalorieLog>();
+
+    public virtual ICollection<CalorieTracker> CalorieTrackers { get; set; } = new List<CalorieTracker>();
+
     public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
+
+    public virtual ICollection<FavoriteRecipe> FavoriteRecipes { get; set; } = new List<FavoriteRecipe>();
 
     public virtual ICollection<FriendRequest> FriendRequestRecipients { get; set; } = new List<FriendRequest>();
 

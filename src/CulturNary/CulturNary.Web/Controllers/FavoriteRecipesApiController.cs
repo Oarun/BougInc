@@ -25,21 +25,31 @@ namespace CulturNary.Web.Controllers
         {
             try
             {
-                var existingRecipe = _favoriteRecipeRepository.GetFavoriteRecipeByRecipeId(favoriteRecipe.RecipeId);
+                var recipeIdString = favoriteRecipe.RecipeId?.ToString();
 
-                if (existingRecipe == null)
+                if (recipeIdString != null)
                 {
-                    _favoriteRecipeRepository.Add(favoriteRecipe);
-                    return StatusCode(201);
+                    var existingRecipe = _favoriteRecipeRepository.GetFavoriteRecipeByRecipeId(recipeIdString);
+
+                    if (existingRecipe == null)
+                    {
+                        _favoriteRecipeRepository.Add(favoriteRecipe);
+                        return StatusCode(201);
+                    }
+                    else
+                    {
+                        return StatusCode(409, "Recipe already favorited");
+                    }
                 }
                 else
                 {
-                    return StatusCode(409, "Recipe already favorited");
+                    return BadRequest("RecipeId cannot be null.");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                // Optionally log the exception here
+                return BadRequest(ex.Message);
             }
         }
 

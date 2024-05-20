@@ -62,10 +62,22 @@ namespace CulturNary.DAL.Concrete{
             var friendRequests = new List<SiteUser>();
             foreach (var requesterId in requesterIds)
             {
-                var user = await _userManager.FindByIdAsync(_personRepository.GetPersonByPersonId(requesterId).IdentityId);
-                if (user != null)
+                if (requesterId.HasValue)
                 {
-                    friendRequests.Add(user);
+                    var person = _personRepository.GetPersonByPersonId(requesterId.Value);
+                    if (person != null)
+                    {
+                        var user = await _userManager.FindByIdAsync(person.IdentityId);
+                        if (user != null)
+                        {
+                            friendRequests.Add(user);
+                        }
+                    }
+                }
+                else
+                {
+                    // Handle the case where requesterId is null if needed
+                    // For example, log a warning or continue with the next requesterId
                 }
             }
 

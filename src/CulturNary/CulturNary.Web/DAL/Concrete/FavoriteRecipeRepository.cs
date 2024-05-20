@@ -32,8 +32,19 @@ namespace CulturNary.DAL.Concrete
         public FavoriteRecipe GetFavoriteRecipeForPersonIDAndRecipeID(int personId, int Id){
             return base.Where(x => x.PersonId == personId && x.Id == Id).FirstOrDefault();
         }
-        public FavoriteRecipe GetFavoriteRecipeByRecipeId(string recipeId){
-            return base.Where(x => x.RecipeId == recipeId).FirstOrDefault();
+        public FavoriteRecipe GetFavoriteRecipeByRecipeId(string recipeId)
+        {
+            // Convert the string recipeId to an integer, assuming the string can be parsed to a valid integer
+            if (int.TryParse(recipeId, out int parsedRecipeId))
+            {
+                return base.Where(x => x.RecipeId == parsedRecipeId).FirstOrDefault();
+            }
+            else
+            {
+                // Handle the case where recipeId cannot be parsed to an integer
+                // You can return null, throw an exception, or handle it in another appropriate way
+                throw new ArgumentException("Invalid recipeId format", nameof(recipeId));
+            }
         }
         public List<FavoriteRecipe> SearchFavoriteRecipesForPersonID(int personId, string search)
         {

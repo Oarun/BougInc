@@ -66,15 +66,24 @@ namespace CulturNary.DAL.Concrete
         
             // Ensure Person1Id is less than Person2Id
             int person1Id, person2Id;
-            if (thisFriendRequest.RequesterId < thisFriendRequest.RecipientId)
+            if (thisFriendRequest.RequesterId.HasValue && thisFriendRequest.RecipientId.HasValue)
             {
-                person1Id = thisFriendRequest.RequesterId;
-                person2Id = thisFriendRequest.RecipientId;
+                if (thisFriendRequest.RequesterId.Value < thisFriendRequest.RecipientId.Value)
+                {
+                    person1Id = thisFriendRequest.RequesterId.Value;
+                    person2Id = thisFriendRequest.RecipientId.Value;
+                }
+                else
+                {
+                    person1Id = thisFriendRequest.RecipientId.Value;
+                    person2Id = thisFriendRequest.RequesterId.Value;
+                }
             }
             else
             {
-                person1Id = thisFriendRequest.RecipientId;
-                person2Id = thisFriendRequest.RequesterId;
+                // Handle the case where either RequesterId or RecipientId is null
+                // You can throw an exception, log an error, or handle it in another appropriate way
+                throw new InvalidOperationException("RequesterId or RecipientId is null.");
             }
         
             _dbSet.Add(new Friendship
