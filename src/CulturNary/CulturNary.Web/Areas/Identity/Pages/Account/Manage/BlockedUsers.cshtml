@@ -1,0 +1,59 @@
+@page
+@model BlockedUsersModel
+@{
+    ViewData["Title"] = "Blocked users";
+    ViewData["ActivePage"] = ManageNavPages.BlockedUsers;
+}
+<h4>@ViewData["Title"]</h4>
+
+<style>
+    .unblock-button {
+        background-color: #4CAF50; /* Green */
+        color: white;
+    }
+</style>
+@if (Model.BlockedUsers != null && Model.BlockedUsers.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Profile Image</th>
+                <th>User Name</th>
+                <th>Display Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var blockedUser in Model.BlockedUsers)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(blockedUser.ProfileImageName))
+                        {
+                            <img src="@blockedUser.ProfileImageName" alt="@blockedUser.DisplayName's profile image" width="200" height="200" />
+                        }
+                        else
+                        {
+                            <img src="~/media/BOUG Logo Circle.png" alt="Default image" width="200" height="200" />
+                        }
+                    </td>
+                    <td>@blockedUser.UserName</td>
+                    <td>@blockedUser.DisplayName</td>
+                    <td>
+                        <form action="/api/FriendApi/UnblockUser/@blockedUser.Id" method="post">
+                            <button type="submit" class="btn btn-accept unblock-button">Unblock</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No blocked users found.</p>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
