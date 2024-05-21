@@ -47,3 +47,8 @@
     font-size: 85%;
     border-radius: 4px;
 }
+.btn-block {
+    background-color: #FFA500; /* Orange */
+    color: white;
+    border: none;
+}

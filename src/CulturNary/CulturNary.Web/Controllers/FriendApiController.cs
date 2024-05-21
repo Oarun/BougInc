@@ -19,11 +19,14 @@ namespace CulturNary.Web.Controllers
         private readonly IPersonRepository _personRepository;
         private readonly IFriendRequestRepository _friendRequestRepository;
         private readonly IFriendshipRepository _friendshipRepository;
+        private readonly IBlockedUserRepository _blockedUserRepository;
 
         public FriendApiController(IPersonRepository personRepository, 
             IFriendshipRepository friendshipRepository,
-            IFriendRequestRepository friendRequestRepository)
+            IFriendRequestRepository friendRequestRepository,
+            IBlockedUserRepository blockedUserRepository)
         {
+            _blockedUserRepository = blockedUserRepository;
             _personRepository = personRepository;
             _friendRequestRepository = friendRequestRepository;
             _friendshipRepository = friendshipRepository;
@@ -40,6 +43,13 @@ namespace CulturNary.Web.Controllers
             try
             {
                 string currentUserId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
+                
+                // Check if the current user is blocked by the user they are trying to send a friend request to
+                if (_blockedUserRepository.IsUserBlocked(id, currentUserId))
+                {
+                    return BadRequest(new { message = "Unable to process the request at this time." });
+                }
+        
                 await _friendRequestRepository.SendFriendRequest(currentUserId, id); // Use the ID from the request body
                 return Ok(new { message = "Friend request sent successfully." });
             }
@@ -73,6 +83,50 @@ namespace CulturNary.Web.Controllers
             catch (Exception ex)
             {
                 // Handle any exceptions, e.g., friend request not found
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+        [HttpPost]
+        [Route("BlockFriendRequest/{id}")]
+        public IActionResult BlockFriendRequest(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+            try
+            {
+                string currentUserId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
+                _friendshipRepository.RejectFriendRequest(currentUserId, id);
+                _blockedUserRepository.BlockUser(currentUserId, id);
+
+                return RedirectToAction("FriendsList", "SocialMedia"); // Assuming you have a FriendsList action
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions, e.g., friend request not found
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+        [HttpPost]
+        [Route("UnblockUser/{id}")]
+        public IActionResult UnblockUser(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+            try
+            {
+                string currentUserId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
+                _blockedUserRepository.UnblockUser(currentUserId, id);
+
+                string redirectUrl = Url.Content("~/Identity/Account/Manage/BlockedUsers");
+                return Redirect(redirectUrl);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions, e.g., user not found
                 return BadRequest(new { error = ex.Message });
             }
         }

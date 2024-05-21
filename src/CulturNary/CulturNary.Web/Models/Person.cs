@@ -7,7 +7,11 @@ public partial class Person
 {
     public int Id { get; set; }
 
-    public string? IdentityId { get; set; }
+    public string IdentityId { get; set; } = null!;
+
+    public virtual ICollection<BlockedUser> BlockedUserBlockedIdentities { get; set; } = new List<BlockedUser>();
+
+    public virtual ICollection<BlockedUser> BlockedUserBlockerIdentities { get; set; } = new List<BlockedUser>();
 
     public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
 

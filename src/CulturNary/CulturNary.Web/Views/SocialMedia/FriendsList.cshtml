@@ -39,7 +39,7 @@
                                     }
                                     else
                                     {
-                                        <span>No tags</span>
+                                        <span style="color: white;">No tags</span>
                                     }
                                 </td>
                                 <td style="color: white;">@(friendRequest.UserName.Split('@')[0])</td>
@@ -49,6 +49,9 @@
                                     </form>
                                     <form action="/api/FriendApi/RespondToFriendRequest/@friendRequest.Id/false" method="post">
                                         <button type="submit" class="btn btn-reject">Decline</button>
+                                    </form>
+                                    <form action="/api/FriendApi/BlockFriendRequest/@friendRequest.Id" method="post">
+                                        <button type="submit" class="btn btn-block">Block</button>
                                     </form>
                                 </td>
                              </tr>
@@ -100,7 +103,7 @@
                                     }
                                     else
                                     {
-                                        <span>No tags</span>
+                                        <span style="color: white;">No tags</span>
                                     }
                                 <td style="color:white;">@(friend.UserName.Split('@')[0])</td>
                                 <td>

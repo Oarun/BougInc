@@ -39,6 +39,7 @@ builder.Services.AddScoped<IGoogleMapsService, GoogleMapsService>();
 builder.Services.AddHttpClient<INewsService, NewsService>();
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IImageRecognitionService, ImageRecognitionService>();
+builder.Services.AddScoped<IBlockedUserRepository, BlockedUserRepository>();
 
 //add a new repo builder.Services.AddScoped<interface, repo>();
 // Add services to the container.
