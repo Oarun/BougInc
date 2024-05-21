@@ -62,10 +62,13 @@ namespace CulturNary.DAL.Concrete{
             var friendRequests = new List<SiteUser>();
             foreach (var requesterId in requesterIds)
             {
-                var user = await _userManager.FindByIdAsync(_personRepository.GetPersonByPersonId(requesterId).IdentityId);
-                if (user != null)
+                if (requesterId.HasValue)
                 {
-                    friendRequests.Add(user);
+                    var user = await _userManager.FindByIdAsync(_personRepository.GetPersonByPersonId(requesterId.Value).IdentityId);
+                    if (user != null)
+                    {
+                        friendRequests.Add(user);
+                    }
                 }
             }
 

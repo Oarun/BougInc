@@ -7,7 +7,7 @@ public partial class FavoriteRecipe
 {
     public int Id { get; set; }
 
-    public int? PersonId { get; set; }
+    public int PersonId { get; set; }
 
     public string? RecipeId { get; set; }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CulturNary.Web.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace CulturNary.DAL.Concrete
 {
@@ -12,7 +13,8 @@ namespace CulturNary.DAL.Concrete
     {
         private readonly UserManager<SiteUser> _userManager;
         private readonly ILogger<PersonRepository> _logger;
-        public PersonRepository(CulturNaryDbContext context, UserManager<SiteUser> userManager, ILogger<PersonRepository> logger) : base(context)
+
+        public PersonRepository(CulturNaryDbContext context, UserManager<SiteUser> userManager, ILogger<PersonRepository> logger) : base(context) // Add this line
         {
             _userManager = userManager;
             _logger = logger;
@@ -30,6 +32,7 @@ namespace CulturNary.DAL.Concrete
             var users = await _userManager.Users
                 .Where(user => user.Id != currentUserId)
                 .ToListAsync();
+            
 
             var userScores = new Dictionary<SiteUser, double>();
 
