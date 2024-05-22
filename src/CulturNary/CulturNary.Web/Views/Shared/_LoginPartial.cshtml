@@ -36,6 +36,15 @@
                         case "red":
                             backgroundColor = "#FFDFD0";
                             break;
+                        case "blue":
+                            backgroundColor = "#D0E7FF";
+                            break;
+                        case "purple":
+                            backgroundColor = "#E6D0FF";
+                            break;
+                        case "orange":
+                            backgroundColor = "#FFE5CC";
+                            break;
                         default:
                             backgroundColor = "#DCEDCF";
                             break;
@@ -50,6 +59,15 @@
                         case "red":
                             backgroundColor = "#5C2D29";
                             break;
+                        case "blue":
+                            backgroundColor = "#2D3A5C";
+                            break;
+                        case "purple":
+                            backgroundColor = "#2D2B5C";
+                            break;
+                        case "orange":
+                            backgroundColor = "#D36B14";
+                            break;
                         default:
                             backgroundColor = "#353F2D";
                             break;
@@ -63,6 +81,15 @@
                             break;
                         case "red":
                             backgroundColor = "#5C2D29";
+                            break;
+                        case "blue":
+                            backgroundColor = "#2D3A5C";
+                            break;
+                        case "purple":
+                            backgroundColor = "#2D2B5C";
+                            break;
+                        case "orange":
+                            backgroundColor = "#D36B14";
                             break;
                         default:
                             backgroundColor = "#353F2D";
@@ -91,7 +118,7 @@
         </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark" style="color: @(backgroundColor)">Logout</button>
+                <button type="submit" class="nav-link btn btn-link" style="color: @(backgroundColor)">Logout</button>
             </form>
         </li>
     }

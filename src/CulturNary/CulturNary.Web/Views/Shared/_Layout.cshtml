@@ -35,6 +35,9 @@
                         case "purple":
                             backgroundColor = "#E6D0FF";
                             break;
+                        case "orange":
+                            backgroundColor = "#FFE5CC";
+                            break;
                         default:
                             backgroundColor = "#DCEDCF";
                             break;
@@ -55,6 +58,9 @@
                         case "purple":
                             backgroundColor = "#2D2B5C";
                             break;
+                        case "orange":
+                            backgroundColor = "#D36B14";
+                            break;
                         default:
                             backgroundColor = "#353F2D";
                             break;
@@ -74,6 +80,9 @@
                             break;
                         case "purple":
                             backgroundColor = "#2D2B5C";
+                            break;
+                        case "orange":
+                            backgroundColor = "#D36B14";
                             break;
                         default:
                             backgroundColor = "#353F2D";
@@ -153,29 +162,33 @@
     <footer class="footer text-muted">
         <div class="container">
             <div class="row">
-                <form method="post" action="/Home/SwitchBright" id="brightForm">
-                    <div class="form-group">
-                        <label for="isDark">Theme Brightness</label>
-                        <select class="form-control-small " name="isDark" id="isDark" onchange="document.getElementById('brightForm').submit();">
-                            <option value="" selected></option>
-                            <option value="true">Dark Mode</option>
-                            <option value="false">Light Mode</option>
-                        </select>
-                    </div>
-                </form>
-                <form method="post" action="/Home/SwitchColor" id="colorForm">
-                    <div class="form-group">
-                        <label for="primaryColor">Theme Color</label>
-                        <select class="form-control-small " name="primaryColor" id="primaryColor" onchange="document.getElementById('colorForm').submit();">
-                            <option value="" selected></option>
-                            <option value="green">Green</option>
-                            <option value="red">Red</option>
-                            <option value="blue">Blue</option>
-                            <option value="purple">Purple</option>
-                            <option value="orange">Orange</option>
-                        </select>
-                    </div>
-                </form>
+                <div class="col-6">
+                    <form method="post" action="/Home/SwitchBright" id="brightForm">
+                        <div class="form-group">
+                            <label for="isDark">Theme Brightness</label>
+                            <select class="form-control-small " name="isDark" id="isDark" onchange="document.getElementById('brightForm').submit();">
+                                <option value="" selected>@themeBrightness</option>
+                                <option value="true">Dark Mode</option>
+                                <option value="false">Light Mode</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <form method="post" action="/Home/SwitchColor" id="colorForm">
+                        <div class="form-group">
+                            <label for="primaryColor">Theme Color</label>
+                            <select class="form-control-small " name="primaryColor" id="primaryColor" onchange="document.getElementById('colorForm').submit();">
+                                <option value="" selected>@themeColor</option>
+                                <option value="green">Green</option>
+                                <option value="red">Red</option>
+                                <option value="blue">Blue</option>
+                                <option value="purple">Purple</option>
+                                <option value="orange">Orange</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
                 <div class="col-sm text-end">
                     &copy; 2024 - CulturNary
                 </div>
