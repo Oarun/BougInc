@@ -6,10 +6,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CulturNary.Web.Models;
+using CulturNary.Web.Services;
+using Microsoft.AspNetCore.Identity;
+using CulturNary.Web.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
+using CulturNary.Web.Models.DTO;
+using Newtonsoft.Json;
+using System.Web;
 
 namespace CulturNary.Web.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Signed,Admin")]
     [ApiController]
     public class CalorieTrackerController : ControllerBase
     {
@@ -29,16 +37,19 @@ namespace CulturNary.Web.Controllers
 
         // GET: api/CalorieTracker/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CalorieTracker>> GetCalorieTracker(int id)
+        public async Task<ActionResult<List<CalorieTrackerDto>>> GetCalorieTracker(int id)
         {
-            var calorieTracker = await _context.CalorieTrackers.FindAsync(id);
+            var calorieTracker = await _context.CalorieTrackers
+                                .Where(x => x.PersonId == id)
+                                .Select(c => new CalorieTrackerDto
+                                {
+                                    Id = c.Id,
+                                    PersonId = c.PersonId,
+                                    PersonCalories = c.PersonCalories
+                                })
+                                .ToListAsync();
 
-            if (calorieTracker == null)
-            {
-                return NotFound();
-            }
-
-            return calorieTracker;
+            return Ok(calorieTracker);
         }
 
         // PUT: api/CalorieTracker/5
@@ -75,12 +86,25 @@ namespace CulturNary.Web.Controllers
         // POST: api/CalorieTracker
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CalorieTracker>> PostCalorieTracker(CalorieTracker calorieTracker)
+        public async Task<ActionResult<CalorieTrackerDto>> PostCalorieTracker(CalorieTrackerDto calorieTrackerDto)
         {
+            CalorieTracker calorieTracker = new CalorieTracker()
+            {
+                Id = calorieTrackerDto.Id,
+                PersonId = calorieTrackerDto.PersonId,
+                PersonCalories = calorieTrackerDto.PersonCalories
+            };
+
             _context.CalorieTrackers.Add(calorieTracker);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCalorieTracker", new { id = calorieTracker.Id }, calorieTracker);
+            CalorieTrackerDto createdCalorieTrackerDto = new CalorieTrackerDto()
+            {
+                Id = calorieTracker.Id,
+                PersonId = calorieTracker.PersonId,
+                PersonCalories = calorieTracker.PersonCalories
+            };
+            return CreatedAtAction("GetCalorieTracker", new { id = calorieTracker.Id }, createdCalorieTrackerDto);
         }
 
         // DELETE: api/CalorieTracker/5
