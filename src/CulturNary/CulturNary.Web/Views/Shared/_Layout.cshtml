@@ -167,7 +167,7 @@
                         <div class="form-group">
                             <label for="isDark">Theme Brightness</label>
                             <select class="form-control-small " name="isDark" id="isDark" onchange="document.getElementById('brightForm').submit();">
-                                <option value="" selected>@themeBrightness</option>
+                                <option value="" selected id="currentBrightness">@themeBrightness</option>
                                 <option value="true">Dark Mode</option>
                                 <option value="false">Light Mode</option>
                             </select>
@@ -179,7 +179,7 @@
                         <div class="form-group">
                             <label for="primaryColor">Theme Color</label>
                             <select class="form-control-small " name="primaryColor" id="primaryColor" onchange="document.getElementById('colorForm').submit();">
-                                <option value="" selected>@themeColor</option>
+                                <option value="" selected id="currentColor">@themeColor</option>
                                 <option value="green">Green</option>
                                 <option value="red">Red</option>
                                 <option value="blue">Blue</option>
