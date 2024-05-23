@@ -7,7 +7,7 @@ window.onload = function() {
                 item.style.setProperty("background-color", "", "important");
                 item.style.setProperty("color", "", "important");
             });
-            this.style.setProperty("background-color", "#407A3B", "important");
+            //this.style.setProperty("background-color", "#407A3B", "important");
             this.style.setProperty("color", "white", "important");
         });
     });

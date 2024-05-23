@@ -1,14 +1,90 @@
-@model string
+@model ThemeViewModel
 
-@if (Model == "dark")
+@if (Model.Brightness == "dark")
 {
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    switch(Model.Color)
+    {
+        case "green": 
+            <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>;
+            break;
+
+        case "red": 
+            <link rel="stylesheet" href="~/css/darkred.css" asp-append-version="true"/>;
+            break;
+
+        case "blue":
+            <link rel="stylesheet" href="~/css/darkblue.css" asp-append-version="true"/>;
+            break;
+
+        case "purple":
+            <link rel="stylesheet" href="~/css/darkpurple.css" asp-append-version="true"/>;
+            break;
+
+        case "orange":
+            <link rel="stylesheet" href="~/css/darkorange.css" asp-append-version="true"/>;
+            break;
+
+        default: 
+            <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>;
+            break;
+    }
 }
-else if (Model == "light")
+else if (Model.Brightness == "light")
 {
-    <link rel="stylesheet" href="~/css/lightmode.css" asp-append-version="true" />
+    switch(Model.Color)
+    {
+        case "green": 
+            <link rel="stylesheet" href="~/css/lightgreen.css" asp-append-version="true"/>;
+            break;
+
+        case "red":
+            <link rel="stylesheet" href="~/css/lightred.css" asp-append-version="true"/>;
+            break;
+
+        case "blue":
+            <link rel="stylesheet" href="~/css/lightblue.css" asp-append-version="true"/>;
+            break;
+
+        case "purple":
+            <link rel="stylesheet" href="~/css/lightpurple.css" asp-append-version="true"/>;
+            break;
+
+        case "orange":
+            <link rel="stylesheet" href="~/css/lightorange.css" asp-append-version="true"/>;
+            break;
+
+        default: 
+            <link rel="stylesheet" href="~/css/lightgreen.css" asp-append-version="true"/>;
+            break;
+    }
 }
 else
 {
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    switch(Model.Color)
+    {
+        case "green": 
+            <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>;
+            break;
+
+        case "red": 
+            <link rel="stylesheet" href="~/css/darkred.css" asp-append-version="true"/>;
+            break;
+
+        case "blue": 
+            <link rel="stylesheet" href="~/css/darkblue.css" asp-append-version="true"/>;
+            break;
+
+        case "purple":
+            <link rel="stylesheet" href="~/css/darkpurple.css" asp-append-version="true"/>;
+            break;
+
+        case "orange":
+            <link rel="stylesheet" href="~/css/darkorange.css" asp-append-version="true"/>;
+            break;
+
+        default: 
+            <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>;
+            break;
+    }
 }

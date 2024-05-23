@@ -13,7 +13,85 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md fixed-top box-shadow">
+        @{
+            var themeBrightness = Context.Session.GetString("ThemeBrightness");
+            var themeColor = Context.Session.GetString("ThemeColor");
+            var backgroundColor = "";
+
+        switch(themeBrightness)
+            {
+                case "light":
+                    switch(themeColor)
+                    {
+                        case "green":
+                            backgroundColor = "#DCEDCF";
+                            break;
+                        case "red":
+                            backgroundColor = "#FFDFD0";
+                            break;
+                        case "blue":
+                            backgroundColor = "#D0E7FF";
+                            break;
+                        case "purple":
+                            backgroundColor = "#E6D0FF";
+                            break;
+                        case "orange":
+                            backgroundColor = "#FFE5CC";
+                            break;
+                        default:
+                            backgroundColor = "#DCEDCF";
+                            break;
+                    }
+                    break;
+                case "dark":
+                    switch(themeColor)
+                    {
+                        case "green":
+                            backgroundColor = "#353F2D";
+                            break;
+                        case "red":
+                            backgroundColor = "#5C2D29";
+                            break;
+                        case "blue":
+                            backgroundColor = "#2D3A5C";
+                            break;
+                        case "purple":
+                            backgroundColor = "#2D2B5C";
+                            break;
+                        case "orange":
+                            backgroundColor = "#D36B14";
+                            break;
+                        default:
+                            backgroundColor = "#353F2D";
+                            break;
+                    }
+                    break;
+                default:
+                    switch(themeColor)
+                    {
+                        case "green":
+                            backgroundColor = "#353F2D";
+                            break;
+                        case "red":
+                            backgroundColor = "#5C2D29";
+                            break;
+                        case "blue":
+                            backgroundColor = "#2D3A5C";
+                            break;
+                        case "purple":
+                            backgroundColor = "#2D2B5C";
+                            break;
+                        case "orange":
+                            backgroundColor = "#D36B14";
+                            break;
+                        default:
+                            backgroundColor = "#353F2D";
+                            break;
+                    }
+                    break;
+            }
+        }
+        <nav class="navbar navbar-expand-md fixed-top box-shadow" style="background-color: @(backgroundColor)">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/media/Logo.png" width="40" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,22 +162,40 @@
     <footer class="footer text-muted">
         <div class="container">
             <div class="row">
-                <form method="post" action="/Home/SwitchTheme" id="themeForm">
-                    <div class="form-group">
-                        <label for="isDark">Theme</label>
-                        <select class="form-control-small " name="isDark" id="isDark" onchange="document.getElementById('themeForm').submit();">
-                            <option value="" selected></option>
-                            <option value="true">Dark Mode</option>
-                            <option value="false">Light Mode</option>
-                        </select>
-                    </div>
-                </form>
+                <div class="col-6">
+                    <form method="post" action="/Home/SwitchBright" id="brightForm">
+                        <div class="form-group">
+                            <label for="isDark">Theme Brightness</label>
+                            <select class="form-control-small " name="isDark" id="isDark" onchange="document.getElementById('brightForm').submit();">
+                                <option value="" selected id="currentBrightness">@themeBrightness</option>
+                                <option value="true">Dark Mode</option>
+                                <option value="false">Light Mode</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <form method="post" action="/Home/SwitchColor" id="colorForm">
+                        <div class="form-group">
+                            <label for="primaryColor">Theme Color</label>
+                            <select class="form-control-small " name="primaryColor" id="primaryColor" onchange="document.getElementById('colorForm').submit();">
+                                <option value="" selected id="currentColor">@themeColor</option>
+                                <option value="green">Green</option>
+                                <option value="red">Red</option>
+                                <option value="blue">Blue</option>
+                                <option value="purple">Purple</option>
+                                <option value="orange">Orange</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
                 <div class="col-sm text-end">
                     &copy; 2024 - CulturNary
                 </div>
             </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
