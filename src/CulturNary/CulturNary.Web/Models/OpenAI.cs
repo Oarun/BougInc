@@ -10,11 +10,18 @@ namespace CulturNary.Web.Models
         public string? zipCode { get; set; }
     }
 
-    public class ImageRecognitionResult
+    public class AiTextRequest
+    {
+        public string recipeURL { get; set; }
+    }
+
+    public class AiResponse
     {
         public OpenAIResponse response { get; set; }
 
-        public string imageUrl { get; set; }
+        public string? imageUrl { get; set; }
+
+        public string? textRequest { get; set; }
     }
 
     public class OpenAIResponse

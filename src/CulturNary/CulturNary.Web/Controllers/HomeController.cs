@@ -82,7 +82,7 @@ public class HomeController : Controller
     }
 
     [Authorize(Roles = "Signed,Admin")]
-    public IActionResult ImageRecognition()
+    public IActionResult AiAssistant()
     {
         return View();
     }

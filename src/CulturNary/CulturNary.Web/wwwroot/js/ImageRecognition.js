@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById('startCameraButton').addEventListener('click', function() {
         // Get user media
-        navigator.mediaDevices.getUserMedia({ video: true })
+        navigator.mediaDevices.getUserMedia({ video: {facingMode: 'environment'} })
             .then(function(stream) {
                 // Display video stream in the video element
                 var video = document.getElementById('video');
