@@ -15,6 +15,17 @@ html {
     /* text-decoration: underline;
 } */
 
+
+.contact-us button {
+    background-color: #2D2B5C !important;
+    border: none;
+}
+
+    .contact-us button:hover {
+        background-color: #1f1e3e !important;
+        border: 1px solid #353376 !important;
+    }
+
 .btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
@@ -1204,16 +1215,20 @@ textarea.form-control {
     padding-bottom: 100px; /* Ensure space between cards and footer */
 }
 
-/* Ensure the footer doesn't cover the last card */
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #E6D0FF;
-    color: #2D2B5C;
+.footer-style {
+    padding-top: 20px;
+    background-color: #b894e2 !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 20px;
     text-align: center;
-    padding: 10px 0;
-    z-index: 999; /* Ensure footer stays above other content */
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin: 0;
+    height: 100%;
 }
 
 .main-content {
