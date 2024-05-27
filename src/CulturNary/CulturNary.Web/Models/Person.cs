@@ -27,5 +27,9 @@ public partial class Person
 
     public virtual ICollection<Restaurant> Restaurants { get; set; } = new List<Restaurant>();
 
+    public virtual ICollection<SharedRecipe> SharedRecipeSharedWiths { get; set; } = new List<SharedRecipe>();
+
+    public virtual ICollection<SharedRecipe> SharedRecipeSharers { get; set; } = new List<SharedRecipe>();
+
     public virtual ICollection<Video> Videos { get; set; } = new List<Video>();
 }
