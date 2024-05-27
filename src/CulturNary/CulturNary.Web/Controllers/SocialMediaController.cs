@@ -19,12 +19,15 @@ namespace CulturNary.Web.Controllers
         private readonly IPersonRepository _personRepository;
         private readonly IFriendRequestRepository _friendRequestRepository;
         private readonly IFriendshipRepository _friendshipRepository;
+        private readonly ISharedRecipeRepository _sharedRecipes;
 
         public SocialMediaController(
             IPersonRepository personRepository, 
             IFriendshipRepository friendshipRepository,
-            IFriendRequestRepository friendRequestRepository)
+            IFriendRequestRepository friendRequestRepository,
+            ISharedRecipeRepository sharedRecipes)
         {
+            _sharedRecipes = sharedRecipes;
             _personRepository = personRepository;
             _friendRequestRepository = friendRequestRepository;
             _friendshipRepository = friendshipRepository;
@@ -96,6 +99,31 @@ namespace CulturNary.Web.Controllers
         public async Task<IActionResult> Messaging()
         {
             return View();
+        }
+        [HttpGet("SharedRecipes")]
+        public IActionResult SharedRecipes()
+        {
+            string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var sharedRecipes = _sharedRecipes.GetSharedRecipesBySharedWithId(_personRepository.GetPersonByIdentityId(currentUserId).Id);
+            return View(sharedRecipes);
+        }
+        [HttpPost]
+        public IActionResult RemoveShared(int id)
+        {
+            var sharedRecipes = _sharedRecipes.GetSharedRecipesByFavoriteRecipeId(id);
+            if (sharedRecipes == null || !sharedRecipes.Any())
+            {
+                return NotFound();
+            }
+        
+            foreach (var sharedRecipe in sharedRecipes)
+            {
+                _sharedRecipes.Delete(sharedRecipe);
+            }
+        
+            // Assuming your ISharedRecipeRepository has a SaveChanges method
+        
+            return RedirectToAction("SharedRecipes");
         }
     }
 }

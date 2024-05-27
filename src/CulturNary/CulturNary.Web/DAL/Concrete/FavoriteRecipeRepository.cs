@@ -9,10 +9,12 @@ namespace CulturNary.DAL.Concrete
     public class FavoriteRecipeRepository : Repository<FavoriteRecipe>, IFavoriteRecipeRepository
     {
         private readonly IPersonRepository _personRepository;
+        private readonly ISharedRecipeRepository _sharedRecipeRepository;
 
-        public FavoriteRecipeRepository(CulturNaryDbContext context, IPersonRepository personRepository) : base(context)
+        public FavoriteRecipeRepository(CulturNaryDbContext context, IPersonRepository personRepository, ISharedRecipeRepository sharedRecipeRepository) : base(context)
         {
             _personRepository = personRepository;
+            _sharedRecipeRepository = sharedRecipeRepository;
         }
         public List<FavoriteRecipe> GetFavoriteRecipeForPersonID(int personId){
             return base.Where(x => x.PersonId == personId).ToList();
@@ -25,6 +27,11 @@ namespace CulturNary.DAL.Concrete
                 var favoriteRecipes = GetFavoriteRecipeForPersonID(person.Id);
                 foreach (var recipe in favoriteRecipes)
                 {
+                    var sharedRecipes = _sharedRecipeRepository.GetSharedRecipesByFavoriteRecipeId(recipe.Id);
+                    foreach (var sharedRecipe in sharedRecipes)
+                    {
+                        _sharedRecipeRepository.Delete(sharedRecipe);
+                    }
                     base.Delete(recipe);
                 }   
             }

@@ -20,4 +20,6 @@ public partial class FavoriteRecipe
     public string? Uri { get; set; }
 
     public string? Tags { get; set; }
+
+    public virtual ICollection<SharedRecipe> SharedRecipes { get; set; } = new List<SharedRecipe>();
 }

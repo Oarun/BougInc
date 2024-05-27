@@ -40,6 +40,7 @@ builder.Services.AddHttpClient<INewsService, NewsService>();
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IImageRecognitionService, ImageRecognitionService>();
 builder.Services.AddScoped<IBlockedUserRepository, BlockedUserRepository>();
+builder.Services.AddScoped<ISharedRecipeRepository, SharedRecipeRepository>();
 
 //add a new repo builder.Services.AddScoped<interface, repo>();
 // Add services to the container.
