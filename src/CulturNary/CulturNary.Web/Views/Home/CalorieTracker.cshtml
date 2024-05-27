@@ -11,10 +11,10 @@
 <body>
     <div class="container mt-5">
         <div class="row mb-4">
-            <div class="col-md-6">
+            <div class="col-md-6" style="text-align: center;">
                 <div class="card" id="CaloricIntakeCalc">
                     <div class="card-header">
-                        <h5>Calculate Daily Caloric Intake</h5>
+                        <h5>Calculate Daily Caloric Need</h5>
                     </div>
                     <div class="card-body">
                         <form id="calculate-calories-form">
@@ -52,11 +52,11 @@
                             <button type="submit" class="btn btn-primary">Calculate</button>
                         </form>
                     </div>
-                    <h5 id="currentColoricCalc"> here </h5>
+                    <h5 id="currentColoricCalc"></h5>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card">
+                <div class="card" style="text-align: center;">
                     <div class="card-header">
                         <h5>Log Daily Caloric Intake</h5>
                     </div>
@@ -77,25 +77,41 @@
                 <button id="view-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View All Logs</button>
             </div>
         </div>
-        <!-- Additional sections can be added here as needed -->
         <!-- Example of another section -->
-        <div class="row">
-            <div class="col-md-12">
-                <h5>Caloric History</h5>
-                <button id="weekly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Weekly Logs</button>
-                <button id="monthly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Monthly Logs</button>
-                <button id="yearly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Yearly Logs</button>
-            </div>
-        </div>
-        <!-- Example of another section -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Additional Section</h5>
+        <div class="col-md-12" style="text-align: center;">
+            <div class="row">
+                <h3>Caloric History</h3>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Weekly Calorie Log</h5>
+                            <button id="weekly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Weekly Logs</button>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="weeklyCaloriesChart" width="400" height="200"></canvas>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <canvas id="caloriesChart" width="400" height="200"></canvas>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Monthly Calorie Log</h5>
+                            <button id="monthly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Monthly Logs</button>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="monthlyCaloriesChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Yearly Calorie Log</h5>
+                            <button id="yearly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Yearly Logs</button>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="yearlyCaloriesChart" width="400" height="200"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
