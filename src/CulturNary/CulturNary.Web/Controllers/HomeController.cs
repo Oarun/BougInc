@@ -2,6 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using CulturNary.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Mail;
+using System.Net;
 
 namespace CulturNary.Web.Controllers;
 
@@ -25,6 +27,12 @@ public class HomeController : Controller
     }
 
     public IActionResult About()
+    {
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult Contact()
     {
         return View();
     }
@@ -92,6 +100,12 @@ public class HomeController : Controller
     {
         return View();
     }
+
+    public IActionResult FAQ()
+    {
+        return View();
+    }
+
 
     [Route("Home/Error/{code?}")]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -745,7 +745,7 @@ body.identity .manage button:hover {
 }
 
 .form-control-small {
-    width: 15%;
+    width: 100%;
     padding: 0.5rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
@@ -1204,18 +1204,6 @@ textarea.form-control {
     padding-bottom: 100px; /* Ensure space between cards and footer */
 }
 
-/* Ensure the footer doesn't cover the last card */
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #353F2D;
-    color: #DCEDCF;
-    text-align: center;
-    padding: 10px 0;
-    z-index: 999; /* Ensure footer stays above other content */
-}
-
 .main-content {
     margin-bottom: 100px; /* Adjust the value as needed */
 }
@@ -1256,3 +1244,4 @@ footer {
 .viewCollectionBtn {
     margin-top: 10px;
 }
+
