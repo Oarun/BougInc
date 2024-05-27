@@ -14,6 +14,11 @@ namespace CulturNaryBDDProject.PageObjects
         }
 
         public IWebElement RegisterButton => _webDriver.FindElement(By.Id("register-link"));
+        public IWebElement BrightnessSelector => _webDriver.FindElement(By.Id("isDark"));
+        public IWebElement ColorSelector => _webDriver.FindElement(By.Id("primaryColor"));
+        public IWebElement CurrentBrightness => _webDriver.FindElement(By.Id("currentBrightness"));
+        public IWebElement CurrentColor => _webDriver.FindElement(By.Id("currentColor"));
+
 
         public void Logout()
         {
@@ -25,5 +30,24 @@ namespace CulturNaryBDDProject.PageObjects
                     logoutButtons[0].Click();
                 }
         }
+
+        public void SetLightMode()
+        {
+            var selectElement = new SelectElement(BrightnessSelector);
+            selectElement.SelectByText("Light Mode");
+        }
+
+        public void SetDarkMode()
+        {
+            var selectElement = new SelectElement(BrightnessSelector);
+            selectElement.SelectByText("Dark Mode");
+        }
+
+        public void SetColor(string color)
+        {
+            var selectElement = new SelectElement(ColorSelector);
+            selectElement.SelectByText(color);
+        }
+
     }
 }

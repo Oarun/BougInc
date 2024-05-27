@@ -1,6 +1,6 @@
-﻿body {
+﻿/* body {
     background-color: #353F2D;
-}
+} */
 
 .background {
     background: url('/media/BOUG Logo About Background-small.png');
@@ -17,8 +17,8 @@
     padding-right: 10% !important;
 }
 .carousel-item {
-    background-color: #353F2D;
-    color: #DCEDCF !important;
+    /* background-color: #353F2D; */
+    /* color: #DCEDCF !important; */
     margin-bottom: 10%;
     width: 100%;
 }

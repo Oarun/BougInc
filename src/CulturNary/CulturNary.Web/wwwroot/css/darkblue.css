@@ -20,15 +20,15 @@ html {
 .btn-link.nav-link:focus,
 .form-control:focus,
 .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #407A3B;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #3B4A7A;
 }
 
 .btn-primary {
-    border-color: #407A3B;
+    border-color: #3B4A7A;
 }
 
 .btn-link {
-    background-color: #DCEDCF;
+    background-color: #D0E7FF;
 }
 
 html {
@@ -40,37 +40,37 @@ body {
     display: flex;
     flex-direction: column;
     padding-top: 60px;
-    background-color: #353F2D;
-    color: #DCEDCF;
+    background-color: #2D3A5C;
+    color: #D0E7FF;
     
 }
 
 .nav a,
 .navbar-nav a {
-    color: #DCEDCF;
+    color: #D0E7FF;
     cursor: pointer;
 }
 
     .nav a:hover,
     .navbar-nav a:hover {
-        color: #78A158;
+        color: #5878A1;
     }
 
     .nav a:focus,
     .navbar-nav a:focus {
-        color: #78A158;
+        color: #5878A1;
     }
 
     .nav a:active,
     .navbar-nav a:active {
-        color: #78A158;
+        color: #5878A1;
     }
 
 /*      Welcome Page Styling
 -----------------------------------*/
 .welcome-section {
-    background-image: linear-gradient(to bottom, #353F2D, #353F2D 70%, White 30%, white) !important;
-    color: #DCEDCF;
+    background-image: linear-gradient(to bottom, #2D3A5C, #2D3A5C 70%, White 30%, white) !important;
+    color: #D0E7FF;
 }
 
 .welcome-section {
@@ -97,15 +97,15 @@ body {
 
 @media (min-width: 768px) {
     .welcome-section {
-        background-image: linear-gradient(to right, #353F2D, #353F2D 70%, White 30%, white) !important;
+        background-image: linear-gradient(to right, #2D3A5C, #2D3A5C 70%, White 30%, white) !important;
     }
 }
 
 .btn-outline-custom {
     display: inline-block;
-    color: #353F2D;
-    background-color: #DCEDCF;
-    border: 2px solid #353F2D;
+    color: #2D3A5C;
+    background-color: #D0E7FF;
+    border: 2px solid #2D3A5C;
     padding: 0.25rem 1rem;
     font-size: 0.9rem;
     border-radius: 150px;
@@ -115,10 +115,10 @@ body {
 
     .btn-outline-custom:hover,
     .btn-outline-custom:focus {
-        color: #DCEDCF;
-        background-color: #353F2D;
+        color: #D0E7FF;
+        background-color: #2D3A5C;
         text-decoration: none;
-        border: 2px solid #DCEDCF;
+        border: 2px solid #D0E7FF;
     }
 
 .icon-registration {
@@ -164,21 +164,21 @@ body {
 }
 #welcome-user{
     padding-bottom: 50px !important;
-    background-color: #505C47 !important;
+    background-color: #47505C !important;
 }
 /*          Identity Styling
 -----------------------------------*/
 .ManageLayout {
-    color: #DCEDCF;
+    color: #D0E7FF;
     height: 100vh;
-    background-color: #353F2D;
+    background-color: #2D3A5C;
     width: 100%;
     font-family: Arial, sans-serif;
 }
 
 .profile-btn {
-    background-color: #407A3B;
-    color: #DCEDCF;
+    background-color: #3B4A7A;
+    color: #D0E7FF;
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -191,20 +191,20 @@ body {
 }
 
     .profile-btn:hover {
-        background-color: #353F2D;
-        color: #DCEDCF;
+        background-color: #2D3A5C;
+        color: #D0E7FF;
         text-decoration: none;
     }
 
     .profile-btn:focus {
-        background-color: #353F2D;
-        color: #DCEDCF;
+        background-color: #2D3A5C;
+        color: #D0E7FF;
         text-decoration: none;
     }
 
     .profile-btn:active {
-        background-color: #353F2D;
-        color: #DCEDCF;
+        background-color: #2D3A5C;
+        color: #D0E7FF;
         text-decoration: none;
     }
 
@@ -217,9 +217,9 @@ body {
 }
 
 .toggle-buttons .form-check-res-label{
-    background-color: #DCEDCF;
-    color: #407A3B;
-    border: 1px solid #407A3B;
+    background-color: #D0E7FF;
+    color: #3B4A7A;
+    border: 1px solid #3B4A7A;
     padding: 0.375rem 0.75rem;
     margin: 0 0.1rem;
     border-radius: 0.25rem;
@@ -227,31 +227,31 @@ body {
 }
 
 .toggle-buttons .form-check-res-label.active {
-    background-color: #407A3B;
-    color: #DCEDCF;
+    background-color: #3B4A7A;
+    color: #D0E7FF;
 }
 
 .panel {
-    background-color: #DCEDCF;
+    background-color: #D0E7FF;
     border-radius: 25px;
     padding: 10px;
-    color: #353F2D;
+    color: #2D3A5C;
     margin-left: 10px;
 }
 
 .account-border {
-    border-right: 2px solid #353F2D;
+    border-right: 2px solid #2D3A5C;
 }
 
 .text-danger-custom {
-    color: #353F2D;
+    color: #2D3A5C;
 }
 
 .nav-pills-custom {
 }
 
 body.identity .manage button {
-    background-color: #407A3B !important;
+    background-color: #3B4A7A !important;
     color: white !important;
     border: none !important;
     padding: 10px 20px !important;
@@ -265,38 +265,38 @@ body.identity .manage button {
 }
 
 .nav-pills-custom .nav-link {
-    color: #353F2D;
+    color: #2D3A5C;
 }
 
 body.identity .manage button:hover {
     background-color: white !important;
-    color: #407A3B !important;
+    color: #3B4A7A !important;
 }
 
 .nav-pills-custom .nav-link.active, .nav-pills-custom .show > .nav-link {
-    color: #DCEDCF;
-    background-color: #407A3B;
+    color: #D0E7FF;
+    background-color: #3B4A7A;
     border-radius: 50px;
 }
 
 /*    Registration & Login From Styling
 -----------------------------------*/
 .registration-message {
-    background-color: #353F2D;
+    background-color: #2D3A5C;
     height: 100vh;
-    color: #DCEDCF;
+    color: #D0E7FF;
     display: flex;
 }
 
 .login-section {
-    background-color: #353F2D;
+    background-color: #2D3A5C;
     height: 100vh;
-    color: #DCEDCF;
+    color: #D0E7FF;
     display: flex;
 }
 
 .login-title {
-    color: #DCEDCF;
+    color: #D0E7FF;
     display: flex;
     justify-content: center;
 }
@@ -307,12 +307,12 @@ body.identity .manage button:hover {
 }
 
 .login-extra-text {
-    color: #407A3B
+    color: #3B4A7A
 }
 
     .login-extra-text:hover,
     .login-extra-text:focus {
-        color: #78A158;
+        color: #5878A1;
         underline: none;
     }
 
@@ -322,7 +322,7 @@ body.identity .manage button:hover {
 
 .login-btn,
 .register-btn {
-    background-color: #407A3B;
+    background-color: #3B4A7A;
 }
 
 
@@ -335,15 +335,15 @@ body.identity .manage button:hover {
 -----------------------------------*/
 .ManageLayout {
     margin-top: 3% !important;
-    color: #DCEDCF;
+    color: #D0E7FF;
     height: 100vh;
-    background-color: #353F2D;
+    background-color: #2D3A5C;
     width: 100%;
 }
 
 .profile-btn {
-    background-color: #407A3B;
-    color: #DCEDCF;
+    background-color: #3B4A7A;
+    color: #D0E7FF;
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -358,7 +358,7 @@ body.identity .manage button:hover {
 .profile-btn-danger {
     border-color: #3b407a;
     background-color: #3b407a;
-    color: #DCEDCF;
+    color: #D0E7FF;
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -374,18 +374,18 @@ body.identity .manage button:hover {
 }
 
     .nav-pills-custom .nav-link {
-        color: #407A3B;
+        color: #3B4A7A;
     }
 
         .nav-pills-custom .nav-link.active,
         .nav-pills-custom .show > .nav-link {
-            color: #DCEDCF;
-            background-color: #407A3B;
+            color: #D0E7FF;
+            background-color: #3B4A7A;
             border-radius: 50px;
         }
 
 .text-danger-custom {
-    color: #353F2D;
+    color: #2D3A5C;
 }
 
 .alert-warning-custom {
@@ -393,7 +393,7 @@ body.identity .manage button:hover {
 }
 
 .profile-link {
-    color: #407A3B;
+    color: #3B4A7A;
 }
 
     .profile-link:hover,
@@ -402,19 +402,19 @@ body.identity .manage button:hover {
     }
 
 .manage-profile {
-    background-color: #DCEDCF;
+    background-color: #D0E7FF;
     padding: 10px;
 }
 
 .account-border {
-    border-right: 2px solid #353F2D;
+    border-right: 2px solid #2D3A5C;
 }
 
 .panel {
-    background-color: #DCEDCF;
+    background-color: #D0E7FF;
     border-radius: 25px;
     padding: 10px;
-    color: #353F2D;
+    color: #2D3A5C;
     margin-left: 10px;
 }
 
@@ -448,7 +448,7 @@ body.identity .manage button:hover {
 .profile-bio-box {
     padding: 20px;
     border: 3px solid;
-    border-color: #353F2D;
+    border-color: #2D3A5C;
     border-radius: 8px;
     display: inline-block;
     margin-top: 20px;
@@ -464,7 +464,7 @@ body.identity .manage button:hover {
 /*    Search Engine Selection Page Styling
 ---------------------------------------------*/
 .search-engine-selection {
-    background-color: #353F2D;
+    background-color: #2D3A5C;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -474,14 +474,14 @@ body.identity .manage button:hover {
 }
 
 .menu-container {
-    background-color: #505C47;
+    background-color: #47505C;
     width: 80%;
     max-width: 400px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
-    color: #DCEDCF;
+    color: #D0E7FF;
 }
 
 .selection-menu {
@@ -490,8 +490,8 @@ body.identity .manage button:hover {
 
 .nutrition-search-btn,
 .nutrition-search-btn a {
-    background-color: #DCEDCF;
-    color: #353F2D;
+    background-color: #D0E7FF;
+    color: #2D3A5C;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
@@ -504,14 +504,14 @@ body.identity .manage button:hover {
 }
 
     .nutrition-search-btn:hover, .nutrition-search-btn a:hover {
-        background-color: #353F2D;
-        color: #DCEDCF;
+        background-color: #2D3A5C;
+        color: #D0E7FF;
         text-decoration: none;
     }
 
     .nutrition-search-btn:focus, .nutrition-search-btn a:focus {
-        background-color: #353F2D;
-        color: #DCEDCF;
+        background-color: #2D3A5C;
+        color: #D0E7FF;
         text-decoration: none;
     }
 
@@ -534,41 +534,41 @@ body.identity .manage button:hover {
 ---------------------------------------------*/
 
 .search-engine-section {
-    background-color: #353F2D;
+    background-color: #2D3A5C;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     padding: 0;
     margin: 0;
-    color: #DCEDCF;
+    color: #D0E7FF;
 }
 
 .search-menu-section {
-    background-color: #dcedcf2a;
+    background-color: #D0E7FF2a;
     border-radius: 25px;
     padding-bottom: 20px;
     padding-top: 20px;
 }
 
 .search-section {
-    background-color: #DCEDCF;
+    background-color: #D0E7FF;
     border-radius: 25px;
-    color: #353F2D;
+    color: #2D3A5C;
 }
 
 .search-engine {
-    background-color: #DCEDCF;
+    background-color: #D0E7FF;
     border-radius: 25px;
-    color: #353F2D;
-    border: 1px solid #353F2D;
+    color: #2D3A5C;
+    border: 1px solid #2D3A5C;
     padding-left: 15px;
     height: 40px;
 }
 
 .search-btn {
-    background-color: #407A3B;
-    color: #DCEDCF;
+    background-color: #3B4A7A;
+    color: #D0E7FF;
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -581,8 +581,8 @@ body.identity .manage button:hover {
     border-radius: 10px;
 }
     .search-btn:hover {
-        background-color: #407a3bad;
-        color: #DCEDCF;
+        background-color: #3B4A7Aad;
+        color: #D0E7FF;
         border: none;
         padding: 10px 20px;
         text-align: center;
@@ -598,7 +598,7 @@ body.identity .manage button:hover {
 /*    Collections Styling
 -----------------------------------*/
 .collections-page {
-    background-color: #505C47;
+    background-color: #47505C;
     padding-top: 10px;
     padding-bottom: 0; /* Reduce bottom padding */
 }
@@ -608,42 +608,42 @@ body.identity .manage button:hover {
     }
 
 .collections-text-light{
-    color: #DCEDCF;
+    color: #D0E7FF;
 }
 
 .collections-text-dark{
-    color: #353F2D;
+    color: #2D3A5C;
 }
 
 .btn-collections {
-    background-color: #353F2D;
-    color: #DCEDCF;
+    background-color: #2D3A5C;
+    color: #D0E7FF;
     text-decoration: none;
     text-align: center;
 }
 
 .btn-collections-light {
-    background-color: #DCEDCF;
-    color: #353F2D;
+    background-color: #D0E7FF;
+    color: #2D3A5C;
     text-decoration: none;
     text-align: center;
-    border: 2px solid #DCEDCF;
+    border: 2px solid #D0E7FF;
     padding: 0.25rem 1rem;
     font-size: 0.9rem;
     border-radius: 150px;
 }
 
 .btn-recipes {
-    background-color: #353F2D;
-    color: #DCEDCF;
+    background-color: #2D3A5C;
+    color: #D0E7FF;
     text-decoration: none;
 }
 
 .btn-back{
-    color: #353F2D;
+    color: #2D3A5C;
     text-decoration:underline;
     border: none;
-    background-color: #DCEDCF;
+    background-color: #D0E7FF;
 }
 
 .icon-margin {
@@ -668,8 +668,8 @@ body.identity .manage button:hover {
 }
 
 .card-body{
-    background-color: #DCEDCF;
-    color: #353F2D;
+    background-color: #D0E7FF;
+    color: #2D3A5C;
 }
 
 .collectionDetailsContainer {
@@ -701,7 +701,7 @@ body.identity .manage button:hover {
     display: inline-block; /* Keep them in line */
     margin-right: 10px; /* Space between tags */
     padding: 5px; /* Padding inside the border */
-    border: 2px solid #353F2D; /* Border color */
+    border: 2px solid #2D3A5C; /* Border color */
     border-radius: 5px; /* Optional: rounded corners */
     white-space: nowrap; /* Prevents the text from wrapping */
 }
@@ -759,8 +759,8 @@ textarea.form-control {
 
 .btn-collections,
 .btn-recipes {
-    background-color: #353F2D;
-    color: #DCEDCF;
+    background-color: #2D3A5C;
+    color: #D0E7FF;
     text-decoration: none;
     border: none;
     padding: 0.5rem 1rem;
@@ -771,8 +771,8 @@ textarea.form-control {
 
     .btn-collections:hover,
     .btn-recipes:hover {
-        background-color: #353F2D;
-        color: #DCEDCF;
+        background-color: #2D3A5C;
+        color: #D0E7FF;
         text-decoration: none;
     }
 
@@ -780,8 +780,8 @@ textarea.form-control {
 #createCollectionFormContainer,
 #editCollectionFormContainer,
 #addRecipeFormContainer {
-    background-color: #DCEDCF;
-    color: #353F2D;
+    background-color: #D0E7FF;
+    color: #2D3A5C;
     /* padding: 1rem; */
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -789,8 +789,8 @@ textarea.form-control {
 }
 
 #collectionDetailsContainer {
-    background-color: #DCEDCF;
-    color: #353F2D;
+    background-color: #D0E7FF;
+    color: #2D3A5C;
     /* padding: 1rem; */
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -798,7 +798,7 @@ textarea.form-control {
 }
 
 #addRecipeFormContainer {
-    border: 2px solid #353F2D; /* Add border with the desired color */
+    border: 2px solid #2D3A5C; /* Add border with the desired color */
 }
 
 .adminTable {
@@ -824,7 +824,7 @@ textarea.form-control {
     }
 
 .make-admin-button {
-    background-color: #4F7959; /* dark green */
+    background-color: #4B5A79; /* dark green */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -841,7 +841,7 @@ textarea.form-control {
     color: #4F7942;
 }
 .delete-user-button {
-    background-color: #4F7959; /* dark green */
+    background-color: #4B5A79; /* dark green */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -863,7 +863,7 @@ textarea.form-control {
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
-    background-color: #353f2dbf;
+    background-color: #2D3A5Cbf;
     
 }
 
@@ -921,10 +921,10 @@ textarea.form-control {
     }
 
     .recipe-card a {
-        color: #353F2D;
+        color: #2D3A5C;
     }
     .recipe-card a:hover {
-        color: #78A158;
+        color: #5878A1;
     }
 .card {
     width: 20rem;
@@ -937,7 +937,7 @@ textarea.form-control {
 
 #searchResults {
     max-height: 500px;
-    color: #353F2D;
+    color: #2D3A5C;
     overflow-y: auto; 
     background-color: #ffffff91; 
     border-radius: 5px; 
@@ -954,16 +954,16 @@ textarea.form-control {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .search-engine-section {
-    background-color: #353F2D; 
+    background-color: #2D3A5C; 
     padding: 20px;
 }
 
 #searchResults {
     max-height: 500px;
     overflow-y: auto;
-    background-color: #353F2D;
+    background-color: #2D3A5C;
     border-radius: 5px;
-    border-block-color: #DCEDCF;
+    border-block-color: #D0E7FF;
     padding: 15px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
@@ -999,7 +999,7 @@ textarea.form-control {
 }
 
 #recipeModalLabel {
-    color: #353F2D
+    color: #2D3A5C
 }
 
 @media (max-width: 768px) {
@@ -1052,16 +1052,16 @@ textarea.form-control {
 
     .card-text-body .btn-primary {
         background-color: rgb(0 0 0 / 0%) !important;
-        color: #11db03ba !important;
+        color: #005FFFba !important;
     }
         .card-text-body .btn-primary:hover {
             background-color: rgb(0 0 0 / 0%) !important;
-            color: #11db03ee !important;
+            color: #005FFFee !important;
         }
 
 .modal-btn .btn-primary, .modal-body .btn-primary {
-    background-color: #407A3B;
-    color: #DCEDCF;
+    background-color: #3B4A7A;
+    color: #D0E7FF;
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -1074,43 +1074,43 @@ textarea.form-control {
     border-radius: 10px;
     width: 750px;
     margin-bottom: 30px;
-    border: 1px solid #DCEDCF;
+    border: 1px solid #D0E7FF;
 }
 
     .modal-btn .btn-primary:hover, .modal-body .btn-primary:hover {
-        background-color: #407a3bad;
-        color: #353F2D;
+        background-color: #3B4A7Aad;
+        color: #2D3A5C;
         text-decoration: none;
-        border: #353F2D;
+        border: #2D3A5C;
     }
 
     .modal-btn .btn-primary:focus, .modal-body .btn-primary:hover {
-        background-color: #407a3bad;
-        color: #353F2D;
+        background-color: #3B4A7Aad;
+        color: #2D3A5C;
         text-decoration: none;
-        border: #353F2D;
+        border: #2D3A5C;
     }
 
     .modal-btn .btn-primary:active, .modal-body .btn-primary:hover {
-        background-color: #407a3bad;
-        color: #353F2D;
+        background-color: #3B4A7Aad;
+        color: #2D3A5C;
         text-decoration: none;
-        border: #353F2D;
+        border: #2D3A5C;
     }
 
 .modal-title-text h5 {
-    color: #DCEDCF !important;
+    color: #D0E7FF !important;
     text-align:center;
 }
 .modal-title-text {
-    background-color: #353F2D;
+    background-color: #2D3A5C;
 }
 
 .img-container .img-fluid {
     width: fit-content;
 }
 .modal-btn-link {
-    color: #DCEDCF !important;
+    color: #D0E7FF !important;
     text-decoration: none !important;
 }
 
@@ -1128,7 +1128,7 @@ textarea.form-control {
 }
 
 .grocery-list {
-    background-color: #353F2D;
+    background-color: #2D3A5C;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1138,20 +1138,20 @@ textarea.form-control {
 }
 
 .list-container {
-    background-color: #505C47;
+    background-color: #47505C;
     width: 80%;
     max-width: 400px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
-    color: #DCEDCF;
+    color: #D0E7FF;
 }
 
 .grocery-main button, .grocery-main a {
     border: none;
     cursor: pointer;
-    color: #407A3B;
+    color: #3B4A7A;
     border-radius: 10px;
 }
 
@@ -1162,7 +1162,7 @@ textarea.form-control {
     width: 270px;
 }
 #checklistDate {
-    color: #407A3B;
+    color: #3B4A7A;
     border: none;
     padding: 5px;
     font-size: 15px;
@@ -1209,8 +1209,8 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #353F2D;
-    color: #DCEDCF;
+    background-color: #2D3A5C;
+    color: #D0E7FF;
     text-align: center;
     padding: 10px 0;
     z-index: 999; /* Ensure footer stays above other content */

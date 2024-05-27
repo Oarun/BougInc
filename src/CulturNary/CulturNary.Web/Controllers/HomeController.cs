@@ -111,12 +111,26 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult SwitchTheme(bool isDark)
+    public IActionResult SwitchBright(bool isDark)
     {
 
         string theme = isDark ? "dark" : "light";
 
-        HttpContext.Session.SetString("Theme", theme);
+        HttpContext.Session.SetString("ThemeBrightness", theme);
+
+        var refererUrl = Request.Headers["Referer"].ToString();
+        if(!string.IsNullOrEmpty(refererUrl))
+        {
+            return Redirect(refererUrl);
+        }
+
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpPost]
+    public IActionResult SwitchColor(string primaryColor)
+    {
+        HttpContext.Session.SetString("ThemeColor", primaryColor);
 
         var refererUrl = Request.Headers["Referer"].ToString();
         if(!string.IsNullOrEmpty(refererUrl))
