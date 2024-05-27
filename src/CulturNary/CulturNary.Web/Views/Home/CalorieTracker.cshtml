@@ -52,6 +52,7 @@
                             <button type="submit" class="btn btn-primary">Calculate</button>
                         </form>
                     </div>
+                    <h5 id="currentColoricCalc"> here </h5>
                 </div>
             </div>
             <div class="col-md-6">
@@ -73,23 +74,17 @@
                         </form>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button id="view-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Logs</button>
-                </div>
+                <button id="view-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View All Logs</button>
             </div>
         </div>
         <!-- Additional sections can be added here as needed -->
         <!-- Example of another section -->
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Additional Section</h5>
-                    </div>
-                    <div class="card-body">
-                        <p>Content for the additional section can go here.</p>
-                    </div>
-                </div>
+                <h5>Caloric History</h5>
+                <button id="weekly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Weekly Logs</button>
+                <button id="monthly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Monthly Logs</button>
+                <button id="yearly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Yearly Logs</button>
             </div>
         </div>
         <!-- Example of another section -->
@@ -100,7 +95,7 @@
                         <h5>Additional Section</h5>
                     </div>
                     <div class="card-body">
-                        <p>Content for the additional section can go here.</p>
+                        <canvas id="caloriesChart" width="400" height="200"></canvas>
                     </div>
                 </div>
             </div>
@@ -115,6 +110,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- Log entries will be displayed here -->
+                    <div id="logEntriesTable"></div>
+                    <div id="averageCalories" class="average-calories"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="close" data-dismiss="modal">Close</button>
@@ -122,5 +119,6 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

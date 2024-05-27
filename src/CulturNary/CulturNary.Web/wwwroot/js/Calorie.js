@@ -8,23 +8,22 @@ $(document).ready(function() {
         event.preventDefault();
         // Calculate daily caloric intake logic here
         // Get form input values
-    const weight = parseFloat(document.getElementById('weight').value);
-    const height = parseFloat(document.getElementById('height').value);
-    const age = parseInt(document.getElementById('age').value);
-    const gender = document.getElementById('gender').value;
-    const activityLevel = parseFloat(document.getElementById('activity-level').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        const height = parseFloat(document.getElementById('height').value);
+        const age = parseInt(document.getElementById('age').value);
+        const gender = document.getElementById('gender').value;
+        const activityLevel = parseFloat(document.getElementById('activity-level').value);
 
-    // Call the function to calculate daily caloric intake
-    const dailyCaloricIntake = calculateDailyCaloricIntake(weight, height, age, gender, activityLevel);
+        // Call the function to calculate daily caloric intake
+        const dailyCaloricIntake = calculateDailyCaloricIntake(weight, height, age, gender, activityLevel);
 
-    // Log the result to the console
-    console.log("Daily Caloric Intake:", dailyCaloricIntake.toFixed(0), "calories");
-    var CalorieTracker = {
-        personId: personId,
-        personCalories: dailyCaloricIntake.toFixed(0)
-    };
-
-    await postDailyCaloricIntake(CalorieTracker);
+        // Log the result to the console
+        console.log("Daily Caloric Intake:", dailyCaloricIntake.toFixed(0), "calories");
+        var CalorieTracker = {
+            personId: personId,
+            personCalories: dailyCaloricIntake.toFixed(0)
+        };
+        await postDailyCaloricIntake(CalorieTracker);
     });
 
     document.getElementById('log-calories-form').addEventListener('submit', function(event) {
@@ -49,7 +48,19 @@ $(document).ready(function() {
     });
 
     $('#view-logs-btn').click(function () {
-        fetchLogEntries(personId);
+        fetchLogEntries(personId,0);
+    });
+
+    $('#weekly-logs-btn').click(function () {
+        fetchLogEntries(personId,1);
+    });
+
+    $('#monthly-logs-btn').click(function () {
+        fetchLogEntries(personId,2);
+    });
+
+    $('#yearly-logs-btn').click(function () {
+        fetchLogEntries(personId,3);
     });
 
     // Close the modal when the close button is clicked
@@ -83,8 +94,13 @@ function fetchCalorieTracker(id) {
         type: "GET",
         contentType: "application/json",
         success: function (calorieTracker) {
-            //$("#CaloricIntakeCalc").hide();
             console.log(calorieTracker); // Handle the data as needed
+            if (calorieTracker && calorieTracker.length > 0) {
+                // Get the last entry in the list
+                var lastEntry = calorieTracker[calorieTracker.length - 1];
+                // Update the h5 element with the last entry's calories logged
+                $('#currentColoricCalc').text('Daily Caloric Need: ' + lastEntry.personCalories);
+            }
         },
         error: function (error) {
             // Handle errors during retrieving restaurants
@@ -149,6 +165,7 @@ async function postDailyCaloricIntake(CalorieTracker) {
         data: JSON.stringify(CalorieTracker),
         success: function (response) {
             // Handle successful response
+            fetchCalorieTracker(personId)
             console.log("CalorieTracker created successfully:", response);
         },
         error: function (error) {
@@ -158,7 +175,7 @@ async function postDailyCaloricIntake(CalorieTracker) {
     });
 }
 
-// Define a function for making the AJAX POST request
+// Function for making the AJAX POST request
 async function postCalorieLog(CalorieLog) {
     console.log(CalorieLog)
     $.ajax({
@@ -178,12 +195,12 @@ async function postCalorieLog(CalorieLog) {
 }
 
 // Function to fetch log entries via AJAX
-async function fetchLogEntries(personId) {
+async function fetchLogEntries(personId, number) {
     $.ajax({
         type: 'GET',
         url: '/api/CalorieLog/' + personId,
         success: function (data) {
-            displayLogEntries(data);
+            displayLogEntries(data, number);
         },
         error: function () {
             alert('Failed to fetch log entries.');
@@ -192,26 +209,90 @@ async function fetchLogEntries(personId) {
 }
 
 // Function to display log entries in the modal
-function displayLogEntries(entries) {
+function displayLogEntries(entries, number) {
     // Show modal
     $('#logModal').css('display', 'block');
-    var modalBody = $('#logModal').find('.modal-body');
-    modalBody.empty(); // Clear previous entries
+    var logEntriesTable = $('#logEntriesTable');
+    var averageCaloriesDiv = $('#averageCalories');
+    logEntriesTable.empty(); // Clear previous entries
+    averageCaloriesDiv.empty(); // Clear previous average
+
     if (entries.length > 0) {
-        var table = $('<table class="table"></table>');
-        var tableHead = $('<thead><tr><th>Date</th><th>Calories</th></tr></thead>');
-        var tableBody = $('<tbody></tbody>');
-        entries.forEach(function (entry) {
-            console.log(entry)
-            var row = $('<tr></tr>');
-            row.append('<td>' + entry.logDate + '</td>');
-            row.append('<td>' + entry.caloriesLogged + '</td>');
-            tableBody.append(row);
-        });
-        table.append(tableHead);
-        table.append(tableBody);
-        modalBody.append(table);
+        var filteredEntries = filterEntries(entries, number);
+
+        if (filteredEntries.length > 0) {
+            var table = $('<table class="table"></table>');
+            var tableHead = $('<thead><tr><th>Date</th><th>Calories</th></tr></thead>');
+            var tableBody = $('<tbody></tbody>');
+
+            filteredEntries.forEach(function (entry) {
+                var row = $('<tr></tr>');
+                row.append('<td>' + entry.logDate + '</td>');
+                row.append('<td>' + entry.caloriesLogged + '</td>');
+                tableBody.append(row);
+            });
+
+            table.append(tableHead);
+            table.append(tableBody);
+            logEntriesTable.append(table);
+
+            // Calculate the average calories
+            var totalCalories = filteredEntries.reduce(function (sum, entry) {
+                return sum + entry.caloriesLogged;
+            }, 0);
+            var averageCalories = (totalCalories / filteredEntries.length).toFixed(2);
+
+            // Append the average to the modal
+            averageCaloriesDiv.text('Average Calories: ' + averageCalories);
+        } else {
+            logEntriesTable.text('No log entries found for the selected period.');
+        }
     } else {
-        modalBody.text('No log entries found.');
+        logEntriesTable.text('No log entries found.');
     }
+}
+
+// Function to filter entries based on the number parameter
+function filterEntries(entries, number) {
+    var now = new Date();
+    var filteredEntries = [];
+
+    entries.forEach(function (entry) {
+        var entryDate = new Date(entry.logDate);
+
+        switch (number) {
+            case 0: // Show all entries
+                filteredEntries.push(entry);
+                break;
+            case 1: // Show current week entries
+                var startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+                startOfWeek.setHours(0, 0, 0, 0);
+                var endOfWeek = new Date(startOfWeek);
+                endOfWeek.setDate(startOfWeek.getDate() + 6);
+                endOfWeek.setHours(23, 59, 59, 999);
+
+                if (entryDate >= startOfWeek && entryDate <= endOfWeek) {
+                    filteredEntries.push(entry);
+                }
+                break;
+            case 2: // Show current month entries
+                var startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+                var endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+                if (entryDate >= startOfMonth && entryDate <= endOfMonth) {
+                    filteredEntries.push(entry);
+                }
+                break;
+            case 3: // Show current year entries
+                var startOfYear = new Date(now.getFullYear(), 0, 1);
+                var endOfYear = new Date(now.getFullYear(), 11, 31);
+
+                if (entryDate >= startOfYear && entryDate <= endOfYear) {
+                    filteredEntries.push(entry);
+                }
+                break;
+        }
+    });
+
+    return filteredEntries;
 }
