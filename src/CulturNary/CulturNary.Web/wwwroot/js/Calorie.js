@@ -83,6 +83,9 @@ function getPerson() {
         success: function (data) {
             personId = data.id;
             fetchCalorieTracker(personId);
+            fetchYearlyLogEntriesForGraph(personId);
+            fetchMonthlyLogEntriesForGraph(personId);
+            fetchWeeklyLogEntriesForGraph(personId)
         }
     });
 }
@@ -186,6 +189,9 @@ async function postCalorieLog(CalorieLog) {
         success: function (response) {
             // Handle successful response
             console.log("CalorieLog logged successfully:", response);
+            fetchYearlyLogEntriesForGraph(personId);
+            fetchMonthlyLogEntriesForGraph(personId);
+            fetchWeeklyLogEntriesForGraph(personId)
         },
         error: function (error) {
             // Handle errors during API call
@@ -295,4 +301,165 @@ function filterEntries(entries, number) {
     });
 
     return filteredEntries;
+}
+
+// Function to fetch log entries via AJAX
+async function fetchYearlyLogEntriesForGraph(personId) {
+    $.ajax({
+        type: 'GET',
+        url: '/api/CalorieLog/' + personId,
+        success: function (data) {
+            console.log(data)
+            renderYearlyGraph(data);
+        },
+        error: function () {
+            alert('Failed to fetch log entries.');
+        }
+    });
+}
+
+// Function to render graph
+function renderYearlyGraph(data) {
+    // Parse your array into labels and data arrays
+    const labels = data.map(entry => entry.logDate);
+    const calories = data.map(entry => entry.caloriesLogged);
+
+    // Render the graph using Chart.js
+    const ctx = document.getElementById('yearlyCaloriesChart').getContext('2d');
+    const caloriesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Calories Logged',
+                data: calories,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+
+async function fetchMonthlyLogEntriesForGraph(personId) {
+    try {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1; // Months are zero-indexed
+
+        const data = await $.ajax({
+            type: 'GET',
+            url: '/api/CalorieLog/' + personId,
+        });
+
+        // Filter data for the current month
+        const currentMonthData = data.filter(entry => {
+            const entryDate = new Date(entry.logDate);
+            return entryDate.getFullYear() === year && entryDate.getMonth() + 1 === month;
+        });
+
+        // Render graph for current month data
+        renderMonthlyGraph(currentMonthData);
+    } catch (error) {
+        //alert('Failed to fetch log entries for the current month.');
+        console.error(error);
+    }
+}
+
+// Function to render graph
+function renderMonthlyGraph(data) {
+    // Parse your array into labels and data arrays
+    const labels = data.map(entry => entry.logDate);
+    const calories = data.map(entry => entry.caloriesLogged);
+
+    // Render the graph using Chart.js
+    const ctx = document.getElementById('monthlyCaloriesChart').getContext('2d');
+    const caloriesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Calories Logged',
+                data: calories,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+
+async function fetchWeeklyLogEntriesForGraph(personId) {
+    try {
+        const today = new Date();
+        const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
+        const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 6);
+
+        const data = await $.ajax({
+            type: 'GET',
+            url: '/api/CalorieLog/' + personId,
+        });
+
+        // Filter data for the current week
+        const currentWeekData = data.filter(entry => {
+            const entryDate = new Date(entry.logDate);
+            return entryDate >= startOfWeek && entryDate <= endOfWeek;
+        });
+
+        // Render graph for current week data
+        renderWeeklyGraph(currentWeekData);
+    } catch (error) {
+       // alert('Failed to fetch log entries for the current week.');
+        console.error(error);
+    }
+}
+
+// Function to render graph
+function renderWeeklyGraph(data) {
+    // Parse your array into labels and data arrays
+    const labels = data.map(entry => entry.logDate);
+    const calories = data.map(entry => entry.caloriesLogged);
+
+    // Render the graph using Chart.js
+    const ctx = document.getElementById('weeklyCaloriesChart').getContext('2d');
+    const caloriesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Calories Logged',
+                data: calories,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
 }

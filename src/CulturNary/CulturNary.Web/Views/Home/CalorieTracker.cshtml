@@ -7,12 +7,13 @@
 <head>
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-o1XrXB6JWWIhKc1ZAhm8tVQMSbVC1mXC/hmdDaWMC5l5Rxh3e2W45dzKIMJwArh1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-o1XrXB6JWWIhKc1ZAhm8tVQMSbVC1mXC/hmdDaWMC5l5Rxh3e2W45dzKIMJwArh1" crossorigin="anonymous">
 </head>
 <body>
     <div class="container mt-5">
         <div class="row mb-4">
             <div class="col-md-6" style="text-align: center;">
-                <div class="card" id="CaloricIntakeCalc">
+                <div class="card" id="CaloricIntakeCalc" style="width: 100%;">
                     <div class="card-header">
                         <h5>Calculate Daily Caloric Need</h5>
                     </div>
@@ -56,7 +57,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card" style="text-align: center;">
+                <div class="card" style="text-align: center; width: 100%;">
                     <div class="card-header">
                         <h5>Log Daily Caloric Intake</h5>
                     </div>
@@ -72,9 +73,11 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Log Calories</button>
                         </form>
+                        <div style="padding: 2px;">
+                            <button id="view-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View All Logs</button>
+                        </div>             
                     </div>
                 </div>
-                <button id="view-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View All Logs</button>
             </div>
         </div>
         <!-- Example of another section -->
@@ -82,35 +85,35 @@
             <div class="row">
                 <h3>Caloric History</h3>
                 <div class="col-md-4">
-                    <div class="card">
+                    <div class="card" style="width: 100%;">
                         <div class="card-header">
                             <h5>Weekly Calorie Log</h5>
                             <button id="weekly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Weekly Logs</button>
                         </div>
                         <div class="card-body">
-                            <canvas id="weeklyCaloriesChart" width="400" height="200"></canvas>
+                            <canvas id="weeklyCaloriesChart" width="100%" height="100%"></canvas>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card">
+                    <div class="card" style="width: 100%;">
                         <div class="card-header">
                             <h5>Monthly Calorie Log</h5>
                             <button id="monthly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Monthly Logs</button>
                         </div>
                         <div class="card-body">
-                            <canvas id="monthlyCaloriesChart" width="400" height="200"></canvas>
+                            <canvas id="monthlyCaloriesChart" width="100%" height="100%"></canvas>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card">
+                    <div class="card" style="width: 100%;">
                         <div class="card-header">
                             <h5>Yearly Calorie Log</h5>
                             <button id="yearly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Yearly Logs</button>
                         </div>
                         <div class="card-body">
-                            <canvas id="yearlyCaloriesChart" width="400" height="200"></canvas>
+                            <canvas id="yearlyCaloriesChart" width="100%" height="100%"></canvas>
                         </div>
                     </div>
                 </div>
@@ -135,6 +138,5 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

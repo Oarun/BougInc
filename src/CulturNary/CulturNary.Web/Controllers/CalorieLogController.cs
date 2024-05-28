@@ -48,6 +48,7 @@ namespace CulturNary.Web.Controllers
                                 CaloriesLogged = c.CaloriesLogged,
                                 LogDate = c.LogDate
                             })
+                            .OrderBy(x => x.LogDate)
                             .ToListAsync();
             return Ok(CalorieLogs);
         }
