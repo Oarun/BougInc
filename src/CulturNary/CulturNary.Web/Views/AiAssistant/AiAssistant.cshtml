@@ -69,7 +69,7 @@
     <div class="col-6 align-items-center my-5" id="aiContent">
         @if (Model != null && Model.response != null){ 
             <h3>AI Response:</h3>
-            <p style="white-space: pre-line">@Model.response.Choices[0].Message.Content</p>
+            <p id="modelResponse" style="white-space: pre-line">@Model.response.Choices[0].Message.Content</p>
         }
     </div>
 </div>
