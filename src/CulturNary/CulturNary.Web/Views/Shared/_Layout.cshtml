@@ -18,10 +18,10 @@
             var themeColor = Context.Session.GetString("ThemeColor");
             var backgroundColor = "";
 
-        switch(themeBrightness)
+            switch (themeBrightness)
             {
                 case "light":
-                    switch(themeColor)
+                    switch (themeColor)
                     {
                         case "green":
                             backgroundColor = "#DCEDCF";
@@ -44,7 +44,7 @@
                     }
                     break;
                 case "dark":
-                    switch(themeColor)
+                    switch (themeColor)
                     {
                         case "green":
                             backgroundColor = "#353F2D";
@@ -67,7 +67,7 @@
                     }
                     break;
                 default:
-                    switch(themeColor)
+                    switch (themeColor)
                     {
                         case "green":
                             backgroundColor = "#353F2D";
@@ -108,7 +108,7 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPlanners" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Tools and Planners
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownPlanners">
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownPlanners" style="background-color: @(backgroundColor)">
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="Collections">Collections</a>
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="GroceryList">Grocery List</a>
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="MealPlanner">Meal Planner</a>
@@ -116,22 +116,25 @@
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="Video">Cooking Videos</a>
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="Restaurants">Your Restaurants</a>
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Recommendations" asp-action="Favorite">Favorite Recipes</a>
-                                    <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="ImageRecognition" asp-action="ImageRecognition">Image Recogition</a>
+                                    <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="AiAssistant" asp-action="AiAssistant">AI Assistant</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown unique-dropdown">
                                 <a class="nav-link dropdown-toggle unique-dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Socials
                                 </a>
-                                <div class="dropdown-menu unique-dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu unique-dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: @(backgroundColor)">
                                     <a class="dropdown-item unique-dropdown-item dropdown-item-green" asp-area="" asp-controller="SocialMedia" asp-action="Friends">Find Friends</a>
                                     <a class="dropdown-item unique-dropdown-item dropdown-item-green" asp-area="" asp-controller="SocialMedia" asp-action="FriendsList">Friends</a>
-                                    <!-- Add more social links here -->
+                                    <a class="dropdown-item unique-dropdown-item dropdown-item-green" asp-area="" asp-controller="SocialMedia" asp-action="SharedRecipes">Shared Recipes</a>
                                 </div>
                             </li>
                         }
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" asp-area="" asp-controller="Home" asp-action="FAQ">FAQ's</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -158,44 +161,78 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="footer text-muted">
-        <div class="container">
+    <div class="mt-0 border-top footer-style">
+        <footer class="container sticky">
             <div class="row">
-                <div class="col-6">
-                    <form method="post" action="/Home/SwitchBright" id="brightForm">
-                        <div class="form-group">
-                            <label for="isDark">Theme Brightness</label>
-                            <select class="form-control-small " name="isDark" id="isDark" onchange="document.getElementById('brightForm').submit();">
-                                <option value="" selected id="currentBrightness">@themeBrightness</option>
-                                <option value="true">Dark Mode</option>
-                                <option value="false">Light Mode</option>
-                            </select>
-                        </div>
+                <div class="col-12 col-md-3 mb-3">
+                    <form class="mb-3" method="post" action="/Home/SwitchBright" id="brightForm">
+                        <h5 class="text-decoration-underline">Dark/Light Screen Picker</h5>
+                        <label for="isDark">Choose a light theme:</label>
+                        <select class="form-select" name="isDark" id="isDark" onchange="document.getElementById('brightForm').submit();">
+                            <option value="" selected id="currentBrightness">@themeBrightness</option>
+                            <option value="true">Dark Mode</option>
+                            <option value="false">Light Mode</option>
+                        </select>
                     </form>
-                </div>
-                <div class="col-6">
                     <form method="post" action="/Home/SwitchColor" id="colorForm">
-                        <div class="form-group">
-                            <label for="primaryColor">Theme Color</label>
-                            <select class="form-control-small " name="primaryColor" id="primaryColor" onchange="document.getElementById('colorForm').submit();">
-                                <option value="" selected id="currentColor">@themeColor</option>
-                                <option value="green">Green</option>
-                                <option value="red">Red</option>
-                                <option value="blue">Blue</option>
-                                <option value="purple">Purple</option>
-                                <option value="orange">Orange</option>
-                            </select>
-                        </div>
+                        <h5 class="text-decoration-underline">Color Theme Picker</h5>
+                        <label for="primaryColor">Choose a color theme:</label>
+                        <select class="form-select" name="primaryColor" id="primaryColor" onchange="document.getElementById('colorForm').submit();">
+                            <option value="selected" id="currentColor">@themeColor</option>
+                            <option value="green">Green</option>
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="purple">Purple</option>
+                            <option value="orange">Orange</option>
+                        </select>
                     </form>
+                    <div class="mt-5">
+                        <img src="~/media/BOUG Logo Circle.png" />
+                    </div>
                 </div>
-                <div class="col-sm text-end">
-                    &copy; 2024 - CulturNary
+
+                <div class="col-12 col-md-9 mb-3 contact-us">
+                    <h5 class="text-decoration-underline">Contact Us</h5>
+                    <form class="text-start" action="https://formcarry.com/s/IFFPZ_7QiB6" method="POST" enctype="multipart/form-data" id="contactForm">
+                        <div class="form-group">
+                            <label for="fc-generated-1-name">Full Name</label>
+                            <input class="form-control" type="text" name="name" id="fc-generated-1-name" placeholder="Your first and last name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="fc-generated-1-email">Your Email Address</label>
+                            <input class="form-control" type="email" name="email" id="fc-generated-1-email" placeholder="john@doe.com" />
+                        </div>
+                        <div class="form-group">
+                            <label for="fc-generated-1-message">Your message</label>
+                            <textarea class ="form-control" name="message" name="message" id="fc-generated-1-message" placeholder="Enter your message..."></textarea>
+                        </div>
+                        <div class="form-group mb-4 mt-4">
+                            <div class="g-recaptcha" data-sitekey="6Ld-EekpAAAAAOhijuizgt5UUqhIk3vk3GAsqdvA"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                    <div id="formResult"></div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <div class="border-top footer-style">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex flex-column flex-sm-row justify-content-between">
+                    <p class="container">© 2024 BOUG, Inc. All rights reserved.</p>
                 </div>
             </div>
         </div>
-    </footer>
-
+    </div>
+    <script>
+        document.getElementById('navSelect').addEventListener('change', function () {
+            var url = this.value;
+            if (url) {
+                window.location.href = url;
+            }
+        });
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -209,5 +246,6 @@
     @*     <script src="~/js/MealPlannerObfuscator.js"></script> *@
     <script src="~/js/MealPlanner.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.2/purify.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>

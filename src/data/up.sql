@@ -33,14 +33,12 @@ CREATE TABLE Recipes (
 CREATE TABLE FavoriteRecipe (
     id INT PRIMARY KEY IDENTITY(1,1),
     person_id INT NOT NULL,
-    recipe_id INT,
+    recipe_id VARCHAR(MAX),
     favorite_date DATETIME NOT NULL,
     ImageUrl VARCHAR(MAX),
     Label VARCHAR(MAX),
     Uri VARCHAR(MAX),
-    tags VARCHAR(MAX),
-    FOREIGN KEY (person_id) REFERENCES Person(id),
-    FOREIGN KEY (recipe_id) REFERENCES Recipes(id)
+    tags VARCHAR(MAX)
 );
 
 -- Create the Videos table
@@ -88,4 +86,23 @@ CREATE TABLE Friendship (
     FriendshipDate DATETIME,
     FOREIGN KEY (Person1Id) REFERENCES Person(id),
     FOREIGN KEY (Person2Id) REFERENCES Person(id)
+);
+CREATE TABLE BlockedUsers (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    blocker_identity_id NVARCHAR(450),
+    blocked_identity_id NVARCHAR(450),
+    block_date DATETIME NOT NULL,
+    FOREIGN KEY (blocker_identity_id) REFERENCES Person(identity_id),
+    FOREIGN KEY (blocked_identity_id) REFERENCES Person(identity_id)
+);
+-- Create the SharedRecipes table
+CREATE TABLE SharedRecipes (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    sharer_id INT NOT NULL,
+    shared_with_id INT NOT NULL,
+    favorite_recipe_id INT NOT NULL,
+    share_date DATETIME NOT NULL,
+    FOREIGN KEY (sharer_id) REFERENCES Person(id),
+    FOREIGN KEY (shared_with_id) REFERENCES Person(id),
+    FOREIGN KEY (favorite_recipe_id) REFERENCES FavoriteRecipe(id)
 );

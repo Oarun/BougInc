@@ -14,13 +14,16 @@ public class UserRecommendationsController : Controller
     private readonly CulturNaryDbContext _context;
     private readonly IFavoriteRecipeRepository _favoriteRecipeRepository;
     private readonly ILogger<UserRecommendationsController> _logger;
+    private readonly ISharedRecipeRepository _sharedRecipeRepository;
 
     public UserRecommendationsController(
         UserManager<SiteUser> userManager,
         CulturNaryDbContext context,
         IFavoriteRecipeRepository favoriteRecipeRepository,
-        ILogger<UserRecommendationsController> logger)
+        ILogger<UserRecommendationsController> logger,
+        ISharedRecipeRepository sharedRecipeRepository)
     {
+        _sharedRecipeRepository = sharedRecipeRepository;
         _userManager = userManager;
         _context = context;
         _favoriteRecipeRepository = favoriteRecipeRepository;
@@ -57,21 +60,28 @@ public class UserRecommendationsController : Controller
     {
         var user = await _userManager.GetUserAsync(User);
         var person = await _context.People.FirstOrDefaultAsync(p => p.IdentityId == user.Id);
-
+    
         if (person == null)
         {
             return NotFound();
         }
-
+    
         var recipe = _favoriteRecipeRepository.GetFavoriteRecipeForPersonIDAndRecipeID(person.Id, id);
-
+    
         if (recipe == null)
         {
             return NotFound();
         }
-
+    
+        // Find and delete all SharedRecipe records that reference the FavoriteRecipe
+        var sharedRecipes = _sharedRecipeRepository.GetSharedRecipesByFavoriteRecipeId(recipe.Id);
+        foreach (var sharedRecipe in sharedRecipes)
+        {
+            _sharedRecipeRepository.Delete(sharedRecipe);
+        }
+    
         _favoriteRecipeRepository.Delete(recipe);
-
+    
         return RedirectToAction(nameof(Favorite));
     }
     [HttpGet("all")]

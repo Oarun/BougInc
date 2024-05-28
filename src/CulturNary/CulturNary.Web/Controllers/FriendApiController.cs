@@ -20,12 +20,15 @@ namespace CulturNary.Web.Controllers
         private readonly IFriendRequestRepository _friendRequestRepository;
         private readonly IFriendshipRepository _friendshipRepository;
         private readonly IBlockedUserRepository _blockedUserRepository;
+        private readonly ISharedRecipeRepository _sharedRecipeRepository;
 
         public FriendApiController(IPersonRepository personRepository, 
             IFriendshipRepository friendshipRepository,
             IFriendRequestRepository friendRequestRepository,
-            IBlockedUserRepository blockedUserRepository)
+            IBlockedUserRepository blockedUserRepository,
+            ISharedRecipeRepository sharedRecipeRepository)
         {
+            _sharedRecipeRepository = sharedRecipeRepository;
             _blockedUserRepository = blockedUserRepository;
             _personRepository = personRepository;
             _friendRequestRepository = friendRequestRepository;
@@ -57,6 +60,14 @@ namespace CulturNary.Web.Controllers
             {
                 return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
             }
+        }
+        [HttpGet]
+        [Route("GetFriends")]
+        public async Task<IActionResult> GetFriends()
+        {
+            string currentUserId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var friends = await _friendshipRepository.GetFriends(currentUserId);
+            return Ok(friends);
         }
         [HttpPost]
         [Route("RespondToFriendRequest/{requestId}/{accept}")]
@@ -154,6 +165,65 @@ namespace CulturNary.Web.Controllers
             _friendshipRepository.RemoveFriend(currentUserId, id);
 
              return RedirectToAction("FriendsList", "SocialMedia");
+        }
+        [HttpGet]
+        [Route("GetSharedRecipes/{id}")]
+        public IActionResult GetSharedRecipes(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+            try
+            {
+                string currentUserId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
+                var sharedRecipes = _sharedRecipeRepository.GetSharedRecipesBySharedWithId(_personRepository.GetPersonByIdentityId(id).Id);
+                return Ok(sharedRecipes);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions, e.g., user not found
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+        [HttpPost]
+        [Route("SendRecipeToFriend/{id}/{recipeId}")]
+        public IActionResult SendRecipeToFriend(string id, int recipeId)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+            try
+            {
+                string currentUserId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
+                _sharedRecipeRepository.SendRecipeToFriend(_personRepository.GetPersonByIdentityId(currentUserId).Id, _personRepository.GetPersonByIdentityId(id).Id, recipeId);
+                return Ok(new { message = "Recipe shared successfully." });
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions, e.g., user not found
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+        [HttpPost]
+        [Route("DeleteSharedRecipe/{id}")]
+        public IActionResult DeleteSharedRecipe(int id)
+        {
+            if (id <= 0)
+            {
+                return NotFound();
+            }
+            try
+            {
+                _sharedRecipeRepository.DeleteSharedRecipe(id);
+                return Ok(new { message = "Recipe deleted successfully." });
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions, e.g., recipe not found
+                return BadRequest(new { error = ex.Message });
+            }
         }
     }
 }

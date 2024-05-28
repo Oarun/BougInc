@@ -36,6 +36,16 @@ html {
     min-height: 100%;
 }
 
+.contact-us button {
+    background-color: #BF5700 !important;
+    border: none;
+}
+
+    .contact-us button:hover {
+        background-color: #c18756 !important;
+        border: 1px solid #ef852c !important;
+    }
+
 body {
     display: flex;
     flex-direction: column;
@@ -1205,15 +1215,20 @@ textarea.form-control {
 }
 
 /* Ensure the footer doesn't cover the last card */
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #BF5700;
-    color: #FFE5CC;
+.footer-style {
+    padding-top: 20px;
+    background-color: #9e4a03 !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 20px;
     text-align: center;
-    padding: 10px 0;
-    z-index: 999; /* Ensure footer stays above other content */
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin: 0;
+    height: 100%;
 }
 
 .main-content {

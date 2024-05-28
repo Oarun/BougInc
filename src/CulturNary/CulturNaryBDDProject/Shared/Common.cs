@@ -30,7 +30,8 @@ namespace CulturNaryBDDProject.Shared
             {"Restaurants", "/Home/Restaurants"},
             {"ProfileEditName", "/Identity/Account/Manage/EditDisplayName?"},
             {"ProfileEditBio", "/Identity/Account/Manage/EditBiography?"},
-            {"ProfileEditPicture", "/Identity/Account/Manage/EditProfileImage?"}
+            {"ProfileEditPicture", "/Identity/Account/Manage/EditProfileImage?"},
+            {"AiAssistant", "AiAssistant/AiAssistant"}
 
         };
 
