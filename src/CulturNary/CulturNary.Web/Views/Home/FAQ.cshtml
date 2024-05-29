@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Frequently Asked Questions";
+}
+<head>
+    <link rel="stylesheet" href="~/css/faq.css">
+    <title>Frequently Asked Questions</title>
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-12">
+            <h1 class="display-1 text-capitalize text-center faq">Frequently Asked Questions</h1>
+        </div>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        How can I create an account?
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <p>To create an account, follow these steps:</p>
+                        <ol>
+                            <li>Navigate to the <a href="/Identity/Account/Register">Register</a> page on our website.</li>
+                            <li>Use a working email address to register.</li>
+                            <li>Create a secure password for your account.</li>
+                            <li>Follow the on-screen instructions to complete the registration process.</li>
+                        </ol>
+                        <p>Once you have registered, you can log in using your new account credentials.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        How can I access my account settings?
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        To access your account settings, click on your profile name in the top right corner and select 'Account Settings' from the side menu. Here, you can update your profile information, change your password, manage your privacy settings, and more.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        How can I contact customer support?
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        To contact customer support, you can fill out the contact form below with your full name, email address, and your message. Alternatively, you can email us directly at teamboug@gmail.com. We will get back to you as soon as possible.
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
