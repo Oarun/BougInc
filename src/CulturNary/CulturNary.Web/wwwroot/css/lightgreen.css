@@ -1271,6 +1271,6 @@ textarea.form-control {
 .viewCollectionBtn {
     margin-top: 10px;
 }
-.accordian-header button {
-    color: #353F2D;
+.faq {
+    color: #353F2D !important;
 }
