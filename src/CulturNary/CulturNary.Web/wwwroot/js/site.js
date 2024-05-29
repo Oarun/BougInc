@@ -167,3 +167,14 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => RecipeSearch.displayResults(data));
     });
 });
+
+function vote(faqId, type) {
+    var element = document.getElementById(faqId + '-votes');
+    var votes = parseInt(element.innerText);
+    if (type === 'up') {
+        votes++;
+    } else {
+        votes--;
+    }
+    element.innerText = votes + ' found this useful';
+}

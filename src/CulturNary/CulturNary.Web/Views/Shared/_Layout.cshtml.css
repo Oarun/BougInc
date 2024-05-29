@@ -49,3 +49,9 @@ nav {
         background-color: #6e8b58;
         border: 1px solid #99c676;
     }
+
+.bi-list {
+    color: #DCEDCF;
+    width: 30px !important;
+    height: 30px !important;
+}
