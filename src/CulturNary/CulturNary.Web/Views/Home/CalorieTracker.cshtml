@@ -1,0 +1,142 @@
+@{
+    ViewData["Title"] = "Calorie Tracker";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-o1XrXB6JWWIhKc1ZAhm8tVQMSbVC1mXC/hmdDaWMC5l5Rxh3e2W45dzKIMJwArh1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-o1XrXB6JWWIhKc1ZAhm8tVQMSbVC1mXC/hmdDaWMC5l5Rxh3e2W45dzKIMJwArh1" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row mb-4">
+            <div class="col-md-6" style="text-align: center;">
+                <div class="card" id="CaloricIntakeCalc" style="width: 100%;">
+                    <div class="card-header">
+                        <h5>Calculate Daily Caloric Need</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="calculate-calories-form">
+                             <div class="form-group">
+                                <label for="weight">Weight (pounds)</label>
+                                <input type="number" class="form-control" id="weight" min="50" max="600" step="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="height">Height (inches)</label>
+                                <input type="number" class="form-control" id="height" min="24" max="90" step="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" class="form-control" id="age" min="1" max="120" step="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select class="form-control" id="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="activity-level">Activity Level</label>
+                                <select class="form-control" id="activity-level" required>
+                                    <option value="">Select Activity Level</option>
+                                    <option value="1.2">Sedentary (little or no exercise)</option>
+                                    <option value="1.375">Lightly active (light exercise/sports 1-3 days/week)</option>
+                                    <option value="1.55">Moderately active (moderate exercise/sports 3-5 days/week)</option>
+                                    <option value="1.725">Very active (hard exercise/sports 6-7 days a week)</option>
+                                    <option value="1.9">Super active (very hard exercise/sports & physical job)</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Calculate</button>
+                        </form>
+                    </div>
+                    <h5 id="currentColoricCalc"></h5>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card" style="text-align: center; width: 100%;">
+                    <div class="card-header">
+                        <h5>Log Daily Caloric Intake</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="log-calories-form">
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" class="form-control" id="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="calories">Calories</label>
+                                <input type="number" class="form-control" id="calories" min="500" max="5000" step="1" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Log Calories</button>
+                        </form>
+                        <div style="padding: 2px;">
+                            <button id="view-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View All Logs</button>
+                        </div>             
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Example of another section -->
+        <div class="col-md-12" style="text-align: center;">
+            <div class="row">
+                <h3>Caloric History</h3>
+                <div class="col-md-4">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-header">
+                            <h5>Weekly Calorie Log</h5>
+                            <button id="weekly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Weekly Logs</button>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="weeklyCaloriesChart" width="100%" height="100%"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-header">
+                            <h5>Monthly Calorie Log</h5>
+                            <button id="monthly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Monthly Logs</button>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="monthlyCaloriesChart" width="100%" height="100%"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-header">
+                            <h5>Yearly Calorie Log</h5>
+                            <button id="yearly-logs-btn" class="btn btn-info" data-toggle="modal" data-target="#logModal">View Yearly Logs</button>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="yearlyCaloriesChart" width="100%" height="100%"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal" id="logModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logModalLabel">Log Entries</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Log entries will be displayed here -->
+                    <div id="logEntriesTable"></div>
+                    <div id="averageCalories" class="average-calories"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
