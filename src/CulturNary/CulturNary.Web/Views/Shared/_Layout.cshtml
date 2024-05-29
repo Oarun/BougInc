@@ -95,7 +95,13 @@
         }
         <nav class="navbar navbar-expand-md fixed-top box-shadow" style="background-color: @(backgroundColor)">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/media/Logo.png" width="40" /></a>
+                @if(themeBrightness == "dark")
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/media/Logo.png" width="40" /></a>
+                }
+                else{
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/media/LightModeLogo.png" width="40" /></a>
+                }
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
