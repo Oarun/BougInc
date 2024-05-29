@@ -100,6 +100,11 @@ public class HomeController : Controller
     {
         return View();
     }
+    [Authorize(Roles = "Signed,Admin")]
+    public IActionResult CalorieTracker()
+    {
+        return View();
+    }
 
     public IActionResult FAQ()
     {

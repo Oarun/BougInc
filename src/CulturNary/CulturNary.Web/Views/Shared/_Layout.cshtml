@@ -10,6 +10,8 @@
 
     <link rel="stylesheet" href="~/CulturNary.Web.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-o1XrXB6JWWIhKc1ZAhm8tVQMSbVC1mXC/hmdDaWMC5l5Rxh3e2W45dzKIMJwArh1" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXBmjQkIC8lZastJxYn+qIvqhGVcXzGJESGbE7jKgXLwtH7vJ5BhViMPoPUjJF7" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -93,7 +95,13 @@
         }
         <nav class="navbar navbar-expand-md fixed-top box-shadow" style="background-color: @(backgroundColor)">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/media/Logo.png" width="40" /></a>
+                @if(themeBrightness == "dark")
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/media/Logo.png" width="40" /></a>
+                }
+                else{
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/media/LightModeLogo.png" width="40" /></a>
+                }
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -121,6 +129,7 @@
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="Restaurants">Your Restaurants</a>
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Recommendations" asp-action="Favorite">Favorite Recipes</a>
                                     <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="AiAssistant" asp-action="AiAssistant">AI Assistant</a>
+                                    <a class="dropdown-item dropdown-item-green" asp-area="" asp-controller="Home" asp-action="CalorieTracker">Calorie Tracker</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown unique-dropdown">
@@ -249,6 +258,8 @@
     <script src="~/js/Restaurants.js"></script>
     @*     <script src="~/js/MealPlannerObfuscator.js"></script> *@
     <script src="~/js/MealPlanner.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/Calorie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.2/purify.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>

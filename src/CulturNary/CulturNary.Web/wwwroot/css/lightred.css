@@ -1273,3 +1273,9 @@ textarea.form-control {
 .faq {
     color: #353F2D !important;
 }
+
+.bi-list {
+    color: #407A3B !important;
+    width: 30px !important;
+    height: 30px !important;
+}
