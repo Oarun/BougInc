@@ -1,0 +1,43 @@
+﻿html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    margin-top: 60px;
+    color: #45523c;
+}
+
+
+/* Styles for screens 420px and wider */
+@media (min-width: 420px) and (max-width: 1420px) {
+    body {
+        margin-top: 150px; /* Reduced margin for medium screens */
+        margin-bottom: 235px;
+        color: #333; /* Slightly darker color for better readability on medium screens */
+    }
+}
+
+/* Styles for screens smaller than 420px */
+@media (max-width: 419px) {
+    body {
+        margin-top: 20px;
+        margin-bottom: 0px; /* Reduced margin for smaller screens */
+        color: #333; /* Slightly darker color for better readability on smaller screens */
+    }
+}
+
+
+.faq {
+    color: #DCEDCF;
+}
+a {
+    color: #407A3B;
+}
+a:hover {
+    color: #4c9346;
+}
+
+.accordian-header button {
+    color: #DCEDCF;
+}
