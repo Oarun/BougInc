@@ -1378,3 +1378,8 @@ textarea.form-control {
     border-color: #399730;
     color: #399730;
 }
+.bi-list {
+    color: #407A3B !important;
+    width: 30px !important;
+    height: 30px !important;
+}
