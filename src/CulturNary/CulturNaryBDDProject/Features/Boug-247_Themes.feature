@@ -1,6 +1,6 @@
 Feature: User Profiles (Boug-247)
 
-    Stuff.
+    Website Theme: Primary Color and Brightness can be changed by the user.
 
     Scenario: User Changes Brightness of Site
         Given I am on the home page
