@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
     weightUnits.forEach(function(unit) {
         var button = document.createElement("button");
         button.classList.add("unit-btn");
+        button.classList.add("profile-btn")
         button.textContent = unit;
         button.addEventListener("click", handleUnitButtonClickWeightInput);
         weightUnitButtonsInput.appendChild(button);
@@ -55,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
     weightUnits.forEach(function(unit) {
         var button = document.createElement("button");
         button.classList.add("unit-btn");
+        button.classList.add("profile-btn")
         button.textContent = unit;
         button.addEventListener("click", handleUnitButtonClickWeightOutput);
         weightUnitButtonsOutput.appendChild(button);
@@ -64,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
     volumeUnits.forEach(function(unit) {
         var button = document.createElement("button");
         button.classList.add("unit-btn");
+        button.classList.add("profile-btn")
         button.textContent = unit;
         button.addEventListener("click", handleUnitButtonClickVolumeInput);
         volumeUnitButtonsInput.appendChild(button);
@@ -73,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
     volumeUnits.forEach(function(unit) {
         var button = document.createElement("button");
         button.classList.add("unit-btn");
+        button.classList.add("profile-btn")
         button.textContent = unit;
         button.addEventListener("click", handleUnitButtonClickVolumeOutput);
         volumeUnitButtonsOutput.appendChild(button);
@@ -558,15 +562,16 @@ function addItem() {
 
     var newItem = document.createElement("li");
     newItem.className = "checklist-item";
+    newItem.style.listStyleType = "none";
     newItem.draggable = true;
     newItem.innerHTML = `
         <label class="checklist-toggle-container">
         <input type="checkbox">
         <span class="checklist-toggle" onchange="toggleItem(this)"></span>
         </label>
-        <input class="checklist-text"  type="text" value="${itemText}" disabled>
-        <button class="unit-btn"  onclick="editItem(this)">Edit</button>
-        <button class="unit-btn" onclick="deleteItem(this)">Delete</button>
+        <input class="checklist-text"  type="text" value="${itemText}" style="font-size: 20px; width: 300px;" disabled>
+        <button class="profile-btn unit-btn"  onclick="editItem(this)">Edit</button>
+        <button class="profile-btn unit-btn" onclick="deleteItem(this)">Delete</button>
     `;
 
     newItem.querySelector(".checklist-toggle").addEventListener("click", function() {
