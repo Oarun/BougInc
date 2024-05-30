@@ -1271,3 +1271,8 @@ textarea.form-control {
 .viewCollectionBtn {
     margin-top: 10px;
 }
+
+.card-header h5 {
+    color: #2D3A5C !important;
+}
+

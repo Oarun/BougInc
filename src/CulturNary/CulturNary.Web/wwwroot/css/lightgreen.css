@@ -1279,3 +1279,7 @@ textarea.form-control {
     width: 30px !important;
     height: 30px !important;
 }
+
+.form-label-videos {
+    color: #353F2D !important;
+}
