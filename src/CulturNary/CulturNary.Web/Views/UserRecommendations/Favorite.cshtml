@@ -53,6 +53,8 @@
                                 <form method="post" asp-controller="UserRecommendations" asp-action="DeleteFavoriteRecipe" asp-route-id="@recipe.Id">
                                     <button type="submit" class="btn btn-custom" style="color: black;">Unfavorite</button>
                                 </form>
+                                <!-- Add Share button here -->
+                                <button type="button" class="btn btn-custom share-btn" data-toggle="modal" data-target="#shareModal" data-recipe-id="@recipe.Id" style="color: black;">Share</button>
                             </td>
                         </tr>
                     }
@@ -62,5 +64,21 @@
     </div>
 </div>
 
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="shareModalLabel">Share Recipe</h5>
+            </div>
+            <div class="modal-body">
+                <select id="friendSelect" class="form-control bg-secondary text-light"></select>
+            </div>
+            <div class="modal-footer border-top-0 justify-content-between">
+                <button style="background-color: #BDB76B; color: white;" type="button" class="btn btn-primary" id="shareRecipeBtn">Share</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="~/js/FavoriteRecipeSearch.js"></script>
+<script src="~/js/FavoriteRecipeShare.js"></script>

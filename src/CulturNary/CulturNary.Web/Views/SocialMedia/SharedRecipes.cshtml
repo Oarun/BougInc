@@ -1,0 +1,68 @@
+@using CulturNary.DAL.Abstract
+@using Microsoft.AspNetCore.Identity
+@using CulturNary.Web.Areas.Identity.Data
+@inject IPersonRepository personRepository
+@inject UserManager<SiteUser> userManager
+@model IEnumerable<CulturNary.Web.Models.SharedRecipe>
+
+<style>
+    .btn-custom {
+        border-radius: 50px;
+        background: linear-gradient(to right, #BDB76B, #F5F5DC);
+        color: white;
+        border: none;
+        transition: all 0.5s;
+    }
+
+    .btn-custom:hover {
+        background-position: right;
+        color: #BDB76B;
+    }
+</style>
+
+<div class="container" style="color: #BDB76B;">
+    <h2 class="text-center mb-4">Recipes Shared With You</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center" style="color: #BDB76B;">No recipes have been shared with you.</div>
+    }
+    else
+    {
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="color: #BDB76B;">Image</th>
+                    <th style="color: #BDB76B;">Shared Date</th>
+                    <th style="color: #BDB76B;">Label</th>
+                    <th style="color: #BDB76B;">URI</th>
+                    <th style="color: #BDB76B;">Shared By</th>
+                    <th style="color: #BDB76B;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sharedRecipe in Model)
+                {
+                    var identityId = personRepository.GetPersonByPersonId(sharedRecipe.SharerId).IdentityId;
+                    var sharerName = userManager.Users.FirstOrDefault(u => u.Id == identityId)?.UserName;
+                    var sharerNameBeforeAt = sharerName?.Split('@')[0];
+                    <tr>
+                        <td>
+                            <img src="@sharedRecipe.FavoriteRecipe.ImageUrl" alt="Recipe Image" width="200" height="200" style="color: #BDB76B;">
+                        </td>
+                        <td style="color: #BDB76B;">@sharedRecipe.ShareDate.ToString("d")</td>
+                        <td style="color: #BDB76B;">@sharedRecipe.FavoriteRecipe.Label</td>
+                        <td><a href="@sharedRecipe.FavoriteRecipe.Uri" class="btn btn-custom" target="_blank" style="color: black;">Link to Recipe</a></td>
+                        <td style="color: #BDB76B;">@sharerNameBeforeAt</td>
+                        <td>
+                            <form asp-controller="SocialMedia" asp-action="RemoveShared" method="post">
+                                <input type="hidden" name="id" value="@sharedRecipe.FavoriteRecipeId" />
+                                <button type="submit" class="btn btn-danger" style="background-color: #BDB76B; color: white; border-color: #BDB76B;">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

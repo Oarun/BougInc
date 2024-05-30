@@ -12,12 +12,14 @@ public class FavoriteRecipeRepositoryTests
     private IFavoriteRecipeRepository _repository;
     private Mock<CulturNaryDbContext> _mockContext;
     private Mock<IPersonRepository> _mockPersonRepository;
+    private Mock<ISharedRecipeRepository> _mockSharedRecipeRepository;
 
     [SetUp]
     public void SetUp()
     {
         _mockContext = new Mock<CulturNaryDbContext>();
         _mockPersonRepository = new Mock<IPersonRepository>();
+        _mockSharedRecipeRepository = new Mock<ISharedRecipeRepository>();
 
         var expectedRecipe = new FavoriteRecipe
         {
@@ -41,7 +43,7 @@ public class FavoriteRecipeRepositoryTests
 
         _mockContext.Setup(c => c.Set<FavoriteRecipe>()).Returns(mockSet.Object);
 
-        _repository = new FavoriteRecipeRepository(_mockContext.Object, _mockPersonRepository.Object);
+        _repository = new FavoriteRecipeRepository(_mockContext.Object, _mockPersonRepository.Object, _mockSharedRecipeRepository.Object);
     }
 
     [Test]

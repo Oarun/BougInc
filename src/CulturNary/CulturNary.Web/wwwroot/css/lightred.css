@@ -15,6 +15,16 @@ html {
     /* text-decoration: underline;
 } */
 
+.contact-us button {
+    background-color: #693e3b !important;
+    border: none;
+}
+
+    .contact-us button:hover {
+        background-color: #583533 !important;
+        border: 1px solid #7e4f4c !important;
+    }
+
 .btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
@@ -1204,16 +1214,20 @@ textarea.form-control {
     padding-bottom: 100px; /* Ensure space between cards and footer */
 }
 
-/* Ensure the footer doesn't cover the last card */
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #FFDFD0;
-    color: #5C2D29;
+.footer-style {
+    padding-top: 20px;
+    background-color: #e7bba7 !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 20px;
     text-align: center;
-    padding: 10px 0;
-    z-index: 999; /* Ensure footer stays above other content */
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin: 0;
+    height: 100%;
 }
 
 .main-content {
@@ -1255,4 +1269,13 @@ footer {
 
 .viewCollectionBtn {
     margin-top: 10px;
+}
+.faq {
+    color: #353F2D !important;
+}
+
+.bi-list {
+    color: #407A3B !important;
+    width: 30px !important;
+    height: 30px !important;
 }

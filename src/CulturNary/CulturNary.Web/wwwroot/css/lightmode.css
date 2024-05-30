@@ -1212,16 +1212,20 @@ textarea.form-control {
     padding-bottom: 100px; /* Ensure space between cards and footer */
 }
 
-/* Ensure the footer doesn't cover the last card */
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #DCEDCF;
-    color: #353F2D;
+.footer-style {
+    padding-top: 20px;
+    background-color: #b4e093 !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 20px;
     text-align: center;
-    padding: 10px 0;
-    z-index: 999; /* Ensure footer stays above other content */
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin: 0;
+    height: 100%;
 }
 
 .main-content {
@@ -1373,4 +1377,9 @@ footer {
     background-color: #afbca4;
     border-color: #399730;
     color: #399730;
+}
+.bi-list {
+    color: #407A3B !important;
+    width: 30px !important;
+    height: 30px !important;
 }

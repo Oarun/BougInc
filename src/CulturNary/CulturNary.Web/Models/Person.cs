@@ -13,6 +13,10 @@ public partial class Person
 
     public virtual ICollection<BlockedUser> BlockedUserBlockerIdentities { get; set; } = new List<BlockedUser>();
 
+    public virtual ICollection<CalorieLog> CalorieLogs { get; set; } = new List<CalorieLog>();
+
+    public virtual ICollection<CalorieTracker> CalorieTrackers { get; set; } = new List<CalorieTracker>();
+
     public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
 
     public virtual ICollection<FriendRequest> FriendRequestRecipients { get; set; } = new List<FriendRequest>();
@@ -26,6 +30,10 @@ public partial class Person
     public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 
     public virtual ICollection<Restaurant> Restaurants { get; set; } = new List<Restaurant>();
+
+    public virtual ICollection<SharedRecipe> SharedRecipeSharedWiths { get; set; } = new List<SharedRecipe>();
+
+    public virtual ICollection<SharedRecipe> SharedRecipeSharers { get; set; } = new List<SharedRecipe>();
 
     public virtual ICollection<Video> Videos { get; set; } = new List<Video>();
 }
