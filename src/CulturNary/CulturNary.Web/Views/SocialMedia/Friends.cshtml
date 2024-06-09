@@ -8,61 +8,63 @@
 {
     @if (Model.IsSubmitted && Model.Users != null)
     {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Profile Image</th>
-                    <th>User Name</th>
-                    <th>Tags</th> 
-                    <th>Friendship Status</th>
-                    <th>Match Probability</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.Users.Count; i++)
-                {
-                    var user = Model.Users[i];
-                    var buttonText = Model.FriendshipStatus[i];
-                    var matchProbability = Model.UserMatchPercentages[user];
-                    var tags = Model.Tags[i]; // Get the tags for the user
+        <div class="container">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>
-                            @if (!string.IsNullOrEmpty(user.ProfileImageName))
-                            {
-                                <img src="@user.ProfileImageName" alt="@user.DisplayName's profile image" width="200" height="200" />
-                            }
-                            else
-                            {
-                                <img src="~/media/BOUG Logo Circle.png" alt="Default image" width="200" height="200" />
-                            }
-                        </td>
-                        <td style="color: white;">@(user.UserName.Split('@')[0])</td>
-                        <td>
-                            @if (!String.IsNullOrEmpty(tags))
-                            {
-                                @foreach (var tag in tags.Split(','))
-                                {
-                                    <span class="tag">@tag.Trim()</span>
-                                }
-                            }
-                            else
-                            {
-                                <span style="color: white;">No tags</span>
-                            }
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-custom" data-user-id="@user.Id">@buttonText</button>
-                        </td>
-                        <td>
-                            <span style="color: white;">@matchProbability%</span> 
-                            <div class="progress" >
-                                <div class="progress-bar" role="progressbar" style="width: @matchProbability%;" aria-valuenow="@matchProbability" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </td>
+                        <th>Profile Image</th>
+                        <th>User Name</th>
+                        <th>Tags</th>
+                        <th>Friendship Status</th>
+                        <th>Match Probability</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Users.Count; i++)
+                    {
+                        var user = Model.Users[i];
+                        var buttonText = Model.FriendshipStatus[i];
+                        var matchProbability = Model.UserMatchPercentages[user];
+                        var tags = Model.Tags[i]; // Get the tags for the user
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(user.ProfileImageName))
+                                {
+                                    <img src="@user.ProfileImageName" alt="@user.DisplayName's profile image" width="200" height="200" />
+                                }
+                                else
+                                {
+                                    <img src="~/media/BOUG Logo Circle.png" alt="Default image" width="200" height="200" />
+                                }
+                            </td>
+                            <td style="color: white;">@(user.UserName.Split('@')[0])</td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(tags))
+                                {
+                                    @foreach (var tag in tags.Split(','))
+                                    {
+                                        <span class="tag">@tag.Trim()</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span style="color: white;">No tags</span>
+                                }
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-custom" data-user-id="@user.Id">@buttonText</button>
+                            </td>
+                            <td>
+                                <span style="color: white;">@matchProbability%</span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: @matchProbability%;" aria-valuenow="@matchProbability" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
 }
 
